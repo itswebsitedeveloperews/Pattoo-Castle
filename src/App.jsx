@@ -1,175 +1,313 @@
-import { useEffect, useMemo, useState } from 'react'
-import {
-  contentfulConfig,
-  getDefaultEntries,
-  isContentfulConfigured,
-} from './lib/contentful'
-import './App.css'
+import facebookIcon from "./assets/Facebook.svg";
+import heroImage from "./assets/hero.png";
+import instagramIcon from "./assets/insta.svg";
+import logo from "./assets/patto-logo.svg";
 
-function getEntryTitle(entry) {
-  const fields = entry.fields || {}
-  return (
-    fields.title ||
-    fields.name ||
-    fields.heading ||
-    fields.slug ||
-    entry.sys.id
-  )
-}
+const navItems = [
+  "Accommodation",
+  "Overview",
+  "Gallery",
+  "Stay",
+  "Events",
+  "Explore Negril",
+];
 
-function formatFieldValue(value) {
-  if (value == null) {
-    return ''
+function richTextToPlainText(value) {
+  if (!value) {
+    return "";
   }
 
-  if (typeof value === 'string' || typeof value === 'number') {
-    return String(value)
+  if (typeof value === "string") {
+    return value;
   }
 
   if (Array.isArray(value)) {
-    return value
-      .map((item) => formatFieldValue(item))
-      .filter(Boolean)
-      .join(', ')
+    return value.map(richTextToPlainText).filter(Boolean).join(" ");
   }
 
-  if (value.nodeType === 'document') {
-    return 'Rich text content'
+  if (typeof value === "object") {
+    if (typeof value.value === "string") {
+      return value.value;
+    }
+
+    return richTextToPlainText(value.content);
   }
 
-  if (value.fields?.title || value.fields?.file?.url) {
-    return value.fields.title || value.fields.file.url
-  }
-
-  return ''
+  return "";
 }
 
-function App() {
-  const [entries, setEntries] = useState([])
-  const [status, setStatus] = useState('idle')
-  const [error, setError] = useState('')
+function getHomePageContent(entry) {
+  const fields = entry?.fields || {};
+  const eventCards = Array.isArray(fields.eventCards)
+    ? fields.eventCards
+        .map((asset) => getContentfulAssetSrc(asset))
+        .filter(Boolean)
+    : [];
+  const numberBlock = Array.isArray(fields.numberBlock)
+    ? fields.numberBlock
+        .map((item) => {
+          const itemFields = item?.fields || {};
 
-  useEffect(() => {
-    if (!isContentfulConfigured) {
-      return
-    }
+          return {
+            imageSrc: getFirstContentfulAssetSrc(itemFields.images),
+            value: itemFields.title || "",
+            label: richTextToPlainText(itemFields.content),
+          };
+        })
+        .filter((item) => item.imageSrc || item.value || item.label)
+    : [];
 
-    let isMounted = true
-    setStatus('loading')
+  return {
+    heroHeading: fields.heroHeading || "",
+    heroLeftText: fields.heroLeftText || "",
+    heroRightText: fields.heroRightText || "",
+    buttonText: fields.buttonText || "",
+    buttonUrl: fields.buttonUrl || "",
+    button2Text: richTextToPlainText(fields.button2Text),
+    button2Url: fields.button2Url || "",
+    introLogo: getContentfulAssetSrc(fields.introLogo),
+    introHeading: fields.introHeading || "",
+    introDescription: richTextToPlainText(fields.introDescription),
+    numberBlock,
+    introImage: getContentfulAssetSrc(fields.introImage),
+    eventSectionHeading: fields.eventSectionHeading || "",
+    eventSectionHighlight: fields.eventSectionHighlight || "",
+    eventCards,
+    eventButtonText: fields.eventButtonText || "",
+    eventButtonUrl: fields.eventButtonUrl || "",
+  };
+}
 
-    getDefaultEntries()
-      .then((items) => {
-        if (isMounted) {
-          setEntries(items)
-          setStatus('ready')
-        }
-      })
-      .catch((requestError) => {
-        if (isMounted) {
-          setError(requestError.message)
-          setStatus('error')
-        }
-      })
+function getAssetSrc(asset) {
+  return typeof asset === "string" ? asset : asset.src;
+}
 
-    return () => {
-      isMounted = false
-    }
-  }, [])
+function getContentfulAssetSrc(asset) {
+  const url = asset?.fields?.file?.url;
 
-  const visibleConfig = useMemo(
-    () => [
-      ['Space', contentfulConfig.space],
-      ['Environment', contentfulConfig.environment],
-      ['Content type', contentfulConfig.contentType || 'All entries'],
-    ],
-    [],
-  )
+  if (!url) {
+    return "";
+  }
+
+  return url.startsWith("//") ? `https:${url}` : url;
+}
+
+function getFirstContentfulAssetSrc(assets) {
+  if (Array.isArray(assets)) {
+    return getContentfulAssetSrc(assets[0]);
+  }
+
+  return getContentfulAssetSrc(assets);
+}
+
+function App({ homePageEntry = null }) {
+  const homePage = getHomePageContent(homePageEntry);
+  const hasPrimaryButton = Boolean(homePage.buttonText && homePage.buttonUrl);
+  const hasSecondaryButton = Boolean(
+    homePage.button2Text && homePage.button2Url,
+  );
+  const hasIntroSection = Boolean(
+    homePage.introLogo ||
+      homePage.introHeading ||
+      homePage.introDescription ||
+      homePage.numberBlock.length ||
+      homePage.introImage,
+  );
+  const hasEventButton = Boolean(
+    homePage.eventButtonText && homePage.eventButtonUrl,
+  );
+  const hasEventSection = Boolean(
+    homePage.eventSectionHeading ||
+      homePage.eventSectionHighlight ||
+      homePage.eventCards.length ||
+      hasEventButton,
+  );
 
   return (
-    <main className="app-shell">
-      <section className="intro">
-        <p className="eyebrow">React + Contentful</p>
-        <h1>Pattoo Castle content is ready to connect.</h1>
-        <p className="lede">
-          Add your Contentful keys, choose a content type if needed, and this
-          starter will render the latest entries from your space.
-        </p>
-      </section>
+    <main>
+      <section
+        className="hero"
+        style={{ "--hero-image": `url(${getAssetSrc(heroImage)})` }}
+        aria-label="Pattoo Castle in Negril, Jamaica"
+      >
+        <header className="site-header">
+          <a className="brand" href="/" aria-label="Pattoo Castle home">
+            <img
+              src={getAssetSrc(logo)}
+              alt="Pattoo Castle, a luxury Jamaican villa"
+            />
+          </a>
 
-      <section className="setup-panel" aria-labelledby="setup-title">
-        <div>
-          <p className="eyebrow">Configuration</p>
-          <h2 id="setup-title">Default Contentful setup</h2>
-        </div>
-        <dl className="config-list">
-          {visibleConfig.map(([label, value]) => (
-            <div key={label}>
-              <dt>{label}</dt>
-              <dd>{value || 'Not set'}</dd>
+          <nav className="primary-nav" aria-label="Primary navigation">
+            {navItems.map((item, index) => (
+              <a
+                href={`#${item.toLowerCase().replaceAll(" ", "-")}`}
+                key={`${item}-${index}`}
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+
+          <div className="header-actions">
+            <a className="button button--light enquire-link" href="#enquire">
+              Enquire now
+            </a>
+            <a
+              className="social-link"
+              href="https://www.facebook.com/"
+              aria-label="Facebook"
+            >
+              <img src={getAssetSrc(facebookIcon)} alt="" />
+            </a>
+            <a
+              className="social-link"
+              href="https://www.instagram.com/"
+              aria-label="Instagram"
+            >
+              <img src={getAssetSrc(instagramIcon)} alt="" />
+            </a>
+          </div>
+        </header>
+
+        <div className="hero-content">
+          {homePage.heroLeftText && (
+            <div className="hero-kicker hero-kicker-left">
+              {homePage.heroLeftText}
             </div>
-          ))}
-        </dl>
+          )}
+          <div className="hero-heading-wrap">
+            {homePage.heroHeading && <h1>{homePage.heroHeading}</h1>}
+            {(hasPrimaryButton || hasSecondaryButton) && (
+              <div className="hero-actions">
+                {hasPrimaryButton && (
+                  <a
+                    className="button button--light hero-button"
+                    href={homePage.buttonUrl}
+                  >
+                    {homePage.buttonText}
+                  </a>
+                )}
+                {hasSecondaryButton && (
+                  <a
+                    className="button button--light hero-button"
+                    href={homePage.button2Url}
+                  >
+                    {homePage.button2Text}
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
+          {homePage.heroRightText && (
+            <div className="hero-kicker hero-kicker-right">
+              {homePage.heroRightText}
+            </div>
+          )}
+        </div>
+
+        <a
+          className="scroll-cue"
+          href="#overview"
+          aria-label="Scroll to overview"
+        >
+          <span />
+          Scroll more
+        </a>
       </section>
 
-      {!isContentfulConfigured && (
-        <section className="notice">
-          <h2>Add your environment values</h2>
-          <p>
-            Create a local <code>.env.local</code> file from{' '}
-            <code>.env.example</code>, fill in your Contentful space ID and
-            Content Delivery API token, then restart the dev server.
-          </p>
+      {hasIntroSection && (
+        <section
+          className="intro-section"
+          id="overview"
+          aria-labelledby={homePage.introHeading ? "intro-title" : undefined}
+        >
+          <div className="intro-panel">
+            {homePage.introLogo && (
+              <img
+                className="intro-logo"
+                src={homePage.introLogo}
+                alt=""
+                aria-hidden="true"
+              />
+            )}
+
+            {homePage.introHeading && (
+              <h2 id="intro-title">{homePage.introHeading}</h2>
+            )}
+
+            {homePage.introDescription && (
+              <p className="intro-description">{homePage.introDescription}</p>
+            )}
+
+            {homePage.numberBlock.length > 0 && (
+              <div className="number-block" aria-label="Villa highlights">
+                {homePage.numberBlock.map((item, index) => (
+                  <div className="number-item" key={`${item.value}-${index}`}>
+                    {item.imageSrc && (
+                      <img
+                        className="number-item-image"
+                        src={item.imageSrc}
+                        alt=""
+                      />
+                    )}
+                    {item.value && <strong>{item.value}</strong>}
+                    {item.label && <span>{item.label}</span>}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {homePage.introImage && (
+            <div className="intro-image-wrap">
+              <img src={homePage.introImage} alt="" />
+            </div>
+          )}
         </section>
       )}
 
-      {isContentfulConfigured && (
-        <section className="entries-section" aria-labelledby="entries-title">
-          <div className="section-heading">
-            <p className="eyebrow">Content preview</p>
-            <h2 id="entries-title">Latest entries</h2>
-          </div>
-
-          {status === 'loading' && <p className="muted">Loading entries...</p>}
-
-          {status === 'error' && (
-            <p className="error">Contentful request failed: {error}</p>
+      {hasEventSection && (
+        <section
+          className="event-section"
+          aria-labelledby={
+            homePage.eventSectionHeading ? "event-title" : undefined
+          }
+        >
+          {(homePage.eventSectionHeading ||
+            homePage.eventSectionHighlight) && (
+            <h2 id="event-title">
+              {homePage.eventSectionHeading && (
+                <span>{homePage.eventSectionHeading}</span>
+              )}
+              {homePage.eventSectionHighlight && (
+                <strong>{homePage.eventSectionHighlight}</strong>
+              )}
+            </h2>
           )}
 
-          {status === 'ready' && entries.length === 0 && (
-            <p className="muted">No entries matched the current query.</p>
-          )}
-
-          {entries.length > 0 && (
-            <div className="entry-grid">
-              {entries.map((entry) => {
-                const fieldPreview = Object.entries(entry.fields || {})
-                  .map(([name, value]) => [name, formatFieldValue(value)])
-                  .filter(([, value]) => value)
-                  .slice(0, 3)
-
-                return (
-                  <article className="entry-card" key={entry.sys.id}>
-                    <p className="content-type">
-                      {entry.sys.contentType?.sys.id || 'Entry'}
-                    </p>
-                    <h3>{getEntryTitle(entry)}</h3>
-                    <dl>
-                      {fieldPreview.map(([name, value]) => (
-                        <div key={name}>
-                          <dt>{name}</dt>
-                          <dd>{value}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </article>
-                )
-              })}
+          {homePage.eventCards.length > 0 && (
+            <div className="event-card-grid">
+              {homePage.eventCards.map((imageSrc, index) => (
+                <article className="event-card" key={`${imageSrc}-${index}`}>
+                  <img src={imageSrc} alt="" />
+                </article>
+              ))}
             </div>
+          )}
+
+          {hasEventButton && (
+            <a
+              className="button button--brown event-button"
+              href={homePage.eventButtonUrl}
+            >
+              {homePage.eventButtonText}
+            </a>
           )}
         </section>
       )}
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
