@@ -1,3 +1,5 @@
+import AmenitiesSlider from "./AmenitiesSlider";
+import GalleryPreviewSlider from "./GalleryPreviewSlider";
 import facebookIcon from "./assets/Facebook.svg";
 import heroImage from "./assets/hero.png";
 import instagramIcon from "./assets/insta.svg";
@@ -38,6 +40,57 @@ function richTextToPlainText(value) {
 
 function getHomePageContent(entry) {
   const fields = entry?.fields || {};
+  const amenitiesItems = Array.isArray(fields.amenitiesItems)
+    ? fields.amenitiesItems
+        .map((item) => {
+          const itemFields = item?.fields || {};
+
+          return {
+            title: itemFields.amenitiesItemsTitle || "",
+            content: richTextToPlainText(itemFields.amenitiesItemsContent),
+            imageSrc: getContentfulAssetSrc(itemFields.amenitiesItemsImage),
+          };
+        })
+        .filter((item) => item.title || item.content || item.imageSrc)
+    : [];
+  const exploreExperiences = Array.isArray(fields.exploreExperiences)
+    ? fields.exploreExperiences
+        .map((item) => {
+          const itemFields = item?.fields || {};
+
+          return {
+            imageSrc: getFirstContentfulAssetSrc(itemFields.images),
+            title: itemFields.title || "",
+            content: richTextToPlainText(itemFields.content),
+            buttonText: itemFields.buttonText || "",
+            buttonUrl: itemFields.buttonUrl || "",
+          };
+        })
+        .filter(
+          (item) =>
+            item.imageSrc ||
+            item.title ||
+            item.content ||
+            (item.buttonText && item.buttonUrl),
+        )
+    : [];
+  const featuredQuoteFields = fields.featuredQuote?.fields || {};
+  const featuredQuote = {
+    quote: featuredQuoteFields.title || "",
+    credit: richTextToPlainText(featuredQuoteFields.content),
+  };
+  const galleryImages = Array.isArray(fields.galleryImages)
+    ? fields.galleryImages
+        .map((asset) => getContentfulAssetSrc(asset))
+        .filter(Boolean)
+    : [];
+  const reserveYourStayDateFields = fields.reserveYourStayDate?.fields || {};
+  const reserveYourStayDate = {
+    title: reserveYourStayDateFields.title || "",
+    content: richTextToPlainText(reserveYourStayDateFields.content),
+    buttonText: reserveYourStayDateFields.buttonText || "",
+    buttonUrl: reserveYourStayDateFields.buttonUrl || "",
+  };
   const eventCards = Array.isArray(fields.eventCards)
     ? fields.eventCards
         .map((asset) => getContentfulAssetSrc(asset))
@@ -75,6 +128,24 @@ function getHomePageContent(entry) {
     eventCards,
     eventButtonText: fields.eventButtonText || "",
     eventButtonUrl: fields.eventButtonUrl || "",
+    amenitiesEyebrow: fields.amenitiesEyebrow || "",
+    amenitiesHeading: fields.amenitiesHeading || "",
+    amenitiesItems,
+    caribbeanLivingImage: getContentfulAssetSrc(fields.caribbeanLivingImage),
+    caribbeanLivingTitle: fields.caribbeanLivingTitle || "",
+    caribbeanLivingContent: richTextToPlainText(fields.caribbeanLivingContent),
+    caribbeanLivingButtonText: fields.caribbeanLivingButtonText || "",
+    caribbeanLivingButtonUrl: fields.caribbeanLivingButtonUrl || "",
+    caribbeanLivingButton2Text: fields.caribbeanLivingButton2Text || "",
+    caribbeanLivingButton2Url: fields.caribbeanLivingButton2Url || "",
+    exploreExperiences,
+    featuredQuote,
+    galleryImages,
+    galleryTitle: fields.galleryTitle || "",
+    galleryButtonText: fields.galleryButtonText || "",
+    galleryButtonUrl: fields.galleryButtonUrl || "",
+    reserveYourStayImage: getContentfulAssetSrc(fields.reserveYourStayImage),
+    reserveYourStayDate,
   };
 }
 
@@ -121,6 +192,44 @@ function App({ homePageEntry = null }) {
       homePage.eventSectionHighlight ||
       homePage.eventCards.length ||
       hasEventButton,
+  );
+  const hasAmenitiesSection = Boolean(
+    homePage.amenitiesEyebrow ||
+      homePage.amenitiesHeading ||
+      homePage.amenitiesItems.length,
+  );
+  const hasCaribbeanLivingButton = Boolean(
+    homePage.caribbeanLivingButtonText && homePage.caribbeanLivingButtonUrl,
+  );
+  const hasCaribbeanLivingButton2 = Boolean(
+    homePage.caribbeanLivingButton2Text && homePage.caribbeanLivingButton2Url,
+  );
+  const hasCaribbeanLivingSection = Boolean(
+    homePage.caribbeanLivingImage ||
+      homePage.caribbeanLivingTitle ||
+      homePage.caribbeanLivingContent ||
+      hasCaribbeanLivingButton ||
+      hasCaribbeanLivingButton2,
+  );
+  const hasExploreExperiencesSection = homePage.exploreExperiences.length > 0;
+  const hasFeaturedQuoteSection = Boolean(
+    homePage.featuredQuote.quote || homePage.featuredQuote.credit,
+  );
+  const hasGalleryButton = Boolean(
+    homePage.galleryButtonText && homePage.galleryButtonUrl,
+  );
+  const hasGallerySection = Boolean(
+    homePage.galleryImages.length || homePage.galleryTitle || hasGalleryButton,
+  );
+  const hasReserveButton = Boolean(
+    homePage.reserveYourStayDate.buttonText &&
+      homePage.reserveYourStayDate.buttonUrl,
+  );
+  const hasReserveSection = Boolean(
+    homePage.reserveYourStayImage ||
+      homePage.reserveYourStayDate.title ||
+      homePage.reserveYourStayDate.content ||
+      hasReserveButton,
   );
 
   return (
@@ -304,6 +413,190 @@ function App({ homePageEntry = null }) {
               {homePage.eventButtonText}
             </a>
           )}
+        </section>
+      )}
+
+      {hasAmenitiesSection && (
+        <AmenitiesSlider
+          eyebrow={homePage.amenitiesEyebrow}
+          heading={homePage.amenitiesHeading}
+          items={homePage.amenitiesItems}
+        />
+      )}
+
+      {hasCaribbeanLivingSection && (
+        <section
+          className="caribbean-living-section"
+          aria-labelledby={
+            homePage.caribbeanLivingTitle
+              ? "caribbean-living-title"
+              : undefined
+          }
+        >
+          {homePage.caribbeanLivingImage && (
+            <img
+              className="caribbean-living-map"
+              src={homePage.caribbeanLivingImage}
+              alt=""
+              aria-hidden="true"
+            />
+          )}
+
+          <div className="caribbean-living-content">
+            {homePage.caribbeanLivingTitle && (
+              <h2 id="caribbean-living-title">
+                {homePage.caribbeanLivingTitle}
+              </h2>
+            )}
+
+            {homePage.caribbeanLivingContent && (
+              <p>{homePage.caribbeanLivingContent}</p>
+            )}
+
+            {(hasCaribbeanLivingButton || hasCaribbeanLivingButton2) && (
+              <div className="caribbean-living-actions">
+                {hasCaribbeanLivingButton && (
+                  <a
+                    className="button button--brown caribbean-living-button"
+                    href={homePage.caribbeanLivingButtonUrl}
+                  >
+                    {homePage.caribbeanLivingButtonText}
+                  </a>
+                )}
+                {hasCaribbeanLivingButton2 && (
+                  <a
+                    className="button button--brown caribbean-living-button"
+                    href={homePage.caribbeanLivingButton2Url}
+                  >
+                    {homePage.caribbeanLivingButton2Text}
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {hasExploreExperiencesSection && (
+        <section
+          className="explore-experiences-section"
+          aria-label="Explore experiences"
+        >
+          {homePage.exploreExperiences.map((item, index) => {
+            const hasButton = Boolean(item.buttonText && item.buttonUrl);
+
+            return (
+              <article
+                className="explore-experience-card"
+                key={`${item.title}-${index}`}
+              >
+                {item.imageSrc && <img src={item.imageSrc} alt="" />}
+                <div className="explore-experience-overlay" />
+                <div className="explore-experience-content">
+                  {item.title && <h2>{item.title}</h2>}
+                  {item.content && <p>{item.content}</p>}
+                  {hasButton && (
+                    <a
+                      className="button button--light explore-experience-button"
+                      href={item.buttonUrl}
+                    >
+                      {item.buttonText}
+                    </a>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </section>
+      )}
+
+      {hasFeaturedQuoteSection && (
+        <section
+          className="featured-quote-section"
+          aria-label="Featured quote"
+        >
+          <div className="featured-quote-mark" aria-hidden="true">
+            &ldquo;
+          </div>
+          {homePage.featuredQuote.quote && (
+            <blockquote>{homePage.featuredQuote.quote}</blockquote>
+          )}
+          {homePage.featuredQuote.credit && (
+            <p>{homePage.featuredQuote.credit}</p>
+          )}
+        </section>
+      )}
+
+      {hasGallerySection && (
+        <section
+          className="gallery-preview-section"
+          aria-labelledby={homePage.galleryTitle ? "gallery-title" : undefined}
+        >
+          {homePage.galleryImages.length > 0 && (
+            <GalleryPreviewSlider images={homePage.galleryImages} />
+          )}
+
+          <div className="gallery-preview-content">
+            {homePage.galleryTitle && (
+              <h2 id="gallery-title">{homePage.galleryTitle}</h2>
+            )}
+            {hasGalleryButton && (
+              <a
+                className="button button--brown gallery-preview-button"
+                href={homePage.galleryButtonUrl}
+              >
+                {homePage.galleryButtonText}
+              </a>
+            )}
+          </div>
+        </section>
+      )}
+
+      {hasReserveSection && (
+        <section
+          className="reserve-stay-section"
+          style={
+            homePage.reserveYourStayImage
+              ? {
+                  "--reserve-stay-image": `url(${homePage.reserveYourStayImage})`,
+                }
+              : undefined
+          }
+          aria-labelledby={
+            homePage.reserveYourStayDate.title ? "reserve-stay-title" : undefined
+          }
+        >
+          <div className="reserve-stay-card">
+            <span className="reserve-stay-pin" />
+            <span className="reserve-stay-pin" />
+            <span className="reserve-stay-pin" />
+
+            <img
+              className="reserve-stay-logo"
+              src={getAssetSrc(logo)}
+              alt=""
+              aria-hidden="true"
+            />
+
+            {homePage.reserveYourStayDate.title && (
+              <h2 id="reserve-stay-title">
+                {homePage.reserveYourStayDate.title}
+              </h2>
+            )}
+
+            {homePage.reserveYourStayDate.content && (
+              <p>{homePage.reserveYourStayDate.content}</p>
+            )}
+
+            {hasReserveButton && (
+              <a
+                className="button button--brown reserve-stay-button"
+                href={homePage.reserveYourStayDate.buttonUrl}
+              >
+                {homePage.reserveYourStayDate.buttonText}
+              </a>
+            )}
+          </div>
         </section>
       )}
     </main>

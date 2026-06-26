@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&display=swap");
+
 @font-face {
   font-family: "Denton";
   font-style: normal;
@@ -86,6 +88,7 @@
   --font-size-small: 12px;
   --font-size-medium: 18px;
   --font-size-button-small: 14px;
+  --font-size-high: 96px;
   --font-size-h1: 68px;
   --font-size-global-h1: 76px;
   --font-size-h1-mobile: 44px;
