@@ -47,6 +47,20 @@ function getAccommodationContent(entry) {
         })
         .filter((item) => item.imageSrc || item.title || item.content)
     : [];
+  const caribbeanLivingFacilities = Array.isArray(
+    fields.caribbeanLivingFacilities,
+  )
+    ? fields.caribbeanLivingFacilities
+        .map((item) => {
+          const itemFields = item?.fields || {};
+
+          return {
+            title: itemFields.title || "",
+            content: richTextToPlainText(itemFields.content),
+          };
+        })
+        .filter((item) => item.title || item.content)
+    : [];
 
   return {
     bannerImage: getContentfulAssetSrc(fields.bannerImage),
@@ -65,6 +79,15 @@ function getAccommodationContent(entry) {
     roomButtonText: fields.roomButtonText || "",
     roomButtonUrl: fields.roomButtonUrl || "",
     roomBox,
+    memoriesSubHeading: fields.memoriesSubHeading || "",
+    memoriesHeading: fields.memoriesHeading || "",
+    memoriesContent: richTextToPlainText(fields.memoriesContent),
+    memoriesButtonText: fields.memoriesButtonText || "",
+    memoriesButtonUrl: fields.memoriesButtonUrl || "",
+    memoriesImage: getContentfulAssetSrc(fields.memoriesImage),
+    caribbeanLivingSubHeading: fields.caribbeanLivingSubHeading || "",
+    caribbeanLivingHeading: fields.caribbeanLivingHeading || "",
+    caribbeanLivingFacilities,
   };
 }
 
@@ -92,6 +115,21 @@ export default function AccommodationPage({
       accommodation.roomContent ||
       hasRoomButton ||
       accommodation.roomBox.length,
+  );
+  const hasMemoriesButton = Boolean(
+    accommodation.memoriesButtonText && accommodation.memoriesButtonUrl,
+  );
+  const hasMemoriesSection = Boolean(
+    accommodation.memoriesSubHeading ||
+      accommodation.memoriesHeading ||
+      accommodation.memoriesContent ||
+      hasMemoriesButton ||
+      accommodation.memoriesImage,
+  );
+  const hasCaribbeanLivingSection = Boolean(
+    accommodation.caribbeanLivingSubHeading ||
+      accommodation.caribbeanLivingHeading ||
+      accommodation.caribbeanLivingFacilities.length,
   );
 
   return (
@@ -221,6 +259,84 @@ export default function AccommodationPage({
                   key={`${item.title}-${index}`}
                 >
                   {item.imageSrc && <img src={item.imageSrc} alt="" />}
+                  {item.title && <h3>{item.title}</h3>}
+                  {item.content && <p>{item.content}</p>}
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {hasMemoriesSection && (
+        <section
+          className="accommodation-memories-section"
+          aria-labelledby={
+            accommodation.memoriesHeading
+              ? "accommodation-memories-title"
+              : undefined
+          }
+        >
+          <div className="accommodation-memories-content">
+            {accommodation.memoriesSubHeading && (
+              <p className="accommodation-memories-eyebrow">
+                {accommodation.memoriesSubHeading}
+              </p>
+            )}
+            {accommodation.memoriesHeading && (
+              <h2 id="accommodation-memories-title">
+                {accommodation.memoriesHeading}
+              </h2>
+            )}
+            {accommodation.memoriesContent && (
+              <p>{accommodation.memoriesContent}</p>
+            )}
+            {hasMemoriesButton && (
+              <a
+                className="button button--brown accommodation-memories-button"
+                href={accommodation.memoriesButtonUrl}
+              >
+                {accommodation.memoriesButtonText}
+              </a>
+            )}
+          </div>
+
+          {accommodation.memoriesImage && (
+            <div className="accommodation-memories-image">
+              <img src={accommodation.memoriesImage} alt="" />
+            </div>
+          )}
+        </section>
+      )}
+
+      {hasCaribbeanLivingSection && (
+        <section
+          className="accommodation-living-section"
+          aria-labelledby={
+            accommodation.caribbeanLivingHeading
+              ? "accommodation-living-title"
+              : undefined
+          }
+        >
+          {accommodation.caribbeanLivingSubHeading && (
+            <p className="accommodation-living-eyebrow">
+              {accommodation.caribbeanLivingSubHeading}
+            </p>
+          )}
+
+          {accommodation.caribbeanLivingHeading && (
+            <h2 id="accommodation-living-title">
+              {accommodation.caribbeanLivingHeading}
+            </h2>
+          )}
+
+          {accommodation.caribbeanLivingFacilities.length > 0 && (
+            <div className="accommodation-living-grid">
+              {accommodation.caribbeanLivingFacilities.map((item, index) => (
+                <article
+                  className="accommodation-living-item"
+                  key={`${item.title}-${index}`}
+                >
                   {item.title && <h3>{item.title}</h3>}
                   {item.content && <p>{item.content}</p>}
                 </article>

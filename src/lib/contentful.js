@@ -48,6 +48,16 @@ export const contentfulConfig = {
     process.env.NEXT_PUBLIC_CONTENTFUL_ACCOMMODATION_CONTENT_TYPE ||
     process.env.VITE_CONTENTFUL_ACCOMMODATION_CONTENT_TYPE ||
     'accommodation',
+  galleryContentType:
+    process.env.CONTENTFUL_GALLERY_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_GALLERY_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_GALLERY_CONTENT_TYPE ||
+    'gallery',
+  locationContentType:
+    process.env.CONTENTFUL_LOCATION_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_LOCATION_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_LOCATION_CONTENT_TYPE ||
+    'location',
 }
 
 const homePageContentTypes = [
@@ -91,6 +101,20 @@ const accommodationContentTypes = [
   'accommodation',
   'accommodationPage',
   'accommodation-page',
+].filter(Boolean)
+
+const galleryContentTypes = [
+  contentfulConfig.galleryContentType,
+  'gallery',
+  'galleryPage',
+  'gallery-page',
+].filter(Boolean)
+
+const locationContentTypes = [
+  contentfulConfig.locationContentType,
+  'location',
+  'locationPage',
+  'location-page',
 ].filter(Boolean)
 
 export const isContentfulConfigured =
@@ -314,6 +338,46 @@ export async function getAccommodationEntry() {
   }
 
   for (const contentType of [...new Set(accommodationContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getGalleryEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(galleryContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getLocationEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(locationContentTypes)]) {
     try {
       const items = await getEntriesByContentType(contentType)
 
