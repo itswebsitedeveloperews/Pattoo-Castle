@@ -1,8 +1,7 @@
 import AmenitiesSlider from "./AmenitiesSlider";
 import GalleryPreviewSlider from "./GalleryPreviewSlider";
-import facebookIcon from "./assets/Facebook.svg";
+import ReserveStaySection from "./ReserveStaySection";
 import heroImage from "./assets/hero.png";
-import instagramIcon from "./assets/insta.svg";
 import logo from "./assets/patto-logo.svg";
 
 const navItems = [
@@ -14,7 +13,7 @@ const navItems = [
   "Explore Negril",
 ];
 
-function richTextToPlainText(value) {
+export function richTextToPlainText(value) {
   if (!value) {
     return "";
   }
@@ -36,6 +35,44 @@ function richTextToPlainText(value) {
   }
 
   return "";
+}
+
+export function richTextToReact(value, keyPrefix = "rich-text") {
+  if (!value) {
+    return null;
+  }
+
+  if (typeof value === "string") {
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    return value.map((item, index) => (
+      <span key={`${keyPrefix}-${index}`}>
+        {richTextToReact(item, `${keyPrefix}-${index}`)}
+      </span>
+    ));
+  }
+
+  if (typeof value !== "object") {
+    return null;
+  }
+
+  if (typeof value.value === "string") {
+    return value.value;
+  }
+
+  const children = richTextToReact(value.content, `${keyPrefix}-content`);
+
+  if (value.nodeType === "hyperlink") {
+    return (
+      <a href={value.data?.uri || "#"} key={keyPrefix}>
+        {children}
+      </a>
+    );
+  }
+
+  return children;
 }
 
 function getHomePageContent(entry) {
@@ -145,15 +182,16 @@ function getHomePageContent(entry) {
     galleryButtonText: fields.galleryButtonText || "",
     galleryButtonUrl: fields.galleryButtonUrl || "",
     reserveYourStayImage: getContentfulAssetSrc(fields.reserveYourStayImage),
+    reserveYourStayVideo: getContentfulAssetSrc(fields.reserveYourStayVideo),
     reserveYourStayDate,
   };
 }
 
-function getAssetSrc(asset) {
+export function getAssetSrc(asset) {
   return typeof asset === "string" ? asset : asset.src;
 }
 
-function getContentfulAssetSrc(asset) {
+export function getContentfulAssetSrc(asset) {
   const url = asset?.fields?.file?.url;
 
   if (!url) {
@@ -171,8 +209,282 @@ function getFirstContentfulAssetSrc(assets) {
   return getContentfulAssetSrc(assets);
 }
 
-function App({ homePageEntry = null }) {
+export function getFooterContent(entry) {
+  const fields = entry?.fields || {};
+  const socialLinks = Array.isArray(fields.followUsOn)
+    ? fields.followUsOn
+        .map((item) => {
+          const itemFields = item?.fields || {};
+
+          return {
+            iconSrc: getContentfulAssetSrc(itemFields.socialIcon),
+            url: itemFields.socialUrl || "",
+          };
+        })
+        .filter((item) => item.iconSrc || item.url)
+    : [];
+  const menuItems = Array.isArray(fields.footerMenu)
+    ? fields.footerMenu
+        .map((item) => {
+          const itemFields = item?.fields || {};
+
+          return {
+            name: itemFields.menuName || "",
+            url: itemFields.menuUrl || "",
+          };
+        })
+        .filter((item) => item.name || item.url)
+    : [];
+
+  return {
+    logoSrc: getContentfulAssetSrc(fields.footerLogo),
+    location: fields.location || "",
+    phone: fields.phone || "",
+    email: fields.email || "",
+    socialLinks,
+    menuItems,
+    copyright: fields.footerCopyright || "",
+    designBy: richTextToPlainText(fields.designBy),
+    designByRichText: fields.designBy || null,
+    footerBarMenu: fields.footerBarMenu || "",
+    footerBarUrl: fields.footerBarUrl || "",
+  };
+}
+
+export function getHeaderContent(entry) {
+  const fields = entry?.fields || {};
+  const menuItems = Array.isArray(fields.menu)
+    ? fields.menu
+        .map((item) => {
+          const itemFields = item?.fields || {};
+
+          return {
+            name: itemFields.menuName || "",
+            url: itemFields.menuUrl || "",
+          };
+        })
+        .filter((item) => item.name || item.url)
+    : [];
+  const socialLinks = Array.isArray(fields.socialIcons)
+    ? fields.socialIcons
+        .map((item) => {
+          const itemFields = item?.fields || {};
+
+          return {
+            iconSrc: getContentfulAssetSrc(itemFields.socialIcon),
+            url: itemFields.socialUrl || "",
+          };
+        })
+        .filter((item) => item.iconSrc || item.url)
+    : [];
+
+  return {
+    logoSrc: getContentfulAssetSrc(fields.logo),
+    menuItems,
+    buttonText: fields.buttonText || "",
+    buttonUrl: fields.buttonUrl || "",
+    socialLinks,
+  };
+}
+
+function getPhoneHref(phone) {
+  const value = phone.replace(/[^\d+]/g, "");
+
+  return value ? `tel:${value}` : "";
+}
+
+export function SiteHeader({ header }) {
+  const hasHeaderButton = Boolean(header.buttonText && header.buttonUrl);
+  const hasMobileMenu = Boolean(
+    header.menuItems.length || hasHeaderButton || header.socialLinks.length,
+  );
+
+  return (
+    <header className="site-header">
+      {header.logoSrc && (
+        <a className="brand" href="/" aria-label="Pattoo Castle home">
+          <img src={header.logoSrc} alt="Pattoo Castle" />
+        </a>
+      )}
+
+      {header.menuItems.length > 0 && (
+        <nav className="primary-nav" aria-label="Primary navigation">
+          {header.menuItems.map((item, index) => (
+            <a href={item.url || "#"} key={`${item.name}-${index}`}>
+              {item.name}
+            </a>
+          ))}
+        </nav>
+      )}
+
+      <div className="header-actions">
+        {hasHeaderButton && (
+          <a className="button button--light enquire-link" href={header.buttonUrl}>
+            {header.buttonText}
+          </a>
+        )}
+        {header.socialLinks.map((item, index) => (
+          <a
+            className="social-link"
+            href={item.url || "#"}
+            key={`${item.url}-${index}`}
+            aria-label={`Social link ${index + 1}`}
+          >
+            {item.iconSrc && <img src={item.iconSrc} alt="" />}
+          </a>
+        ))}
+      </div>
+
+      {hasMobileMenu && (
+        <details className="mobile-menu">
+          <summary aria-label="Open menu">
+            <span />
+            <span />
+            <span />
+          </summary>
+
+          <div className="mobile-menu-panel">
+            {header.menuItems.length > 0 && (
+              <nav className="mobile-nav" aria-label="Mobile navigation">
+                {header.menuItems.map((item, index) => (
+                  <a href={item.url || "#"} key={`${item.name}-${index}`}>
+                    {item.name}
+                  </a>
+                ))}
+              </nav>
+            )}
+
+            {(hasHeaderButton || header.socialLinks.length > 0) && (
+              <div className="mobile-header-actions">
+                {hasHeaderButton && (
+                  <a
+                    className="button button--light enquire-link"
+                    href={header.buttonUrl}
+                  >
+                    {header.buttonText}
+                  </a>
+                )}
+                {header.socialLinks.map((item, index) => (
+                  <a
+                    className="social-link"
+                    href={item.url || "#"}
+                    key={`${item.url}-${index}`}
+                    aria-label={`Social link ${index + 1}`}
+                  >
+                    {item.iconSrc && <img src={item.iconSrc} alt="" />}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </details>
+      )}
+    </header>
+  );
+}
+
+export function SiteFooter({ footer }) {
+  const hasContact = Boolean(
+    footer.location ||
+      footer.phone ||
+      footer.email ||
+      footer.socialLinks.length,
+  );
+  const hasFooter = Boolean(
+    footer.logoSrc ||
+      hasContact ||
+      footer.menuItems.length ||
+      footer.copyright ||
+      footer.designBy ||
+      footer.footerBarMenu,
+  );
+
+  if (!hasFooter) {
+    return null;
+  }
+
+  return (
+    <footer className="site-footer">
+      <div className="site-footer-inner">
+        {footer.logoSrc && (
+          <a className="footer-brand" href="/" aria-label="Pattoo Castle home">
+            <img src={footer.logoSrc} alt="Pattoo Castle" />
+          </a>
+        )}
+
+        {hasContact && (
+          <div className="footer-contact-grid">
+            {footer.location && (
+              <div className="footer-contact-item">
+                <strong>Location</strong>
+                <p>{footer.location}</p>
+              </div>
+            )}
+            {footer.phone && (
+              <div className="footer-contact-item">
+                <strong>Tel</strong>
+                <a href={getPhoneHref(footer.phone)}>{footer.phone}</a>
+              </div>
+            )}
+            {footer.email && (
+              <div className="footer-contact-item">
+                <strong>Email</strong>
+                <a href={`mailto:${footer.email}`}>{footer.email}</a>
+              </div>
+            )}
+            {footer.socialLinks.length > 0 && (
+              <div className="footer-contact-item footer-socials">
+                <strong>Follow us on</strong>
+                <div>
+                  {footer.socialLinks.map((item, index) => (
+                    <a
+                      href={item.url || "#"}
+                      key={`${item.url}-${index}`}
+                      aria-label={`Social link ${index + 1}`}
+                    >
+                      {item.iconSrc && <img src={item.iconSrc} alt="" />}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {footer.menuItems.length > 0 && (
+          <nav className="footer-nav" aria-label="Footer navigation">
+            {footer.menuItems.map((item, index) => (
+              <a href={item.url || "#"} key={`${item.name}-${index}`}>
+                {item.name}
+              </a>
+            ))}
+          </nav>
+        )}
+
+        {(footer.copyright || footer.designBy || footer.footerBarMenu) && (
+          <div className="footer-bottom">
+            {footer.copyright && <p>{footer.copyright}</p>}
+            {(footer.designBy || footer.footerBarMenu) && (
+              <div>
+                {footer.designBy && (
+                  <span>{richTextToReact(footer.designByRichText)}</span>
+                )}
+                {footer.footerBarMenu && (
+                  <a href={footer.footerBarUrl || "#"}>{footer.footerBarMenu}</a>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </footer>
+  );
+}
+
+function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
   const homePage = getHomePageContent(homePageEntry);
+  const footer = getFooterContent(footerEntry);
+  const header = getHeaderContent(headerEntry);
   const hasPrimaryButton = Boolean(homePage.buttonText && homePage.buttonUrl);
   const hasSecondaryButton = Boolean(
     homePage.button2Text && homePage.button2Url,
@@ -227,6 +539,7 @@ function App({ homePageEntry = null }) {
   );
   const hasReserveSection = Boolean(
     homePage.reserveYourStayImage ||
+      homePage.reserveYourStayVideo ||
       homePage.reserveYourStayDate.title ||
       homePage.reserveYourStayDate.content ||
       hasReserveButton,
@@ -239,45 +552,7 @@ function App({ homePageEntry = null }) {
         style={{ "--hero-image": `url(${getAssetSrc(heroImage)})` }}
         aria-label="Pattoo Castle in Negril, Jamaica"
       >
-        <header className="site-header">
-          <a className="brand" href="/" aria-label="Pattoo Castle home">
-            <img
-              src={getAssetSrc(logo)}
-              alt="Pattoo Castle, a luxury Jamaican villa"
-            />
-          </a>
-
-          <nav className="primary-nav" aria-label="Primary navigation">
-            {navItems.map((item, index) => (
-              <a
-                href={`#${item.toLowerCase().replaceAll(" ", "-")}`}
-                key={`${item}-${index}`}
-              >
-                {item}
-              </a>
-            ))}
-          </nav>
-
-          <div className="header-actions">
-            <a className="button button--light enquire-link" href="#enquire">
-              Enquire now
-            </a>
-            <a
-              className="social-link"
-              href="https://www.facebook.com/"
-              aria-label="Facebook"
-            >
-              <img src={getAssetSrc(facebookIcon)} alt="" />
-            </a>
-            <a
-              className="social-link"
-              href="https://www.instagram.com/"
-              aria-label="Instagram"
-            >
-              <img src={getAssetSrc(instagramIcon)} alt="" />
-            </a>
-          </div>
-        </header>
+        <SiteHeader header={header} />
 
         <div className="hero-content">
           {homePage.heroLeftText && (
@@ -325,10 +600,11 @@ function App({ homePageEntry = null }) {
         </a>
       </section>
 
+      <span className="section-anchor" id="overview" aria-hidden="true" />
+
       {hasIntroSection && (
         <section
           className="intro-section"
-          id="overview"
           aria-labelledby={homePage.introHeading ? "intro-title" : undefined}
         >
           <div className="intro-panel">
@@ -379,6 +655,7 @@ function App({ homePageEntry = null }) {
       {hasEventSection && (
         <section
           className="event-section"
+          id="events"
           aria-labelledby={
             homePage.eventSectionHeading ? "event-title" : undefined
           }
@@ -417,6 +694,10 @@ function App({ homePageEntry = null }) {
       )}
 
       {hasAmenitiesSection && (
+        <span className="section-anchor" id="accommodation" aria-hidden="true" />
+      )}
+
+      {hasAmenitiesSection && (
         <AmenitiesSlider
           eyebrow={homePage.amenitiesEyebrow}
           heading={homePage.amenitiesHeading}
@@ -427,6 +708,7 @@ function App({ homePageEntry = null }) {
       {hasCaribbeanLivingSection && (
         <section
           className="caribbean-living-section"
+          id="explore-negril"
           aria-labelledby={
             homePage.caribbeanLivingTitle
               ? "caribbean-living-title"
@@ -530,6 +812,7 @@ function App({ homePageEntry = null }) {
       {hasGallerySection && (
         <section
           className="gallery-preview-section"
+          id="gallery"
           aria-labelledby={homePage.galleryTitle ? "gallery-title" : undefined}
         >
           {homePage.galleryImages.length > 0 && (
@@ -553,52 +836,21 @@ function App({ homePageEntry = null }) {
       )}
 
       {hasReserveSection && (
-        <section
-          className="reserve-stay-section"
-          style={
-            homePage.reserveYourStayImage
-              ? {
-                  "--reserve-stay-image": `url(${homePage.reserveYourStayImage})`,
-                }
-              : undefined
-          }
-          aria-labelledby={
-            homePage.reserveYourStayDate.title ? "reserve-stay-title" : undefined
-          }
-        >
-          <div className="reserve-stay-card">
-            <span className="reserve-stay-pin" />
-            <span className="reserve-stay-pin" />
-            <span className="reserve-stay-pin" />
-
-            <img
-              className="reserve-stay-logo"
-              src={getAssetSrc(logo)}
-              alt=""
-              aria-hidden="true"
-            />
-
-            {homePage.reserveYourStayDate.title && (
-              <h2 id="reserve-stay-title">
-                {homePage.reserveYourStayDate.title}
-              </h2>
-            )}
-
-            {homePage.reserveYourStayDate.content && (
-              <p>{homePage.reserveYourStayDate.content}</p>
-            )}
-
-            {hasReserveButton && (
-              <a
-                className="button button--brown reserve-stay-button"
-                href={homePage.reserveYourStayDate.buttonUrl}
-              >
-                {homePage.reserveYourStayDate.buttonText}
-              </a>
-            )}
-          </div>
-        </section>
+        <span className="section-anchor" id="stay" aria-hidden="true" />
       )}
+
+      {hasReserveSection && (
+        <ReserveStaySection
+          backgroundImage={homePage.reserveYourStayImage}
+          buttonText={homePage.reserveYourStayDate.buttonText}
+          buttonUrl={homePage.reserveYourStayDate.buttonUrl}
+          content={homePage.reserveYourStayDate.content}
+          logoSrc={getAssetSrc(logo)}
+          title={homePage.reserveYourStayDate.title}
+          videoSrc={homePage.reserveYourStayVideo}
+        />
+      )}
+      <SiteFooter footer={footer} />
     </main>
   );
 }

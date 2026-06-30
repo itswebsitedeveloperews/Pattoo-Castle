@@ -1,5 +1,5 @@
-import App from '../App'
-import { getFooterEntry, getHeaderEntry, getHomePageEntry } from '../lib/contentful'
+import AboutPage from '../../AboutPage'
+import { getAboutEntry, getFooterEntry, getHeaderEntry } from '../../lib/contentful'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -13,21 +13,21 @@ function withTimeout(promise, label) {
   ])
 }
 
-export default async function HomePage() {
-  const [homePageResult, footerResult, headerResult] = await Promise.allSettled([
-    withTimeout(getHomePageEntry(), 'Contentful homePage'),
+export default async function AboutRoute() {
+  const [aboutResult, footerResult, headerResult] = await Promise.allSettled([
+    withTimeout(getAboutEntry(), 'Contentful about'),
     withTimeout(getFooterEntry(), 'Contentful footer'),
     withTimeout(getHeaderEntry(), 'Contentful header'),
   ])
-  const homePageEntry =
-    homePageResult.status === 'fulfilled' ? homePageResult.value : null
+  const aboutEntry =
+    aboutResult.status === 'fulfilled' ? aboutResult.value : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (homePageResult.status === 'rejected') {
-    console.error('Contentful homePage request failed:', homePageResult.reason)
+  if (aboutResult.status === 'rejected') {
+    console.error('Contentful about request failed:', aboutResult.reason)
   }
 
   if (footerResult.status === 'rejected') {
@@ -39,10 +39,10 @@ export default async function HomePage() {
   }
 
   return (
-    <App
+    <AboutPage
+      aboutEntry={aboutEntry}
       footerEntry={footerEntry}
       headerEntry={headerEntry}
-      homePageEntry={homePageEntry}
     />
   )
 }

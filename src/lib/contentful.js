@@ -23,7 +23,75 @@ export const contentfulConfig = {
     process.env.NEXT_PUBLIC_CONTENTFUL_HOME_PAGE_CONTENT_TYPE ||
     process.env.VITE_CONTENTFUL_HOME_PAGE_CONTENT_TYPE ||
     'homePage',
+  footerContentType:
+    process.env.CONTENTFUL_FOOTER_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_FOOTER_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_FOOTER_CONTENT_TYPE ||
+    'footer',
+  headerContentType:
+    process.env.CONTENTFUL_HEADER_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_HEADER_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_HEADER_CONTENT_TYPE ||
+    'header',
+  aboutContentType:
+    process.env.CONTENTFUL_ABOUT_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_ABOUT_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_ABOUT_CONTENT_TYPE ||
+    'about',
+  overviewContentType:
+    process.env.CONTENTFUL_OVERVIEW_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_OVERVIEW_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_OVERVIEW_CONTENT_TYPE ||
+    'overview',
+  accommodationContentType:
+    process.env.CONTENTFUL_ACCOMMODATION_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_ACCOMMODATION_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_ACCOMMODATION_CONTENT_TYPE ||
+    'accommodation',
 }
+
+const homePageContentTypes = [
+  contentfulConfig.homePageContentType,
+  contentfulConfig.contentType,
+  'homePage',
+  'home-page',
+  'homepage',
+].filter(Boolean)
+
+const footerContentTypes = [
+  contentfulConfig.footerContentType,
+  'footer',
+  'siteFooter',
+  'site-footer',
+].filter(Boolean)
+
+const headerContentTypes = [
+  contentfulConfig.headerContentType,
+  'header',
+  'siteHeader',
+  'site-header',
+].filter(Boolean)
+
+const aboutContentTypes = [
+  contentfulConfig.aboutContentType,
+  'about',
+  'aboutPage',
+  'about-page',
+].filter(Boolean)
+
+const overviewContentTypes = [
+  contentfulConfig.overviewContentType,
+  'overview',
+  'overviewPage',
+  'overview-page',
+].filter(Boolean)
+
+const accommodationContentTypes = [
+  contentfulConfig.accommodationContentType,
+  'accommodation',
+  'accommodationPage',
+  'accommodation-page',
+].filter(Boolean)
 
 export const isContentfulConfigured =
   Boolean(contentfulConfig.space) && Boolean(contentfulConfig.accessToken)
@@ -35,6 +103,92 @@ export const contentfulClient = isContentfulConfigured
       environment: contentfulConfig.environment,
     })
   : null
+
+function resolveContentfulLinks(response) {
+  const entries = new Map()
+  const assets = new Map()
+
+  for (const entry of response.includes?.Entry || []) {
+    entries.set(entry.sys.id, entry)
+  }
+
+  for (const asset of response.includes?.Asset || []) {
+    assets.set(asset.sys.id, asset)
+  }
+
+  function resolveValue(value, resolving = new Set()) {
+    if (Array.isArray(value)) {
+      return value.map((item) => resolveValue(item, resolving))
+    }
+
+    if (!value || typeof value !== 'object') {
+      return value
+    }
+
+    if (value.sys?.type === 'Link') {
+      const target =
+        value.sys.linkType === 'Asset'
+          ? assets.get(value.sys.id)
+          : entries.get(value.sys.id)
+
+      return target ? resolveValue(target, resolving) : value
+    }
+
+    if (value.sys?.id && (value.sys.type === 'Entry' || value.sys.type === 'Asset')) {
+      if (resolving.has(value.sys.id)) {
+        return value
+      }
+
+      resolving.add(value.sys.id)
+      const resolved = {
+        ...value,
+        fields: resolveValue(value.fields || {}, resolving),
+      }
+      resolving.delete(value.sys.id)
+      return resolved
+    }
+
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [
+        key,
+        resolveValue(item, resolving),
+      ]),
+    )
+  }
+
+  return (response.items || []).map((item) => resolveValue(item))
+}
+
+async function getEntriesByContentType(contentType) {
+  if (!isContentfulConfigured || !contentType) {
+    return []
+  }
+
+  const params = new URLSearchParams({
+    access_token: contentfulConfig.accessToken,
+    content_type: contentType,
+    include: '2',
+    limit: '1',
+    order: '-sys.updatedAt',
+  })
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 8000)
+  const response = await fetch(
+    `https://cdn.contentful.com/spaces/${contentfulConfig.space}/environments/${contentfulConfig.environment}/entries?${params}`,
+    {
+      cache: 'no-store',
+      signal: controller.signal,
+    },
+  )
+
+  clearTimeout(timeout)
+
+  if (!response.ok) {
+    throw new Error(`Contentful ${contentType} returned ${response.status}`)
+  }
+
+  return resolveContentfulLinks(await response.json())
+}
 
 export async function getDefaultEntries() {
   if (!contentfulClient) {
@@ -59,12 +213,117 @@ export async function getHomePageEntry() {
     return null
   }
 
-  const response = await contentfulClient.getEntries({
-    content_type: contentfulConfig.homePageContentType,
-    include: 2,
-    limit: 1,
-    order: '-sys.updatedAt',
-  })
+  for (const contentType of [...new Set(homePageContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
 
-  return response.items[0] || null
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getFooterEntry() {
+  if (!contentfulClient) {
+    return null
+  }
+
+  for (const contentType of [...new Set(footerContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getHeaderEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(headerContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getAboutEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(aboutContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getOverviewEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(overviewContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getAccommodationEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(accommodationContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
 }
