@@ -1,5 +1,7 @@
 import '@fontsource/quattrocento-sans/400.css'
 import '@fontsource/quattrocento-sans/700.css'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import '../index.css'
 import '../App.css'
 

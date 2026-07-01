@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import Slider from "react-slick";
 
 const VISIBLE_ITEM_COUNT = 4;
-const DRAG_THRESHOLD = 48;
 const LIST_ITEM_STEP = 58;
 
 function getNextIndex(currentIndex, direction, totalItems) {
@@ -15,21 +15,41 @@ export default function AmenitiesSlider({
   heading = "",
   items = [],
 }) {
+  const slides = useMemo(() => items.filter(Boolean), [items]);
   const [activeIndex, setActiveIndex] = useState(0);
-  const dragStartX = useRef(null);
+  const sliderRef = useRef(null);
+
+  useEffect(() => {
+    setActiveIndex(0);
+    sliderRef.current?.slickGoTo(0, true);
+  }, [slides]);
+
   const sideImageIndex =
-    items.length > 1 ? getNextIndex(activeIndex, 1, items.length) : activeIndex;
+    slides.length > 1 ? getNextIndex(activeIndex, 1, slides.length) : activeIndex;
+  const activeItem = slides[activeIndex] || {};
+  const sideItem = slides[sideImageIndex] || {};
   const listOffset = Math.min(
     Math.max(activeIndex - (VISIBLE_ITEM_COUNT - 1), 0),
-    Math.max(items.length - VISIBLE_ITEM_COUNT, 0),
+    Math.max(slides.length - VISIBLE_ITEM_COUNT, 0),
   );
 
   function moveSlide(direction) {
-    if (items.length <= 1) {
+    if (slides.length <= 1) {
       return;
     }
 
-    setActiveIndex((index) => getNextIndex(index, direction, items.length));
+    if (direction < 0) {
+      sliderRef.current?.slickPrev();
+      return;
+    }
+
+    sliderRef.current?.slickNext();
+  }
+
+  function handleControlClick(event, direction) {
+    event.preventDefault();
+    event.stopPropagation();
+    moveSlide(direction);
   }
 
   function selectSlide(index) {
@@ -37,35 +57,27 @@ export default function AmenitiesSlider({
       return;
     }
 
-    setActiveIndex(index);
-  }
-
-  function handleDragStart(event) {
-    if (event.target.closest("button")) {
+    if (slides.length <= 1) {
       return;
     }
 
-    dragStartX.current = event.clientX;
-    event.currentTarget.setPointerCapture?.(event.pointerId);
+    sliderRef.current?.slickGoTo(index);
   }
 
-  function handleDragEnd(event) {
-    if (dragStartX.current == null) {
-      return;
-    }
+  const settings = {
+    arrows: false,
+    dots: false,
+    draggable: true,
+    infinite: slides.length > 1,
+    speed: 580,
+    slidesToScroll: 1,
+    slidesToShow: 1,
+    swipe: true,
+    touchMove: true,
+    afterChange: setActiveIndex,
+  };
 
-    const delta = event.clientX - dragStartX.current;
-    dragStartX.current = null;
-    event.currentTarget.releasePointerCapture?.(event.pointerId);
-
-    if (Math.abs(delta) < DRAG_THRESHOLD) {
-      return;
-    }
-
-    moveSlide(delta < 0 ? 1 : -1);
-  }
-
-  if (!eyebrow && !heading && items.length === 0) {
+  if (!eyebrow && !heading && slides.length === 0) {
     return null;
   }
 
@@ -85,7 +97,7 @@ export default function AmenitiesSlider({
           {heading && <h2 id="amenities-title">{heading}</h2>}
         </div>
 
-        {items.length > 0 && (
+        {slides.length > 0 && (
           <div
             className="amenities-list"
             aria-label="Amenities"
@@ -94,12 +106,15 @@ export default function AmenitiesSlider({
             }}
           >
             <div className="amenities-list-track">
-              {items.map((item, index) => (
+              {slides.map((item, index) => (
                 <button
                   aria-current={index === activeIndex ? "true" : undefined}
                   className={index === activeIndex ? "is-active" : undefined}
                   key={`${item.title}-${index}`}
-                  onClick={() => selectSlide(index)}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    selectSlide(index);
+                  }}
                   type="button"
                 >
                   {item.title}
@@ -112,53 +127,39 @@ export default function AmenitiesSlider({
 
       <div
         className="amenities-content"
-        onPointerCancel={() => {
-          dragStartX.current = null;
-        }}
-        onPointerDown={handleDragStart}
-        onPointerUp={handleDragEnd}
-        style={{
-          "--amenities-track-offset": `${activeIndex * -100}%`,
-          "--amenities-side-track-offset": `${sideImageIndex * -100}%`,
-        }}
       >
         <div className="amenities-copy-viewport">
-          <div className="amenities-copy-track">
-            {items.map((item, index) => (
-              <div className="amenities-copy" key={`${item.title}-copy-${index}`}>
-                {item.title && <h3>{item.title}</h3>}
-                {item.content && <p>{item.content}</p>}
-              </div>
-            ))}
+          <div className="amenities-copy" key={`${activeItem.title}-copy-${activeIndex}`}>
+            {activeItem.title && <h3>{activeItem.title}</h3>}
+            {activeItem.content && <p>{activeItem.content}</p>}
           </div>
         </div>
 
         <div className="amenities-main-image">
-          <div className="amenities-image-track">
-            {items.map((item, index) => (
+          <Slider ref={sliderRef} {...settings} className="amenities-slick">
+            {slides.map((item, index) => (
               <div className="amenities-image-slide" key={`${item.title}-main-${index}`}>
                 {item.imageSrc && <img src={item.imageSrc} alt="" draggable="false" />}
               </div>
             ))}
-          </div>
+          </Slider>
         </div>
 
         <div className="amenities-side-image">
-          <div className="amenities-side-track">
-            {items.map((item, index) => (
-              <div className="amenities-side-slide" key={`${item.title}-side-${index}`}>
-                {item.imageSrc && <img src={item.imageSrc} alt="" draggable="false" />}
-              </div>
-            ))}
+          <div className="amenities-side-slide" key={`${sideItem.title}-side-${sideImageIndex}`}>
+            {sideItem.imageSrc && <img src={sideItem.imageSrc} alt="" draggable="false" />}
           </div>
         </div>
 
-        {items.length > 1 && (
+        {slides.length > 1 && (
           <div className="amenities-controls">
             <button
               aria-label="Show previous amenity"
               className="amenities-control-prev"
-              onClick={() => moveSlide(-1)}
+              onClick={(event) => handleControlClick(event, -1)}
+              onPointerDown={(event) => {
+                event.stopPropagation();
+              }}
               type="button"
             >
               ‹
@@ -166,7 +167,10 @@ export default function AmenitiesSlider({
             <button
               aria-label="Show next amenity"
               className="amenities-control-next"
-              onClick={() => moveSlide(1)}
+              onClick={(event) => handleControlClick(event, 1)}
+              onPointerDown={(event) => {
+                event.stopPropagation();
+              }}
               type="button"
             >
               ›

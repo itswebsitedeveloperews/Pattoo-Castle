@@ -1,61 +1,75 @@
 "use client";
 
-import { useRef, useState } from "react";
-
-const DRAG_THRESHOLD = 48;
-const SLIDE_DURATION = 420;
+import { useEffect, useMemo, useRef, useState } from "react";
+import Slider from "react-slick";
 
 function getSlideIndex(index, direction, totalItems) {
   return (index + direction + totalItems) % totalItems;
 }
 
 export default function GalleryPreviewSlider({ images = [] }) {
+  const slides = useMemo(() => images.filter(Boolean), [images]);
+  const sliderRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState(0);
-  const dragStartX = useRef(null);
-  const slideTimeout = useRef(null);
 
-  if (images.length === 0) {
+  useEffect(() => {
+    setActiveIndex(0);
+    setSlideDirection(0);
+    sliderRef.current?.slickGoTo(0, true);
+  }, [slides]);
+
+  if (slides.length === 0) {
     return null;
   }
 
   const previousIndex =
-    images.length > 1 ? getSlideIndex(activeIndex, -1, images.length) : activeIndex;
+    slides.length > 1 ? getSlideIndex(activeIndex, -1, slides.length) : activeIndex;
   const nextIndex =
-    images.length > 1 ? getSlideIndex(activeIndex, 1, images.length) : activeIndex;
+    slides.length > 1 ? getSlideIndex(activeIndex, 1, slides.length) : activeIndex;
+
+  const settings = {
+    arrows: false,
+    dots: false,
+    draggable: true,
+    infinite: slides.length > 1,
+    speed: 520,
+    slidesToScroll: 1,
+    slidesToShow: 1,
+    swipe: true,
+    touchMove: true,
+    beforeChange: (current, next) => {
+      const direction =
+        next === current
+          ? 0
+          : next > current || (current === slides.length - 1 && next === 0)
+            ? 1
+            : -1;
+      setSlideDirection(direction);
+    },
+    afterChange: (index) => {
+      setActiveIndex(index);
+      window.setTimeout(() => setSlideDirection(0), 80);
+    },
+  };
 
   function moveSlide(direction) {
-    if (images.length <= 1) {
+    if (slides.length <= 1) {
       return;
     }
 
-    window.clearTimeout(slideTimeout.current);
-    setSlideDirection(direction);
-    setActiveIndex((index) => getSlideIndex(index, direction, images.length));
-    slideTimeout.current = window.setTimeout(() => {
-      setSlideDirection(0);
-    }, SLIDE_DURATION);
+    if (direction < 0) {
+      sliderRef.current?.slickPrev();
+      return;
+    }
+
+    sliderRef.current?.slickNext();
   }
 
-  function handleDragStart(event) {
-    dragStartX.current = event.clientX;
-    event.currentTarget.setPointerCapture?.(event.pointerId);
-  }
-
-  function handleDragEnd(event) {
-    if (dragStartX.current == null) {
-      return;
-    }
-
-    const delta = event.clientX - dragStartX.current;
-    dragStartX.current = null;
-    event.currentTarget.releasePointerCapture?.(event.pointerId);
-
-    if (Math.abs(delta) < DRAG_THRESHOLD) {
-      return;
-    }
-
-    moveSlide(delta < 0 ? 1 : -1);
+  function handleControlClick(event, direction) {
+    event.preventDefault();
+    event.stopPropagation();
+    moveSlide(direction);
   }
 
   return (
@@ -67,41 +81,42 @@ export default function GalleryPreviewSlider({ images = [] }) {
             ? " is-prev"
             : ""
       }`}
-      onPointerCancel={() => {
-        dragStartX.current = null;
-      }}
-      onPointerDown={handleDragStart}
-      onPointerUp={handleDragEnd}
     >
       <button
         aria-label="Show previous gallery image"
         className="gallery-preview-image-button gallery-preview-image-1"
-        onClick={() => moveSlide(-1)}
+        onClick={(event) => handleControlClick(event, -1)}
         onPointerDown={(event) => {
           event.stopPropagation();
         }}
         type="button"
       >
-        <img src={images[previousIndex]} alt="" draggable="false" />
+        <img src={slides[previousIndex]} alt="" draggable="false" />
         <span className="gallery-preview-arrow" aria-hidden="true">
           &lt;
         </span>
       </button>
 
       <div className="gallery-preview-main" aria-live="polite">
-        <img src={images[activeIndex]} alt="" draggable="false" />
+        <Slider ref={sliderRef} {...settings} className="gallery-preview-slick">
+          {slides.map((image, index) => (
+            <div className="gallery-preview-slide" key={`${image}-${index}`}>
+              <img src={image} alt="" draggable="false" />
+            </div>
+          ))}
+        </Slider>
       </div>
 
       <button
         aria-label="Show next gallery image"
         className="gallery-preview-image-button gallery-preview-image-3"
-        onClick={() => moveSlide(1)}
+        onClick={(event) => handleControlClick(event, 1)}
         onPointerDown={(event) => {
           event.stopPropagation();
         }}
         type="button"
       >
-        <img src={images[nextIndex]} alt="" draggable="false" />
+        <img src={slides[nextIndex]} alt="" draggable="false" />
         <span className="gallery-preview-arrow" aria-hidden="true">
           &gt;
         </span>

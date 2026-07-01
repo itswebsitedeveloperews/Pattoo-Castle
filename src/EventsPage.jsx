@@ -15,6 +15,70 @@ function getFirstContentfulAssetSrc(assets) {
   return getContentfulAssetSrc(assets);
 }
 
+function richTextToListItems(value) {
+  if (!value || typeof value !== "object") {
+    return [];
+  }
+
+  const items = [];
+  const walk = (node) => {
+    if (!node || typeof node !== "object") {
+      return;
+    }
+
+    if (node.nodeType === "list-item") {
+      const text = richTextToPlainText(node);
+
+      if (text) {
+        items.push(text);
+      }
+
+      return;
+    }
+
+    if (Array.isArray(node.content)) {
+      node.content.forEach(walk);
+    }
+  };
+
+  walk(value);
+  return items;
+}
+
+function richTextToParagraphText(value) {
+  if (!value || typeof value !== "object") {
+    return richTextToPlainText(value);
+  }
+
+  const paragraphs = [];
+  const walk = (node) => {
+    if (!node || typeof node !== "object") {
+      return;
+    }
+
+    if (node.nodeType === "list-item" || node.nodeType === "unordered-list") {
+      return;
+    }
+
+    if (node.nodeType === "paragraph") {
+      const text = richTextToPlainText(node);
+
+      if (text) {
+        paragraphs.push(text);
+      }
+
+      return;
+    }
+
+    if (Array.isArray(node.content)) {
+      node.content.forEach(walk);
+    }
+  };
+
+  walk(value);
+  return paragraphs.join(" ");
+}
+
 function getEventContent(entry) {
   const fields = entry?.fields || {};
   const numberBlock = Array.isArray(fields.numberBlock)
@@ -69,6 +133,24 @@ function getEventContent(entry) {
     eventSubHeading: fields.eventSubHeading || "",
     eventHeading: fields.eventHeading || "",
     eventBox,
+    experienceSubHeading: fields.experienceSubHeading || "",
+    experienceHeading: fields.experienceHeading || "",
+    experienceContent: richTextToParagraphText(fields.experienceContent),
+    experienceListItems: richTextToListItems(fields.experienceContent),
+    experienceButtonText: fields.experienceButtonText || "",
+    experienceButtonUrl: fields.experienceButtonUrl || "",
+    experienceImage: getContentfulAssetSrc(fields.experienceImage),
+    planImage: getContentfulAssetSrc(fields.planImage),
+    planContent: richTextToPlainText(fields.planContent),
+    planButtonText: fields.planButtonText || "",
+    planButtonUrl: fields.planButtonUrl || "",
+    memoriesSubHeading: fields.memoriesSubHeading || "",
+    memoriesHeading: fields.memoriesHeading || "",
+    memoriesImages: Array.isArray(fields.memoriesImages)
+      ? fields.memoriesImages.map(getContentfulAssetSrc).filter(Boolean)
+      : [],
+    memoriesButtonText: fields.memoriesButtonText || "",
+    memoriesButtonUrl: fields.memoriesButtonUrl || "",
   };
 }
 
@@ -89,6 +171,24 @@ export default function EventsPage({
   );
   const hasEventSection = Boolean(
     event.eventSubHeading || event.eventHeading || event.eventBox.length,
+  );
+  const hasExperienceSection = Boolean(
+    event.experienceSubHeading ||
+      event.experienceHeading ||
+      event.experienceContent ||
+      (event.experienceButtonText && event.experienceButtonUrl) ||
+      event.experienceImage,
+  );
+  const hasPlanSection = Boolean(
+    event.planImage ||
+      event.planContent ||
+      (event.planButtonText && event.planButtonUrl),
+  );
+  const hasMemoriesSection = Boolean(
+    event.memoriesSubHeading ||
+      event.memoriesHeading ||
+      event.memoriesImages.length ||
+      (event.memoriesButtonText && event.memoriesButtonUrl),
   );
 
   return (
@@ -167,6 +267,98 @@ export default function EventsPage({
                 </article>
               ))}
             </div>
+          )}
+        </section>
+      )}
+
+      {hasExperienceSection && (
+        <section className="events-experience-section">
+          <div className="events-experience-content">
+            {event.experienceSubHeading && (
+              <p className="events-experience-eyebrow">
+                {event.experienceSubHeading}
+              </p>
+            )}
+            {event.experienceHeading && <h2>{event.experienceHeading}</h2>}
+            {event.experienceContent && (
+              <p>{event.experienceContent}</p>
+            )}
+            {event.experienceListItems.length > 0 && (
+              <ul>
+                {event.experienceListItems.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+            )}
+            {event.experienceButtonText && event.experienceButtonUrl && (
+              <a
+                className="button button--brown events-experience-button"
+                href={event.experienceButtonUrl}
+              >
+                {event.experienceButtonText}
+              </a>
+            )}
+          </div>
+
+          {event.experienceImage && (
+            <figure className="events-experience-image">
+              <img src={event.experienceImage} alt="" />
+            </figure>
+          )}
+        </section>
+      )}
+
+      {hasPlanSection && (
+        <section
+          className="events-plan-section"
+          style={
+            event.planImage
+              ? { "--events-plan-image": `url(${event.planImage})` }
+              : undefined
+          }
+        >
+          <div className="events-plan-content">
+            {event.planContent && <blockquote>{event.planContent}</blockquote>}
+            {event.planButtonText && event.planButtonUrl && (
+              <a
+                className="button button--light events-plan-button"
+                href={event.planButtonUrl}
+              >
+                {event.planButtonText}
+              </a>
+            )}
+          </div>
+        </section>
+      )}
+
+      {hasMemoriesSection && (
+        <section className="events-memories-section">
+          <div className="events-memories-header">
+            {event.memoriesSubHeading && (
+              <p className="events-memories-eyebrow">
+                {event.memoriesSubHeading}
+              </p>
+            )}
+            {event.memoriesHeading && <h2>{event.memoriesHeading}</h2>}
+          </div>
+
+          {event.memoriesImages.length > 0 && (
+            <div className="events-memories-grid">
+              {event.memoriesImages.map((imageSrc, index) => (
+                <figure className="events-memories-image" key={`${imageSrc}-${index}`}>
+                  <img src={imageSrc} alt="" />
+                </figure>
+              ))}
+            </div>
+          )}
+
+          {event.memoriesButtonText && event.memoriesButtonUrl && (
+            <a
+              className="button button--brown events-memories-button"
+              href={event.memoriesButtonUrl}
+            >
+              {event.memoriesButtonText}
+            </a>
           )}
         </section>
       )}
