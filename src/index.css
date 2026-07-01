@@ -109,6 +109,9 @@
   --button-border-radius: 999px;
   --button-bg-light: rgb(var(--color-white) / var(--opacity-low));
   --button-bg-transparent: transparent;
+  --container-width-medium: 1400px;
+  --container-width: 1680px;
+  --container-gutter: max(64px, calc((100vw - var(--container-width)) / 2));
   font-family: var(--font-body);
   font-synthesis: none;
   line-height: var(--line-height-body);

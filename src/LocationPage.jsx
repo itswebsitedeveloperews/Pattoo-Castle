@@ -30,6 +30,27 @@ function getLocationContent(entry) {
         })
         .filter((item) => item.iconSrc || item.title || item.content)
     : [];
+  const exploreNearbyBox = Array.isArray(fields.exploreNearbyBox)
+    ? fields.exploreNearbyBox
+        .map((item) => {
+          const itemFields = item?.fields || {};
+
+          return {
+            imageSrc: getFirstContentfulAssetSrc(itemFields.images),
+            title: itemFields.title || "",
+            content: richTextToPlainText(itemFields.content),
+            buttonText: itemFields.buttonText || "",
+            buttonUrl: itemFields.buttonUrl || "",
+          };
+        })
+        .filter(
+          (item) =>
+            item.imageSrc ||
+            item.title ||
+            item.content ||
+            (item.buttonText && item.buttonUrl),
+        )
+    : [];
 
   return {
     bannerImage: getContentfulAssetSrc(fields.bannerImage),
@@ -46,6 +67,14 @@ function getLocationContent(entry) {
     locationImage: getContentfulAssetSrc(fields.locationImage),
     locationHighlightsHeading: fields.locationHighlightsHeading || "",
     locationHighlights,
+    experienceImage: getContentfulAssetSrc(fields.experienceImages),
+    experienceSubHeading: fields.experienceSubHeading || "",
+    experienceHeading: fields.experienceHeading || "",
+    experienceContent: richTextToPlainText(fields.experienceContent),
+    experienceButtonText: fields.experienceButtonText || "",
+    experienceButtonUrl: fields.experienceButtonUrl || "",
+    exploreNearbyHeading: fields.exploreNearbyHeading || "",
+    exploreNearbyBox,
   };
 }
 
@@ -70,6 +99,19 @@ export default function LocationPage({
   );
   const hasHighlightsSection = Boolean(
     location.locationHighlightsHeading || location.locationHighlights.length,
+  );
+  const hasExperienceButton = Boolean(
+    location.experienceButtonText && location.experienceButtonUrl,
+  );
+  const hasExperienceSection = Boolean(
+    location.experienceImage ||
+      location.experienceSubHeading ||
+      location.experienceHeading ||
+      location.experienceContent ||
+      hasExperienceButton,
+  );
+  const hasExploreNearbySection = Boolean(
+    location.exploreNearbyHeading || location.exploreNearbyBox.length,
   );
 
   return (
@@ -147,6 +189,59 @@ export default function LocationPage({
                   {item.iconSrc && <img src={item.iconSrc} alt="" />}
                   {item.title && <h3>{item.title}</h3>}
                   {item.content && <p>{item.content}</p>}
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {hasExperienceSection && (
+        <section className="location-experience-section">
+          {location.experienceImage && (
+            <figure className="location-experience-image">
+              <img src={location.experienceImage} alt="" />
+            </figure>
+          )}
+
+          <div className="location-experience-content">
+            {location.experienceSubHeading && (
+              <p className="location-experience-eyebrow">
+                {location.experienceSubHeading}
+              </p>
+            )}
+            {location.experienceHeading && (
+              <h2>{location.experienceHeading}</h2>
+            )}
+            {location.experienceContent && <p>{location.experienceContent}</p>}
+            {hasExperienceButton && (
+              <a
+                className="button button--light location-experience-button"
+                href={location.experienceButtonUrl}
+              >
+                {location.experienceButtonText}
+              </a>
+            )}
+          </div>
+        </section>
+      )}
+
+      {hasExploreNearbySection && (
+        <section className="location-nearby-section">
+          {location.exploreNearbyHeading && (
+            <h2>{location.exploreNearbyHeading}</h2>
+          )}
+
+          {location.exploreNearbyBox.length > 0 && (
+            <div className="location-nearby-grid">
+              {location.exploreNearbyBox.map((item, index) => (
+                <article className="location-nearby-card" key={index}>
+                  {item.imageSrc && <img src={item.imageSrc} alt="" />}
+                  {item.title && <h3>{item.title}</h3>}
+                  {item.content && <p>{item.content}</p>}
+                  {item.buttonText && item.buttonUrl && (
+                    <a href={item.buttonUrl}>{item.buttonText}</a>
+                  )}
                 </article>
               ))}
             </div>

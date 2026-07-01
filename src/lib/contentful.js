@@ -58,6 +58,11 @@ export const contentfulConfig = {
     process.env.NEXT_PUBLIC_CONTENTFUL_LOCATION_CONTENT_TYPE ||
     process.env.VITE_CONTENTFUL_LOCATION_CONTENT_TYPE ||
     'location',
+  eventContentType:
+    process.env.CONTENTFUL_EVENT_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_EVENT_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_EVENT_CONTENT_TYPE ||
+    'event',
 }
 
 const homePageContentTypes = [
@@ -115,6 +120,16 @@ const locationContentTypes = [
   'location',
   'locationPage',
   'location-page',
+].filter(Boolean)
+
+const eventContentTypes = [
+  contentfulConfig.eventContentType,
+  'event',
+  'events',
+  'eventPage',
+  'event-page',
+  'eventsPage',
+  'events-page',
 ].filter(Boolean)
 
 export const isContentfulConfigured =
@@ -378,6 +393,26 @@ export async function getLocationEntry() {
   }
 
   for (const contentType of [...new Set(locationContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getEventEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(eventContentTypes)]) {
     try {
       const items = await getEntriesByContentType(contentType)
 
