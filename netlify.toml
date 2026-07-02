@@ -16,5 +16,9 @@
   CONTENTFUL_LOCATION_CONTENT_TYPE = "location"
   CONTENTFUL_EVENT_CONTENT_TYPE = "event"
 
+# Set CONTENTFUL_ACCESS_TOKEN in Netlify:
+# Site settings > Environment variables > Add variable
+# Do not commit the token here.
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
