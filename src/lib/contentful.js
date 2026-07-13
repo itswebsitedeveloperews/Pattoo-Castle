@@ -68,6 +68,11 @@ export const contentfulConfig = {
     process.env.NEXT_PUBLIC_CONTENTFUL_STAY_CONTENT_TYPE ||
     process.env.VITE_CONTENTFUL_STAY_CONTENT_TYPE ||
     'stay',
+  contactContentType:
+    process.env.CONTENTFUL_CONTACT_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_CONTACT_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_CONTACT_CONTENT_TYPE ||
+    'contactUs',
 }
 
 const homePageContentTypes = [
@@ -142,6 +147,15 @@ const stayContentTypes = [
   'stay',
   'stayPage',
   'stay-page',
+].filter(Boolean)
+
+const contactContentTypes = [
+  contentfulConfig.contactContentType,
+  'contactUs',
+  'contact-us',
+  'contact',
+  'contactPage',
+  'contact-page',
 ].filter(Boolean)
 
 export const isContentfulConfigured =
@@ -445,6 +459,26 @@ export async function getStayEntry() {
   }
 
   for (const contentType of [...new Set(stayContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getContactEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(contactContentTypes)]) {
     try {
       const items = await getEntriesByContentType(contentType)
 
