@@ -63,6 +63,11 @@ export const contentfulConfig = {
     process.env.NEXT_PUBLIC_CONTENTFUL_EVENT_CONTENT_TYPE ||
     process.env.VITE_CONTENTFUL_EVENT_CONTENT_TYPE ||
     'event',
+  stayContentType:
+    process.env.CONTENTFUL_STAY_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_STAY_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_STAY_CONTENT_TYPE ||
+    'stay',
 }
 
 const homePageContentTypes = [
@@ -130,6 +135,13 @@ const eventContentTypes = [
   'event-page',
   'eventsPage',
   'events-page',
+].filter(Boolean)
+
+const stayContentTypes = [
+  contentfulConfig.stayContentType,
+  'stay',
+  'stayPage',
+  'stay-page',
 ].filter(Boolean)
 
 export const isContentfulConfigured =
@@ -413,6 +425,26 @@ export async function getEventEntry() {
   }
 
   for (const contentType of [...new Set(eventContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getStayEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(stayContentTypes)]) {
     try {
       const items = await getEntriesByContentType(contentType)
 

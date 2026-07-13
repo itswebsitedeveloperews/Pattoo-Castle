@@ -473,6 +473,7 @@
 }
 
 .amenities-section {
+  --amenities-image-height: clamp(360px, 25.4vw, 430px);
   display: grid;
   gap: 82px;
   padding: 48px 0 58px;
@@ -515,7 +516,7 @@
 }
 
 .amenities-heading-block h2 {
-  max-width: 470px;
+  max-width: 530px;
   margin: 0;
   color: rgb(var(--color-white));
   font-family: var(--font-display);
@@ -615,6 +616,7 @@
 .amenities-image-slide,
 .amenities-side-slide {
   flex: 0 0 100%;
+  height: 100%;
   min-width: 0;
   animation: slider-fade-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -636,6 +638,7 @@
 
 .amenities-main-image,
 .amenities-side-image {
+  height: var(--amenities-image-height);
   min-width: 0;
   overflow: hidden;
 }
@@ -652,16 +655,17 @@
 .amenities-side-slide img {
   display: block;
   width: 100%;
+  height: var(--amenities-image-height);
   object-fit: cover;
   pointer-events: none;
 }
 
 .amenities-image-slide img {
-  aspect-ratio: 734 / 409;
+  aspect-ratio: auto;
 }
 
 .amenities-side-slide img {
-  aspect-ratio: 270 / 409;
+  aspect-ratio: auto;
 }
 
 .amenities-controls {
@@ -2705,6 +2709,568 @@
   background: var(--button-bg-light);
 }
 
+.stay-hero {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 640px;
+  overflow: hidden;
+  color: rgb(var(--color-white));
+  background-image:
+    linear-gradient(rgb(var(--color-black) / 0.46), rgb(var(--color-black) / 0.46)),
+    var(--stay-banner-image);
+  background-position: center;
+  background-size: cover;
+}
+
+.stay-hero .site-header {
+  border-bottom: 1px solid rgb(var(--color-white) / 0.18);
+  padding-bottom: 22px;
+}
+
+.stay-hero-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  width: min(100% - 48px, 620px);
+  margin: 0 auto;
+  padding: 72px 0 120px;
+  text-align: center;
+}
+
+.stay-hero-eyebrow {
+  margin: 0 0 12px;
+  color: rgb(var(--color-white) / var(--opacity-high));
+  font-size: var(--font-size-nav);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-tight);
+  text-transform: uppercase;
+}
+
+.stay-hero h1 {
+  margin: 0;
+  color: rgb(var(--color-white));
+  font-family: var(--font-display);
+  font-size: var(--font-size-h1);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-tight);
+  text-shadow: var(--shadow-hero-text);
+}
+
+.stay-hero-content > p:not(.stay-hero-eyebrow) {
+  max-width: 560px;
+  margin-top: 22px;
+  color: rgb(var(--color-white) / var(--opacity-high));
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-body);
+}
+
+.stay-hero-button {
+  min-width: 176px;
+  margin-top: 24px;
+  background: var(--button-bg-light);
+}
+
+.availability-section {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  padding: 0 0 68px;
+  color: rgb(var(--color-white));
+  background: var(--color-cream);
+}
+
+.availability-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(150px, 1fr)) minmax(180px, auto);
+  gap: 28px;
+  align-items: end;
+  width: min(100% - 48px, 1100px);
+  margin-top: -36px;
+  padding: 32px 36px 30px;
+  background: var(--color-brown);
+  box-shadow: 0 18px 34px rgb(var(--color-black) / 0.12);
+}
+
+.availability-form h2 {
+  grid-column: 1 / -1;
+  margin: 0 0 6px;
+  color: rgb(var(--color-white));
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: 400;
+  line-height: var(--line-height-tight);
+}
+
+.availability-form label {
+  display: grid;
+  gap: 8px;
+  color: rgb(var(--color-white) / var(--opacity-high));
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-tight);
+}
+
+.availability-form input,
+.availability-form select {
+  width: 100%;
+  min-height: 34px;
+  padding: 0 0 10px;
+  border: 0;
+  border-bottom: 1px solid rgb(var(--color-white) / 0.34);
+  border-radius: 0;
+  color: rgb(var(--color-white));
+  background: transparent;
+  font: inherit;
+  outline: none;
+}
+
+.availability-form input::placeholder {
+  color: rgb(var(--color-white) / 0.7);
+}
+
+.availability-form select {
+  appearance: none;
+}
+
+.availability-form select option {
+  color: var(--color-brown);
+}
+
+.availability-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 34px;
+  border: 1px solid rgb(var(--color-white));
+  border-radius: 999px;
+  color: var(--color-brown);
+  background: var(--color-cream);
+  font-size: var(--font-size-button-small);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-small);
+  line-height: var(--line-height-tight);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.stay-info-section {
+  padding: 40px var(--container-gutter) 78px;
+  color: var(--color-brown);
+  background: var(--color-cream);
+}
+
+.stay-info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: min(100%, var(--container-width));
+  margin: 0 auto;
+}
+
+.stay-info-card {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  min-height: 150px;
+  padding: 18px 34px 8px;
+  text-align: center;
+  border-left: 1px solid rgb(var(--color-brown-rgb) / 0.18);
+}
+
+.stay-info-card:first-child {
+  border-left: 0;
+}
+
+.stay-info-card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 16px;
+  object-fit: contain;
+}
+
+.stay-info-card h2 {
+  margin: 0;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: var(--font-size-global-h2);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-tight);
+}
+
+.stay-info-card p {
+  max-width: 351px;
+  margin: 12px 0 0;
+  color: var(--color-brown);
+  font-size: var(--font-size-medium);
+  line-height: var(--line-height-body);
+}
+
+.stay-rooms-section {
+  display: grid;
+  grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+  gap: 40px;
+  padding: 78px var(--container-gutter) 88px;
+  color: var(--color-brown);
+  background: var(--color-cream);
+}
+
+.stay-rooms-copy {
+  align-self: center;
+  max-width: 420px;
+}
+
+.stay-rooms-eyebrow {
+  margin: 0 0 16px;
+  color: var(--color-brown);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-tight);
+  text-transform: uppercase;
+}
+
+.stay-rooms-copy h2 {
+  margin: 0;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: var(--font-size-h2);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-heading);
+}
+
+.stay-rooms-copy > p:not(.stay-rooms-eyebrow) {
+  margin: 22px 0 0;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.stay-rooms-button {
+  width: min(100%, 420px);
+  margin-top: 24px;
+}
+
+.stay-rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  border-left: 1px solid rgb(var(--color-brown-rgb) / 0.16);
+}
+
+.stay-room-card {
+  display: grid;
+  align-content: start;
+  border-right: 1px solid rgb(var(--color-brown-rgb) / 0.16);
+}
+
+.stay-room-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 260 / 190;
+  object-fit: cover;
+}
+
+.stay-room-card-body {
+  padding: 22px 20px 18px;
+}
+
+.stay-room-card h3 {
+  margin: 0;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: var(--font-size-global-h3);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-tight);
+}
+
+.stay-room-card p {
+  margin: 12px 0 0;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.stay-room-card a {
+  display: inline-flex;
+  margin-top: 18px;
+  color: var(--color-brown);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-small);
+  line-height: var(--line-height-tight);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.stay-villa-section {
+  display: grid;
+  grid-template-columns: minmax(280px, 430px) minmax(0, 1fr);
+  gap: 52px;
+  align-items: center;
+  padding: 76px var(--container-gutter) 82px;
+  color: rgb(var(--color-white));
+  background: var(--color-brown);
+}
+
+.stay-villa-copy {
+  max-width: 430px;
+}
+
+.stay-villa-eyebrow {
+  margin: 0 0 16px;
+  color: rgb(var(--color-white) / var(--opacity-high));
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-tight);
+  text-transform: uppercase;
+}
+
+.stay-villa-copy h2 {
+  margin: 0;
+  color: rgb(var(--color-white));
+  font-family: var(--font-display);
+  font-size: var(--font-size-h2);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-heading);
+}
+
+.stay-villa-copy > p:not(.stay-villa-eyebrow) {
+  margin: 18px 0 0;
+  color: rgb(var(--color-white) / var(--opacity-high));
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.stay-villa-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 24px;
+}
+
+.stay-villa-card {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.stay-villa-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 304 / 235;
+  object-fit: cover;
+}
+
+.stay-villa-card h3 {
+  margin: 0;
+  color: rgb(var(--color-white));
+  font-family: var(--font-display);
+  font-size: var(--font-size-global-h3);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-tight);
+}
+
+.stay-experience-section {
+  display: grid;
+  grid-template-columns: minmax(260px, 500px) minmax(320px, 500px) minmax(280px, 600px);
+  gap: 52px;
+  align-items: center;
+  padding: 74px var(--container-gutter) 78px;
+  color: var(--color-brown);
+  background: var(--color-cream);
+}
+
+.stay-experience-copy {
+  max-width: 496px;
+}
+
+.stay-experience-eyebrow {
+  margin: 0 0 16px;
+  color: var(--color-brown);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-tight);
+  text-transform: uppercase;
+}
+
+.stay-experience-copy h2 {
+  margin: 0;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: var(--font-size-h2);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-heading);
+}
+
+.stay-experience-content {
+  margin: 18px 0 0;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.stay-experience-content p {
+  margin: 0 0 14px;
+}
+
+.stay-experience-content p:last-child {
+  margin-bottom: 0;
+}
+
+.stay-experience-content ul,
+.stay-experience-content ol {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stay-experience-content li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.stay-experience-content li::before {
+  content: "✓";
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--color-brown);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-body);
+}
+
+.stay-experience-content ol {
+  counter-reset: stay-experience-list;
+}
+
+.stay-experience-content ol li {
+  counter-increment: stay-experience-list;
+}
+
+.stay-experience-content ol li::before {
+  content: counter(stay-experience-list) ".";
+}
+
+.stay-experience-content a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.stay-experience-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 410 / 405;
+  object-fit: cover;
+}
+
+.stay-experience-review {
+  display: grid;
+  align-content: center;
+  max-width: 440px;
+}
+
+.stay-experience-review > span {
+  display: block;
+  margin-bottom: 20px;
+  color: rgb(var(--color-brown-rgb) / 0.28);
+  font-family: var(--font-display);
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-tight);
+}
+
+.stay-experience-review blockquote {
+  margin: 0;
+  color: var(--color-brown);
+  font-size: var(--font-size-global-h3);
+  font-weight: 700;
+  line-height: var(--line-height-heading);
+}
+
+.stay-experience-review p {
+  margin: 28px 0 0;
+  color: var(--color-brown);
+  font-size: var(--font-size-button-small);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-small);
+  line-height: var(--line-height-tight);
+  text-transform: uppercase;
+}
+
+.stay-cta-section {
+  position: relative;
+  display: grid;
+  min-height: 300px;
+  place-items: center;
+  overflow: hidden;
+  padding: 76px var(--container-gutter);
+  color: rgb(var(--color-white));
+  text-align: center;
+  background:
+    linear-gradient(rgb(0 0 0 / 0.58), rgb(0 0 0 / 0.58)),
+    var(--stay-cta-image, linear-gradient(var(--color-brown), var(--color-brown)));
+  background-position: center;
+  background-size: cover;
+}
+
+.stay-cta-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  width: min(100%, 680px);
+}
+
+.stay-cta-eyebrow {
+  margin: 0 0 12px;
+  color: rgb(var(--color-white) / var(--opacity-high));
+  font-size: var(--font-size-button-small);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-tight);
+  text-transform: uppercase;
+}
+
+.stay-cta-content h2 {
+  margin: 0;
+  color: rgb(var(--color-white));
+  font-family: var(--font-display);
+  font-size: var(--font-size-h2);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-heading);
+}
+
+.stay-cta-text {
+  max-width: 520px;
+  margin-top: 18px;
+  color: rgb(var(--color-white) / var(--opacity-high));
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-body);
+}
+
+.stay-cta-text p {
+  margin: 0;
+}
+
+.stay-cta-button {
+  min-width: 150px;
+  margin-top: 28px;
+}
+
 .accommodation-intro-section {
   padding: 90px var(--container-gutter) 88px;
   color: rgb(var(--color-white));
@@ -3365,9 +3931,21 @@
 
   .hero-content {
     grid-template-columns: 1fr;
-    gap: 16px;
-    width: min(100% - 40px, 620px);
+    align-content: center;
+    gap: 14px;
+    width: min(100% - 40px, 560px);
+    padding: 52px 0 34px;
     text-align: center;
+  }
+
+  .hero-heading-wrap {
+    grid-column: auto;
+  }
+
+  .hero h1 {
+    max-width: 560px;
+    font-size: 54px;
+    line-height: 0.98;
   }
 
   .hero-kicker,
@@ -3377,22 +3955,27 @@
     justify-self: center;
   }
 
+  .hero-kicker-left {
+    order: -1;
+  }
+
+  .hero-kicker {
+    font-size: 12px;
+    letter-spacing: 5px;
+  }
+
+  .hero-actions {
+    margin-top: 18px;
+  }
+
   .event-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     width: min(100% - 48px, 720px);
   }
 
   .amenities-section {
+    --amenities-image-height: clamp(300px, 52vw, 420px);
     gap: 48px;
-  }
-
-  .amenities-top,
-  .amenities-content {
-    width: min(100% - 48px, 760px);
-  }
-
-  .amenities-top {
-    grid-template-columns: 1fr;
   }
 
   .amenities-list {
@@ -3406,6 +3989,14 @@
 
   .amenities-content {
     grid-template-columns: 1fr;
+  }
+
+  .amenities-main-image {
+    width: 100%;
+  }
+
+  .amenities-side-image {
+    display: none;
   }
 
   .amenities-copy-viewport {
@@ -3707,6 +4298,99 @@
     padding: 58px 0 78px;
   }
 
+  .stay-hero {
+    min-height: 560px;
+  }
+
+  .stay-hero-content {
+    padding: 58px 0 104px;
+  }
+
+  .availability-form {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    width: min(100% - 48px, 840px);
+  }
+
+  .availability-submit {
+    justify-self: start;
+  }
+
+  .stay-info-section {
+    padding: 36px 32px 64px;
+  }
+
+  .stay-info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .stay-info-card {
+    min-height: 150px;
+    border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18);
+  }
+
+  .stay-info-card:nth-child(-n + 2) {
+    border-top: 0;
+  }
+
+  .stay-info-card:nth-child(2n + 1) {
+    border-left: 0;
+  }
+
+  .stay-rooms-section {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    padding: 64px 32px 66px;
+  }
+
+  .stay-rooms-copy {
+    max-width: 680px;
+  }
+
+  .stay-rooms-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    border-top: 1px solid rgb(var(--color-brown-rgb) / 0.16);
+  }
+
+  .stay-room-card {
+    border-bottom: 1px solid rgb(var(--color-brown-rgb) / 0.16);
+  }
+
+  .stay-villa-section {
+    grid-template-columns: 1fr;
+    gap: 38px;
+    padding: 64px 32px 68px;
+  }
+
+  .stay-villa-copy {
+    max-width: 680px;
+  }
+
+  .stay-villa-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .stay-experience-section {
+    grid-template-columns: 1fr 1fr;
+    gap: 34px;
+    padding: 64px 32px 68px;
+  }
+
+  .stay-experience-copy {
+    grid-column: 1 / -1;
+    max-width: 680px;
+  }
+
+  .stay-experience-image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .stay-cta-section {
+    min-height: 260px;
+    padding: 64px 32px;
+  }
+
   .accommodation-intro-section {
     padding: 72px 32px 68px;
   }
@@ -3813,10 +4497,13 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 767px) {
   .hero {
-    min-height: 92vh;
-    background-position: 43% center;
+    min-height: 760px;
+    background-position: 39% center;
+  }
+  .amenities-top {
+    grid-template-columns: 1fr;
   }
 
   .site-header {
@@ -3840,26 +4527,52 @@
   }
 
   .hero-content {
-    padding: 5vh 0 3vh;
+    align-content: center;
+    gap: 14px;
+    width: calc(100% - 32px);
+    padding: 34px 0 22px;
   }
 
   .hero h1 {
-    font-size: var(--font-size-h1-mobile);
+    max-width: 430px;
+    font-size: 42px;
+    line-height: 0.98;
+  }
+
+  .hero-kicker {
+    font-size: 12px;
+    letter-spacing: 5px;
+  }
+
+  .hero-kicker-left {
+    order: -1;
+  }
+
+  .hero-kicker-right {
+    margin-top: 4px;
+  }
+
+  .hero-actions {
+    gap: 12px;
+    margin-top: 18px;
   }
 
   .hero-actions a {
-    min-width: min(100%, 210px);
+    min-width: 160px;
+    min-height: 36px;
+    padding-inline: 18px;
+    font-size: 11px;
   }
 
   .scroll-cue {
-    gap: 14px;
-    margin-bottom: 22px;
+    gap: 12px;
+    margin-bottom: 18px;
     font-size: var(--font-size-scroll-mobile);
     letter-spacing: var(--letter-spacing-wide);
   }
 
   .scroll-cue span {
-    height: 58px;
+    height: 46px;
   }
 
   .scroll-cue span::after {
@@ -3935,6 +4648,7 @@
   }
 
   .amenities-section {
+    --amenities-image-height: clamp(230px, 62vw, 330px);
     padding: 38px 0 44px;
   }
 
@@ -3950,10 +4664,6 @@
   .amenities-list,
   .amenities-copy h3 {
     font-size: var(--font-size-nav);
-  }
-
-  .amenities-side-image {
-    display: none;
   }
 
   .amenities-controls button {
@@ -4540,6 +5250,156 @@
   }
 
   .accommodation-hero-content > p:not(.accommodation-hero-eyebrow) {
+    font-size: var(--font-size-small);
+  }
+
+  .stay-hero {
+    min-height: 540px;
+    background-position: center;
+  }
+
+  .stay-hero .site-header {
+    padding-bottom: 18px;
+  }
+
+  .stay-hero-content {
+    width: min(100% - 32px, 520px);
+    padding: 46px 0 90px;
+  }
+
+  .stay-hero h1 {
+    font-size: var(--font-size-h1-mobile);
+  }
+
+  .stay-hero-content > p:not(.stay-hero-eyebrow) {
+    font-size: var(--font-size-small);
+  }
+
+  .availability-section {
+    padding-bottom: 46px;
+  }
+
+  .availability-form {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: min(100% - 32px, 520px);
+    margin-top: -42px;
+    padding: 26px 22px 24px;
+  }
+
+  .availability-submit {
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .stay-info-section {
+    padding: 32px 18px 52px;
+  }
+
+  .stay-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stay-info-card,
+  .stay-info-card:nth-child(-n + 2) {
+    min-height: auto;
+    padding: 26px 18px;
+    border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18);
+    border-left: 0;
+  }
+
+  .stay-info-card:first-child {
+    border-top: 0;
+  }
+
+  .stay-info-card h2 {
+    font-size: var(--font-size-global-h3);
+  }
+
+  .stay-rooms-section {
+    gap: 30px;
+    padding: 52px 18px 56px;
+  }
+
+  .stay-rooms-copy h2 {
+    font-size: var(--font-size-h2-mobile);
+  }
+
+  .stay-rooms-copy > p:not(.stay-rooms-eyebrow) {
+    font-size: var(--font-size-small);
+  }
+
+  .stay-rooms-grid {
+    grid-template-columns: 1fr;
+    border-left: 0;
+  }
+
+  .stay-room-card {
+    border-right: 0;
+  }
+
+  .stay-room-card-body {
+    padding: 20px 0 26px;
+  }
+
+  .stay-room-card h3 {
+    font-size: var(--font-size-global-h2);
+  }
+
+  .stay-room-card p {
+    font-size: var(--font-size-small);
+  }
+
+  .stay-villa-section {
+    gap: 30px;
+    padding: 52px 18px 56px;
+  }
+
+  .stay-villa-copy h2 {
+    font-size: var(--font-size-h2-mobile);
+  }
+
+  .stay-villa-copy > p:not(.stay-villa-eyebrow) {
+    font-size: var(--font-size-small);
+  }
+
+  .stay-villa-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .stay-villa-card {
+    gap: 14px;
+  }
+
+  .stay-experience-section {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 52px 18px 56px;
+  }
+
+  .stay-experience-copy h2 {
+    font-size: var(--font-size-h2-mobile);
+  }
+
+  .stay-experience-image {
+    aspect-ratio: 1 / 1;
+  }
+
+  .stay-experience-review blockquote {
+    font-size: var(--font-size-body);
+  }
+
+  .stay-cta-section {
+    min-height: 240px;
+    padding: 54px 18px;
+  }
+
+  .stay-cta-content h2 {
+    font-size: var(--font-size-h2-mobile);
+  }
+
+  .stay-cta-text {
     font-size: var(--font-size-small);
   }
 

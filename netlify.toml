@@ -15,6 +15,7 @@
   CONTENTFUL_GALLERY_CONTENT_TYPE = "gallery"
   CONTENTFUL_LOCATION_CONTENT_TYPE = "location"
   CONTENTFUL_EVENT_CONTENT_TYPE = "event"
+  CONTENTFUL_STAY_CONTENT_TYPE = "stay"
 
 # Set CONTENTFUL_ACCESS_TOKEN in Netlify:
 # Site settings > Environment variables > Add variable
