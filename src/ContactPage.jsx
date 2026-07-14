@@ -173,7 +173,7 @@ export default function ContactPage({
   return (
     <main>
       <section
-        className="contact-hero"
+        className="page-hero contact-hero"
         style={
           contact.bannerImage
             ? { "--contact-banner-image": `url(${contact.bannerImage})` }
@@ -183,9 +183,9 @@ export default function ContactPage({
       >
         <SiteHeader header={header} />
 
-        <div className="contact-hero-content">
+        <div className="page-hero-content contact-hero-content">
           {contact.bannerSubHeading && (
-            <p className="contact-hero-eyebrow">{contact.bannerSubHeading}</p>
+            <p className="page-hero-eyebrow contact-hero-eyebrow">{contact.bannerSubHeading}</p>
           )}
           {contact.bannerHeading && (
             <h1 id="contact-title">{contact.bannerHeading}</h1>
@@ -193,7 +193,7 @@ export default function ContactPage({
           {contact.bannerContent && <p>{contact.bannerContent}</p>}
           {hasButton && (
             <a
-              className="button button--light contact-hero-button"
+              className="button button--light page-hero-button contact-hero-button"
               href={contact.buttonUrl}
             >
               {contact.buttonText}

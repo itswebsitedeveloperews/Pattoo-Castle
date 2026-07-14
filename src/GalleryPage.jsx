@@ -83,7 +83,7 @@ export default function GalleryPage({
   return (
     <main>
       <section
-        className="gallery-hero"
+        className="page-hero gallery-hero"
         style={
           gallery.bannerImage
             ? { "--gallery-banner-image": `url(${gallery.bannerImage})` }
@@ -93,9 +93,9 @@ export default function GalleryPage({
       >
         <SiteHeader header={header} />
 
-        <div className="gallery-hero-content">
+        <div className="page-hero-content gallery-hero-content">
           {gallery.bannerSubHeading && (
-            <p className="gallery-hero-eyebrow">{gallery.bannerSubHeading}</p>
+            <p className="page-hero-eyebrow gallery-hero-eyebrow">{gallery.bannerSubHeading}</p>
           )}
           {gallery.bannerHeading && (
             <h1 id="gallery-title">{gallery.bannerHeading}</h1>
@@ -103,7 +103,7 @@ export default function GalleryPage({
           {gallery.bannerContent && <p>{gallery.bannerContent}</p>}
           {hasButton && (
             <a
-              className="button button--light gallery-hero-button"
+              className="button button--light page-hero-button gallery-hero-button"
               href={gallery.buttonUrl}
             >
               {gallery.buttonText}

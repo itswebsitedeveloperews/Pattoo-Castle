@@ -105,7 +105,7 @@ export default function OverviewPage({
   return (
     <main>
       <section
-        className="overview-hero"
+        className="page-hero overview-hero"
         style={
           overview.bannerImage
             ? { "--overview-banner-image": `url(${overview.bannerImage})` }
@@ -115,9 +115,9 @@ export default function OverviewPage({
       >
         <SiteHeader header={header} />
 
-        <div className="overview-hero-content">
+        <div className="page-hero-content overview-hero-content">
           {overview.bannerSubHeading && (
-            <p className="overview-hero-eyebrow">
+            <p className="page-hero-eyebrow overview-hero-eyebrow">
               {overview.bannerSubHeading}
             </p>
           )}
@@ -127,7 +127,7 @@ export default function OverviewPage({
           {overview.bannerContent && <p>{overview.bannerContent}</p>}
           {hasButton && (
             <a
-              className="button button--light overview-hero-button"
+              className="button button--light page-hero-button overview-hero-button"
               href={overview.buttonUrl}
             >
               {overview.buttonText}

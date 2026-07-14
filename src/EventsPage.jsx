@@ -194,7 +194,7 @@ export default function EventsPage({
   return (
     <main>
       <section
-        className="events-hero"
+        className="page-hero events-hero"
         style={
           event.bannerImage
             ? { "--events-banner-image": `url(${event.bannerImage})` }
@@ -204,16 +204,16 @@ export default function EventsPage({
       >
         <SiteHeader header={header} />
 
-        <div className="events-hero-content">
+        <div className="page-hero-content events-hero-content">
           {event.bannerSubHeading && (
-            <p className="events-hero-eyebrow">{event.bannerSubHeading}</p>
+            <p className="page-hero-eyebrow events-hero-eyebrow">{event.bannerSubHeading}</p>
           )}
           {event.bannerHeading && (
             <h1 id="events-title">{event.bannerHeading}</h1>
           )}
           {event.bannerContent && <p>{event.bannerContent}</p>}
           {hasButton && (
-            <a className="button button--light events-hero-button" href={event.buttonUrl}>
+            <a className="button button--light page-hero-button events-hero-button" href={event.buttonUrl}>
               {event.buttonText}
             </a>
           )}

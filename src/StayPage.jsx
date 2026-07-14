@@ -212,7 +212,7 @@ export default function StayPage({
   return (
     <main>
       <section
-        className="stay-hero"
+        className="page-hero stay-hero"
         style={
           stay.bannerImage
             ? {
@@ -224,14 +224,14 @@ export default function StayPage({
       >
         <SiteHeader header={header} />
 
-        <div className="stay-hero-content">
+        <div className="page-hero-content stay-hero-content">
           {stay.bannerSubHeading && (
-            <p className="stay-hero-eyebrow">{stay.bannerSubHeading}</p>
+            <p className="page-hero-eyebrow stay-hero-eyebrow">{stay.bannerSubHeading}</p>
           )}
           {stay.bannerHeading && <h1 id="stay-title">{stay.bannerHeading}</h1>}
           {stay.bannerContent && <p>{stay.bannerContent}</p>}
           {hasButton && (
-            <a className="button button--light stay-hero-button" href={stay.buttonUrl}>
+            <a className="button button--light page-hero-button stay-hero-button" href={stay.buttonUrl}>
               {stay.buttonText}
             </a>
           )}

@@ -135,7 +135,7 @@ export default function AccommodationPage({
   return (
     <main>
       <section
-        className="accommodation-hero"
+        className="page-hero accommodation-hero"
         style={
           accommodation.bannerImage
             ? {
@@ -149,9 +149,9 @@ export default function AccommodationPage({
       >
         <SiteHeader header={header} />
 
-        <div className="accommodation-hero-content">
+        <div className="page-hero-content accommodation-hero-content">
           {accommodation.bannerSubHeading && (
-            <p className="accommodation-hero-eyebrow">
+            <p className="page-hero-eyebrow accommodation-hero-eyebrow">
               {accommodation.bannerSubHeading}
             </p>
           )}
@@ -161,7 +161,7 @@ export default function AccommodationPage({
           {accommodation.bannerContent && <p>{accommodation.bannerContent}</p>}
           {hasButton && (
             <a
-              className="button button--light accommodation-hero-button"
+              className="button button--light page-hero-button accommodation-hero-button"
               href={accommodation.buttonUrl}
             >
               {accommodation.buttonText}

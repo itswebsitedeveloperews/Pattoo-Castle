@@ -154,7 +154,7 @@ export default function AboutPage({
   return (
     <main>
       <section
-        className="about-hero"
+        className="page-hero about-hero"
         style={
           about.bannerImage
             ? { "--about-banner-image": `url(${about.bannerImage})` }
@@ -164,14 +164,14 @@ export default function AboutPage({
       >
         <SiteHeader header={header} />
 
-        <div className="about-hero-content">
+        <div className="page-hero-content about-hero-content">
           {about.bannerSubHeading && (
-            <p className="about-hero-eyebrow">{about.bannerSubHeading}</p>
+            <p className="page-hero-eyebrow about-hero-eyebrow">{about.bannerSubHeading}</p>
           )}
           {about.bannerHeading && <h1 id="about-title">{about.bannerHeading}</h1>}
           {about.bannerContent && <p>{about.bannerContent}</p>}
           {hasButton && (
-            <a className="button button--light about-hero-button" href={about.buttonUrl}>
+            <a className="button button--light page-hero-button about-hero-button" href={about.buttonUrl}>
               {about.buttonText}
             </a>
           )}

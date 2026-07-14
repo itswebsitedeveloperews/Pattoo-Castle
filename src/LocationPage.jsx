@@ -117,7 +117,7 @@ export default function LocationPage({
   return (
     <main>
       <section
-        className="location-hero"
+        className="page-hero location-hero"
         style={
           location.bannerImage
             ? { "--location-banner-image": `url(${location.bannerImage})` }
@@ -127,9 +127,9 @@ export default function LocationPage({
       >
         <SiteHeader header={header} />
 
-        <div className="location-hero-content">
+        <div className="page-hero-content location-hero-content">
           {location.bannerSubHeading && (
-            <p className="location-hero-eyebrow">
+            <p className="page-hero-eyebrow location-hero-eyebrow">
               {location.bannerSubHeading}
             </p>
           )}
@@ -139,7 +139,7 @@ export default function LocationPage({
           {location.bannerContent && <p>{location.bannerContent}</p>}
           {hasButton && (
             <a
-              className="button button--light location-hero-button"
+              className="button button--light page-hero-button location-hero-button"
               href={location.buttonUrl}
             >
               {location.buttonText}

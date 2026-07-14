@@ -1,5 +1,6 @@
 import AmenitiesSlider from "./AmenitiesSlider";
 import GalleryPreviewSlider from "./GalleryPreviewSlider";
+import HeaderMenuLink from "./HeaderMenuLink";
 import ReserveStaySection from "./ReserveStaySection";
 import heroImage from "./assets/hero.png";
 import logo from "./assets/patto-logo.svg";
@@ -310,9 +311,7 @@ export function SiteHeader({ header }) {
       {header.menuItems.length > 0 && (
         <nav className="primary-nav" aria-label="Primary navigation">
           {header.menuItems.map((item, index) => (
-            <a href={item.url || "#"} key={`${item.name}-${index}`}>
-              {item.name}
-            </a>
+            <HeaderMenuLink item={item} key={`${item.name}-${index}`} />
           ))}
         </nav>
       )}
@@ -347,9 +346,7 @@ export function SiteHeader({ header }) {
             {header.menuItems.length > 0 && (
               <nav className="mobile-nav" aria-label="Mobile navigation">
                 {header.menuItems.map((item, index) => (
-                  <a href={item.url || "#"} key={`${item.name}-${index}`}>
-                    {item.name}
-                  </a>
+                  <HeaderMenuLink item={item} key={`${item.name}-${index}`} />
                 ))}
               </nav>
             )}

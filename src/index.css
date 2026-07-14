@@ -63,9 +63,8 @@
   color: var(--color-page-text);
   background: var(--color-page-bg);
   --font-body:
-    "Quattrocento Sans", ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: "Denton", Georgia, "Times New Roman", serif;
+    "Quattrocento Sans";
+  --font-display: "Denton";
   --color-page-text: #202938;
   --color-page-bg: #eef3f1;
   --color-heading: #111827;
@@ -88,6 +87,7 @@
   --font-size-small: 12px;
   --font-size-medium: 18px;
   --font-size-button-small: 14px;
+  --font-size-mobile-button-small: 12px;
   --font-size-high: 96px;
   --font-size-h1: 64px;
   --font-size-global-h1: 76px;
@@ -105,7 +105,7 @@
   --letter-spacing-none: 0;
   --letter-spacing-small: 2px;
   --letter-spacing-wide: 4px;
-  --button-min-height: 36px;
+  --button-min-height: 48px;
   --button-padding-x: 28px;
   --button-border-radius: 999px;
   --button-bg-light: rgb(var(--color-white) / var(--opacity-low));
