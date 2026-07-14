@@ -2,7 +2,7 @@
   position: relative;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  min-height: 96vh;
+  min-height: 100vh;
   overflow: hidden;
   color: rgb(var(--color-white));
   background-image:
@@ -53,10 +53,17 @@
 }
 
 .primary-nav a,
-.hero-kicker,
 .scroll-cue {
   color: rgb(var(--color-white) / var(--opacity-high));
   font-size: var(--font-size-nav);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-wide);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.hero-kicker{
+  color: rgb(var(--color-white) / var(--opacity-high));
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: var(--letter-spacing-wide);
   text-decoration: none;
@@ -1675,11 +1682,11 @@
   width: 100%;
   min-width: 0;
   min-height: 62px;
-  border: 1px solid rgb(var(--color-white) / 0.62);
+  border: 1px solid rgb(78 62 62);
   border-radius: 2px;
   padding: 14px 16px;
   color: rgb(var(--color-white));
-  background: rgb(var(--color-black) / 0.08);
+  background: rgb(68 52 52 / 8%);
   font: inherit;
   outline: none;
 }

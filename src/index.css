@@ -89,7 +89,7 @@
   --font-size-medium: 18px;
   --font-size-button-small: 14px;
   --font-size-high: 96px;
-  --font-size-h1: 68px;
+  --font-size-h1: 64px;
   --font-size-global-h1: 76px;
   --font-size-h1-mobile: 44px;
   --font-size-h2: 48px;
@@ -123,6 +123,10 @@
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -166,4 +170,10 @@ code {
   color: var(--color-code-text);
   font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
   font-size: var(--font-size-code);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
