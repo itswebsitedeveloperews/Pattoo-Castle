@@ -238,44 +238,6 @@ export default function StayPage({
         </div>
       </section>
 
-      <section className="availability-section" aria-labelledby="availability-title">
-        <form className="availability-form">
-          <h2 id="availability-title">Check Availability</h2>
-
-          <label>
-            <span>Check In</span>
-            <input type="text" placeholder="Select date" aria-label="Check in date" />
-          </label>
-
-          <label>
-            <span>Check Out</span>
-            <input type="text" placeholder="Select date" aria-label="Check out date" />
-          </label>
-
-          <label>
-            <span>Guests</span>
-            <select aria-label="Guests" defaultValue="">
-              <option value="" disabled>
-                Guests
-              </option>
-              <option value="1">1 Guest</option>
-              <option value="2">2 Guests</option>
-              <option value="3">3 Guests</option>
-              <option value="4">4 Guests</option>
-              <option value="5">5 Guests</option>
-              <option value="6">6 Guests</option>
-              <option value="7">7 Guests</option>
-              <option value="8">8 Guests</option>
-              <option value="9+">9+ Guests</option>
-            </select>
-          </label>
-
-          <button className="availability-submit" type="button">
-            Check Availability
-          </button>
-        </form>
-      </section>
-
       {stay.stayInformation.length > 0 && (
         <section className="stay-info-section" aria-label="Stay information">
           <div className="stay-info-grid">
@@ -289,6 +251,61 @@ export default function StayPage({
           </div>
         </section>
       )}
+
+      <section className="stay-inquiry-section" aria-labelledby="stay-inquiry-title">
+        <form className="stay-inquiry-form" id="stay-inquiry-form">
+          <div className="stay-inquiry-heading">
+            <span className="stay-inquiry-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M12 12.25a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" />
+                <path d="M5.75 19.5a6.25 6.25 0 0 1 12.5 0" />
+              </svg>
+            </span>
+            <h2 id="stay-inquiry-title">Contact Information</h2>
+          </div>
+
+          <div className="stay-inquiry-grid">
+            <label className="stay-inquiry-field">
+              <span>First Name</span>
+              <input type="text" name="firstName" placeholder="Enter first name" />
+            </label>
+
+            <label className="stay-inquiry-field">
+              <span>Last Name</span>
+              <input type="text" name="lastName" placeholder="Enter last name" />
+            </label>
+
+            <label className="stay-inquiry-field">
+              <span>Email</span>
+              <input type="email" name="email" placeholder="Enter email name" />
+            </label>
+
+            <label className="stay-inquiry-field">
+              <span>Phone</span>
+              <input type="tel" name="phone" placeholder="Enter Phone number" />
+            </label>
+
+            <label className="stay-inquiry-field stay-inquiry-field--half">
+              <span>Check-in Date</span>
+              <input type="date" name="checkIn" aria-label="Check-in date" />
+            </label>
+
+            <label className="stay-inquiry-field stay-inquiry-field--half">
+              <span>Check-Out Date</span>
+              <input type="date" name="checkOut" aria-label="Check-out date" />
+            </label>
+
+            <label className="stay-inquiry-field stay-inquiry-field--full">
+              <span>Details</span>
+              <textarea name="details" placeholder="Tell us more about your stay..." />
+            </label>
+          </div>
+        </form>
+
+        <button className="stay-inquiry-submit" type="submit" form="stay-inquiry-form">
+          Send Inquiry
+        </button>
+      </section>
 
       {hasRoomsSection && (
         <section

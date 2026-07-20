@@ -63,6 +63,11 @@ export const contentfulConfig = {
     process.env.NEXT_PUBLIC_CONTENTFUL_EVENT_CONTENT_TYPE ||
     process.env.VITE_CONTENTFUL_EVENT_CONTENT_TYPE ||
     'event',
+  eventDetailsContentType:
+    process.env.CONTENTFUL_EVENT_DETAILS_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_EVENT_DETAILS_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_EVENT_DETAILS_CONTENT_TYPE ||
+    'eventDetails',
   stayContentType:
     process.env.CONTENTFUL_STAY_CONTENT_TYPE ||
     process.env.NEXT_PUBLIC_CONTENTFUL_STAY_CONTENT_TYPE ||
@@ -140,6 +145,14 @@ const eventContentTypes = [
   'event-page',
   'eventsPage',
   'events-page',
+].filter(Boolean)
+
+const eventDetailsContentTypes = [
+  contentfulConfig.eventDetailsContentType,
+  'eventDetails',
+  'event-details',
+  'eventDetail',
+  'event-detail',
 ].filter(Boolean)
 
 const stayContentTypes = [
@@ -224,7 +237,7 @@ function resolveContentfulLinks(response) {
   return (response.items || []).map((item) => resolveValue(item))
 }
 
-async function getEntriesByContentType(contentType) {
+async function getEntriesByContentType(contentType, query = {}) {
   if (!isContentfulConfigured || !contentType) {
     return []
   }
@@ -236,6 +249,13 @@ async function getEntriesByContentType(contentType) {
     limit: '1',
     order: '-sys.updatedAt',
   })
+
+  for (const [key, value] of Object.entries(query)) {
+    if (value !== undefined && value !== null && value !== '') {
+      params.set(key, String(value))
+    }
+  }
+
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 8000)
   const response = await fetch(
@@ -441,6 +461,28 @@ export async function getEventEntry() {
   for (const contentType of [...new Set(eventContentTypes)]) {
     try {
       const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getEventDetailsEntryBySlug(slug) {
+  if (!isContentfulConfigured || !slug) {
+    return null
+  }
+
+  for (const contentType of [...new Set(eventDetailsContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType, {
+        'fields.eventSlug': slug,
+      })
 
       if (items[0]) {
         return items[0]
