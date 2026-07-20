@@ -3151,7 +3151,7 @@
 .gallery-intro-section {
   display: grid;
   justify-items: center;
-  padding: 70px 24px 66px;
+  padding: 60px 24px;
   color: rgb(var(--color-white));
   background: var(--color-brown);
   text-align: center;
@@ -3180,9 +3180,8 @@
 
 .gallery-intro-section > p:not(.gallery-intro-eyebrow) {
   max-width: 600px;
-  margin-top: 22px;
   color: rgb(var(--color-white) / var(--opacity-high));
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
@@ -3281,6 +3280,7 @@
   padding: 36px 24px 32px;
   background: var(--color-brown);
   text-align: center;
+  margin-bottom: 3px;
 }
 
 .gallery-pattoo-quote span {
@@ -3759,7 +3759,7 @@
 .stay-experience-content li::before {
   content: "✓";
   position: absolute;
-  top: 0;
+  top: 6px;
   left: 0;
   color: var(--color-brown);
   font-size: var(--font-size-small);
@@ -3942,6 +3942,7 @@
   display: grid;
   justify-items: center;
   align-content: start;
+  grid-template-rows: auto auto minmax(56px, auto) auto;
   min-height: 220px;
   padding: 48px 30px 0;
   text-align: center;
@@ -3970,6 +3971,9 @@
 }
 
 .accommodation-intro-item span {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   margin-top: 10px;
   color: rgb(var(--color-white));
   font-family: var(--font-display);
@@ -3979,7 +3983,7 @@
 
 .accommodation-intro-item p {
   max-width: 220px;
-  margin-top: 10px;
+  margin-top: 0;
   color: rgb(var(--color-white) / var(--opacity-high));
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
@@ -4710,9 +4714,6 @@
   .page-hero-eyebrow{
     font-size: var(--font-size-button-small);
   }
-  .button{
-    font-size: var(--font-size-mobile-button-small);
-  }
 
   .event-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -5175,7 +5176,7 @@
 
   .stay-experience-copy {
     grid-column: 1 / -1;
-    max-width: 680px;
+    max-width: 100%;
   }
 
   .stay-experience-image {
@@ -5198,6 +5199,9 @@
 
   .accommodation-intro-grid{
     margin-top: 30px;
+  }
+  .accommodation-intro-item{
+    padding: 30px;
   }
 
   .accommodation-intro-description {
@@ -5363,9 +5367,6 @@
     min-height: 36px;
     padding-inline: 18px;
     font-size: 12px;
-  }
-  .button{
-    font-size: var(--font-size-small);
   }
 
   .scroll-cue {
@@ -6063,10 +6064,6 @@
     font-size: var(--font-size-small);
   }
 
-  .gallery-intro-section > p:not(.gallery-intro-eyebrow) {
-    margin-top: 22px;
-  }
-
   .gallery-grid-section {
     padding: 32px 18px 46px;
   }
@@ -6074,10 +6071,6 @@
   .gallery-filter-list {
     gap: 12px 18px;
     margin-bottom: 24px;
-  }
-
-  .gallery-filter-button {
-    font-size: var(--font-size-small);
   }
 
   .gallery-filter-grid {
@@ -6272,10 +6265,10 @@
 
   .accommodation-intro-item,
   .accommodation-intro-item:nth-child(2n) {
-    min-height: auto;
-    padding: 34px 18px;
+    /* min-height: auto;
     border-right: 0;
-    border-top: 1px solid rgb(var(--color-white) / 0.18);
+    border-top: 1px solid rgb(var(--color-white) / 0.18); */
+    padding: 34px 18px;
   }
 
   .accommodation-intro-item:first-child {
@@ -6290,13 +6283,8 @@
     font-size: 44px;
   }
 
-  .accommodation-intro-item span {
-    font-size: 18px;
-  }
-
   .accommodation-intro-item p {
     max-width: 300px;
-    font-size: var(--font-size-small);
   }
 
   .accommodation-rooms-section {
@@ -6312,7 +6300,6 @@
   }
 
   .accommodation-rooms-header > p:not(.accommodation-rooms-eyebrow) {
-    font-size: var(--font-size-small);
     margin-top: 10px;
   }
   .accommodation-rooms-button{
@@ -6433,9 +6420,6 @@
 }
 
 @media (max-width: 600px) {
-.accommodation-intro-grid {
-    grid-template-columns: 1fr;
-}
 .accommodation-rooms-grid {
     grid-template-columns: 1fr;
   }
@@ -6450,6 +6434,15 @@
 }
 }
 @media (max-width: 420px) {
+  .accommodation-intro-grid {
+    grid-template-columns: 1fr;
+}
+.accommodation-intro-item,
+  .accommodation-intro-item:nth-child(2n) {
+    min-height: auto;
+    border-right: 0;
+    border-top: 1px solid rgb(var(--color-white) / 0.18);
+  }
   .page-hero-content,
   .contact-cta-content {
     width: calc(100% - 28px);
@@ -6566,5 +6559,251 @@
 
   .event-inquiry-submit {
     width: 100%;
+  }
+}
+
+@media (max-width: 1180px) {
+  .stay-info-section {
+    padding: 58px 32px 28px;
+  }
+
+  .stay-info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stay-info-card {
+    padding: 28px 26px;
+    border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18);
+  }
+
+  .stay-info-card:nth-child(-n + 2) {
+    border-top: 0;
+  }
+
+  .stay-info-card:nth-child(2n + 1) {
+    border-left: 0;
+  }
+
+  .stay-inquiry-section {
+    padding: 34px 32px 68px;
+  }
+
+  .stay-inquiry-form {
+    width: min(100%, 900px);
+  }
+
+  .stay-rooms-section {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    padding: 66px 32px 70px;
+  }
+
+  .stay-rooms-copy {
+    max-width: 720px;
+  }
+
+  .stay-rooms-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid rgb(var(--color-brown-rgb) / 0.16);
+  }
+
+  .stay-room-card {
+    border-bottom: 1px solid rgb(var(--color-brown-rgb) / 0.16);
+  }
+
+  .stay-room-card:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .stay-villa-section {
+    grid-template-columns: 1fr;
+    gap: 38px;
+    padding: 66px 32px 70px;
+  }
+
+  .stay-villa-copy {
+    max-width: 720px;
+  }
+
+  .stay-experience-section {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 34px;
+    padding: 66px 32px 70px;
+  }
+
+  .stay-experience-copy {
+    grid-column: 1 / -1;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 980px) {
+  .stay-inquiry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stay-inquiry-field--half,
+  .stay-inquiry-field--full {
+    grid-column: 1 / -1;
+  }
+
+  .stay-villa-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stay-experience-image {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 767px) {
+  .stay-info-section {
+    padding: 34px 18px 22px;
+  }
+
+  .stay-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stay-info-card,
+  .stay-info-card:nth-child(-n + 2),
+  .stay-info-card:nth-child(2n + 1) {
+    min-height: auto;
+    padding: 26px 18px;
+    border-left: 0;
+    border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18);
+  }
+
+  .stay-info-card:first-child {
+    border-top: 0;
+  }
+
+  .stay-info-card p {
+    font-size: var(--font-size-nav);
+  }
+
+  .stay-inquiry-section {
+    gap: 22px;
+    padding: 28px 18px 54px;
+  }
+
+  .stay-inquiry-form {
+    padding: 20px 16px 22px;
+  }
+
+  .stay-inquiry-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .stay-inquiry-field,
+  .stay-inquiry-field--half,
+  .stay-inquiry-field--full {
+    grid-column: 1 / -1;
+  }
+
+  .stay-inquiry-field span {
+    font-size: var(--font-size-nav);
+  }
+
+  .stay-inquiry-field input,
+  .stay-inquiry-field textarea {
+    min-height: 46px;
+    font-size: var(--font-size-nav);
+  }
+
+  .stay-inquiry-submit,
+  .stay-rooms-button,
+  .stay-cta-button {
+    width: 100%;
+  }
+
+  .stay-rooms-section,
+  .stay-villa-section,
+  .stay-experience-section {
+    gap: 30px;
+    padding: 52px 18px 56px;
+  }
+
+  .stay-rooms-grid,
+  .stay-villa-grid,
+  .stay-experience-section {
+    grid-template-columns: 1fr;
+  }
+
+  .stay-room-card,
+  .stay-room-card:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .stay-room-card-body {
+    padding: 20px 18px 26px;
+  }
+
+  .stay-villa-card img,
+  .stay-experience-image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .stay-experience-copy {
+    grid-column: auto;
+  }
+
+  .stay-experience-review {
+    max-width: none;
+  }
+
+  .stay-cta-section {
+    min-height: 240px;
+    padding: 54px 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .stay-inquiry-heading {
+    align-items: flex-start;
+  }
+
+  .stay-inquiry-heading h2 {
+    font-size: var(--font-size-global-h3);
+  }
+
+  .stay-villa-grid {
+    gap: 28px;
+  }
+
+  .stay-experience-review blockquote {
+    font-size: var(--font-size-body);
+  }
+}
+
+@media (max-width: 420px) {
+  .stay-info-section,
+  .stay-inquiry-section,
+  .stay-rooms-section,
+  .stay-villa-section,
+  .stay-experience-section,
+  .stay-cta-section {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .stay-inquiry-form {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .stay-inquiry-heading {
+    gap: 10px;
+  }
+
+  .stay-inquiry-field span {
+    left: 10px;
+  }
+
+  .stay-inquiry-field input,
+  .stay-inquiry-field textarea {
+    padding-right: 10px;
+    padding-left: 10px;
   }
 }
