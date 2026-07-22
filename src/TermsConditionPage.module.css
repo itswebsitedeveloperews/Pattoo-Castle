@@ -1,0 +1,136 @@
+.termsConditionHero {
+  --page-hero-image: var(--terms-condition-banner-image);
+  --page-hero-overlay-opacity: 0.48;
+}
+
+.contentSection {
+  padding: 76px var(--container-gutter) 84px;
+  color: var(--color-brown);
+  background: var(--color-cream);
+}
+
+.contentInner {
+  width: min(100%, 940px);
+  margin: 0 auto;
+}
+
+.contentInner > *:first-child {
+  margin-top: 0;
+}
+
+.contentInner h1,
+.contentInner h2 {
+  margin: 44px 0 16px;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: var(--font-size-global-h2);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-heading);
+}
+
+.contentInner h1 {
+  font-size: var(--font-size-h2);
+}
+
+.contentInner h3 {
+  margin: 34px 0 14px;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: var(--font-size-global-h3);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-heading);
+}
+
+.contentInner h4,
+.contentInner h5,
+.contentInner h6 {
+  margin: 28px 0 12px;
+  color: var(--color-brown);
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-heading);
+}
+
+.contentInner h4 {
+  font-size: 22px;
+}
+
+.contentInner h5 {
+  font-size: 18px;
+}
+
+.contentInner h6 {
+  font-size: var(--font-size-body);
+  letter-spacing: var(--letter-spacing-small);
+  text-transform: uppercase;
+}
+
+.contentInner p,
+.contentInner li {
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.contentInner p {
+  margin: 0 0 18px;
+}
+
+.contentInner ul,
+.contentInner ol {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 24px;
+  padding-left: 24px;
+}
+
+.contentInner ul li p {
+  margin: 0;
+}
+
+.contentInner a {
+  color: var(--color-brown);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+@media (max-width: 767px) {
+  .contentSection {
+    padding: 52px 18px 58px;
+  }
+
+  .contentInner h1,
+  .contentInner h2 {
+    margin-top: 36px;
+    font-size: var(--font-size-global-h3);
+  }
+
+  .contentInner h3 {
+    margin-top: 28px;
+    font-size: 20px;
+  }
+
+  .contentInner h4 {
+    font-size: 18px;
+  }
+
+  .contentInner h5,
+  .contentInner h6 {
+    font-size: var(--font-size-body);
+  }
+
+  .contentInner p,
+  .contentInner li {
+    font-size: var(--font-size-nav);
+  }
+}
+
+@media (max-width: 420px) {
+  .contentSection {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+}

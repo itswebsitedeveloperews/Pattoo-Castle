@@ -78,6 +78,16 @@ export const contentfulConfig = {
     process.env.NEXT_PUBLIC_CONTENTFUL_CONTACT_CONTENT_TYPE ||
     process.env.VITE_CONTENTFUL_CONTACT_CONTENT_TYPE ||
     'contactUs',
+  privacyPolicyContentType:
+    process.env.CONTENTFUL_PRIVACY_POLICY_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_PRIVACY_POLICY_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_PRIVACY_POLICY_CONTENT_TYPE ||
+    'privacyPolicy',
+  termsConditionContentType:
+    process.env.CONTENTFUL_TERMS_CONDITION_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_TERMS_CONDITION_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_TERMS_CONDITION_CONTENT_TYPE ||
+    'termsCondition',
 }
 
 const homePageContentTypes = [
@@ -169,6 +179,26 @@ const contactContentTypes = [
   'contact',
   'contactPage',
   'contact-page',
+].filter(Boolean)
+
+const privacyPolicyContentTypes = [
+  contentfulConfig.privacyPolicyContentType,
+  'privacyPolicy',
+  'privacy-policy',
+  'privacyPolicyPage',
+  'privacy-policy-page',
+].filter(Boolean)
+
+const termsConditionContentTypes = [
+  contentfulConfig.termsConditionContentType,
+  'termsCondition',
+  'terms-condition',
+  'termsAndCondition',
+  'terms-and-condition',
+  'termsConditions',
+  'terms-conditions',
+  'termsConditionPage',
+  'terms-condition-page',
 ].filter(Boolean)
 
 export const isContentfulConfigured =
@@ -521,6 +551,46 @@ export async function getContactEntry() {
   }
 
   for (const contentType of [...new Set(contactContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getPrivacyPolicyEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(privacyPolicyContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getTermsConditionEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(termsConditionContentTypes)]) {
     try {
       const items = await getEntriesByContentType(contentType)
 

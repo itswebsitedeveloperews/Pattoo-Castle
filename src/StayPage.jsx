@@ -23,13 +23,17 @@ function renderRichTextNode(node, key) {
   if (node.nodeType === "text") {
     let value = node.value || "";
 
-    (node.marks || []).forEach((mark) => {
+    (node.marks || []).forEach((mark, markIndex) => {
       if (mark.type === "bold") {
-        value = <strong>{value}</strong>;
+        value = <strong key={`${key}-bold-${markIndex}`}>{value}</strong>;
       }
 
       if (mark.type === "italic") {
-        value = <em>{value}</em>;
+        value = <em key={`${key}-italic-${markIndex}`}>{value}</em>;
+      }
+
+      if (mark.type === "underline") {
+        value = <u key={`${key}-underline-${markIndex}`}>{value}</u>;
       }
     });
 
