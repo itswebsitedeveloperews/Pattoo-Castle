@@ -62,8 +62,7 @@
 :root {
   color: var(--color-page-text);
   background: var(--color-page-bg);
-  --font-body:
-    "Quattrocento Sans";
+  --font-body: "Quattrocento Sans";
   --font-display: "Denton";
   --color-page-text: #202938;
   --color-page-bg: #eef3f1;
@@ -76,17 +75,16 @@
   --color-brown-dark: #513624;
   --color-brown-darker: #2f1e14;
   --color-brown-rgb: 81 54 36;
-  --color-cream: #FBF8F2;
-  --color-dark-cream: #F3EADF;
+  --color-cream: #fbf8f2;
+  --color-dark-cream: #f3eadf;
   --color-code-bg: #e6ece8;
   --color-code-text: #1d3b35;
   --shadow-hero-text: 0 2px 18px rgb(var(--color-black) / 0.26);
   --shadow-soft-text: 0 1px 10px rgb(var(--color-black) / 0.2);
+  --font-size-small: 14px;
   --font-size-body: 16px;
-  --font-size-code: 14px;
-  --font-size-nav: 14px;
-  --font-size-small: 12px;
   --font-size-medium: 18px;
+  --font-size-large: 20px;
   --font-size-button-small: 14px;
   --font-size-mobile-button-small: 12px;
   --font-size-high: 96px;
@@ -105,7 +103,8 @@
   --line-height-heading: 1.25;
   --letter-spacing-none: 0;
   --letter-spacing-small: 2px;
-  --letter-spacing-wide: 4px;
+  --letter-spacing-heading: 2%;
+  --letter-spacing-wide: 19%;
   --button-min-height: 48px;
   --button-padding-x: 28px;
   --button-border-radius: 999px;
@@ -120,6 +119,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --golden-sand: #e6c394;
 }
 
 * {
@@ -134,6 +134,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  font-size: var(--font-size-medium);
+  line-height: 1.25;
 }
 
 h1,
@@ -170,7 +172,7 @@ code {
   background: var(--color-code-bg);
   color: var(--color-code-text);
   font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
-  font-size: var(--font-size-code);
+  font-size: var(--font-size-small);
 }
 
 @media (prefers-reduced-motion: reduce) {
