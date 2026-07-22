@@ -303,79 +303,86 @@ export function SiteHeader({ header }) {
   return (
     <header className="site-header">
       {header.logoSrc && (
-        <a className="brand" href="/" aria-label="Pattoo Castle home">
-          <img src={header.logoSrc} alt="Pattoo Castle" />
-        </a>
-      )}
-
-      {header.menuItems.length > 0 && (
-        <nav className="primary-nav" aria-label="Primary navigation">
-          {header.menuItems.map((item, index) => (
-            <HeaderMenuLink item={item} key={`${item.name}-${index}`} />
-          ))}
-        </nav>
-      )}
-
-      <div className="header-actions">
-        {hasHeaderButton && (
-          <a className="button button--light enquire-link" href={header.buttonUrl}>
-            {header.buttonText}
+        <div className="navbar-logo">
+          <a className="brand" href="/" aria-label="Pattoo Castle home">
+            <img src={header.logoSrc} alt="Pattoo Castle" />
           </a>
+        </div>
+      )}
+
+      <div className="right-header">
+        {header.menuItems.length > 0 && (
+          <nav className="primary-nav" aria-label="Primary navigation">
+            {header.menuItems.map((item, index) => (
+              <HeaderMenuLink item={item} key={`${item.name}-${index}`} />
+            ))}
+            {hasHeaderButton && (
+              <a
+                className="button button--light enquire-link"
+                href={header.buttonUrl}
+              >
+                {header.buttonText}
+              </a>
+            )}
+          </nav>
         )}
-        {header.socialLinks.map((item, index) => (
-          <a
-            className="social-link"
-            href={item.url || "#"}
-            key={`${item.url}-${index}`}
-            aria-label={`Social link ${index + 1}`}
-          >
-            {item.iconSrc && <img src={item.iconSrc} alt="" />}
-          </a>
-        ))}
+
+        <div className="header-actions">
+          {header.socialLinks.map((item, index) => (
+            <a
+              className="social-link"
+              href={item.url || "#"}
+              key={`${item.url}-${index}`}
+              aria-label={`Social link ${index + 1}`}
+            >
+              {item.iconSrc && <img src={item.iconSrc} alt="" />}
+            </a>
+          ))}
+        </div>
+
+        {hasMobileMenu && (
+          <details className="mobile-menu">
+            <summary aria-label="Open menu">
+              <span />
+              <span />
+              <span />
+            </summary>
+
+            <div className="mobile-menu-panel">
+              {header.menuItems.length > 0 && (
+                <nav className="mobile-nav" aria-label="Mobile navigation">
+                  {header.menuItems.map((item, index) => (
+                    <HeaderMenuLink item={item} key={`${item.name}-${index}`} />
+                  ))}
+                </nav>
+              )}
+
+              {(hasHeaderButton || header.socialLinks.length > 0) && (
+                <div className="mobile-header-actions">
+                  {hasHeaderButton && (
+                    <a
+                      className="button button--light enquire-link"
+                      href={header.buttonUrl}
+                    >
+                      {header.buttonText}
+                    </a>
+                  )}
+                  {header.socialLinks.map((item, index) => (
+                    <a
+                      className="social-link"
+                      href={item.url || "#"}
+                      key={`${item.url}-${index}`}
+                      aria-label={`Social link ${index + 1}`}
+                    >
+                      {item.iconSrc && <img src={item.iconSrc} alt="" />}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          </details>
+        )}
       </div>
-
-      {hasMobileMenu && (
-        <details className="mobile-menu">
-          <summary aria-label="Open menu">
-            <span />
-            <span />
-            <span />
-          </summary>
-
-          <div className="mobile-menu-panel">
-            {header.menuItems.length > 0 && (
-              <nav className="mobile-nav" aria-label="Mobile navigation">
-                {header.menuItems.map((item, index) => (
-                  <HeaderMenuLink item={item} key={`${item.name}-${index}`} />
-                ))}
-              </nav>
-            )}
-
-            {(hasHeaderButton || header.socialLinks.length > 0) && (
-              <div className="mobile-header-actions">
-                {hasHeaderButton && (
-                  <a
-                    className="button button--light enquire-link"
-                    href={header.buttonUrl}
-                  >
-                    {header.buttonText}
-                  </a>
-                )}
-                {header.socialLinks.map((item, index) => (
-                  <a
-                    className="social-link"
-                    href={item.url || "#"}
-                    key={`${item.url}-${index}`}
-                    aria-label={`Social link ${index + 1}`}
-                  >
-                    {item.iconSrc && <img src={item.iconSrc} alt="" />}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-        </details>
-      )}
     </header>
   );
 }
@@ -383,17 +390,17 @@ export function SiteHeader({ header }) {
 export function SiteFooter({ footer }) {
   const hasContact = Boolean(
     footer.location ||
-      footer.phone ||
-      footer.email ||
-      footer.socialLinks.length,
+    footer.phone ||
+    footer.email ||
+    footer.socialLinks.length,
   );
   const hasFooter = Boolean(
     footer.logoSrc ||
-      hasContact ||
-      footer.menuItems.length ||
-      footer.copyright ||
-      footer.designBy ||
-      footer.footerBarMenu,
+    hasContact ||
+    footer.menuItems.length ||
+    footer.copyright ||
+    footer.designBy ||
+    footer.footerBarMenu,
   );
 
   if (!hasFooter) {
@@ -467,7 +474,9 @@ export function SiteFooter({ footer }) {
                   <span>{richTextToReact(footer.designByRichText)}</span>
                 )}
                 {footer.footerBarMenu && (
-                  <a href={footer.footerBarUrl || "#"}>{footer.footerBarMenu}</a>
+                  <a href={footer.footerBarUrl || "#"}>
+                    {footer.footerBarMenu}
+                  </a>
                 )}
               </div>
             )}
@@ -488,24 +497,24 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
   );
   const hasIntroSection = Boolean(
     homePage.introLogo ||
-      homePage.introHeading ||
-      homePage.introDescription ||
-      homePage.numberBlock.length ||
-      homePage.introImage,
+    homePage.introHeading ||
+    homePage.introDescription ||
+    homePage.numberBlock.length ||
+    homePage.introImage,
   );
   const hasEventButton = Boolean(
     homePage.eventButtonText && homePage.eventButtonUrl,
   );
   const hasEventSection = Boolean(
     homePage.eventSectionHeading ||
-      homePage.eventSectionHighlight ||
-      homePage.eventCards.length ||
-      hasEventButton,
+    homePage.eventSectionHighlight ||
+    homePage.eventCards.length ||
+    hasEventButton,
   );
   const hasAmenitiesSection = Boolean(
     homePage.amenitiesEyebrow ||
-      homePage.amenitiesHeading ||
-      homePage.amenitiesItems.length,
+    homePage.amenitiesHeading ||
+    homePage.amenitiesItems.length,
   );
   const hasCaribbeanLivingButton = Boolean(
     homePage.caribbeanLivingButtonText && homePage.caribbeanLivingButtonUrl,
@@ -515,10 +524,10 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
   );
   const hasCaribbeanLivingSection = Boolean(
     homePage.caribbeanLivingImage ||
-      homePage.caribbeanLivingTitle ||
-      homePage.caribbeanLivingContent ||
-      hasCaribbeanLivingButton ||
-      hasCaribbeanLivingButton2,
+    homePage.caribbeanLivingTitle ||
+    homePage.caribbeanLivingContent ||
+    hasCaribbeanLivingButton ||
+    hasCaribbeanLivingButton2,
   );
   const hasExploreExperiencesSection = homePage.exploreExperiences.length > 0;
   const hasFeaturedQuoteSection = Boolean(
@@ -532,323 +541,330 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
   );
   const hasReserveButton = Boolean(
     homePage.reserveYourStayDate.buttonText &&
-      homePage.reserveYourStayDate.buttonUrl,
+    homePage.reserveYourStayDate.buttonUrl,
   );
   const hasReserveSection = Boolean(
     homePage.reserveYourStayImage ||
-      homePage.reserveYourStayVideo ||
-      homePage.reserveYourStayDate.title ||
-      homePage.reserveYourStayDate.content ||
-      hasReserveButton,
+    homePage.reserveYourStayVideo ||
+    homePage.reserveYourStayDate.title ||
+    homePage.reserveYourStayDate.content ||
+    hasReserveButton,
   );
 
   return (
-    <main>
-      <section
-        className="hero"
-        style={{ "--hero-image": `url(${getAssetSrc(heroImage)})` }}
-        aria-label="Pattoo Castle in Negril, Jamaica"
-      >
-        <SiteHeader header={header} />
-
-        <div className="hero-content">
-          {homePage.heroLeftText && (
-            <div className="hero-kicker hero-kicker-left">
-              {homePage.heroLeftText}
+    <>
+      <SiteHeader header={header} />
+      <main className="site-main">
+        <section
+          className="hero"
+          style={{ "--hero-image": `url(${getAssetSrc(heroImage)})` }}
+          aria-label="Pattoo Castle in Negril, Jamaica"
+        >
+          <div className="hero-content">
+            {homePage.heroLeftText && (
+              <div className="hero-kicker hero-kicker-left">
+                {homePage.heroLeftText}
+              </div>
+            )}
+            <div className="hero-heading-wrap">
+              {homePage.heroHeading && <h1>{homePage.heroHeading}</h1>}
+              {(hasPrimaryButton || hasSecondaryButton) && (
+                <div className="hero-actions">
+                  {hasPrimaryButton && (
+                    <a
+                      className="button button--light hero-button"
+                      href={homePage.buttonUrl}
+                    >
+                      {homePage.buttonText}
+                    </a>
+                  )}
+                  {hasSecondaryButton && (
+                    <a
+                      className="button button--light hero-button"
+                      href={homePage.button2Url}
+                    >
+                      {homePage.button2Text}
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
-          )}
-          <div className="hero-heading-wrap">
-            {homePage.heroHeading && <h1>{homePage.heroHeading}</h1>}
-            {(hasPrimaryButton || hasSecondaryButton) && (
-              <div className="hero-actions">
-                {hasPrimaryButton && (
-                  <a
-                    className="button button--light hero-button"
-                    href={homePage.buttonUrl}
-                  >
-                    {homePage.buttonText}
-                  </a>
-                )}
-                {hasSecondaryButton && (
-                  <a
-                    className="button button--light hero-button"
-                    href={homePage.button2Url}
-                  >
-                    {homePage.button2Text}
-                  </a>
-                )}
+            {homePage.heroRightText && (
+              <div className="hero-kicker hero-kicker-right">
+                {homePage.heroRightText}
               </div>
             )}
           </div>
-          {homePage.heroRightText && (
-            <div className="hero-kicker hero-kicker-right">
-              {homePage.heroRightText}
+
+          <a
+            className="scroll-cue"
+            href="#overview"
+            aria-label="Scroll to overview"
+          >
+            <span />
+            Scroll more
+          </a>
+        </section>
+
+        <span className="section-anchor" id="overview" aria-hidden="true" />
+
+        {hasIntroSection && (
+          <section
+            className="intro-section"
+            aria-labelledby={homePage.introHeading ? "intro-title" : undefined}
+          >
+            <div className="intro-panel">
+              {homePage.introLogo && (
+                <img
+                  className="intro-logo"
+                  src={homePage.introLogo}
+                  alt=""
+                  aria-hidden="true"
+                />
+              )}
+
+              {homePage.introHeading && (
+                <h2 id="intro-title">{homePage.introHeading}</h2>
+              )}
+
+              {homePage.introDescription && (
+                <p className="intro-description">{homePage.introDescription}</p>
+              )}
+
+              {homePage.numberBlock.length > 0 && (
+                <div className="number-block" aria-label="Villa highlights">
+                  {homePage.numberBlock.map((item, index) => (
+                    <div className="number-item" key={`${item.value}-${index}`}>
+                      {item.imageSrc && (
+                        <img
+                          className="number-item-image"
+                          src={item.imageSrc}
+                          alt=""
+                        />
+                      )}
+                      {item.value && <strong>{item.value}</strong>}
+                      {item.label && <span>{item.label}</span>}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          )}
-        </div>
 
-        <a
-          className="scroll-cue"
-          href="#overview"
-          aria-label="Scroll to overview"
-        >
-          <span />
-          Scroll more
-        </a>
-      </section>
+            {homePage.introImage && (
+              <div className="intro-image-wrap">
+                <img src={homePage.introImage} alt="" />
+              </div>
+            )}
+          </section>
+        )}
 
-      <span className="section-anchor" id="overview" aria-hidden="true" />
+        {hasEventSection && (
+          <section
+            className="event-section"
+            id="events"
+            aria-labelledby={
+              homePage.eventSectionHeading ? "event-title" : undefined
+            }
+          >
+            {(homePage.eventSectionHeading ||
+              homePage.eventSectionHighlight) && (
+              <h2 id="event-title">
+                {homePage.eventSectionHeading && (
+                  <span>{homePage.eventSectionHeading}</span>
+                )}
+                {homePage.eventSectionHighlight && (
+                  <strong>{homePage.eventSectionHighlight}</strong>
+                )}
+              </h2>
+            )}
 
-      {hasIntroSection && (
-        <section
-          className="intro-section"
-          aria-labelledby={homePage.introHeading ? "intro-title" : undefined}
-        >
-          <div className="intro-panel">
-            {homePage.introLogo && (
+            {homePage.eventCards.length > 0 && (
+              <div className="event-card-grid">
+                {homePage.eventCards.map((imageSrc, index) => (
+                  <article className="event-card" key={`${imageSrc}-${index}`}>
+                    <img src={imageSrc} alt="" />
+                  </article>
+                ))}
+              </div>
+            )}
+
+            {hasEventButton && (
+              <a
+                className="button button--brown event-button"
+                href={homePage.eventButtonUrl}
+              >
+                {homePage.eventButtonText}
+              </a>
+            )}
+          </section>
+        )}
+
+        {hasAmenitiesSection && (
+          <span
+            className="section-anchor"
+            id="accommodation"
+            aria-hidden="true"
+          />
+        )}
+
+        {hasAmenitiesSection && (
+          <AmenitiesSlider
+            eyebrow={homePage.amenitiesEyebrow}
+            heading={homePage.amenitiesHeading}
+            items={homePage.amenitiesItems}
+          />
+        )}
+
+        {hasCaribbeanLivingSection && (
+          <section
+            className="caribbean-living-section"
+            id="explore-negril"
+            aria-labelledby={
+              homePage.caribbeanLivingTitle
+                ? "caribbean-living-title"
+                : undefined
+            }
+          >
+            {homePage.caribbeanLivingImage && (
               <img
-                className="intro-logo"
-                src={homePage.introLogo}
+                className="caribbean-living-map"
+                src={homePage.caribbeanLivingImage}
                 alt=""
                 aria-hidden="true"
               />
             )}
 
-            {homePage.introHeading && (
-              <h2 id="intro-title">{homePage.introHeading}</h2>
-            )}
-
-            {homePage.introDescription && (
-              <p className="intro-description">{homePage.introDescription}</p>
-            )}
-
-            {homePage.numberBlock.length > 0 && (
-              <div className="number-block" aria-label="Villa highlights">
-                {homePage.numberBlock.map((item, index) => (
-                  <div className="number-item" key={`${item.value}-${index}`}>
-                    {item.imageSrc && (
-                      <img
-                        className="number-item-image"
-                        src={item.imageSrc}
-                        alt=""
-                      />
-                    )}
-                    {item.value && <strong>{item.value}</strong>}
-                    {item.label && <span>{item.label}</span>}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {homePage.introImage && (
-            <div className="intro-image-wrap">
-              <img src={homePage.introImage} alt="" />
-            </div>
-          )}
-        </section>
-      )}
-
-      {hasEventSection && (
-        <section
-          className="event-section"
-          id="events"
-          aria-labelledby={
-            homePage.eventSectionHeading ? "event-title" : undefined
-          }
-        >
-          {(homePage.eventSectionHeading ||
-            homePage.eventSectionHighlight) && (
-            <h2 id="event-title">
-              {homePage.eventSectionHeading && (
-                <span>{homePage.eventSectionHeading}</span>
+            <div className="caribbean-living-content">
+              {homePage.caribbeanLivingTitle && (
+                <h2 id="caribbean-living-title">
+                  {homePage.caribbeanLivingTitle}
+                </h2>
               )}
-              {homePage.eventSectionHighlight && (
-                <strong>{homePage.eventSectionHighlight}</strong>
+
+              {homePage.caribbeanLivingContent && (
+                <p>{homePage.caribbeanLivingContent}</p>
               )}
-            </h2>
-          )}
 
-          {homePage.eventCards.length > 0 && (
-            <div className="event-card-grid">
-              {homePage.eventCards.map((imageSrc, index) => (
-                <article className="event-card" key={`${imageSrc}-${index}`}>
-                  <img src={imageSrc} alt="" />
-                </article>
-              ))}
-            </div>
-          )}
-
-          {hasEventButton && (
-            <a
-              className="button button--brown event-button"
-              href={homePage.eventButtonUrl}
-            >
-              {homePage.eventButtonText}
-            </a>
-          )}
-        </section>
-      )}
-
-      {hasAmenitiesSection && (
-        <span className="section-anchor" id="accommodation" aria-hidden="true" />
-      )}
-
-      {hasAmenitiesSection && (
-        <AmenitiesSlider
-          eyebrow={homePage.amenitiesEyebrow}
-          heading={homePage.amenitiesHeading}
-          items={homePage.amenitiesItems}
-        />
-      )}
-
-      {hasCaribbeanLivingSection && (
-        <section
-          className="caribbean-living-section"
-          id="explore-negril"
-          aria-labelledby={
-            homePage.caribbeanLivingTitle
-              ? "caribbean-living-title"
-              : undefined
-          }
-        >
-          {homePage.caribbeanLivingImage && (
-            <img
-              className="caribbean-living-map"
-              src={homePage.caribbeanLivingImage}
-              alt=""
-              aria-hidden="true"
-            />
-          )}
-
-          <div className="caribbean-living-content">
-            {homePage.caribbeanLivingTitle && (
-              <h2 id="caribbean-living-title">
-                {homePage.caribbeanLivingTitle}
-              </h2>
-            )}
-
-            {homePage.caribbeanLivingContent && (
-              <p>{homePage.caribbeanLivingContent}</p>
-            )}
-
-            {(hasCaribbeanLivingButton || hasCaribbeanLivingButton2) && (
-              <div className="caribbean-living-actions">
-                {hasCaribbeanLivingButton && (
-                  <a
-                    className="button button--brown caribbean-living-button"
-                    href={homePage.caribbeanLivingButtonUrl}
-                  >
-                    {homePage.caribbeanLivingButtonText}
-                  </a>
-                )}
-                {hasCaribbeanLivingButton2 && (
-                  <a
-                    className="button button--brown caribbean-living-button"
-                    href={homePage.caribbeanLivingButton2Url}
-                  >
-                    {homePage.caribbeanLivingButton2Text}
-                  </a>
-                )}
-              </div>
-            )}
-          </div>
-        </section>
-      )}
-
-      {hasExploreExperiencesSection && (
-        <section
-          className="explore-experiences-section"
-          aria-label="Explore experiences"
-        >
-          {homePage.exploreExperiences.map((item, index) => {
-            const hasButton = Boolean(item.buttonText && item.buttonUrl);
-
-            return (
-              <article
-                className="explore-experience-card"
-                key={`${item.title}-${index}`}
-              >
-                {item.imageSrc && <img src={item.imageSrc} alt="" />}
-                <div className="explore-experience-overlay" />
-                <div className="explore-experience-content">
-                  {item.title && <h2>{item.title}</h2>}
-                  {item.content && <p>{item.content}</p>}
-                  {hasButton && (
+              {(hasCaribbeanLivingButton || hasCaribbeanLivingButton2) && (
+                <div className="caribbean-living-actions">
+                  {hasCaribbeanLivingButton && (
                     <a
-                      className="button button--light explore-experience-button"
-                      href={item.buttonUrl}
+                      className="button button--brown caribbean-living-button"
+                      href={homePage.caribbeanLivingButtonUrl}
                     >
-                      {item.buttonText}
+                      {homePage.caribbeanLivingButtonText}
+                    </a>
+                  )}
+                  {hasCaribbeanLivingButton2 && (
+                    <a
+                      className="button button--brown caribbean-living-button"
+                      href={homePage.caribbeanLivingButton2Url}
+                    >
+                      {homePage.caribbeanLivingButton2Text}
                     </a>
                   )}
                 </div>
-              </article>
-            );
-          })}
-        </section>
-      )}
+              )}
+            </div>
+          </section>
+        )}
 
-      {hasFeaturedQuoteSection && (
-        <section
-          className="featured-quote-section"
-          aria-label="Featured quote"
-        >
-          <div className="featured-quote-mark" aria-hidden="true">
-            &ldquo;
-          </div>
-          {homePage.featuredQuote.quote && (
-            <blockquote>{homePage.featuredQuote.quote}</blockquote>
-          )}
-          {homePage.featuredQuote.credit && (
-            <p>{homePage.featuredQuote.credit}</p>
-          )}
-        </section>
-      )}
+        {hasExploreExperiencesSection && (
+          <section
+            className="explore-experiences-section"
+            aria-label="Explore experiences"
+          >
+            {homePage.exploreExperiences.map((item, index) => {
+              const hasButton = Boolean(item.buttonText && item.buttonUrl);
 
-      {hasGallerySection && (
-        <section
-          className="gallery-preview-section"
-          id="gallery"
-          aria-labelledby={homePage.galleryTitle ? "gallery-title" : undefined}
-        >
-          {homePage.galleryImages.length > 0 && (
-            <GalleryPreviewSlider images={homePage.galleryImages} />
-          )}
+              return (
+                <article
+                  className="explore-experience-card"
+                  key={`${item.title}-${index}`}
+                >
+                  {item.imageSrc && <img src={item.imageSrc} alt="" />}
+                  <div className="explore-experience-overlay" />
+                  <div className="explore-experience-content">
+                    {item.title && <h2>{item.title}</h2>}
+                    {item.content && <p>{item.content}</p>}
+                    {hasButton && (
+                      <a
+                        className="button button--light explore-experience-button"
+                        href={item.buttonUrl}
+                      >
+                        {item.buttonText}
+                      </a>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </section>
+        )}
 
-          <div className="gallery-preview-content">
-            {homePage.galleryTitle && (
-              <h2 id="gallery-title">{homePage.galleryTitle}</h2>
+        {hasFeaturedQuoteSection && (
+          <section
+            className="featured-quote-section"
+            aria-label="Featured quote"
+          >
+            <div className="featured-quote-mark" aria-hidden="true">
+              &ldquo;
+            </div>
+            {homePage.featuredQuote.quote && (
+              <blockquote>{homePage.featuredQuote.quote}</blockquote>
             )}
-            {hasGalleryButton && (
-              <a
-                className="button button--brown gallery-preview-button"
-                href={homePage.galleryButtonUrl}
-              >
-                {homePage.galleryButtonText}
-              </a>
+            {homePage.featuredQuote.credit && (
+              <p>{homePage.featuredQuote.credit}</p>
             )}
-          </div>
-        </section>
-      )}
+          </section>
+        )}
 
-      {hasReserveSection && (
-        <span className="section-anchor" id="stay" aria-hidden="true" />
-      )}
+        {hasGallerySection && (
+          <section
+            className="gallery-preview-section"
+            id="gallery"
+            aria-labelledby={
+              homePage.galleryTitle ? "gallery-title" : undefined
+            }
+          >
+            {homePage.galleryImages.length > 0 && (
+              <GalleryPreviewSlider images={homePage.galleryImages} />
+            )}
 
-      {hasReserveSection && (
-        <ReserveStaySection
-          backgroundImage={homePage.reserveYourStayImage}
-          buttonText={homePage.reserveYourStayDate.buttonText}
-          buttonUrl={homePage.reserveYourStayDate.buttonUrl}
-          content={homePage.reserveYourStayDate.content}
-          logoSrc={getAssetSrc(logo)}
-          title={homePage.reserveYourStayDate.title}
-          videoSrc={homePage.reserveYourStayVideo}
-        />
-      )}
+            <div className="gallery-preview-content">
+              {homePage.galleryTitle && (
+                <h2 id="gallery-title">{homePage.galleryTitle}</h2>
+              )}
+              {hasGalleryButton && (
+                <a
+                  className="button button--brown gallery-preview-button"
+                  href={homePage.galleryButtonUrl}
+                >
+                  {homePage.galleryButtonText}
+                </a>
+              )}
+            </div>
+          </section>
+        )}
+
+        {hasReserveSection && (
+          <span className="section-anchor" id="stay" aria-hidden="true" />
+        )}
+
+        {hasReserveSection && (
+          <ReserveStaySection
+            backgroundImage={homePage.reserveYourStayImage}
+            buttonText={homePage.reserveYourStayDate.buttonText}
+            buttonUrl={homePage.reserveYourStayDate.buttonUrl}
+            content={homePage.reserveYourStayDate.content}
+            logoSrc={getAssetSrc(logo)}
+            title={homePage.reserveYourStayDate.title}
+            videoSrc={homePage.reserveYourStayVideo}
+          />
+        )}
+      </main>
       <SiteFooter footer={footer} />
-    </main>
+    </>
   );
 }
 
