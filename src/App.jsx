@@ -124,6 +124,7 @@ function getHomePageContent(entry) {
     : [];
   const reserveYourStayDateFields = fields.reserveYourStayDate?.fields || {};
   const reserveYourStayDate = {
+    logoSrc: getFirstContentfulAssetSrc(reserveYourStayDateFields.images),
     title: reserveYourStayDateFields.title || "",
     content: richTextToPlainText(reserveYourStayDateFields.content),
     buttonText: reserveYourStayDateFields.buttonText || "",
@@ -409,7 +410,7 @@ export function SiteFooter({ footer }) {
 
   return (
     <footer className="site-footer">
-      <div className="site-footer-inner">
+      <div className="site-footer-inner container">
         {footer.logoSrc && (
           <a className="footer-brand" href="/" aria-label="Pattoo Castle home">
             <img src={footer.logoSrc} alt="Pattoo Castle" />
@@ -560,7 +561,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
           style={{ "--hero-image": `url(${getAssetSrc(heroImage)})` }}
           aria-label="Pattoo Castle in Negril, Jamaica"
         >
-          <div className="hero-content">
+          <div className="hero-content container">
             {homePage.heroLeftText && (
               <div className="hero-kicker hero-kicker-left">
                 {homePage.heroLeftText}
@@ -582,6 +583,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
                     <a
                       className="button button--light hero-button"
                       href={homePage.button2Url}
+                      target="_blank"
                     >
                       {homePage.button2Text}
                     </a>
@@ -613,46 +615,55 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
             className="intro-section"
             aria-labelledby={homePage.introHeading ? "intro-title" : undefined}
           >
-            <div className="intro-panel">
-              {homePage.introLogo && (
-                <img
-                  className="intro-logo"
-                  src={homePage.introLogo}
-                  alt=""
-                  aria-hidden="true"
-                />
-              )}
+            <div className="container">
+              <div className="intro-panel">
+                {homePage.introLogo && (
+                  <img
+                    className="intro-logo"
+                    src={homePage.introLogo}
+                    alt=""
+                    aria-hidden="true"
+                  />
+                )}
 
-              {homePage.introHeading && (
-                <h2 id="intro-title">{homePage.introHeading}</h2>
-              )}
+                {homePage.introHeading && (
+                  <h2 id="intro-title">{homePage.introHeading}</h2>
+                )}
 
-              {homePage.introDescription && (
-                <p className="intro-description">{homePage.introDescription}</p>
-              )}
+                {homePage.introDescription && (
+                  <p className="intro-description">
+                    {homePage.introDescription}
+                  </p>
+                )}
 
-              {homePage.numberBlock.length > 0 && (
-                <div className="number-block" aria-label="Villa highlights">
-                  {homePage.numberBlock.map((item, index) => (
-                    <div className="number-item" key={`${item.value}-${index}`}>
-                      {item.imageSrc && (
-                        <img
-                          className="number-item-image"
-                          src={item.imageSrc}
-                          alt=""
-                        />
-                      )}
-                      {item.value && <strong>{item.value}</strong>}
-                      {item.label && <span>{item.label}</span>}
-                    </div>
-                  ))}
-                </div>
-              )}
+                {homePage.numberBlock.length > 0 && (
+                  <div className="number-block" aria-label="Villa highlights">
+                    {homePage.numberBlock.map((item, index) => (
+                      <div
+                        className="number-item"
+                        key={`${item.value}-${index}`}
+                      >
+                        {item.imageSrc && (
+                          <img
+                            className="number-item-image"
+                            src={item.imageSrc}
+                            alt=""
+                          />
+                        )}
+                        {item.value && <strong>{item.value}</strong>}
+                        {item.label && <span>{item.label}</span>}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
             {homePage.introImage && (
               <div className="intro-image-wrap">
-                <img src={homePage.introImage} alt="" />
+                <div className="container">
+                  <img src={homePage.introImage} alt="" />
+                </div>
               </div>
             )}
           </section>
@@ -666,36 +677,41 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
               homePage.eventSectionHeading ? "event-title" : undefined
             }
           >
-            {(homePage.eventSectionHeading ||
-              homePage.eventSectionHighlight) && (
-              <h2 id="event-title">
-                {homePage.eventSectionHeading && (
-                  <span>{homePage.eventSectionHeading}</span>
-                )}
-                {homePage.eventSectionHighlight && (
-                  <strong>{homePage.eventSectionHighlight}</strong>
-                )}
-              </h2>
-            )}
+            <div className="container text-center">
+              {(homePage.eventSectionHeading ||
+                homePage.eventSectionHighlight) && (
+                <h2 id="event-title">
+                  {homePage.eventSectionHeading && (
+                    <span>{homePage.eventSectionHeading}</span>
+                  )}
+                  {homePage.eventSectionHighlight && (
+                    <strong> {homePage.eventSectionHighlight}</strong>
+                  )}
+                </h2>
+              )}
 
-            {homePage.eventCards.length > 0 && (
-              <div className="event-card-grid">
-                {homePage.eventCards.map((imageSrc, index) => (
-                  <article className="event-card" key={`${imageSrc}-${index}`}>
-                    <img src={imageSrc} alt="" />
-                  </article>
-                ))}
-              </div>
-            )}
+              {homePage.eventCards.length > 0 && (
+                <div className="event-card-grid">
+                  {homePage.eventCards.map((imageSrc, index) => (
+                    <article
+                      className="event-card"
+                      key={`${imageSrc}-${index}`}
+                    >
+                      <img src={imageSrc} alt="" />
+                    </article>
+                  ))}
+                </div>
+              )}
 
-            {hasEventButton && (
-              <a
-                className="button button--brown event-button"
-                href={homePage.eventButtonUrl}
-              >
-                {homePage.eventButtonText}
-              </a>
-            )}
+              {hasEventButton && (
+                <a
+                  className="button button--brown event-button"
+                  href={homePage.eventButtonUrl}
+                >
+                  {homePage.eventButtonText}
+                </a>
+              )}
+            </div>
           </section>
         )}
 
@@ -804,7 +820,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
 
         {hasFeaturedQuoteSection && (
           <section
-            className="featured-quote-section"
+            className="section featured-quote-section"
             aria-label="Featured quote"
           >
             <div className="featured-quote-mark" aria-hidden="true">
@@ -821,7 +837,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
 
         {hasGallerySection && (
           <section
-            className="gallery-preview-section"
+            className="gallery-preview-section container"
             id="gallery"
             aria-labelledby={
               homePage.galleryTitle ? "gallery-title" : undefined
@@ -857,7 +873,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
             buttonText={homePage.reserveYourStayDate.buttonText}
             buttonUrl={homePage.reserveYourStayDate.buttonUrl}
             content={homePage.reserveYourStayDate.content}
-            logoSrc={getAssetSrc(logo)}
+            logoSrc={homePage.reserveYourStayDate.logoSrc || getAssetSrc(logo)}
             title={homePage.reserveYourStayDate.title}
             videoSrc={homePage.reserveYourStayVideo}
           />

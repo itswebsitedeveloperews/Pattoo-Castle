@@ -103,7 +103,9 @@ export default function OverviewPage({
   );
 
   return (
-    <main>
+    <>
+      <SiteHeader header={header} />
+      <main>
       <section
         className="page-hero overview-hero"
         style={
@@ -113,8 +115,6 @@ export default function OverviewPage({
         }
         aria-labelledby={overview.bannerHeading ? "overview-title" : undefined}
       >
-        <SiteHeader header={header} />
-
         <div className="page-hero-content overview-hero-content">
           {overview.bannerSubHeading && (
             <p className="page-hero-eyebrow overview-hero-eyebrow">
@@ -258,7 +258,8 @@ export default function OverviewPage({
         </section>
       )}
 
+      </main>
       <SiteFooter footer={footer} />
-    </main>
+    </>
   );
 }

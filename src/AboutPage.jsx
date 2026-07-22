@@ -152,7 +152,9 @@ export default function AboutPage({
   );
 
   return (
-    <main>
+    <>
+      <SiteHeader header={header} />
+      <main>
       <section
         className="page-hero about-hero"
         style={
@@ -162,8 +164,6 @@ export default function AboutPage({
         }
         aria-labelledby={about.bannerHeading ? "about-title" : undefined}
       >
-        <SiteHeader header={header} />
-
         <div className="page-hero-content about-hero-content">
           {about.bannerSubHeading && (
             <p className="page-hero-eyebrow about-hero-eyebrow">{about.bannerSubHeading}</p>
@@ -383,7 +383,8 @@ export default function AboutPage({
         </section>
       )}
 
+      </main>
       <SiteFooter footer={footer} />
-    </main>
+    </>
   );
 }

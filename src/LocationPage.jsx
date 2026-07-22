@@ -115,7 +115,9 @@ export default function LocationPage({
   );
 
   return (
-    <main>
+    <>
+      <SiteHeader header={header} />
+      <main>
       <section
         className="page-hero location-hero"
         style={
@@ -125,8 +127,6 @@ export default function LocationPage({
         }
         aria-labelledby={location.bannerHeading ? "location-title" : undefined}
       >
-        <SiteHeader header={header} />
-
         <div className="page-hero-content location-hero-content">
           {location.bannerSubHeading && (
             <p className="page-hero-eyebrow location-hero-eyebrow">
@@ -249,7 +249,8 @@ export default function LocationPage({
         </section>
       )}
 
+      </main>
       <SiteFooter footer={footer} />
-    </main>
+    </>
   );
 }

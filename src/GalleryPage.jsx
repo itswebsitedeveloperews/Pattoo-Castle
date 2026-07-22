@@ -11,6 +11,14 @@ import GalleryFilterGrid from "./GalleryFilterGrid";
 import ReserveStaySection from "./ReserveStaySection";
 import logo from "./assets/patto-logo.svg";
 
+function getFirstContentfulAssetSrc(assets) {
+  if (Array.isArray(assets)) {
+    return getContentfulAssetSrc(assets[0]);
+  }
+
+  return getContentfulAssetSrc(assets);
+}
+
 function getGalleryContent(entry) {
   const fields = entry?.fields || {};
   const galleryItems = Array.isArray(fields.gallery)
@@ -30,6 +38,7 @@ function getGalleryContent(entry) {
     : [];
   const reserveYourStayDateFields = fields.reserveYourStayDate?.fields || {};
   const reserveYourStayDate = {
+    logoSrc: getFirstContentfulAssetSrc(reserveYourStayDateFields.images),
     title: reserveYourStayDateFields.title || "",
     content: richTextToPlainText(reserveYourStayDateFields.content),
     buttonText: reserveYourStayDateFields.buttonText || "",
@@ -81,7 +90,9 @@ export default function GalleryPage({
   );
 
   return (
-    <main>
+    <>
+      <SiteHeader header={header} />
+      <main>
       <section
         className="page-hero gallery-hero"
         style={
@@ -91,8 +102,6 @@ export default function GalleryPage({
         }
         aria-labelledby={gallery.bannerHeading ? "gallery-title" : undefined}
       >
-        <SiteHeader header={header} />
-
         <div className="page-hero-content gallery-hero-content">
           {gallery.bannerSubHeading && (
             <p className="page-hero-eyebrow gallery-hero-eyebrow">{gallery.bannerSubHeading}</p>
@@ -159,13 +168,14 @@ export default function GalleryPage({
           buttonText={gallery.reserveYourStayDate.buttonText}
           buttonUrl={gallery.reserveYourStayDate.buttonUrl}
           content={gallery.reserveYourStayDate.content}
-          logoSrc={getAssetSrc(logo)}
+          logoSrc={gallery.reserveYourStayDate.logoSrc || getAssetSrc(logo)}
           title={gallery.reserveYourStayDate.title}
           videoSrc={gallery.reserveYourStayVideo}
         />
       )}
 
+      </main>
       <SiteFooter footer={footer} />
-    </main>
+    </>
   );
 }

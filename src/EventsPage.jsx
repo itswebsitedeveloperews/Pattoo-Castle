@@ -192,7 +192,9 @@ export default function EventsPage({
   );
 
   return (
-    <main>
+    <>
+      <SiteHeader header={header} />
+      <main>
       <section
         className="page-hero events-hero"
         style={
@@ -202,8 +204,6 @@ export default function EventsPage({
         }
         aria-labelledby={event.bannerHeading ? "events-title" : undefined}
       >
-        <SiteHeader header={header} />
-
         <div className="page-hero-content events-hero-content">
           {event.bannerSubHeading && (
             <p className="page-hero-eyebrow events-hero-eyebrow">{event.bannerSubHeading}</p>
@@ -363,7 +363,8 @@ export default function EventsPage({
         </section>
       )}
 
+      </main>
       <SiteFooter footer={footer} />
-    </main>
+    </>
   );
 }

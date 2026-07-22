@@ -35,7 +35,9 @@ export default function EventDetailsPage({
     : "Event Inquiry";
 
   return (
-    <main>
+    <>
+      <SiteHeader header={header} />
+      <main>
       <section
         className="page-hero event-detail-hero"
         style={
@@ -47,8 +49,6 @@ export default function EventDetailsPage({
         }
         aria-labelledby={eventDetails.heading ? "event-detail-title" : undefined}
       >
-        <SiteHeader header={header} />
-
         <div className="page-hero-content event-detail-hero-content">
           <p className="page-hero-eyebrow event-detail-hero-eyebrow">Event</p>
           {eventDetails.heading && (
@@ -255,7 +255,8 @@ export default function EventDetailsPage({
         </button>
       </section>
 
+      </main>
       <SiteFooter footer={footer} />
-    </main>
+    </>
   );
 }
