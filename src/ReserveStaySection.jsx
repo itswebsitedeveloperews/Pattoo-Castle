@@ -5,13 +5,15 @@ export default function ReserveStaySection({
   content = "",
   logoSrc = "",
   title = "",
+  images = "",
   videoSrc = "",
 }) {
   const hasButton = Boolean(buttonText && buttonUrl);
+  const reserveLogoSrc = logoSrc || images;
 
   return (
     <section
-      className={`reserve-stay-section${videoSrc ? " has-video" : ""}`}
+      className={`section reserve-stay-section${videoSrc ? " has-video" : ""}`}
       style={
         backgroundImage
           ? {
@@ -38,10 +40,10 @@ export default function ReserveStaySection({
         <span className="reserve-stay-pin" />
         <span className="reserve-stay-pin" />
 
-        {logoSrc && (
+        {reserveLogoSrc && (
           <img
             className="reserve-stay-logo"
-            src={logoSrc}
+            src={reserveLogoSrc}
             alt=""
             aria-hidden="true"
           />
@@ -52,7 +54,10 @@ export default function ReserveStaySection({
         {content && <p>{content}</p>}
 
         {hasButton && (
-          <a className="button button--brown reserve-stay-button" href={buttonUrl}>
+          <a
+            className="button button--brown reserve-stay-button"
+            href={buttonUrl}
+          >
             {buttonText}
           </a>
         )}

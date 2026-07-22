@@ -7,7 +7,12 @@
     "dev": "next dev",
     "build": "next build",
     "lint": "oxlint",
-    "start": "next start"
+    "start": "next start",
+    "test:layout": "node scripts/validate-layout-structure.mjs",
+    "test:reserve-logo": "node scripts/validate-reserve-logo.mjs",
+    "test:reserve-card-bg": "node scripts/validate-reserve-card-bg.mjs",
+    "test:media": "node scripts/validate-media-breakpoints.mjs",
+    "test:gallery-slick": "node scripts/validate-gallery-slick-width.mjs"
   },
   "dependencies": {
     "@fontsource/quattrocento-sans": "^5.2.8",

@@ -97,6 +97,7 @@
   --font-size-h2-mobile: 28px;
   --font-size-event-heading: 60px;
   --font-size-stat: 52px;
+  --font-size-40: 40px;
   --font-size-scroll-mobile: 12px;
   --line-height-body: 1.5;
   --line-height-tight: 1;
@@ -120,6 +121,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --golden-sand: #e6c394;
+  --burnt-sienna: #b4744a;
 }
 
 * {
@@ -136,20 +138,34 @@ body {
   margin: 0;
   font-size: var(--font-size-medium);
   line-height: 1.25;
+  color: var(--color-heading);
 }
 
 h1,
 h2,
 h3,
+h4,
+h5,
+h6,
 p {
   overflow-wrap: anywhere;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+  font-family: var(--font-display);
 }
 
 h1,
 h2 {
   margin: 0 0 14px;
   color: var(--color-heading);
-  font-weight: 750;
+
   line-height: var(--line-height-heading);
 }
 
@@ -175,8 +191,38 @@ code {
   font-size: var(--font-size-small);
 }
 
+.text-center {
+  text-align: center;
+}
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+@media only screen and (max-width: 1279px) {
+  :root {
+    --font-size-high: 72px;
+    --font-size-h1: 56px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  :root {
+    --font-size-h1: 46px;
+    --font-size-h2: 42px;
+    --font-size-40: 36px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  :root {
+    --font-size-h1: 40px;
+    --font-size-h2: 28px;
+    --font-size-40: 28px;
+    --font-size-large: 16px;
+    --font-size-medium: 14px;
+    --font-size-body: 12px;
+    --font-size-small: 12px;
   }
 }

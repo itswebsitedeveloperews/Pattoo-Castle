@@ -133,7 +133,9 @@ export default function AccommodationPage({
   );
 
   return (
-    <main>
+    <>
+      <SiteHeader header={header} />
+      <main>
       <section
         className="page-hero accommodation-hero"
         style={
@@ -147,8 +149,6 @@ export default function AccommodationPage({
           accommodation.bannerHeading ? "accommodation-title" : undefined
         }
       >
-        <SiteHeader header={header} />
-
         <div className="page-hero-content accommodation-hero-content">
           {accommodation.bannerSubHeading && (
             <p className="page-hero-eyebrow accommodation-hero-eyebrow">
@@ -346,7 +346,8 @@ export default function AccommodationPage({
         </section>
       )}
 
+      </main>
       <SiteFooter footer={footer} />
-    </main>
+    </>
   );
 }

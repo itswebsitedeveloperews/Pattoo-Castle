@@ -202,7 +202,9 @@ export default function StayPage({
   );
 
   return (
-    <main>
+    <>
+      <SiteHeader header={header} />
+      <main>
       <section
         className="page-hero stay-hero"
         style={
@@ -214,8 +216,6 @@ export default function StayPage({
         }
         aria-labelledby={stay.bannerHeading ? "stay-title" : undefined}
       >
-        <SiteHeader header={header} />
-
         <div className="page-hero-content stay-hero-content">
           {stay.bannerSubHeading && (
             <p className="page-hero-eyebrow stay-hero-eyebrow">{stay.bannerSubHeading}</p>
@@ -395,7 +395,8 @@ export default function StayPage({
         </section>
       )}
 
+      </main>
       <SiteFooter footer={footer} />
-    </main>
+    </>
   );
 }

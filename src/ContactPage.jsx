@@ -171,7 +171,9 @@ export default function ContactPage({
   );
 
   return (
-    <main>
+    <>
+      <SiteHeader header={header} />
+      <main>
       <section
         className="page-hero contact-hero"
         style={
@@ -181,8 +183,6 @@ export default function ContactPage({
         }
         aria-labelledby={contact.bannerHeading ? "contact-title" : undefined}
       >
-        <SiteHeader header={header} />
-
         <div className="page-hero-content contact-hero-content">
           {contact.bannerSubHeading && (
             <p className="page-hero-eyebrow contact-hero-eyebrow">{contact.bannerSubHeading}</p>
@@ -437,7 +437,8 @@ export default function ContactPage({
         </section>
       )}
 
+      </main>
       <SiteFooter footer={footer} />
-    </main>
+    </>
   );
 }
