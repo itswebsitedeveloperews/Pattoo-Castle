@@ -1,4 +1,5 @@
 import App from '../App'
+import HomeBodyClass from './HomeBodyClass'
 import { getFooterEntry, getHeaderEntry, getHomePageEntry } from '../lib/contentful'
 
 export const dynamic = 'force-dynamic'
@@ -39,10 +40,13 @@ export default async function HomePage() {
   }
 
   return (
-    <App
-      footerEntry={footerEntry}
-      headerEntry={headerEntry}
-      homePageEntry={homePageEntry}
-    />
+    <>
+      <HomeBodyClass />
+      <App
+        footerEntry={footerEntry}
+        headerEntry={headerEntry}
+        homePageEntry={homePageEntry}
+      />
+    </>
   )
 }

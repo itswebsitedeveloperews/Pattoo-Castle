@@ -12,7 +12,8 @@
     "test:reserve-logo": "node scripts/validate-reserve-logo.mjs",
     "test:reserve-card-bg": "node scripts/validate-reserve-card-bg.mjs",
     "test:media": "node scripts/validate-media-breakpoints.mjs",
-    "test:gallery-slick": "node scripts/validate-gallery-slick-width.mjs"
+    "test:gallery-slick": "node scripts/validate-gallery-slick-width.mjs",
+    "test:home-body": "node scripts/validate-home-body-class.mjs"
   },
   "dependencies": {
     "@fontsource/quattrocento-sans": "^5.2.8",

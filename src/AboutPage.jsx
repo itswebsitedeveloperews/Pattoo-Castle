@@ -110,279 +110,288 @@ export default function AboutPage({
   const hasButton = Boolean(about.buttonText && about.buttonUrl);
   const hasIntroSection = Boolean(
     about.introSubHeading ||
-      about.introHeading ||
-      about.introDescription ||
-      about.numberBlock.length,
+    about.introHeading ||
+    about.introDescription ||
+    about.numberBlock.length,
   );
   const hasVillaButton = Boolean(about.villaButtonText && about.villaButtonUrl);
   const hasVillaSection = Boolean(
     about.villaImage ||
-      about.villaSubHeading ||
-      about.villaHeading ||
-      about.villaContent ||
-      hasVillaButton,
+    about.villaSubHeading ||
+    about.villaHeading ||
+    about.villaContent ||
+    hasVillaButton,
   );
   const hasExperienceSection = Boolean(
     about.experienceSubHeading ||
-      about.experienceHeading ||
-      about.experienceImages.length,
+    about.experienceHeading ||
+    about.experienceImages.length,
   );
   const hasCaribbeanLivingSection = Boolean(
     about.caribbeanLivingSubHeading ||
-      about.caribbeanLivingHeading ||
-      about.caribbeanLivingFacilities.length,
+    about.caribbeanLivingHeading ||
+    about.caribbeanLivingFacilities.length,
   );
   const hasLocationButton = Boolean(
     about.locationButtonText && about.locationButtonUrl,
   );
   const hasLocationSection = Boolean(
     about.locationSubHeading ||
-      about.locationHeading ||
-      about.locationContent ||
-      hasLocationButton,
+    about.locationHeading ||
+    about.locationContent ||
+    hasLocationButton,
   );
   const hasStoryButton = Boolean(
     about.reserveYourStory.buttonText && about.reserveYourStory.buttonUrl,
   );
   const hasStorySection = Boolean(
     about.reserveYourStory.imageSrc ||
-      about.reserveYourStory.title ||
-      about.reserveYourStory.content ||
-      hasStoryButton,
+    about.reserveYourStory.title ||
+    about.reserveYourStory.content ||
+    hasStoryButton,
   );
 
   return (
     <>
       <SiteHeader header={header} />
       <main>
-      <section
-        className="page-hero about-hero"
-        style={
-          about.bannerImage
-            ? { "--about-banner-image": `url(${about.bannerImage})` }
-            : undefined
-        }
-        aria-labelledby={about.bannerHeading ? "about-title" : undefined}
-      >
-        <div className="page-hero-content about-hero-content">
-          {about.bannerSubHeading && (
-            <p className="page-hero-eyebrow about-hero-eyebrow">{about.bannerSubHeading}</p>
-          )}
-          {about.bannerHeading && <h1 id="about-title">{about.bannerHeading}</h1>}
-          {about.bannerContent && <p>{about.bannerContent}</p>}
-          {hasButton && (
-            <a className="button button--light page-hero-button about-hero-button" href={about.buttonUrl}>
-              {about.buttonText}
-            </a>
-          )}
-        </div>
-      </section>
-
-      {hasIntroSection && (
         <section
-          className="about-intro-section"
-          aria-labelledby={about.introHeading ? "about-intro-title" : undefined}
+          className="section page-hero about-hero"
+          style={
+            about.bannerImage
+              ? { "--about-banner-image": `url(${about.bannerImage})` }
+              : undefined
+          }
+          aria-labelledby={about.bannerHeading ? "about-title" : undefined}
         >
-          {about.introSubHeading && (
-            <p className="about-intro-eyebrow">{about.introSubHeading}</p>
-          )}
-
-          {about.introHeading && (
-            <h2 id="about-intro-title">{about.introHeading}</h2>
-          )}
-
-          {about.introDescription && (
-            <p className="about-intro-description">
-              {about.introDescription}
-            </p>
-          )}
-
-          {about.numberBlock.length > 0 && (
-            <div className="about-number-block" aria-label="Villa highlights">
-              {about.numberBlock.map((item, index) => (
-                <div
-                  className="about-number-item"
-                  key={`${item.value}-${index}`}
-                >
-                  {item.imageSrc && (
-                    <img className="about-number-icon" src={item.imageSrc} alt="" />
-                  )}
-                  {item.value && <strong>{item.value}</strong>}
-                  {item.label && <span>{item.label}</span>}
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
-      )}
-
-      {hasVillaSection && (
-        <section
-          className="about-villa-section"
-          aria-labelledby={about.villaHeading ? "about-villa-title" : undefined}
-        >
-          {about.villaImage && (
-            <div className="about-villa-image">
-              <img src={about.villaImage} alt="" />
-            </div>
-          )}
-
-          <div className="about-villa-content">
-            {about.villaSubHeading && (
-              <p className="about-villa-eyebrow">{about.villaSubHeading}</p>
+          <div className="page-hero-content about-hero-content">
+            {about.bannerSubHeading && (
+              <p className="eyebrow page-hero-eyebrow about-hero-eyebrow">
+                {about.bannerSubHeading}
+              </p>
             )}
-
-            {about.villaHeading && (
-              <h2 id="about-villa-title">{about.villaHeading}</h2>
+            {about.bannerHeading && (
+              <h1 id="about-title">{about.bannerHeading}</h1>
             )}
-
-            {about.villaContent && <p>{about.villaContent}</p>}
-
-            {hasVillaButton && (
+            {about.bannerContent && <p>{about.bannerContent}</p>}
+            {hasButton && (
               <a
-                className="button button--brown about-villa-button"
-                href={about.villaButtonUrl}
+                className="button button--light page-hero-button about-hero-button"
+                href={about.buttonUrl}
               >
-                {about.villaButtonText}
+                {about.buttonText}
               </a>
             )}
           </div>
         </section>
-      )}
 
-      {hasExperienceSection && (
-        <section
-          className="about-experience-section"
-          aria-labelledby={
-            about.experienceHeading ? "about-experience-title" : undefined
-          }
-        >
-          {about.experienceSubHeading && (
-            <p className="about-experience-eyebrow">
-              {about.experienceSubHeading}
-            </p>
-          )}
-
-          {about.experienceHeading && (
-            <h2 id="about-experience-title">{about.experienceHeading}</h2>
-          )}
-
-          {about.experienceImages.length > 0 && (
-            <div className="about-experience-grid">
-              {about.experienceImages.map((item, index) => (
-                <figure
-                  className="about-experience-card"
-                  key={`${item.imageSrc}-${index}`}
-                >
-                  {item.imageSrc && <img src={item.imageSrc} alt="" />}
-                  {item.caption && <figcaption>{item.caption}</figcaption>}
-                </figure>
-              ))}
-            </div>
-          )}
-        </section>
-      )}
-
-      {hasCaribbeanLivingSection && (
-        <section
-          className="about-living-section"
-          aria-labelledby={
-            about.caribbeanLivingHeading ? "about-living-title" : undefined
-          }
-        >
-          {about.caribbeanLivingSubHeading && (
-            <p className="about-living-eyebrow">
-              {about.caribbeanLivingSubHeading}
-            </p>
-          )}
-
-          {about.caribbeanLivingHeading && (
-            <h2 id="about-living-title">{about.caribbeanLivingHeading}</h2>
-          )}
-
-          {about.caribbeanLivingFacilities.length > 0 && (
-            <div className="about-living-grid">
-              {about.caribbeanLivingFacilities.map((item, index) => (
-                <article
-                  className="about-living-item"
-                  key={`${item.title}-${index}`}
-                >
-                  {item.title && <h3>{item.title}</h3>}
-                  {item.content && <p>{item.content}</p>}
-                </article>
-              ))}
-            </div>
-          )}
-        </section>
-      )}
-
-      {hasLocationSection && (
-        <section
-          className="about-location-section"
-          aria-labelledby={
-            about.locationHeading ? "about-location-title" : undefined
-          }
-        >
-          {about.locationSubHeading && (
-            <p className="about-location-eyebrow">
-              {about.locationSubHeading}
-            </p>
-          )}
-
-          {about.locationHeading && (
-            <h2 id="about-location-title">{about.locationHeading}</h2>
-          )}
-
-          {about.locationContent && <p>{about.locationContent}</p>}
-
-          {hasLocationButton && (
-            <a
-              className="button button--brown about-location-button"
-              href={about.locationButtonUrl}
-            >
-              {about.locationButtonText}
-            </a>
-          )}
-        </section>
-      )}
-
-      {hasStorySection && (
-        <section
-          className="about-story-section"
-          style={
-            about.reserveYourStory.imageSrc
-              ? {
-                  "--about-story-image": `url(${about.reserveYourStory.imageSrc})`,
-                }
-              : undefined
-          }
-          aria-labelledby={
-            about.reserveYourStory.title ? "about-story-title" : undefined
-          }
-        >
-          <div className="about-story-content">
-            {about.reserveYourStory.content && (
-              <p className="about-story-eyebrow">
-                {about.reserveYourStory.content}
+        {hasIntroSection && (
+          <section
+            className="section about-intro-section"
+            aria-labelledby={
+              about.introHeading ? "about-intro-title" : undefined
+            }
+          >
+            {about.introSubHeading && (
+              <p className="eyebrow about-intro-eyebrow">
+                {about.introSubHeading}
               </p>
             )}
 
-            {about.reserveYourStory.title && (
-              <h2 id="about-story-title">{about.reserveYourStory.title}</h2>
+            {about.introHeading && (
+              <h2 id="about-intro-title">{about.introHeading}</h2>
             )}
 
-            {hasStoryButton && (
+            {about.introDescription && (
+              <p className="about-intro-description">
+                {about.introDescription}
+              </p>
+            )}
+
+            {about.numberBlock.length > 0 && (
+              <div className="number-block" aria-label="Villa highlights">
+                {about.numberBlock.map((item, index) => (
+                  <div className="number-item" key={`${item.value}-${index}`}>
+                    {item.imageSrc && (
+                      <img className="number-icon" src={item.imageSrc} alt="" />
+                    )}
+                    {item.value && <strong>{item.value}</strong>}
+                    {item.label && <span>{item.label}</span>}
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {hasVillaSection && (
+          <section
+            className="section about-villa-section"
+            aria-labelledby={
+              about.villaHeading ? "about-villa-title" : undefined
+            }
+          >
+            {about.villaImage && (
+              <div className="about-villa-image">
+                <img src={about.villaImage} alt="" />
+              </div>
+            )}
+
+            <div className="about-villa-content">
+              {about.villaSubHeading && (
+                <p className="about-villa-eyebrow">{about.villaSubHeading}</p>
+              )}
+
+              {about.villaHeading && (
+                <h2 id="about-villa-title">{about.villaHeading}</h2>
+              )}
+
+              {about.villaContent && <p>{about.villaContent}</p>}
+
+              {hasVillaButton && (
+                <a
+                  className="button button--brown about-villa-button"
+                  href={about.villaButtonUrl}
+                >
+                  {about.villaButtonText}
+                </a>
+              )}
+            </div>
+          </section>
+        )}
+
+        {hasExperienceSection && (
+          <section
+            className="about-experience-section"
+            aria-labelledby={
+              about.experienceHeading ? "about-experience-title" : undefined
+            }
+          >
+            {about.experienceSubHeading && (
+              <p className="about-experience-eyebrow">
+                {about.experienceSubHeading}
+              </p>
+            )}
+
+            {about.experienceHeading && (
+              <h2 id="about-experience-title">{about.experienceHeading}</h2>
+            )}
+
+            {about.experienceImages.length > 0 && (
+              <div className="about-experience-grid">
+                {about.experienceImages.map((item, index) => (
+                  <figure
+                    className="about-experience-card"
+                    key={`${item.imageSrc}-${index}`}
+                  >
+                    {item.imageSrc && <img src={item.imageSrc} alt="" />}
+                    {item.caption && <figcaption>{item.caption}</figcaption>}
+                  </figure>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {hasCaribbeanLivingSection && (
+          <section
+            className="about-living-section"
+            aria-labelledby={
+              about.caribbeanLivingHeading ? "about-living-title" : undefined
+            }
+          >
+            {about.caribbeanLivingSubHeading && (
+              <p className="about-living-eyebrow">
+                {about.caribbeanLivingSubHeading}
+              </p>
+            )}
+
+            {about.caribbeanLivingHeading && (
+              <h2 id="about-living-title">{about.caribbeanLivingHeading}</h2>
+            )}
+
+            {about.caribbeanLivingFacilities.length > 0 && (
+              <div className="about-living-grid">
+                {about.caribbeanLivingFacilities.map((item, index) => (
+                  <article
+                    className="about-living-item"
+                    key={`${item.title}-${index}`}
+                  >
+                    {item.title && <h3>{item.title}</h3>}
+                    {item.content && <p>{item.content}</p>}
+                  </article>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {hasLocationSection && (
+          <section
+            className="about-location-section"
+            aria-labelledby={
+              about.locationHeading ? "about-location-title" : undefined
+            }
+          >
+            {about.locationSubHeading && (
+              <p className="about-location-eyebrow">
+                {about.locationSubHeading}
+              </p>
+            )}
+
+            {about.locationHeading && (
+              <h2 id="about-location-title">{about.locationHeading}</h2>
+            )}
+
+            {about.locationContent && <p>{about.locationContent}</p>}
+
+            {hasLocationButton && (
               <a
-                className="button button--light about-story-button"
-                href={about.reserveYourStory.buttonUrl}
+                className="button button--brown about-location-button"
+                href={about.locationButtonUrl}
               >
-                {about.reserveYourStory.buttonText}
+                {about.locationButtonText}
               </a>
             )}
-          </div>
-        </section>
-      )}
+          </section>
+        )}
 
+        {hasStorySection && (
+          <section
+            className="about-story-section"
+            style={
+              about.reserveYourStory.imageSrc
+                ? {
+                    "--about-story-image": `url(${about.reserveYourStory.imageSrc})`,
+                  }
+                : undefined
+            }
+            aria-labelledby={
+              about.reserveYourStory.title ? "about-story-title" : undefined
+            }
+          >
+            <div className="about-story-content">
+              {about.reserveYourStory.content && (
+                <p className="about-story-eyebrow">
+                  {about.reserveYourStory.content}
+                </p>
+              )}
+
+              {about.reserveYourStory.title && (
+                <h2 id="about-story-title">{about.reserveYourStory.title}</h2>
+              )}
+
+              {hasStoryButton && (
+                <a
+                  className="button button--light about-story-button"
+                  href={about.reserveYourStory.buttonUrl}
+                >
+                  {about.reserveYourStory.buttonText}
+                </a>
+              )}
+            </div>
+          </section>
+        )}
       </main>
       <SiteFooter footer={footer} />
     </>
