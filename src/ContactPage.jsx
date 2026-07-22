@@ -234,6 +234,7 @@ export default function ContactPage({
 
       {hasContactFormSection && (
         <section
+          id="contact-planning-section"
           className="contact-planning-section"
           aria-labelledby={contact.contactTitle ? "contact-planning-title" : undefined}
         >
