@@ -1,3 +1,6 @@
+body{
+  background: var(--color-cream);
+}
 .hero {
   position: relative;
   display: grid;
@@ -2809,7 +2812,7 @@
 .events-intro-copy > p:not(.events-intro-eyebrow) {
   margin-top: 22px;
   color: rgb(var(--color-white) / var(--opacity-high));
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
@@ -2824,7 +2827,7 @@
   align-content: center;
   min-width: 0;
   min-height: 210px;
-  padding: 28px 34px;
+  padding: 28px 10px;
   border-left: 1px solid rgb(var(--color-white) / 0.18);
   text-align: center;
 }
@@ -2923,7 +2926,7 @@
   margin: 22px 0 0;
   color: var(--color-brown);
   font-family: var(--font-display);
-  font-size: var(--font-size-global-h3);
+  font-size: 24px;
   font-weight: 500;
   letter-spacing: var(--letter-spacing-none);
   line-height: var(--line-height-heading);
@@ -2940,7 +2943,7 @@
   display: inline-flex;
   margin-top: 22px;
   color: var(--color-brown);
-  font-size: var(--font-size-button-small);
+  font-size: var(--font-size-body);
   font-weight: 300;
   letter-spacing: var(--letter-spacing-small);
   line-height: var(--line-height-tight);
@@ -2959,13 +2962,18 @@
   align-items: center;
   padding: 84px var(--container-gutter);
   color: var(--color-brown);
-  background: var(--color-cream);
+  background: var(--color-dark-cream);
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 0;
+  margin-bottom: 50px;
 }
 
 .events-experience-content {
   display: grid;
   justify-items: start;
   max-width: 610px;
+  padding: 20px 0;
 }
 
 .events-experience-eyebrow {
@@ -3030,6 +3038,7 @@
 .events-experience-image {
   min-width: 0;
   margin: 0;
+  height: 100%;
 }
 
 .events-experience-image img {
@@ -3037,6 +3046,7 @@
   width: 100%;
   aspect-ratio: 760 / 440;
   object-fit: cover;
+  height: 100%;
 }
 
 .events-plan-section {
@@ -3394,6 +3404,7 @@
   padding: 40px var(--container-gutter) 74px;
   color: var(--color-brown);
   background: var(--color-cream);
+  padding-bottom: 20px;
 }
 
 .stay-inquiry-form {
@@ -3430,7 +3441,7 @@
   width: 36px;
   height: 36px;
   flex: 0 0 auto;
-  border: 1px solid var(--color-brown);
+  border: 1px solid #B9802E;
   border-radius: 50%;
   color: var(--color-gold);
 }
@@ -3439,7 +3450,7 @@
   width: 18px;
   height: 18px;
   fill: none;
-  stroke: currentColor;
+  stroke: #B9802E;
   stroke-width: 1.35;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -3523,104 +3534,6 @@
   line-height: 1;
   text-transform: uppercase;
   cursor: pointer;
-}
-
-.stay-rooms-section {
-  display: grid;
-  grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
-  gap: 40px;
-  padding: 78px var(--container-gutter) 88px;
-  color: var(--color-brown);
-  background: var(--color-cream);
-}
-
-.stay-rooms-copy {
-  align-self: center;
-  max-width: 420px;
-}
-
-.stay-rooms-eyebrow {
-  margin: 0 0 16px;
-  color: var(--color-brown);
-  font-size: var(--font-size-small);
-  font-weight: 700;
-  letter-spacing: var(--letter-spacing-wide);
-  line-height: var(--line-height-tight);
-  text-transform: uppercase;
-}
-
-.stay-rooms-copy h2 {
-  margin: 0;
-  color: var(--color-brown);
-  font-family: var(--font-display);
-  font-size: var(--font-size-h2);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-heading);
-}
-
-.stay-rooms-copy > p:not(.stay-rooms-eyebrow) {
-  margin: 22px 0 0;
-  color: var(--color-brown-dark);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-}
-
-.stay-rooms-button {
-  width: min(100%, 420px);
-  margin-top: 24px;
-}
-
-.stay-rooms-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(160px, 1fr));
-  border-left: 1px solid rgb(var(--color-brown-rgb) / 0.16);
-}
-
-.stay-room-card {
-  display: grid;
-  align-content: start;
-  border-right: 1px solid rgb(var(--color-brown-rgb) / 0.16);
-}
-
-.stay-room-card img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 260 / 190;
-  object-fit: cover;
-}
-
-.stay-room-card-body {
-  padding: 22px 20px 18px;
-}
-
-.stay-room-card h3 {
-  margin: 0;
-  color: var(--color-brown);
-  font-family: var(--font-display);
-  font-size: var(--font-size-global-h3);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-tight);
-}
-
-.stay-room-card p {
-  margin: 12px 0 0;
-  color: var(--color-brown-dark);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-}
-
-.stay-room-card a {
-  display: inline-flex;
-  margin-top: 18px;
-  color: var(--color-brown);
-  font-size: var(--font-size-small);
-  font-weight: 700;
-  letter-spacing: var(--letter-spacing-small);
-  line-height: var(--line-height-tight);
-  text-decoration: none;
-  text-transform: uppercase;
 }
 
 .stay-villa-section {
@@ -3872,7 +3785,7 @@
   max-width: 520px;
   margin-top: 18px;
   color: rgb(var(--color-white) / var(--opacity-high));
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
@@ -4079,12 +3992,19 @@
   align-items: center;
   padding: 56px var(--container-gutter);
   color: var(--color-brown);
-  background: var(--color-cream);
+  background: var(--color-dark-cream);
   padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  margin-bottom: 50px;
+}
+.accommodation-memories-image{
+  height: 100%;
 }
 
 .accommodation-memories-content {
   max-width: 450px;
+  padding: 20px 0;
 }
 
 .accommodation-memories-eyebrow {
@@ -4126,6 +4046,7 @@
   width: 100%;
   aspect-ratio: 820 / 395;
   object-fit: cover;
+  height: 100%;
 }
 
 .accommodation-living-section,
@@ -4584,6 +4505,15 @@
   .contact-form-submit {
     min-width: 280px;
   }
+  .accommodation-memories-content h2{
+    font-size: 36px;
+  }
+  .events-experience-content h2{
+    font-size: 36px;
+  }
+  .overview-villa-content h2{
+    font-size: 36px;
+  }
 }
 @media (max-width: 1024px) {
 /* .intro-panel h2 {
@@ -4609,8 +4539,8 @@
   }
   .accommodation-memories-section {
     grid-template-columns: 1fr;
-    gap: 36px;
-    padding: 0px 32px 50px 32px;
+    gap: 10px;
+    padding: 30px 32px 50px 32px;
   }
   .accommodation-memories-content {
     max-width: 100%;
@@ -4623,7 +4553,7 @@
   .overview-villa-section {
     grid-template-columns: 1fr;
     gap: 30px;
-    padding: 70px 32px 50px;
+    padding: 60px 32px 50px;
   }
   .overview-villa-content{
     max-width: 100%;
@@ -5118,39 +5048,16 @@
   }
 
   .stay-inquiry-section {
-    padding: 0 32px 64px;
+    padding: 0 32px 20px;
   }
 
   .stay-inquiry-form {
     width: min(100%, 840px);
   }
 
-  .stay-inquiry-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .stay-inquiry-field--half,
   .stay-inquiry-field--full {
     grid-column: 1 / -1;
-  }
-
-  .stay-rooms-section {
-    grid-template-columns: 1fr;
-    gap: 34px;
-    padding: 64px 32px 66px;
-  }
-
-  .stay-rooms-copy {
-    max-width: 680px;
-  }
-
-  .stay-rooms-grid {
-    grid-template-columns: repeat(2, minmax(220px, 1fr));
-    border-top: 1px solid rgb(var(--color-brown-rgb) / 0.16);
-  }
-
-  .stay-room-card {
-    border-bottom: 1px solid rgb(var(--color-brown-rgb) / 0.16);
   }
 
   .stay-villa-section {
@@ -5237,7 +5144,7 @@
   .accommodation-memories-section {
     grid-template-columns: 1fr;
     gap: 36px;
-    padding: 0px 32px 50px 32px;
+    padding: 50px 32px 50px 32px;
   }
 
   .accommodation-memories-content {
@@ -5258,7 +5165,7 @@
   }
 
   .overview-blocks-section {
-    padding: 72px 24px 0px;
+    padding: 60px 24px 0px;
   }
 
   .overview-blocks-grid {
@@ -5649,6 +5556,14 @@
   .contact-connect-card h2 {
     font-size: 19px;
   }
+  .events-memories-eyebrow, .events-host-eyebrow{
+    margin-bottom: 8px;
+    font-size: var(--font-size-small);
+  }
+
+  .events-intro-copy > p:not(.events-intro-eyebrow){
+    font-size: var(--font-size-nav);
+  }
 
   .contact-experience-section {
     padding: 42px 18px 46px;
@@ -5970,11 +5885,7 @@
   }
 
   .events-intro-card p {
-    font-size: var(--font-size-small);
-  }
-
-  .events-host-section {
-    padding: 52px 18px 56px;
+    font-size: var(--font-size-nav);
   }
 
   .events-host-header {
@@ -5992,10 +5903,6 @@
 
   .events-host-card h3 {
     font-size: var(--font-size-global-h2);
-  }
-
-  .events-host-card p {
-    font-size: var(--font-size-small);
   }
 
   .events-experience-section {
@@ -6038,7 +5945,7 @@
   }
 
   .events-memories-header {
-    margin-bottom: 32px;
+    margin-bottom: 20px;
   }
 
   .events-memories-header h2 {
@@ -6046,13 +5953,8 @@
   }
 
   .events-memories-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 14px;
-    width: min(100%, 380px);
-  }
-
-  .events-memories-image img {
-    aspect-ratio: 4 / 3;
   }
 
   .gallery-intro-section {
@@ -6128,26 +6030,12 @@
     font-size: var(--font-size-global-h3);
   }
 
-  .stay-inquiry-section {
-    gap: 22px;
-    padding: 0 18px 52px;
-  }
-
   .stay-inquiry-form {
     padding: 20px 16px 22px;
   }
 
-  .stay-inquiry-heading {
-    margin-bottom: 18px;
-  }
-
   .stay-inquiry-heading h2 {
     font-size: var(--font-size-global-h3);
-  }
-
-  .stay-inquiry-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
   }
 
   .stay-inquiry-field,
@@ -6160,40 +6048,6 @@
     width: min(100%, 240px);
   }
 
-  .stay-rooms-section {
-    gap: 30px;
-    padding: 52px 18px 56px;
-  }
-
-  .stay-rooms-copy h2 {
-    font-size: var(--font-size-h2-mobile);
-  }
-
-  .stay-rooms-copy > p:not(.stay-rooms-eyebrow) {
-    font-size: var(--font-size-small);
-  }
-
-  .stay-rooms-grid {
-    grid-template-columns: 1fr;
-    border-left: 0;
-  }
-
-  .stay-room-card {
-    border-right: 0;
-  }
-
-  .stay-room-card-body {
-    padding: 20px 0 26px;
-  }
-
-  .stay-room-card h3 {
-    font-size: var(--font-size-global-h2);
-  }
-
-  .stay-room-card p {
-    font-size: var(--font-size-small);
-  }
-
   .stay-villa-section {
     gap: 30px;
     padding: 52px 18px 56px;
@@ -6204,7 +6058,7 @@
   }
 
   .stay-villa-copy > p:not(.stay-villa-eyebrow) {
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-nav);
   }
 
   .stay-villa-grid {
@@ -6244,7 +6098,17 @@
   }
 
   .stay-cta-text {
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-nav);
+    margin-top: 8px;
+  }
+  .stay-cta-eyebrow, .stay-experience-eyebrow{
+    margin-bottom: 5px;
+  }
+  .stay-experience-content{
+    margin-top: 8px;
+  }
+  .stay-cta-button {
+    margin-top: 18px;
   }
 
   .accommodation-intro-section {
@@ -6319,8 +6183,13 @@
   }
 
   .accommodation-memories-section {
-    gap: 28px;
-    padding: 0px 18px 48px 18px;
+    gap: 10px;
+    padding: 30px 18px 30px 18px;
+    margin-bottom: 30px;
+
+  }
+  .accommodation-memories-button{
+    margin-top: 16px;
   }
 
   .accommodation-memories-content h2 {
@@ -6328,6 +6197,9 @@
   }
 
   .accommodation-memories-content > p:not(.accommodation-memories-eyebrow) {
+    font-size: var(--font-size-nav);
+  }
+  .accommodation-memories-eyebrow{
     font-size: var(--font-size-small);
   }
 
@@ -6364,7 +6236,7 @@
   }
 
   .overview-blocks-section {
-    padding: 48px 18px 52px;
+    padding: 48px 18px 10px;
   }
   .overview-block-content p{
     font-size: var(--font-size-nav);
@@ -6584,35 +6456,8 @@
     border-left: 0;
   }
 
-  .stay-inquiry-section {
-    padding: 34px 32px 68px;
-  }
-
   .stay-inquiry-form {
     width: min(100%, 900px);
-  }
-
-  .stay-rooms-section {
-    grid-template-columns: 1fr;
-    gap: 34px;
-    padding: 66px 32px 70px;
-  }
-
-  .stay-rooms-copy {
-    max-width: 720px;
-  }
-
-  .stay-rooms-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    border-top: 1px solid rgb(var(--color-brown-rgb) / 0.16);
-  }
-
-  .stay-room-card {
-    border-bottom: 1px solid rgb(var(--color-brown-rgb) / 0.16);
-  }
-
-  .stay-room-card:nth-child(2n) {
-    border-right: 0;
   }
 
   .stay-villa-section {
@@ -6684,7 +6529,7 @@
 
   .stay-inquiry-section {
     gap: 22px;
-    padding: 28px 18px 54px;
+    padding: 0px 18px 20px;
   }
 
   .stay-inquiry-form {
@@ -6693,7 +6538,6 @@
 
   .stay-inquiry-grid {
     grid-template-columns: 1fr;
-    gap: 18px;
   }
 
   .stay-inquiry-field,
@@ -6712,32 +6556,19 @@
     font-size: var(--font-size-nav);
   }
 
-  .stay-inquiry-submit,
-  .stay-rooms-button,
-  .stay-cta-button {
+  .stay-inquiry-submit {
     width: 100%;
   }
 
-  .stay-rooms-section,
   .stay-villa-section,
   .stay-experience-section {
     gap: 30px;
     padding: 52px 18px 56px;
   }
 
-  .stay-rooms-grid,
   .stay-villa-grid,
   .stay-experience-section {
     grid-template-columns: 1fr;
-  }
-
-  .stay-room-card,
-  .stay-room-card:nth-child(2n) {
-    border-right: 0;
-  }
-
-  .stay-room-card-body {
-    padding: 20px 18px 26px;
   }
 
   .stay-villa-card img,
@@ -6760,9 +6591,6 @@
 }
 
 @media (max-width: 600px) {
-  .stay-inquiry-heading {
-    align-items: flex-start;
-  }
 
   .stay-inquiry-heading h2 {
     font-size: var(--font-size-global-h3);
@@ -6780,7 +6608,6 @@
 @media (max-width: 420px) {
   .stay-info-section,
   .stay-inquiry-section,
-  .stay-rooms-section,
   .stay-villa-section,
   .stay-experience-section,
   .stay-cta-section {
@@ -6805,5 +6632,228 @@
   .stay-inquiry-field textarea {
     padding-right: 10px;
     padding-left: 10px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .events-intro-section {
+    grid-template-columns: 1fr;
+    gap: 42px;
+    padding: 70px 32px 40px;
+  }
+
+  .events-intro-copy {
+    max-width: 720px;
+  }
+
+  .events-intro-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid rgb(var(--color-white) / 0.18);
+  }
+
+  .events-intro-card {
+    min-height: 190px;
+    border-top: 0;
+  }
+
+  .events-intro-card:nth-child(2n + 1) {
+    border-left: 0;
+  }
+
+  .events-intro-card:nth-child(n + 3) {
+    border-top: 1px solid rgb(var(--color-white) / 0.18);
+  }
+
+  .events-intro-card:last-child {
+    border-right: 0;
+  }
+
+  .events-host-section {
+    padding: 66px 32px 70px;
+  }
+
+  .events-host-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .events-experience-section {
+    grid-template-columns: 1fr;
+    gap: 38px;
+    padding: 66px 32px 70px;
+    margin-bottom: 0;
+  }
+
+  .events-experience-content {
+    max-width: 720px;
+    padding: 0;
+  }
+
+  .events-experience-image img {
+    min-height: 360px;
+    aspect-ratio: 16 / 7;
+  }
+
+  .events-plan-section {
+    justify-items: center;
+    min-height: 300px;
+    padding: 54px 32px;
+  }
+
+  .events-plan-content {
+    margin-right: 0;
+  }
+
+  .events-memories-section {
+    padding: 54px 32px 62px;
+  }
+
+  .events-memories-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .events-host-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 20px;
+  }
+
+  .events-host-card img {
+    aspect-ratio: 4 / 3;
+    max-height: 400px;
+  }
+
+  .events-experience-button,
+  .events-memories-button {
+    width: min(100%, 360px);
+  }
+}
+
+@media (max-width: 767px) {
+  .events-intro-section {
+    gap: 30px;
+    padding: 54px 18px 22px;
+  }
+
+  .events-intro-copy h2,
+  .events-host-header h2,
+  .events-experience-content h2,
+  .events-memories-header h2 {
+    font-size: var(--font-size-h2-mobile);
+  }
+
+  .events-intro-grid,
+  .events-host-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .events-intro-card,
+  .events-intro-card:nth-child(2n + 1),
+  .events-intro-card:nth-child(n + 3),
+  .events-intro-card:last-child {
+    min-height: auto;
+    padding: 30px 18px;
+    border-top: 1px solid rgb(var(--color-white) / 0.18);
+    border-right: 0;
+    border-left: 0;
+  }
+
+  .events-intro-card:first-child {
+    border-top: 0;
+  }
+
+  .events-host-section,
+  .events-experience-section,
+  .events-memories-section {
+    padding-right: 18px;
+    padding-left: 18px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+  }
+  .events-experience-eyebrow{
+    margin:0 0 8px;
+    font-size: var(--font-size-small);
+  }
+
+  .events-host-grid {
+    gap: 34px;
+  }
+
+  .events-host-card p,
+  .events-experience-content > p:not(.events-experience-eyebrow),
+  .events-experience-content ul {
+    font-size: var(--font-size-nav);
+  }
+
+  .events-host-card p{
+    font-size: var(--font-size-nav);
+    margin-top: 5px;
+  }
+  .events-host-card a{
+    margin-top: 10px;
+  }
+
+  .events-experience-section {
+    gap: 30px;
+    padding-top: 52px;
+    padding-bottom: 56px;
+  }
+
+  .events-experience-image {
+    order: -1;
+  }
+
+  .events-experience-image img {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .events-experience-button,
+  .events-memories-button,
+  .events-plan-button {
+    width: 100%;
+  }
+
+  .events-plan-section {
+    min-height: 300px;
+    padding: 46px 18px;
+  }
+
+  .events-plan-content {
+    width: min(100%, 380px);
+  }
+
+  .events-plan-content blockquote {
+    font-size: 25px;
+  }
+
+  .events-memories-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .events-memories-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .events-memories-image img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 420px) {
+  .events-intro-section,
+  .events-host-section,
+  .events-experience-section,
+  .events-plan-section,
+  .events-memories-section {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .events-plan-content blockquote {
+    font-size: 22px;
   }
 }

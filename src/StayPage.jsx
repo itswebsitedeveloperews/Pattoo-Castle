@@ -180,14 +180,6 @@ export default function StayPage({
   const header = getHeaderContent(headerEntry);
   const stay = getStayContent(stayEntry);
   const hasButton = Boolean(stay.buttonText && stay.buttonUrl);
-  const hasRoomButton = Boolean(stay.roomButtonText && stay.roomButtonUrl);
-  const hasRoomsSection = Boolean(
-    stay.roomSubHeading ||
-      stay.roomHeading ||
-      stay.roomContent ||
-      hasRoomButton ||
-      stay.roomBox.length,
-  );
   const hasVillaSection = Boolean(
     stay.villaSubHeading ||
       stay.villaHeading ||
@@ -306,47 +298,6 @@ export default function StayPage({
           Send Inquiry
         </button>
       </section>
-
-      {hasRoomsSection && (
-        <section
-          className="stay-rooms-section"
-          aria-labelledby={stay.roomHeading ? "stay-rooms-title" : undefined}
-        >
-          <div className="stay-rooms-copy">
-            {stay.roomSubHeading && (
-              <p className="stay-rooms-eyebrow">{stay.roomSubHeading}</p>
-            )}
-            {stay.roomHeading && <h2 id="stay-rooms-title">{stay.roomHeading}</h2>}
-            {stay.roomContent && <p>{stay.roomContent}</p>}
-            {hasRoomButton && (
-              <a className="button button--brown stay-rooms-button" href={stay.roomButtonUrl}>
-                {stay.roomButtonText}
-              </a>
-            )}
-          </div>
-
-          {stay.roomBox.length > 0 && (
-            <div className="stay-rooms-grid">
-              {stay.roomBox.map((item, index) => {
-                const hasCardButton = Boolean(item.buttonText && item.buttonUrl);
-
-                return (
-                  <article className="stay-room-card" key={`${item.title}-${index}`}>
-                    {item.imageSrc && <img src={item.imageSrc} alt="" />}
-                    <div className="stay-room-card-body">
-                      {item.title && <h3>{item.title}</h3>}
-                      {item.content && <p>{item.content}</p>}
-                      {hasCardButton && (
-                        <a href={item.buttonUrl}>{item.buttonText}</a>
-                      )}
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          )}
-        </section>
-      )}
 
       {hasVillaSection && (
         <section
