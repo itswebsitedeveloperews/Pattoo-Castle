@@ -231,31 +231,33 @@ export default function AboutPage({
               about.villaHeading ? "about-villa-title" : undefined
             }
           >
-            {about.villaImage && (
-              <div className="about-villa-image">
-                <img src={about.villaImage} alt="" />
+            <div className="wrap">
+              {about.villaImage && (
+                <div className="about-villa-image">
+                  <img src={about.villaImage} alt="" />
+                </div>
+              )}
+
+              <div className="about-villa-content">
+                {about.villaSubHeading && (
+                  <p className="about-villa-eyebrow">{about.villaSubHeading}</p>
+                )}
+
+                {about.villaHeading && (
+                  <h2 id="about-villa-title">{about.villaHeading}</h2>
+                )}
+
+                {about.villaContent && <p>{about.villaContent}</p>}
+
+                {hasVillaButton && (
+                  <a
+                    className="button button--brown about-villa-button"
+                    href={about.villaButtonUrl}
+                  >
+                    {about.villaButtonText}
+                  </a>
+                )}
               </div>
-            )}
-
-            <div className="about-villa-content">
-              {about.villaSubHeading && (
-                <p className="about-villa-eyebrow">{about.villaSubHeading}</p>
-              )}
-
-              {about.villaHeading && (
-                <h2 id="about-villa-title">{about.villaHeading}</h2>
-              )}
-
-              {about.villaContent && <p>{about.villaContent}</p>}
-
-              {hasVillaButton && (
-                <a
-                  className="button button--brown about-villa-button"
-                  href={about.villaButtonUrl}
-                >
-                  {about.villaButtonText}
-                </a>
-              )}
             </div>
           </section>
         )}

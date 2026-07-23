@@ -1931,13 +1931,22 @@ body:not(.home) .site-header {
 }
 
 .about-villa-section {
+  padding: 120px var(--container-gutter) 96px;
+  background: var(--color-cream);
+}
+
+.wrap {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1690px;
+}
+
+.about-villa-section .wrap {
   display: grid;
   grid-template-columns: minmax(0, 1.16fr) minmax(340px, 0.84fr);
   gap: 68px;
   align-items: center;
-  padding: 120px var(--container-gutter) 96px;
   color: var(--color-brown);
-  background: var(--color-cream);
 }
 
 .about-villa-image img {
