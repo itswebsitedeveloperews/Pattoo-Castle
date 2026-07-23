@@ -165,204 +165,254 @@ export default function EventsPage({
   const hasButton = Boolean(event.buttonText && event.buttonUrl);
   const hasIntroSection = Boolean(
     event.introSubHeading ||
-      event.introHeading ||
-      event.introDescription ||
-      event.numberBlock.length,
+    event.introHeading ||
+    event.introDescription ||
+    event.numberBlock.length,
   );
   const hasEventSection = Boolean(
     event.eventSubHeading || event.eventHeading || event.eventBox.length,
   );
   const hasExperienceSection = Boolean(
     event.experienceSubHeading ||
-      event.experienceHeading ||
-      event.experienceContent ||
-      (event.experienceButtonText && event.experienceButtonUrl) ||
-      event.experienceImage,
+    event.experienceHeading ||
+    event.experienceContent ||
+    (event.experienceButtonText && event.experienceButtonUrl) ||
+    event.experienceImage,
   );
   const hasPlanSection = Boolean(
     event.planImage ||
-      event.planContent ||
-      (event.planButtonText && event.planButtonUrl),
+    event.planContent ||
+    (event.planButtonText && event.planButtonUrl),
   );
   const hasMemoriesSection = Boolean(
     event.memoriesSubHeading ||
-      event.memoriesHeading ||
-      event.memoriesImages.length ||
-      (event.memoriesButtonText && event.memoriesButtonUrl),
+    event.memoriesHeading ||
+    event.memoriesImages.length ||
+    (event.memoriesButtonText && event.memoriesButtonUrl),
   );
 
   return (
     <>
       <SiteHeader header={header} />
       <main>
-      <section
-        className="page-hero events-hero"
-        style={
-          event.bannerImage
-            ? { "--events-banner-image": `url(${event.bannerImage})` }
-            : undefined
-        }
-        aria-labelledby={event.bannerHeading ? "events-title" : undefined}
-      >
-        <div className="page-hero-content events-hero-content">
-          {event.bannerSubHeading && (
-            <p className="page-hero-eyebrow events-hero-eyebrow">{event.bannerSubHeading}</p>
-          )}
-          {event.bannerHeading && (
-            <h1 id="events-title">{event.bannerHeading}</h1>
-          )}
-          {event.bannerContent && <p>{event.bannerContent}</p>}
-          {hasButton && (
-            <a className="button button--light page-hero-button events-hero-button" href={event.buttonUrl}>
-              {event.buttonText}
-            </a>
-          )}
-        </div>
-      </section>
-
-      {hasIntroSection && (
-        <section className="events-intro-section">
-          <div className="events-intro-copy">
-            {event.introSubHeading && (
-              <p className="events-intro-eyebrow">{event.introSubHeading}</p>
-            )}
-            {event.introHeading && <h2>{event.introHeading}</h2>}
-            {event.introDescription && <p>{event.introDescription}</p>}
-          </div>
-
-          {event.numberBlock.length > 0 && (
-            <div className="events-intro-grid">
-              {event.numberBlock.map((item, index) => (
-                <article className="events-intro-card" key={index}>
-                  {item.iconSrc && <img src={item.iconSrc} alt="" />}
-                  {item.count && <strong>{item.count}</strong>}
-                  {item.title && <h3>{item.title}</h3>}
-                  {item.content && <p>{item.content}</p>}
-                </article>
-              ))}
-            </div>
-          )}
-        </section>
-      )}
-
-      {hasEventSection && (
-        <section className="events-host-section">
-          <div className="events-host-header">
-            {event.eventSubHeading && (
-              <p className="events-host-eyebrow">{event.eventSubHeading}</p>
-            )}
-            {event.eventHeading && <h2>{event.eventHeading}</h2>}
-          </div>
-
-          {event.eventBox.length > 0 && (
-            <div className="events-host-grid">
-              {event.eventBox.map((item, index) => (
-                <article className="events-host-card" key={index}>
-                  {item.imageSrc && <img src={item.imageSrc} alt="" />}
-                  {item.title && <h3>{item.title}</h3>}
-                  {item.content && <p>{item.content}</p>}
-                  {item.buttonText && item.buttonUrl && (
-                    <a href={item.buttonUrl}>{item.buttonText}</a>
-                  )}
-                </article>
-              ))}
-            </div>
-          )}
-        </section>
-      )}
-
-      {hasExperienceSection && (
-        <section className="events-experience-section">
-          <div className="events-experience-content">
-            {event.experienceSubHeading && (
-              <p className="events-experience-eyebrow">
-                {event.experienceSubHeading}
-              </p>
-            )}
-            {event.experienceHeading && <h2>{event.experienceHeading}</h2>}
-            {event.experienceContent && (
-              <p>{event.experienceContent}</p>
-            )}
-            {event.experienceListItems.length > 0 && (
-              <ul>
-                {event.experienceListItems.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            )}
-            {event.experienceButtonText && event.experienceButtonUrl && (
-              <a
-                className="button button--brown events-experience-button"
-                href={event.experienceButtonUrl}
-              >
-                {event.experienceButtonText}
-              </a>
-            )}
-          </div>
-
-          {event.experienceImage && (
-            <figure className="events-experience-image">
-              <img src={event.experienceImage} alt="" />
-            </figure>
-          )}
-        </section>
-      )}
-
-      {hasPlanSection && (
         <section
-          className="events-plan-section"
+          className="section page-hero events-hero"
           style={
-            event.planImage
-              ? { "--events-plan-image": `url(${event.planImage})` }
+            event.bannerImage
+              ? { "--events-banner-image": `url(${event.bannerImage})` }
               : undefined
           }
+          aria-labelledby={event.bannerHeading ? "events-title" : undefined}
         >
-          <div className="events-plan-content">
-            {event.planContent && <blockquote>{event.planContent}</blockquote>}
-            {event.planButtonText && event.planButtonUrl && (
-              <a
-                className="button button--light events-plan-button"
-                href={event.planButtonUrl}
-              >
-                {event.planButtonText}
-              </a>
-            )}
-          </div>
-        </section>
-      )}
-
-      {hasMemoriesSection && (
-        <section className="events-memories-section">
-          <div className="events-memories-header">
-            {event.memoriesSubHeading && (
-              <p className="events-memories-eyebrow">
-                {event.memoriesSubHeading}
-              </p>
-            )}
-            {event.memoriesHeading && <h2>{event.memoriesHeading}</h2>}
-          </div>
-
-          {event.memoriesImages.length > 0 && (
-            <div className="events-memories-grid">
-              {event.memoriesImages.map((imageSrc, index) => (
-                <figure className="events-memories-image" key={`${imageSrc}-${index}`}>
-                  <img src={imageSrc} alt="" />
-                </figure>
-              ))}
+          <div className="wrap">
+            <div className="page-hero-content events-hero-content">
+              {event.bannerSubHeading && (
+                <p className="eyebrow page-hero-eyebrow events-hero-eyebrow">
+                  {event.bannerSubHeading}
+                </p>
+              )}
+              {event.bannerHeading && (
+                <h1 id="events-title">{event.bannerHeading}</h1>
+              )}
+              {event.bannerContent && <p>{event.bannerContent}</p>}
+              {hasButton && (
+                <a
+                  className="button button--light page-hero-button events-hero-button"
+                  href={event.buttonUrl}
+                >
+                  {event.buttonText}
+                </a>
+              )}
             </div>
-          )}
-
-          {event.memoriesButtonText && event.memoriesButtonUrl && (
-            <a
-              className="button button--brown events-memories-button"
-              href={event.memoriesButtonUrl}
-            >
-              {event.memoriesButtonText}
-            </a>
-          )}
+          </div>
         </section>
-      )}
 
+        {hasIntroSection && (
+          <section className="section events-intro-section">
+            <div className="wrap">
+              <div className="events-intro-copy">
+                {event.introSubHeading && (
+                  <p className="eyebrow events-intro-eyebrow">
+                    {event.introSubHeading}
+                  </p>
+                )}
+                {event.introHeading && <h2>{event.introHeading}</h2>}
+                {event.introDescription && <p>{event.introDescription}</p>}
+              </div>
+
+              {event.numberBlock.length > 0 && (
+                <div className="events-intro-grid">
+                  {event.numberBlock.map((item, index) => (
+                    <article className="events-intro-card" key={index}>
+                      {item.iconSrc && <img src={item.iconSrc} alt="" />}
+                      {item.count && <strong>{item.count}</strong>}
+                      {item.title && <h3>{item.title}</h3>}
+                      {item.content && <p>{item.content}</p>}
+                    </article>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {hasEventSection && (
+          <section className="section events-host-section">
+            <div className="wrap">
+              <div className="events-host-header">
+                {event.eventSubHeading && (
+                  <p className="eyebrow events-host-eyebrow">
+                    {event.eventSubHeading}
+                  </p>
+                )}
+                {event.eventHeading && <h2>{event.eventHeading}</h2>}
+              </div>
+
+              {event.eventBox.length > 0 && (
+                <div className="events-host-grid">
+                  {event.eventBox.map((item, index) => (
+                    <article className="events-host-card" key={index}>
+                      {item.imageSrc &&
+                        (item.buttonUrl ? (
+                          <a
+                            className="events-host-card-image-link"
+                            href={item.buttonUrl}
+                          >
+                            <img src={item.imageSrc} alt="" />
+                          </a>
+                        ) : (
+                          <img src={item.imageSrc} alt="" />
+                        ))}
+                      {item.title &&
+                        (item.buttonUrl ? (
+                          <h3>
+                            <a
+                              className="events-host-card-title-link"
+                              href={item.buttonUrl}
+                            >
+                              {item.title}
+                            </a>
+                          </h3>
+                        ) : (
+                          <h3>{item.title}</h3>
+                        ))}
+                      {item.content && <p>{item.content}</p>}
+                      {item.buttonText && item.buttonUrl && (
+                        <a
+                          className="events-host-card-button"
+                          href={item.buttonUrl}
+                        >
+                          {item.buttonText}
+                        </a>
+                      )}
+                    </article>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {hasExperienceSection && (
+          <section className="section events-experience-section">
+            <div className="wrap">
+              <div className="events-experience-content">
+                {event.experienceSubHeading && (
+                  <p className="eyebrow events-experience-eyebrow">
+                    {event.experienceSubHeading}
+                  </p>
+                )}
+                {event.experienceHeading && <h2>{event.experienceHeading}</h2>}
+                {event.experienceContent && <p>{event.experienceContent}</p>}
+                {event.experienceListItems.length > 0 && (
+                  <ul>
+                    {event.experienceListItems.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
+                )}
+                {event.experienceButtonText && event.experienceButtonUrl && (
+                  <a
+                    className="button button--brown events-experience-button"
+                    href={event.experienceButtonUrl}
+                  >
+                    {event.experienceButtonText}
+                  </a>
+                )}
+              </div>
+
+              {event.experienceImage && (
+                <figure className="events-experience-image">
+                  <img src={event.experienceImage} alt="" />
+                </figure>
+              )}
+            </div>
+          </section>
+        )}
+
+        {hasPlanSection && (
+          <section
+            className="section events-plan-section"
+            style={
+              event.planImage
+                ? { "--events-plan-image": `url(${event.planImage})` }
+                : undefined
+            }
+          >
+            <div className="wrap">
+              <div className="events-plan-content">
+                {event.planContent && (
+                  <blockquote>{event.planContent}</blockquote>
+                )}
+                {event.planButtonText && event.planButtonUrl && (
+                  <a
+                    className="button button--light events-plan-button"
+                    href={event.planButtonUrl}
+                  >
+                    {event.planButtonText}
+                  </a>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {hasMemoriesSection && (
+          <section className="section events-memories-section">
+            <div className="wrap">
+              <div className="events-memories-header">
+                {event.memoriesSubHeading && (
+                  <p className="eyebrow events-memories-eyebrow">
+                    {event.memoriesSubHeading}
+                  </p>
+                )}
+                {event.memoriesHeading && <h2>{event.memoriesHeading}</h2>}
+              </div>
+
+              {event.memoriesImages.length > 0 && (
+                <div className="events-memories-grid">
+                  {event.memoriesImages.map((imageSrc, index) => (
+                    <figure
+                      className="events-memories-image"
+                      key={`${imageSrc}-${index}`}
+                    >
+                      <img src={imageSrc} alt="" />
+                    </figure>
+                  ))}
+                </div>
+              )}
+
+              {event.memoriesButtonText && event.memoriesButtonUrl && (
+                <a
+                  className="button button--brown events-memories-button"
+                  href={event.memoriesButtonUrl}
+                >
+                  {event.memoriesButtonText}
+                </a>
+              )}
+            </div>
+          </section>
+        )}
       </main>
       <SiteFooter footer={footer} />
     </>

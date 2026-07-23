@@ -79,101 +79,116 @@ export default function GalleryPage({
   );
   const hasReserveButton = Boolean(
     gallery.reserveYourStayDate.buttonText &&
-      gallery.reserveYourStayDate.buttonUrl,
+    gallery.reserveYourStayDate.buttonUrl,
   );
   const hasReserveSection = Boolean(
     gallery.reserveYourStayImage ||
-      gallery.reserveYourStayVideo ||
-      gallery.reserveYourStayDate.title ||
-      gallery.reserveYourStayDate.content ||
-      hasReserveButton,
+    gallery.reserveYourStayVideo ||
+    gallery.reserveYourStayDate.title ||
+    gallery.reserveYourStayDate.content ||
+    hasReserveButton,
   );
 
   return (
     <>
       <SiteHeader header={header} />
       <main>
-      <section
-        className="page-hero gallery-hero"
-        style={
-          gallery.bannerImage
-            ? { "--gallery-banner-image": `url(${gallery.bannerImage})` }
-            : undefined
-        }
-        aria-labelledby={gallery.bannerHeading ? "gallery-title" : undefined}
-      >
-        <div className="page-hero-content gallery-hero-content">
-          {gallery.bannerSubHeading && (
-            <p className="page-hero-eyebrow gallery-hero-eyebrow">{gallery.bannerSubHeading}</p>
-          )}
-          {gallery.bannerHeading && (
-            <h1 id="gallery-title">{gallery.bannerHeading}</h1>
-          )}
-          {gallery.bannerContent && <p>{gallery.bannerContent}</p>}
-          {hasButton && (
-            <a
-              className="button button--light page-hero-button gallery-hero-button"
-              href={gallery.buttonUrl}
-            >
-              {gallery.buttonText}
-            </a>
-          )}
-        </div>
-      </section>
-
-      {hasIntroSection && (
         <section
-          className="gallery-intro-section"
-          aria-labelledby={gallery.introHeading ? "gallery-intro-title" : undefined}
+          className="section page-hero gallery-hero"
+          style={
+            gallery.bannerImage
+              ? { "--gallery-banner-image": `url(${gallery.bannerImage})` }
+              : undefined
+          }
+          aria-labelledby={gallery.bannerHeading ? "gallery-title" : undefined}
         >
-          {gallery.introSubHeading && (
-            <p className="gallery-intro-eyebrow">{gallery.introSubHeading}</p>
-          )}
-          {gallery.introHeading && (
-            <h2 id="gallery-intro-title">{gallery.introHeading}</h2>
-          )}
-          {gallery.introDescription && <p>{gallery.introDescription}</p>}
-        </section>
-      )}
-
-      {gallery.galleryItems.length > 0 && (
-        <GalleryFilterGrid items={gallery.galleryItems} />
-      )}
-
-      {(gallery.pattooCastleHeading ||
-        gallery.pattooCastleSubHeading ||
-        gallery.pattooCastleImages.length > 0) && (
-        <section className="gallery-pattoo-section">
-          <div className="gallery-pattoo-quote">
-            <span aria-hidden="true">“</span>
-            {gallery.pattooCastleHeading && <h2>{gallery.pattooCastleHeading}</h2>}
-            {gallery.pattooCastleSubHeading && (
-              <p>{gallery.pattooCastleSubHeading}</p>
-            )}
-          </div>
-
-          {gallery.pattooCastleImages.length > 0 && (
-            <div className="gallery-pattoo-images">
-              {gallery.pattooCastleImages.slice(0, 2).map((imageSrc, index) => (
-                <img src={imageSrc} alt="" key={`${imageSrc}-${index}`} />
-              ))}
+          <div className="wrap">
+            <div className="page-hero-content gallery-hero-content">
+              {gallery.bannerSubHeading && (
+                <p className="eyebrow page-hero-eyebrow gallery-hero-eyebrow">
+                  {gallery.bannerSubHeading}
+                </p>
+              )}
+              {gallery.bannerHeading && (
+                <h1 id="gallery-title">{gallery.bannerHeading}</h1>
+              )}
+              {gallery.bannerContent && <p>{gallery.bannerContent}</p>}
+              {hasButton && (
+                <a
+                  className="button button--light page-hero-button gallery-hero-button"
+                  href={gallery.buttonUrl}
+                >
+                  {gallery.buttonText}
+                </a>
+              )}
             </div>
-          )}
+          </div>
         </section>
-      )}
 
-      {hasReserveSection && (
-        <ReserveStaySection
-          backgroundImage={gallery.reserveYourStayImage}
-          buttonText={gallery.reserveYourStayDate.buttonText}
-          buttonUrl={gallery.reserveYourStayDate.buttonUrl}
-          content={gallery.reserveYourStayDate.content}
-          logoSrc={gallery.reserveYourStayDate.logoSrc || getAssetSrc(logo)}
-          title={gallery.reserveYourStayDate.title}
-          videoSrc={gallery.reserveYourStayVideo}
-        />
-      )}
+        {hasIntroSection && (
+          <section
+            className="section gallery-intro-section"
+            aria-labelledby={
+              gallery.introHeading ? "gallery-intro-title" : undefined
+            }
+          >
+            <div className="wrap">
+              {gallery.introSubHeading && (
+                <p className="eyebrow gallery-intro-eyebrow">
+                  {gallery.introSubHeading}
+                </p>
+              )}
+              {gallery.introHeading && (
+                <h2 id="gallery-intro-title">{gallery.introHeading}</h2>
+              )}
+              {gallery.introDescription && <p>{gallery.introDescription}</p>}
+            </div>
+          </section>
+        )}
 
+        {gallery.galleryItems.length > 0 && (
+          <GalleryFilterGrid items={gallery.galleryItems} />
+        )}
+
+        {(gallery.pattooCastleHeading ||
+          gallery.pattooCastleSubHeading ||
+          gallery.pattooCastleImages.length > 0) && (
+          <section className="section gallery-pattoo-section">
+            <div className="wrap">
+              <div className="gallery-pattoo-quote">
+                <span aria-hidden="true">“</span>
+                {gallery.pattooCastleHeading && (
+                  <h2>{gallery.pattooCastleHeading}</h2>
+                )}
+                {gallery.pattooCastleSubHeading && (
+                  <p className="eyebrow">{gallery.pattooCastleSubHeading}</p>
+                )}
+              </div>
+
+              {gallery.pattooCastleImages.length > 0 && (
+                <div className="gallery-pattoo-images">
+                  {gallery.pattooCastleImages
+                    .slice(0, 2)
+                    .map((imageSrc, index) => (
+                      <img src={imageSrc} alt="" key={`${imageSrc}-${index}`} />
+                    ))}
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {hasReserveSection && (
+          <ReserveStaySection
+            backgroundImage={gallery.reserveYourStayImage}
+            buttonText={gallery.reserveYourStayDate.buttonText}
+            buttonUrl={gallery.reserveYourStayDate.buttonUrl}
+            content={gallery.reserveYourStayDate.content}
+            logoSrc={gallery.reserveYourStayDate.logoSrc || getAssetSrc(logo)}
+            title={gallery.reserveYourStayDate.title}
+            videoSrc={gallery.reserveYourStayVideo}
+          />
+        )}
       </main>
       <SiteFooter footer={footer} />
     </>

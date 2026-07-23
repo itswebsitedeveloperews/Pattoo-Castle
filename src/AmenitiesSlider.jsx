@@ -91,7 +91,7 @@ export default function AmenitiesSlider({
       <div className="amenities-top">
         <div className="amenities-heading-block">
           {eyebrow && (
-            <p className="amenities-eyebrow">
+            <p className="eyebrow amenities-eyebrow">
               <span />
               {eyebrow}
             </p>

@@ -93,6 +93,7 @@
   --font-size-h1-mobile: 42px;
   --font-size-h2: 48px;
   --font-size-global-h2: 32px;
+  --font-size-global-h4: 24px;
   --font-size-global-h3: 21px;
   --font-size-h2-mobile: 28px;
   --font-size-event-heading: 60px;
@@ -212,6 +213,7 @@ code {
     --font-size-h1: 46px;
     --font-size-h2: 42px;
     --font-size-40: 36px;
+    --font-size-global-h2: 28px;
   }
 }
 
@@ -219,10 +221,13 @@ code {
   :root {
     --font-size-h1: 40px;
     --font-size-h2: 28px;
+    --font-size-global-h2: 22px;
     --font-size-40: 28px;
     --font-size-large: 16px;
     --font-size-medium: 14px;
     --font-size-body: 12px;
     --font-size-small: 12px;
+    --font-size-global-h3: 18px;
+    --font-size-global-h4: 20px;
   }
 }

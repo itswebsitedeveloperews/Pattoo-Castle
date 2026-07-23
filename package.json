@@ -13,7 +13,9 @@
     "test:reserve-card-bg": "node scripts/validate-reserve-card-bg.mjs",
     "test:media": "node scripts/validate-media-breakpoints.mjs",
     "test:gallery-slick": "node scripts/validate-gallery-slick-width.mjs",
-    "test:home-body": "node scripts/validate-home-body-class.mjs"
+    "test:home-body": "node scripts/validate-home-body-class.mjs",
+    "test:events-host-card-links": "node scripts/validate-events-host-card-links.mjs",
+    "test:gallery-lightbox": "node scripts/validate-gallery-lightbox.mjs"
   },
   "dependencies": {
     "@fontsource/quattrocento-sans": "^5.2.8",
