@@ -39,11 +39,12 @@ const checks = [
     ],
   },
   {
-    label: "tablet gallery cards use equal columns with centered odd final card",
+    label: "tablet gallery cards keep first card full grid width and center odd final card only",
     source: appCss,
     fragments: [
       "grid-template-columns: repeat(2, minmax(0, 1fr));",
-      ".gallery-filter-card:first-child,",
+      ".gallery-filter-card:first-child {",
+      "grid-column: auto;",
       ".gallery-filter-card:last-child:nth-child(odd) {",
       "grid-column: 1 / -1;",
       "justify-self: center;",
@@ -63,6 +64,15 @@ const checks = [
       "left: 16px;",
       ".gallery-lightbox-control--next {",
       "right: 16px;",
+    ],
+  },
+  {
+    label: "mobile gallery cards stretch to their column width",
+    source: appCss,
+    fragments: [
+      ".gallery-filter-card {",
+      "justify-self: stretch;",
+      "width: 100%;",
     ],
   },
 ];

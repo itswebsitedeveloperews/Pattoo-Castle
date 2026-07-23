@@ -4996,7 +4996,10 @@ body:not(.home) .site-header {
     grid-column: auto;
   }
 
-  .gallery-filter-card:first-child,
+  .gallery-filter-card:first-child {
+    grid-column: auto;
+  }
+
   .gallery-filter-card:last-child:nth-child(odd) {
     grid-column: 1 / -1;
     justify-self: center;
@@ -5005,10 +5008,6 @@ body:not(.home) .site-header {
 
   .gallery-pattoo-section {
     padding: 38px 32px 50px;
-  }
-
-  .gallery-pattoo-quote h2 {
-    font-size: 28px;
   }
 
   .stay-info-section {
@@ -6063,7 +6062,7 @@ body:not(.home) .site-header {
   }
 
   .gallery-grid-section {
-    padding: 32px 18px 46px;
+    padding: 32px 0;
   }
 
   .gallery-filter-list {
@@ -6074,6 +6073,11 @@ body:not(.home) .site-header {
   .gallery-filter-grid {
     grid-auto-rows: auto;
     gap: 10px;
+  }
+
+  .gallery-filter-card {
+    justify-self: stretch;
+    width: 100%;
   }
 
   .gallery-filter-card img {
