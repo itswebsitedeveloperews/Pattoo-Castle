@@ -1280,7 +1280,7 @@ body:not(.home) .site-header {
 .page-hero-eyebrow {
   margin: 0 0 12px;
   color: rgb(var(--color-white) / var(--opacity-high));
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-body) !important;
   letter-spacing: var(--letter-spacing-wide);
   line-height: var(--line-height-tight);
   text-transform: uppercase;
@@ -2174,15 +2174,16 @@ body:not(.home) .site-header {
 }
 
 .location-map-section {
+  padding: 80px 0;
+  color: var(--color-brown);
+  background: var(--color-cream);
+}
+.location-map-section .wrap {
   display: grid;
   grid-template-columns: minmax(280px, 0.82fr) minmax(360px, 1.08fr);
   gap: 86px;
   align-items: center;
-  padding: 96px var(--container-gutter) 88px;
-  color: var(--color-brown);
-  background: var(--color-cream);
 }
-
 .location-map-content {
   display: grid;
   justify-items: start;
@@ -2192,28 +2193,19 @@ body:not(.home) .site-header {
 .location-map-eyebrow {
   margin: 0 0 18px;
   color: var(--color-brown);
-  font-size: var(--font-size-button-small);
-  font-weight: 700;
-  letter-spacing: var(--letter-spacing-wide);
-  line-height: var(--line-height-label);
-  text-transform: uppercase;
 }
 
 .location-map-section h2 {
   max-width: 480px;
   margin: 0;
   color: var(--color-brown);
-  font-family: var(--font-display);
+
   font-size: var(--font-size-h2);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-heading);
 }
 
 .location-map-content > p:not(.location-map-eyebrow) {
   margin-top: 30px;
   color: var(--color-brown-dark);
-  font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
@@ -4889,11 +4881,12 @@ body:not(.home) .site-header {
   }
 
   .location-map-section {
+    padding: 60px 0;
+  }
+  .location-map-section .wrap {
     grid-template-columns: 1fr;
     gap: 50px;
-    padding: 76px 32px 66px;
   }
-
   .location-map-content {
     max-width: 640px;
   }
@@ -5873,12 +5866,11 @@ body:not(.home) .site-header {
   }
 
   .location-map-section {
-    gap: 34px;
-    padding: 56px 18px 48px;
+    padding: 50px 0;
   }
 
-  .location-map-section h2 {
-    font-size: var(--font-size-h2-mobile);
+  .location-map-section .wrap {
+    gap: 32px;
   }
 
   .location-map-content > p:not(.location-map-eyebrow) {

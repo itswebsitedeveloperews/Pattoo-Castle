@@ -92,10 +92,10 @@ export default function LocationPage({
   );
   const hasLocationSection = Boolean(
     location.locationSubHeading ||
-      location.locationHeading ||
-      location.locationContent ||
-      hasLocationButton ||
-      location.locationImage,
+    location.locationHeading ||
+    location.locationContent ||
+    hasLocationButton ||
+    location.locationImage,
   );
   const hasHighlightsSection = Boolean(
     location.locationHighlightsHeading || location.locationHighlights.length,
@@ -105,10 +105,10 @@ export default function LocationPage({
   );
   const hasExperienceSection = Boolean(
     location.experienceImage ||
-      location.experienceSubHeading ||
-      location.experienceHeading ||
-      location.experienceContent ||
-      hasExperienceButton,
+    location.experienceSubHeading ||
+    location.experienceHeading ||
+    location.experienceContent ||
+    hasExperienceButton,
   );
   const hasExploreNearbySection = Boolean(
     location.exploreNearbyHeading || location.exploreNearbyBox.length,
@@ -118,137 +118,144 @@ export default function LocationPage({
     <>
       <SiteHeader header={header} />
       <main>
-      <section
-        className="page-hero location-hero"
-        style={
-          location.bannerImage
-            ? { "--location-banner-image": `url(${location.bannerImage})` }
-            : undefined
-        }
-        aria-labelledby={location.bannerHeading ? "location-title" : undefined}
-      >
-        <div className="page-hero-content location-hero-content">
-          {location.bannerSubHeading && (
-            <p className="page-hero-eyebrow location-hero-eyebrow">
-              {location.bannerSubHeading}
-            </p>
-          )}
-          {location.bannerHeading && (
-            <h1 id="location-title">{location.bannerHeading}</h1>
-          )}
-          {location.bannerContent && <p>{location.bannerContent}</p>}
-          {hasButton && (
-            <a
-              className="button button--light page-hero-button location-hero-button"
-              href={location.buttonUrl}
-            >
-              {location.buttonText}
-            </a>
-          )}
-        </div>
-      </section>
-
-      {hasLocationSection && (
-        <section className="location-map-section">
-          <div className="location-map-content">
-            {location.locationSubHeading && (
-              <p className="location-map-eyebrow">
-                {location.locationSubHeading}
+        <section
+          className="page-hero location-hero"
+          style={
+            location.bannerImage
+              ? { "--location-banner-image": `url(${location.bannerImage})` }
+              : undefined
+          }
+          aria-labelledby={
+            location.bannerHeading ? "location-title" : undefined
+          }
+        >
+          <div className="page-hero-content location-hero-content">
+            {location.bannerSubHeading && (
+              <p className="eyebrow page-hero-eyebrow location-hero-eyebrow">
+                {location.bannerSubHeading}
               </p>
             )}
-            {location.locationHeading && <h2>{location.locationHeading}</h2>}
-            {location.locationContent && <p>{location.locationContent}</p>}
-            {hasLocationButton && (
+            {location.bannerHeading && (
+              <h1 id="location-title">{location.bannerHeading}</h1>
+            )}
+            {location.bannerContent && <p>{location.bannerContent}</p>}
+            {hasButton && (
               <a
-                className="button button--brown location-map-button"
-                href={location.locationButtonUrl}
+                className="button button--light page-hero-button location-hero-button"
+                href={location.buttonUrl}
               >
-                {location.locationButtonText}
-              </a>
-            )}
-          </div>
-
-          {location.locationImage && (
-            <figure className="location-map-image">
-              <img src={location.locationImage} alt="" />
-            </figure>
-          )}
-        </section>
-      )}
-
-      {hasHighlightsSection && (
-        <section className="location-highlights-section">
-          {location.locationHighlightsHeading && (
-            <h2>{location.locationHighlightsHeading}</h2>
-          )}
-
-          {location.locationHighlights.length > 0 && (
-            <div className="location-highlights-grid">
-              {location.locationHighlights.map((item, index) => (
-                <article className="location-highlight-card" key={index}>
-                  {item.iconSrc && <img src={item.iconSrc} alt="" />}
-                  {item.title && <h3>{item.title}</h3>}
-                  {item.content && <p>{item.content}</p>}
-                </article>
-              ))}
-            </div>
-          )}
-        </section>
-      )}
-
-      {hasExperienceSection && (
-        <section className="location-experience-section">
-          {location.experienceImage && (
-            <figure className="location-experience-image">
-              <img src={location.experienceImage} alt="" />
-            </figure>
-          )}
-
-          <div className="location-experience-content">
-            {location.experienceSubHeading && (
-              <p className="location-experience-eyebrow">
-                {location.experienceSubHeading}
-              </p>
-            )}
-            {location.experienceHeading && (
-              <h2>{location.experienceHeading}</h2>
-            )}
-            {location.experienceContent && <p>{location.experienceContent}</p>}
-            {hasExperienceButton && (
-              <a
-                className="button button--light location-experience-button"
-                href={location.experienceButtonUrl}
-              >
-                {location.experienceButtonText}
+                {location.buttonText}
               </a>
             )}
           </div>
         </section>
-      )}
 
-      {hasExploreNearbySection && (
-        <section className="location-nearby-section">
-          {location.exploreNearbyHeading && (
-            <h2>{location.exploreNearbyHeading}</h2>
-          )}
+        {hasLocationSection && (
+          <section className="section location-map-section">
+            <div className="wrap">
+              <div className="location-map-content">
+                {location.locationSubHeading && (
+                  <p className="eyebrow location-map-eyebrow">
+                    {location.locationSubHeading}
+                  </p>
+                )}
+                {location.locationHeading && (
+                  <h2>{location.locationHeading}</h2>
+                )}
+                {location.locationContent && <p>{location.locationContent}</p>}
+                {hasLocationButton && (
+                  <a
+                    className="button button--brown location-map-button"
+                    href={location.locationButtonUrl}
+                  >
+                    {location.locationButtonText}
+                  </a>
+                )}
+              </div>
 
-          {location.exploreNearbyBox.length > 0 && (
-            <div className="location-nearby-grid">
-              {location.exploreNearbyBox.map((item, index) => (
-                <article className="location-nearby-card" key={index}>
-                  {item.imageSrc && <img src={item.imageSrc} alt="" />}
-                  {item.title && <h3>{item.title}</h3>}
-                  {item.content && <p>{item.content}</p>}
-                  {item.buttonText && item.buttonUrl && (
-                    <a href={item.buttonUrl}>{item.buttonText}</a>
-                  )}
-                </article>
-              ))}
+              {location.locationImage && (
+                <figure className="location-map-image">
+                  <img src={location.locationImage} alt="" />
+                </figure>
+              )}
             </div>
-          )}
-        </section>
-      )}
+          </section>
+        )}
 
+        {hasHighlightsSection && (
+          <section className="location-highlights-section">
+            {location.locationHighlightsHeading && (
+              <h2>{location.locationHighlightsHeading}</h2>
+            )}
+
+            {location.locationHighlights.length > 0 && (
+              <div className="location-highlights-grid">
+                {location.locationHighlights.map((item, index) => (
+                  <article className="location-highlight-card" key={index}>
+                    {item.iconSrc && <img src={item.iconSrc} alt="" />}
+                    {item.title && <h3>{item.title}</h3>}
+                    {item.content && <p>{item.content}</p>}
+                  </article>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {hasExperienceSection && (
+          <section className="location-experience-section">
+            {location.experienceImage && (
+              <figure className="location-experience-image">
+                <img src={location.experienceImage} alt="" />
+              </figure>
+            )}
+
+            <div className="location-experience-content">
+              {location.experienceSubHeading && (
+                <p className="location-experience-eyebrow">
+                  {location.experienceSubHeading}
+                </p>
+              )}
+              {location.experienceHeading && (
+                <h2>{location.experienceHeading}</h2>
+              )}
+              {location.experienceContent && (
+                <p>{location.experienceContent}</p>
+              )}
+              {hasExperienceButton && (
+                <a
+                  className="button button--light location-experience-button"
+                  href={location.experienceButtonUrl}
+                >
+                  {location.experienceButtonText}
+                </a>
+              )}
+            </div>
+          </section>
+        )}
+
+        {hasExploreNearbySection && (
+          <section className="location-nearby-section">
+            {location.exploreNearbyHeading && (
+              <h2>{location.exploreNearbyHeading}</h2>
+            )}
+
+            {location.exploreNearbyBox.length > 0 && (
+              <div className="location-nearby-grid">
+                {location.exploreNearbyBox.map((item, index) => (
+                  <article className="location-nearby-card" key={index}>
+                    {item.imageSrc && <img src={item.imageSrc} alt="" />}
+                    {item.title && <h3>{item.title}</h3>}
+                    {item.content && <p>{item.content}</p>}
+                    {item.buttonText && item.buttonUrl && (
+                      <a href={item.buttonUrl}>{item.buttonText}</a>
+                    )}
+                  </article>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
       </main>
       <SiteFooter footer={footer} />
     </>
