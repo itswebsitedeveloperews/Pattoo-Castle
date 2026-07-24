@@ -251,7 +251,7 @@ export default function LocationPage({
                       {item.title && <h3>{item.title}</h3>}
                       {item.content && <p>{item.content}</p>}
                       {item.buttonText && item.buttonUrl && (
-                        <a href={item.buttonUrl}>{item.buttonText}</a>
+                        <a className="text-link" href={item.buttonUrl}>{item.buttonText}</a>
                       )}
                     </article>
                   ))}
