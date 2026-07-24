@@ -183,22 +183,24 @@ export default function LocationPage({
         )}
 
         {hasHighlightsSection && (
-          <section className="location-highlights-section">
-            {location.locationHighlightsHeading && (
-              <h2>{location.locationHighlightsHeading}</h2>
-            )}
+          <section className="section location-highlights-section">
+            <div className="wrap">
+              {location.locationHighlightsHeading && (
+                <h2>{location.locationHighlightsHeading}</h2>
+              )}
 
-            {location.locationHighlights.length > 0 && (
-              <div className="location-highlights-grid">
-                {location.locationHighlights.map((item, index) => (
-                  <article className="location-highlight-card" key={index}>
-                    {item.iconSrc && <img src={item.iconSrc} alt="" />}
-                    {item.title && <h3>{item.title}</h3>}
-                    {item.content && <p>{item.content}</p>}
-                  </article>
-                ))}
-              </div>
-            )}
+              {location.locationHighlights.length > 0 && (
+                <div className="location-highlights-grid">
+                  {location.locationHighlights.map((item, index) => (
+                    <article className="location-highlight-card" key={index}>
+                      {item.iconSrc && <img src={item.iconSrc} alt="" />}
+                      {item.title && <h3>{item.title}</h3>}
+                      {item.content && <p>{item.content}</p>}
+                    </article>
+                  ))}
+                </div>
+              )}
+            </div>
           </section>
         )}
 
@@ -212,7 +214,7 @@ export default function LocationPage({
 
             <div className="location-experience-content">
               {location.experienceSubHeading && (
-                <p className="location-experience-eyebrow">
+                <p className="eyebrow location-experience-eyebrow">
                   {location.experienceSubHeading}
                 </p>
               )}
@@ -235,25 +237,27 @@ export default function LocationPage({
         )}
 
         {hasExploreNearbySection && (
-          <section className="location-nearby-section">
-            {location.exploreNearbyHeading && (
-              <h2>{location.exploreNearbyHeading}</h2>
-            )}
+          <section className="section location-nearby-section">
+            <div className="wrap">
+              {location.exploreNearbyHeading && (
+                <h2>{location.exploreNearbyHeading}</h2>
+              )}
 
-            {location.exploreNearbyBox.length > 0 && (
-              <div className="location-nearby-grid">
-                {location.exploreNearbyBox.map((item, index) => (
-                  <article className="location-nearby-card" key={index}>
-                    {item.imageSrc && <img src={item.imageSrc} alt="" />}
-                    {item.title && <h3>{item.title}</h3>}
-                    {item.content && <p>{item.content}</p>}
-                    {item.buttonText && item.buttonUrl && (
-                      <a href={item.buttonUrl}>{item.buttonText}</a>
-                    )}
-                  </article>
-                ))}
-              </div>
-            )}
+              {location.exploreNearbyBox.length > 0 && (
+                <div className="location-nearby-grid">
+                  {location.exploreNearbyBox.map((item, index) => (
+                    <article className="location-nearby-card" key={index}>
+                      {item.imageSrc && <img src={item.imageSrc} alt="" />}
+                      {item.title && <h3>{item.title}</h3>}
+                      {item.content && <p>{item.content}</p>}
+                      {item.buttonText && item.buttonUrl && (
+                        <a href={item.buttonUrl}>{item.buttonText}</a>
+                      )}
+                    </article>
+                  ))}
+                </div>
+              )}
+            </div>
           </section>
         )}
       </main>

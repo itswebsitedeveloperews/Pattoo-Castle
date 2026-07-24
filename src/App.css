@@ -2223,26 +2223,21 @@ body:not(.home) .site-header {
 
 .location-map-image img {
   display: block;
-  width: min(100%, 610px);
-  max-height: 330px;
+  max-height: 460px;
   object-fit: contain;
 }
 
 .location-highlights-section {
-  padding: 42px var(--container-gutter) 84px;
+  padding: 70px 0;
   color: var(--color-brown);
-  background: var(--color-cream);
+  background: var(--color-dark-cream);
   text-align: center;
 }
 
 .location-highlights-section h2 {
   margin: 0 0 36px;
   color: var(--color-brown);
-  font-family: var(--font-display);
   font-size: var(--font-size-global-h2);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-heading);
 }
 
 .location-highlights-grid {
@@ -2267,8 +2262,8 @@ body:not(.home) .site-header {
 
 .location-highlight-card img {
   display: block;
-  width: 34px;
-  height: 34px;
+  width: 48px;
+  height: 48px;
   margin-bottom: 18px;
   object-fit: contain;
 }
@@ -2277,17 +2272,12 @@ body:not(.home) .site-header {
   margin: 0;
   color: var(--color-brown);
   font-family: var(--font-display);
-  font-size: 23px;
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-heading);
+  font-size: var(--font-size-global-h4);
 }
 
 .location-highlight-card p {
   margin-top: 10px;
   color: var(--color-brown-dark);
-  font-size: var(--font-size-medium);
-  line-height: var(--line-height-body);
 }
 
 .location-experience-section {
@@ -2320,22 +2310,13 @@ body:not(.home) .site-header {
 .location-experience-eyebrow {
   margin: 0 0 18px;
   color: rgb(var(--color-white) / var(--opacity-high));
-  font-size: var(--font-size-button-small);
-  font-weight: 700;
-  letter-spacing: var(--letter-spacing-wide);
-  line-height: var(--line-height-label);
-  text-transform: uppercase;
 }
 
 .location-experience-content h2 {
   max-width: 620px;
   margin: 0;
   color: rgb(var(--color-white));
-  font-family: var(--font-display);
   font-size: var(--font-size-h2);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-heading);
 }
 
 .location-experience-content h2::after {
@@ -2343,7 +2324,7 @@ body:not(.home) .site-header {
   width: 64px;
   height: 1px;
   margin: 28px 0 0;
-  background: rgb(var(--color-white) / 0.32);
+  background: rgb(var(--color-white) / 1);
   content: "";
 }
 
@@ -2351,15 +2332,11 @@ body:not(.home) .site-header {
   max-width: 660px;
   margin-top: 28px;
   color: rgb(var(--color-white) / var(--opacity-high));
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
 }
 
 .location-experience-button {
   justify-self: stretch;
-  width: min(100%, 640px);
   margin-top: 28px;
-  background: var(--button-bg-transparent);
 }
 
 .location-nearby-section {
@@ -2371,11 +2348,7 @@ body:not(.home) .site-header {
 .location-nearby-section h2 {
   margin: 0 0 42px;
   color: var(--color-brown);
-  font-family: var(--font-display);
-  font-size: var(--font-size-body);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-heading);
+  font-size: var(--font-size-global-h2);
   text-align: center;
 }
 
@@ -2393,16 +2366,14 @@ body:not(.home) .site-header {
   display: block;
   width: 100%;
   object-fit: cover;
+  min-height: 190px;
+  max-height: 190px;
 }
 
 .location-nearby-card h3 {
   margin: 20px 0 0;
   color: var(--color-brown);
-  font-family: var(--font-display);
-  font-size: var(--font-size-global-h2);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-heading);
+  font-size: var(--font-size-global-h4);
 }
 
 .location-nearby-card p {
@@ -5943,10 +5914,6 @@ body:not(.home) .site-header {
   .location-nearby-grid {
     grid-template-columns: 1fr;
     gap: 30px;
-  }
-
-  .location-nearby-card h3 {
-    font-size: var(--font-size-global-h2);
   }
 
   .location-nearby-card p {
