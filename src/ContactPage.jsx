@@ -184,7 +184,7 @@ export default function ContactPage({
           <div className="wrap">
             <div className="page-hero-content contact-hero-content">
               {contact.bannerSubHeading && (
-                <p className="page-hero-eyebrow contact-hero-eyebrow">
+                <p className="eyebrow page-hero-eyebrow contact-hero-eyebrow">
                   {contact.bannerSubHeading}
                 </p>
               )}
@@ -206,36 +206,38 @@ export default function ContactPage({
 
         {hasConnectSection && (
           <section
-            className="contact-connect-section"
+            className="section contact-connect-section"
             aria-label="Connect with us"
           >
-            <div className="contact-connect-grid">
-              {contact.connectWithUs.map((item, index) => (
-                <article
-                  className="contact-connect-card"
-                  key={`${item.title}-${index}`}
-                >
-                  {item.iconSrc && <img src={item.iconSrc} alt="" />}
-                  {item.iconLabel && (
-                    <p className="contact-connect-label">{item.iconLabel}</p>
-                  )}
-                  {item.title && <h2>{item.title}</h2>}
-                  {item.contentLines.map((line, lineIndex) => (
-                    <p key={`${item.title}-content-${lineIndex}`}>{line}</p>
-                  ))}
-                  {item.buttonText &&
-                    (item.buttonUrl ? (
-                      <a
-                        className="contact-connect-detail-link"
-                        href={item.buttonUrl}
-                      >
-                        {item.buttonText}
-                      </a>
-                    ) : (
-                      <p>{item.buttonText}</p>
+            <div className="wrap">
+              <div className="contact-connect-grid">
+                {contact.connectWithUs.map((item, index) => (
+                  <article
+                    className="contact-connect-card"
+                    key={`${item.title}-${index}`}
+                  >
+                    {item.iconSrc && <img src={item.iconSrc} alt="" />}
+                    {item.iconLabel && (
+                      <p className="contact-connect-label">{item.iconLabel}</p>
+                    )}
+                    {item.title && <div className="title">{item.title}</div>}
+                    {item.contentLines.map((line, lineIndex) => (
+                      <p key={`${item.title}-content-${lineIndex}`}>{line}</p>
                     ))}
-                </article>
-              ))}
+                    {item.buttonText &&
+                      (item.buttonUrl ? (
+                        <a
+                          className="contact-connect-detail-link"
+                          href={item.buttonUrl}
+                        >
+                          {item.buttonText}
+                        </a>
+                      ) : (
+                        <p>{item.buttonText}</p>
+                      ))}
+                  </article>
+                ))}
+              </div>
             </div>
           </section>
         )}
@@ -243,199 +245,218 @@ export default function ContactPage({
         {hasContactFormSection && (
           <section
             id="contact-planning-section"
-            className="contact-planning-section"
+            className="section contact-planning-section"
             aria-labelledby={
               contact.contactTitle ? "contact-planning-title" : undefined
             }
           >
-            <div className="contact-planning-copy">
-              {contact.contactSubTitle && (
-                <p className="contact-planning-eyebrow">
-                  {contact.contactSubTitle}
-                </p>
-              )}
-              <span className="contact-planning-divider" aria-hidden="true" />
-              {contact.contactTitle && (
-                <h2 id="contact-planning-title">{contact.contactTitle}</h2>
-              )}
-              {contact.contactContent && <p>{contact.contactContent}</p>}
+            <div className="wrap">
+              <div className="contact-planning-copy">
+                {contact.contactSubTitle && (
+                  <p className="eyebrow contact-planning-eyebrow">
+                    {contact.contactSubTitle}
+                  </p>
+                )}
+                <span className="contact-planning-divider" aria-hidden="true" />
+                {contact.contactTitle && (
+                  <h2 id="contact-planning-title">{contact.contactTitle}</h2>
+                )}
+                {contact.contactContent && <p>{contact.contactContent}</p>}
+              </div>
+
+              <form className="contact-planning-form">
+                <div className="contact-form-field contact-form-field--quarter">
+                  <label htmlFor="contact-company">Company</label>
+                  <input id="contact-company" name="company" type="text" />
+                </div>
+
+                <div className="contact-form-field contact-form-field--quarter">
+                  <label htmlFor="contact-title">Title</label>
+                  <input id="contact-title" name="title" type="text" />
+                </div>
+
+                <div className="contact-form-field contact-form-field--quarter">
+                  <label htmlFor="contact-first-name">First Name *</label>
+                  <input
+                    id="contact-first-name"
+                    name="firstName"
+                    required
+                    type="text"
+                  />
+                </div>
+
+                <div className="contact-form-field contact-form-field--quarter">
+                  <label htmlFor="contact-last-name">Last Name *</label>
+                  <input
+                    id="contact-last-name"
+                    name="lastName"
+                    required
+                    type="text"
+                  />
+                </div>
+
+                <div className="contact-form-field contact-form-field--full">
+                  <label htmlFor="contact-address">Address</label>
+                  <input id="contact-address" name="address" type="text" />
+                </div>
+
+                <div className="contact-form-field contact-form-field--seven">
+                  <label htmlFor="contact-address-line-2">Address Line 2</label>
+                  <input
+                    id="contact-address-line-2"
+                    name="addressLine2"
+                    type="text"
+                  />
+                </div>
+
+                <div className="contact-form-field contact-form-field--five">
+                  <label htmlFor="contact-city">City</label>
+                  <input id="contact-city" name="city" type="text" />
+                </div>
+
+                <div className="contact-form-field contact-form-field--quarter">
+                  <label htmlFor="contact-state">State</label>
+                  <select id="contact-state" name="state" defaultValue="">
+                    <option value="" aria-label="Select state" />
+                    <option value="jamaica">Jamaica</option>
+                    <option value="alabama">Alabama</option>
+                    <option value="california">California</option>
+                    <option value="florida">Florida</option>
+                    <option value="new-york">New York</option>
+                    <option value="texas">Texas</option>
+                  </select>
+                </div>
+
+                <div className="contact-form-field contact-form-field--quarter">
+                  <label htmlFor="contact-postal-code">Postal Code</label>
+                  <input
+                    id="contact-postal-code"
+                    name="postalCode"
+                    type="text"
+                  />
+                </div>
+
+                <div className="contact-form-field contact-form-field--quarter">
+                  <label htmlFor="contact-email">Email Address *</label>
+                  <input
+                    id="contact-email"
+                    name="email"
+                    required
+                    type="email"
+                  />
+                </div>
+
+                <div className="contact-form-field contact-form-field--quarter">
+                  <label htmlFor="contact-phone">Phone *</label>
+                  <input id="contact-phone" name="phone" required type="tel" />
+                </div>
+
+                <div className="contact-form-field contact-form-field--full">
+                  <label htmlFor="contact-comments">Comments *</label>
+                  <textarea
+                    id="contact-comments"
+                    name="comments"
+                    required
+                    rows="6"
+                  />
+                </div>
+
+                <div className="contact-form-submit-row">
+                  <button className="contact-form-submit" type="submit">
+                    <span aria-hidden="true">{"\u2723"}</span>
+                    <strong>Send Here</strong>
+                  </button>
+                </div>
+              </form>
             </div>
-
-            <form className="contact-planning-form">
-              <div className="contact-form-field contact-form-field--quarter">
-                <label htmlFor="contact-company">Company</label>
-                <input id="contact-company" name="company" type="text" />
-              </div>
-
-              <div className="contact-form-field contact-form-field--quarter">
-                <label htmlFor="contact-title">Title</label>
-                <input id="contact-title" name="title" type="text" />
-              </div>
-
-              <div className="contact-form-field contact-form-field--quarter">
-                <label htmlFor="contact-first-name">First Name *</label>
-                <input
-                  id="contact-first-name"
-                  name="firstName"
-                  required
-                  type="text"
-                />
-              </div>
-
-              <div className="contact-form-field contact-form-field--quarter">
-                <label htmlFor="contact-last-name">Last Name *</label>
-                <input
-                  id="contact-last-name"
-                  name="lastName"
-                  required
-                  type="text"
-                />
-              </div>
-
-              <div className="contact-form-field contact-form-field--full">
-                <label htmlFor="contact-address">Address</label>
-                <input id="contact-address" name="address" type="text" />
-              </div>
-
-              <div className="contact-form-field contact-form-field--seven">
-                <label htmlFor="contact-address-line-2">Address Line 2</label>
-                <input
-                  id="contact-address-line-2"
-                  name="addressLine2"
-                  type="text"
-                />
-              </div>
-
-              <div className="contact-form-field contact-form-field--five">
-                <label htmlFor="contact-city">City</label>
-                <input id="contact-city" name="city" type="text" />
-              </div>
-
-              <div className="contact-form-field contact-form-field--quarter">
-                <label htmlFor="contact-state">State</label>
-                <select id="contact-state" name="state" defaultValue="">
-                  <option value="" aria-label="Select state" />
-                  <option value="jamaica">Jamaica</option>
-                  <option value="alabama">Alabama</option>
-                  <option value="california">California</option>
-                  <option value="florida">Florida</option>
-                  <option value="new-york">New York</option>
-                  <option value="texas">Texas</option>
-                </select>
-              </div>
-
-              <div className="contact-form-field contact-form-field--quarter">
-                <label htmlFor="contact-postal-code">Postal Code</label>
-                <input id="contact-postal-code" name="postalCode" type="text" />
-              </div>
-
-              <div className="contact-form-field contact-form-field--quarter">
-                <label htmlFor="contact-email">Email Address *</label>
-                <input id="contact-email" name="email" required type="email" />
-              </div>
-
-              <div className="contact-form-field contact-form-field--quarter">
-                <label htmlFor="contact-phone">Phone *</label>
-                <input id="contact-phone" name="phone" required type="tel" />
-              </div>
-
-              <div className="contact-form-field contact-form-field--full">
-                <label htmlFor="contact-comments">Comments *</label>
-                <textarea
-                  id="contact-comments"
-                  name="comments"
-                  required
-                  rows="6"
-                />
-              </div>
-
-              <div className="contact-form-submit-row">
-                <button className="contact-form-submit" type="submit">
-                  <span aria-hidden="true">{"\u2723"}</span>
-                  <strong>Send Here</strong>
-                </button>
-              </div>
-            </form>
           </section>
         )}
 
         {hasExperienceSection && (
           <section
-            className="contact-experience-section"
+            className="section contact-experience-section"
             aria-label="The Pattoo Castle experience"
           >
-            <div className="contact-experience-grid">
-              {contact.pattooCastleExperience.map((item, index) => (
-                <article
-                  className="contact-experience-card"
-                  key={`${item.title}-${index}`}
-                >
-                  {item.count && (
-                    <p className="contact-experience-eyebrow">{item.count}</p>
-                  )}
-                  {item.title && <h2>{item.title}</h2>}
-                  {item.content && <p>{item.content}</p>}
-                </article>
-              ))}
+            <div className="wrap">
+              <div className="contact-experience-grid">
+                {contact.pattooCastleExperience.map((item, index) => (
+                  <article
+                    className="contact-experience-card"
+                    key={`${item.title}-${index}`}
+                  >
+                    {item.count && (
+                      <p className="eyebrow contact-experience-eyebrow">
+                        {item.count}
+                      </p>
+                    )}
+                    {item.title && <h2>{item.title}</h2>}
+                    {item.content && <p>{item.content}</p>}
+                  </article>
+                ))}
+              </div>
             </div>
           </section>
         )}
 
         {hasFindUsSection && (
           <section
-            className="contact-find-section"
+            className="section contact-find-section"
             aria-labelledby={
               contact.findUsHeading ? "contact-find-title" : undefined
             }
           >
-            {contact.findUsImage && (
-              <figure className="contact-find-image">
-                <img src={contact.findUsImage} alt="" />
-              </figure>
-            )}
+            <div className="wrap">
+              {contact.findUsImage && (
+                <figure className="contact-find-image">
+                  <img src={contact.findUsImage} alt="" />
+                </figure>
+              )}
 
-            <div className="contact-find-content">
-              {contact.findUsSubHeading && (
-                <p className="contact-find-eyebrow">
-                  {contact.findUsSubHeading}
-                </p>
-              )}
-              {contact.findUsHeading && (
-                <h2 id="contact-find-title">{contact.findUsHeading}</h2>
-              )}
-              {contact.findUsContent && <p>{contact.findUsContent}</p>}
-              {hasFindUsButton && (
-                <a
-                  className="button button--brown contact-find-button"
-                  href={contact.findUsButtonUrl}
-                >
-                  {contact.findUsButtonText}
-                </a>
-              )}
+              <div className="contact-find-content">
+                {contact.findUsSubHeading && (
+                  <p className="eyebrow contact-find-eyebrow">
+                    {contact.findUsSubHeading}
+                  </p>
+                )}
+                {contact.findUsHeading && (
+                  <h2 id="contact-find-title">{contact.findUsHeading}</h2>
+                )}
+                {contact.findUsContent && <p>{contact.findUsContent}</p>}
+                {hasFindUsButton && (
+                  <a
+                    className="button button--brown contact-find-button"
+                    href={contact.findUsButtonUrl}
+                  >
+                    {contact.findUsButtonText}
+                  </a>
+                )}
+              </div>
             </div>
           </section>
         )}
 
         {hasPattooCastleQuoteSection && (
           <section
-            className="contact-quote-section"
+            className="section contact-quote-section"
             aria-label="Guest experience"
           >
-            <div className="contact-quote-mark" aria-hidden="true">
-              &ldquo;
+            <div className="wrap">
+              <div className="contact-quote-mark" aria-hidden="true">
+                &ldquo;
+              </div>
+              {contact.pattooCastleHeading && (
+                <blockquote>{contact.pattooCastleHeading}</blockquote>
+              )}
+              {contact.pattooCastleSubHeading && (
+                <p className="eyebrow">{contact.pattooCastleSubHeading}</p>
+              )}
             </div>
-            {contact.pattooCastleHeading && (
-              <blockquote>{contact.pattooCastleHeading}</blockquote>
-            )}
-            {contact.pattooCastleSubHeading && (
-              <p>{contact.pattooCastleSubHeading}</p>
-            )}
           </section>
         )}
 
         {hasCtaSection && (
           <section
-            className="contact-cta-section"
+            className="section contact-cta-section"
             style={
               contact.ctaImage
                 ? { "--contact-cta-image": `url(${contact.ctaImage})` }
@@ -445,22 +466,26 @@ export default function ContactPage({
               contact.ctaHeading ? "contact-cta-title" : undefined
             }
           >
-            <div className="contact-cta-content">
-              {contact.ctaSubHeading && (
-                <p className="contact-cta-eyebrow">{contact.ctaSubHeading}</p>
-              )}
-              {contact.ctaHeading && (
-                <h2 id="contact-cta-title">{contact.ctaHeading}</h2>
-              )}
-              {contact.ctaContent && <p>{contact.ctaContent}</p>}
-              {hasCtaButton && (
-                <a
-                  className="button button--light contact-cta-button"
-                  href={contact.ctaButtonUrl}
-                >
-                  {contact.ctaButtonText}
-                </a>
-              )}
+            <div className="wrap">
+              <div className="contact-cta-content">
+                {contact.ctaSubHeading && (
+                  <p className="eyebrow contact-cta-eyebrow">
+                    {contact.ctaSubHeading}
+                  </p>
+                )}
+                {contact.ctaHeading && (
+                  <h2 id="contact-cta-title">{contact.ctaHeading}</h2>
+                )}
+                {contact.ctaContent && <p>{contact.ctaContent}</p>}
+                {hasCtaButton && (
+                  <a
+                    className="button button--light contact-cta-button"
+                    href={contact.ctaButtonUrl}
+                  >
+                    {contact.ctaButtonText}
+                  </a>
+                )}
+              </div>
             </div>
           </section>
         )}

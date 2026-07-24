@@ -16,7 +16,8 @@
     "test:home-body": "node scripts/validate-home-body-class.mjs",
     "test:events-host-card-links": "node scripts/validate-events-host-card-links.mjs",
     "test:gallery-lightbox": "node scripts/validate-gallery-lightbox.mjs",
-    "test:location-nearby-cta": "node scripts/validate-location-nearby-cta-alignment.mjs"
+    "test:location-nearby-cta": "node scripts/validate-location-nearby-cta-alignment.mjs",
+    "test:react-dom-properties": "node scripts/validate-react-dom-properties.mjs"
   },
   "dependencies": {
     "@fontsource/quattrocento-sans": "^5.2.8",
