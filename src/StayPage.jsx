@@ -255,6 +255,7 @@ export default function StayPage({
 
         {stay.stayInformation.length > 0 && (
           <section
+            id="stay-inquiry"
             className="section stay-info-section"
             aria-label="Stay information"
           >

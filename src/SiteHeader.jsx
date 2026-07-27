@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import HeaderMenuLink from "./HeaderMenuLink";
 
 function getSocialLinkLabel(index) {
@@ -5,10 +8,16 @@ function getSocialLinkLabel(index) {
 }
 
 export default function SiteHeader({ header }) {
+  const [openMobileSubmenuIndex, setOpenMobileSubmenuIndex] = useState(null);
   const hasHeaderButton = Boolean(header.buttonText && header.buttonUrl);
   const hasMobileMenu = Boolean(
     header.menuItems.length || hasHeaderButton || header.socialLinks.length,
   );
+  const toggleMobileSubmenu = (index) => {
+    setOpenMobileSubmenuIndex((currentIndex) =>
+      currentIndex === index ? null : index,
+    );
+  };
 
   return (
     <header className="site-header">
@@ -27,7 +36,11 @@ export default function SiteHeader({ header }) {
         {header.menuItems.length > 0 && (
           <nav className="primary-nav" aria-label="Primary navigation">
             {header.menuItems.map((item, index) => (
-              <HeaderMenuLink item={item} key={`${item.name}-${index}`} />
+              <HeaderMenuLink
+                item={item}
+                key={`${item.name}-${index}`}
+                variant="desktop"
+              />
             ))}
             {hasHeaderButton && (
               <a
@@ -70,7 +83,13 @@ export default function SiteHeader({ header }) {
               {header.menuItems.length > 0 && (
                 <nav className="mobile-nav" aria-label="Mobile navigation">
                   {header.menuItems.map((item, index) => (
-                    <HeaderMenuLink item={item} key={`${item.name}-${index}`} />
+                    <HeaderMenuLink
+                      isOpen={openMobileSubmenuIndex === index}
+                      item={item}
+                      key={`${item.name}-${index}`}
+                      onToggle={() => toggleMobileSubmenu(index)}
+                      variant="mobile"
+                    />
                   ))}
                   {hasHeaderButton && (
                     <a

@@ -31,20 +31,109 @@ function isExternalUrl(value) {
   }
 }
 
-export default function HeaderMenuLink({ item }) {
+function getIsActive(pathname, href) {
+  return !isExternalUrl(href) && normalizePath(pathname) === normalizePath(href);
+}
+
+export default function HeaderMenuLink({
+  isOpen = false,
+  item,
+  onToggle,
+  variant = "desktop",
+}) {
   const pathname = usePathname();
   const href = item.url || "#";
-  const isActive =
-    !isExternalUrl(href) && normalizePath(pathname) === normalizePath(href);
+  const subMenuItems = Array.isArray(item.subMenuItems)
+    ? item.subMenuItems
+    : [];
+  const hasSubmenu = subMenuItems.length > 0;
+  const isActive = getIsActive(pathname, href);
+  const hasActiveSubmenuItem = subMenuItems.some((subItem) =>
+    getIsActive(pathname, subItem.url || "#"),
+  );
   const className = isActive ? "is-active" : undefined;
 
+  if (!hasSubmenu) {
+    return (
+      <a
+        aria-current={isActive ? "page" : undefined}
+        className={className}
+        href={href}
+      >
+        {item.name}
+      </a>
+    );
+  }
+
+  if (variant === "mobile") {
+    return (
+      <div
+        className={`header-menu-item header-menu-item--has-submenu header-menu-item--mobile${
+          isOpen ? " header-menu-item--open" : ""
+        }${isActive || hasActiveSubmenuItem ? " is-active" : ""}`}
+      >
+        <button
+          aria-expanded={isOpen}
+          className="header-menu-toggle"
+          onClick={onToggle}
+          type="button"
+        >
+          <span>{item.name}</span>
+          <span aria-hidden="true" className="header-menu-toggle-icon" />
+        </button>
+
+        <div className="header-submenu">
+          {subMenuItems.map((subItem, index) => {
+            const subHref = subItem.url || "#";
+            const isSubItemActive = getIsActive(pathname, subHref);
+
+            return (
+              <a
+                aria-current={isSubItemActive ? "page" : undefined}
+                className={isSubItemActive ? "is-active" : undefined}
+                href={subHref}
+                key={`${subItem.name}-${index}`}
+              >
+                {subItem.name}
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <a
-      aria-current={isActive ? "page" : undefined}
-      className={className}
-      href={href}
+    <div
+      className={`header-menu-item header-menu-item--has-submenu${
+        isActive || hasActiveSubmenuItem ? " is-active" : ""
+      }`}
     >
-      {item.name}
-    </a>
+      <a
+        aria-current={isActive ? "page" : undefined}
+        className={className}
+        href={href}
+      >
+        {item.name}
+      </a>
+
+      <div className="header-submenu">
+        {subMenuItems.map((subItem, index) => {
+          const subHref = subItem.url || "#";
+          const isSubItemActive = getIsActive(pathname, subHref);
+
+          return (
+            <a
+              aria-current={isSubItemActive ? "page" : undefined}
+              className={isSubItemActive ? "is-active" : undefined}
+              href={subHref}
+              key={`${subItem.name}-${index}`}
+            >
+              {subItem.name}
+            </a>
+          );
+        })}
+      </div>
+    </div>
   );
 }

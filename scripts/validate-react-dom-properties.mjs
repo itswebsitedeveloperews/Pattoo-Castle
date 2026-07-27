@@ -3,9 +3,11 @@ import { extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const srcDir = fileURLToPath(new URL("../src/", import.meta.url));
+const rootLayoutPath = fileURLToPath(new URL("../src/app/layout.jsx", import.meta.url));
 const invalidProperties = [
   { pattern: /\bstroke-width=/g, replacement: "strokeWidth" },
   { pattern: /\bclass=/g, replacement: "className" },
+  { pattern: /\bsuppresshydrationwarning=/g, replacement: "suppressHydrationWarning" },
 ];
 const failures = [];
 
@@ -37,6 +39,12 @@ function visit(directory) {
 }
 
 visit(srcDir);
+
+const rootLayout = readFileSync(rootLayoutPath, "utf8");
+
+if (!/<html\b[^>]*\bsuppressHydrationWarning\b/.test(rootLayout)) {
+  failures.push("Root layout html element must use suppressHydrationWarning for extension-injected attributes.");
+}
 
 if (failures.length > 0) {
   console.error(failures.join("\n"));

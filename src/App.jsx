@@ -294,13 +294,26 @@ export function getHeaderContent(entry) {
     ? fields.menu
         .map((item) => {
           const itemFields = item?.fields || {};
+          const subMenuItems = Array.isArray(itemFields.subMenu)
+            ? itemFields.subMenu
+                .map((subItem) => {
+                  const subItemFields = subItem?.fields || {};
+
+                  return {
+                    name: subItemFields.menuName || "",
+                    url: subItemFields.menuUrl || "",
+                  };
+                })
+                .filter((subItem) => subItem.name || subItem.url)
+            : [];
 
           return {
             name: itemFields.menuName || "",
             url: itemFields.menuUrl || "",
+            subMenuItems,
           };
         })
-        .filter((item) => item.name || item.url)
+        .filter((item) => item.name || item.url || item.subMenuItems.length)
     : [];
   const socialLinks = Array.isArray(fields.socialIcons)
     ? fields.socialIcons
