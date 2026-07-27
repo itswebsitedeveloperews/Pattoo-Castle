@@ -287,12 +287,22 @@ export default function EventDetailsPage({
                   </label>
 
                   <label className="event-inquiry-field">
+                    <span>Last Name *</span>
+                    <input
+                      type="text"
+                      name="lastName"
+                      required
+                      placeholder="Enter last name"
+                    />
+                  </label>
+
+                  <label className="event-inquiry-field">
                     <span>Event Type *</span>
                     <input
                       type="text"
                       name="contactEventType"
                       required
-                      placeholder="Enter last name"
+                      placeholder="Enter event type"
                     />
                   </label>
 

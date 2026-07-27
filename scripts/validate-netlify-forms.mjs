@@ -47,6 +47,9 @@ for (const expected of [
   "isMultipartForm",
   "URLSearchParams(formData).toString()",
   '"Content-Type": "application/x-www-form-urlencoded"',
+  'formData.set("name", submissionName)',
+  'formData.get("firstName")',
+  'formData.get("lastName")',
   'method: "POST"',
   "new FormData(form)",
   'data-netlify="true"',
@@ -152,6 +155,7 @@ for (const label of [
   "I am The *",
   "Title *",
   "First Name *",
+  "Last Name *",
   "Event Type *",
   "Address *",
   "City *",
@@ -182,6 +186,7 @@ for (const [path, fields] of [
       "contactRole",
       "title",
       "firstName",
+      "lastName",
       "contactEventType",
       "address",
       "city",
@@ -220,6 +225,17 @@ if (!exists("public/netlify-forms.html")) {
 const registration = exists("public/netlify-forms.html")
   ? read("public/netlify-forms.html")
   : "";
+
+for (const formName of ["contact", "stay-inquiry", "event-inquiry"]) {
+  const formPattern = new RegExp(
+    `<form[^>]*name="${formName}"[\\s\\S]*?</form>`,
+  );
+  const formSource = registration.match(formPattern)?.[0] || "";
+
+  if (!formSource.includes('name="name"')) {
+    failures.push(`Static Netlify registration for "${formName}" must include submission title field "name".`);
+  }
+}
 
 if (registration.includes('type="date"')) {
   failures.push("Static Netlify registration must not contain unvalidated date inputs.");

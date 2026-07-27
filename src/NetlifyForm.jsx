@@ -31,6 +31,18 @@ export default function NetlifyForm({
 
     try {
       const formData = new FormData(form);
+      const submissionName = [
+        formData.get("firstName"),
+        formData.get("lastName"),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .trim();
+
+      if (submissionName) {
+        formData.set("name", submissionName);
+      }
+
       const formAction = "/netlify-forms.html";
       const isMultipartForm = encType === "multipart/form-data";
 
