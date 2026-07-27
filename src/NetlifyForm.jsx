@@ -29,11 +29,24 @@ export default function NetlifyForm({
 
     try {
       const formData = new FormData(form);
+      const formAction = "/netlify-forms.html";
+      const isMultipartForm = encType === "multipart/form-data";
 
-      const response = await fetch("/", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        formAction,
+        isMultipartForm
+          ? {
+              method: "POST",
+              body: formData,
+            }
+          : {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: new URLSearchParams(formData).toString(),
+            },
+      );
 
       if (!response.ok) {
         throw new Error("Netlify form submission failed");

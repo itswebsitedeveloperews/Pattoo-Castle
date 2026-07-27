@@ -1739,6 +1739,7 @@ body:not(.home) .site-header {
   font-size: 15px;
   font-weight: 700;
   text-align: center;
+  grid-column: span 12;
 }
 
 .contact-form-submit-row {

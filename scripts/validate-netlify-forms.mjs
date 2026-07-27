@@ -41,7 +41,10 @@ const netlifyForm = read("src/NetlifyForm.jsx");
 for (const expected of [
   "event.preventDefault()",
   "form.reportValidity()",
-  'fetch("/",',
+  'const formAction = "/netlify-forms.html"',
+  "isMultipartForm",
+  "URLSearchParams(formData).toString()",
+  '"Content-Type": "application/x-www-form-urlencoded"',
   'method: "POST"',
   "new FormData(form)",
   'data-netlify="true"',
