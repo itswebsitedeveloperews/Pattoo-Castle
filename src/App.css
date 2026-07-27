@@ -2,6 +2,10 @@ body {
   background: var(--color-cream);
 }
 
+body.mobile-menu-is-open {
+  overflow: hidden;
+}
+
 .container,
 .section {
   padding-left: 30px !important;
@@ -112,11 +116,11 @@ body:not(.home) .site-header {
 }
 
 .header-menu-toggle-icon {
-  width: 7px;
-  height: 7px;
+  width: 10px;
+  height: 10px;
   border-right: 1px solid currentColor;
   border-bottom: 1px solid currentColor;
-  transform: translateY(-2px) rotate(45deg);
+  transform: translate(-2px, -2px) rotate(45deg);
   transition: transform 180ms ease;
 }
 
@@ -173,8 +177,8 @@ body:not(.home) .site-header {
   content: "";
 }
 
-.header-menu-item--has-submenu:hover .header-submenu,
-.header-menu-item--has-submenu:focus-within .header-submenu {
+.primary-nav .header-menu-item--has-submenu:hover .header-submenu,
+.primary-nav .header-menu-item--has-submenu:focus-within .header-submenu {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -241,7 +245,7 @@ body:not(.home) .site-header {
 }
 
 .button--light:hover {
-  color: var(--color-brown);
+  color: var(--color-brown) !important;
   border-color: rgb(var(--color-white));
   background: rgb(var(--color-white));
 }
@@ -293,9 +297,8 @@ body:not(.home) .site-header {
   position: relative;
   z-index: 4;
   display: block;
-  /* width: 44px;
-  height: 44px;
-  border-radius: 50%; */
+  min-width: 24px;
+  min-height: 24px;
   cursor: pointer;
   list-style: none;
 }
@@ -349,11 +352,18 @@ body:not(.home) .site-header {
 }
 
 .mobile-menu[open]::before {
+  display: none;
+  content: "";
+}
+
+.mobile-menu-backdrop {
   position: fixed;
   inset: 0;
   z-index: 1;
+  padding: 0;
+  border: 0;
   background: rgb(var(--color-black) / 0.48);
-  content: "";
+  cursor: default;
 }
 
 .mobile-menu-panel {
@@ -379,26 +389,32 @@ body:not(.home) .site-header {
 }
 
 .mobile-nav {
-  display: grid;
-  gap: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
   justify-content: start;
 }
 
 .mobile-nav a,
 .mobile-nav .header-menu-toggle {
   color: rgb(var(--color-white));
-  font-size: var(--font-size-nav);
-  font-weight: 700;
   letter-spacing: var(--letter-spacing-wide);
   line-height: var(--line-height-tight);
+  font-size: inherit;
   text-decoration: none;
   text-transform: uppercase;
   transition: color 180ms ease;
+  width: 100%;
+}
+
+.mobile-nav .header-menu-toggle span {
+  font-size: inherit;
 }
 
 .mobile-nav .header-menu-item {
   display: grid;
-  gap: 12px;
+  gap: 32px;
+  width: 100%;
 }
 
 .mobile-nav .header-menu-toggle {
@@ -409,17 +425,17 @@ body:not(.home) .site-header {
 
 .mobile-nav .header-submenu {
   display: none;
-  gap: 12px;
+  gap: 32px;
   padding: 2px 0 2px 18px;
+  position: static;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
 }
 
-.mobile-nav .header-submenu a {
-  font-size: clamp(0.88rem, 4vw, 1rem);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-wide);
-}
-
-.header-menu-item--mobile.header-menu-item--open .header-submenu {
+.header-menu-item--mobile.header-menu-item--open .header-submenu,
+.mobile-menu .header-menu-item.header-menu-item--open .header-submenu {
   display: grid;
 }
 
@@ -433,10 +449,10 @@ body:not(.home) .site-header {
   width: 100%;
 }
 
-.mobile-nav a:hover,
-.mobile-nav a.is-active,
+.mobile-nav a:not(.button):hover,
+.mobile-nav a:not(.button).is-active,
 .mobile-nav .header-menu-item.is-active > .header-menu-toggle {
-  color: #e6c394;
+  color: #e6c394 !important;
 }
 
 .mobile-header-actions {
@@ -4456,6 +4472,7 @@ body:not(.home) .site-header {
 
   .mobile-menu-panel {
     width: 80vw;
+    max-width: 510px;
   }
 
   .hero h1 {
@@ -4637,10 +4654,6 @@ body:not(.home) .site-header {
     z-index: 20;
     display: block;
     grid-column: 3;
-  }
-
-  .mobile-menu-panel {
-    width: 80vw;
   }
 
   .hero-content {
@@ -5377,6 +5390,11 @@ body:not(.home) .site-header {
 }
 
 @media only screen and (max-width: 767px) {
+  .mobile-nav,
+  .mobile-nav .header-menu-item,
+  .mobile-nav .header-submenu {
+    gap: 24px;
+  }
   .container,
   .section {
     padding-left: 16px !important;
@@ -5406,7 +5424,6 @@ body:not(.home) .site-header {
   }
 
   .mobile-menu-panel {
-    width: 80vw;
     padding: 92px 20px 28px;
   }
 

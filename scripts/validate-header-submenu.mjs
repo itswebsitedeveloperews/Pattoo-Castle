@@ -33,12 +33,31 @@ const checks = [
     "SiteHeader must update mobile submenu state.",
   ],
   [
-    files.css.includes(".header-menu-item--has-submenu:hover .header-submenu"),
+    files.siteHeader.includes("mobile-menu-is-open"),
+    "SiteHeader must toggle a body class while the mobile menu is open.",
+  ],
+  [
+    files.siteHeader.includes("onToggle={handleMobileMenuToggle}"),
+    "Mobile details element must handle toggle events.",
+  ],
+  [
+    files.siteHeader.includes("closeMobileMenu"),
+    "SiteHeader must provide a close handler for outside mobile menu clicks.",
+  ],
+  [
+    files.siteHeader.includes("mobile-menu-backdrop") &&
+      files.siteHeader.includes("onClick={closeMobileMenu}"),
+    "Mobile menu must render a clickable backdrop that closes the menu.",
+  ],
+  [
+    files.css.includes(
+      ".primary-nav .header-menu-item--has-submenu:hover .header-submenu",
+    ),
     "CSS must open desktop submenu on hover.",
   ],
   [
     files.css.includes(
-      ".header-menu-item--has-submenu:focus-within .header-submenu",
+      ".primary-nav .header-menu-item--has-submenu:focus-within .header-submenu",
     ),
     "CSS must open desktop submenu on keyboard focus.",
   ],
@@ -47,6 +66,19 @@ const checks = [
       ".header-menu-item--mobile.header-menu-item--open .header-submenu",
     ),
     "CSS must open mobile submenu when the item is active.",
+  ],
+  [
+    files.css.includes("transform: none;"),
+    "Mobile submenu must reset desktop dropdown transforms.",
+  ],
+  [
+    files.css.includes("body.mobile-menu-is-open") &&
+      files.css.includes("overflow: hidden;"),
+    "Body must disable page scroll while the mobile menu is open.",
+  ],
+  [
+    files.css.includes(".mobile-menu-backdrop"),
+    "CSS must style the clickable mobile menu backdrop.",
   ],
 ];
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import HeaderMenuLink from "./HeaderMenuLink";
 
 function getSocialLinkLabel(index) {
@@ -8,6 +8,7 @@ function getSocialLinkLabel(index) {
 }
 
 export default function SiteHeader({ header }) {
+  const mobileMenuRef = useRef(null);
   const [openMobileSubmenuIndex, setOpenMobileSubmenuIndex] = useState(null);
   const hasHeaderButton = Boolean(header.buttonText && header.buttonUrl);
   const hasMobileMenu = Boolean(
@@ -18,6 +19,29 @@ export default function SiteHeader({ header }) {
       currentIndex === index ? null : index,
     );
   };
+  const handleMobileMenuToggle = (event) => {
+    const isOpen = event.currentTarget.open;
+
+    document.body.classList.toggle("mobile-menu-is-open", isOpen);
+
+    if (!isOpen) {
+      setOpenMobileSubmenuIndex(null);
+    }
+  };
+  const closeMobileMenu = () => {
+    if (mobileMenuRef.current) {
+      mobileMenuRef.current.open = false;
+    }
+
+    document.body.classList.remove("mobile-menu-is-open");
+    setOpenMobileSubmenuIndex(null);
+  };
+
+  useEffect(() => {
+    return () => {
+      document.body.classList.remove("mobile-menu-is-open");
+    };
+  }, []);
 
   return (
     <header className="site-header">
@@ -72,12 +96,23 @@ export default function SiteHeader({ header }) {
         </div>
 
         {hasMobileMenu && (
-          <details className="mobile-menu">
+          <details
+            className="mobile-menu"
+            onToggle={handleMobileMenuToggle}
+            ref={mobileMenuRef}
+          >
             <summary aria-label="Open menu">
               <span />
               <span />
               <span />
             </summary>
+
+            <button
+              aria-label="Close menu"
+              className="mobile-menu-backdrop"
+              onClick={closeMobileMenu}
+              type="button"
+            />
 
             <div className="mobile-menu-panel">
               {header.menuItems.length > 0 && (
