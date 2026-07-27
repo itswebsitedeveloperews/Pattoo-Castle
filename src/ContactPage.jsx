@@ -6,6 +6,7 @@ import {
   richTextToPlainText,
 } from "./App";
 import AosInitializer from "./AosInitializer";
+import NetlifyForm from "./NetlifyForm";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 
@@ -269,16 +270,12 @@ export default function ContactPage({
                 {contact.contactContent && <p>{contact.contactContent}</p>}
               </div>
 
-              <form
+              <NetlifyForm
                 className="contact-planning-form"
-                name="contact"
-                method="POST"
-                data-netlify="true"
+                formName="contact"
                 data-aos="fade-up"
                 data-aos-delay="200"
               >
-                <input type="hidden" name="form-name" value="contact" />
-
                 <div className="contact-form-field contact-form-field--quarter">
                   <label htmlFor="contact-company">Company</label>
                   <input id="contact-company" name="company" type="text" />
@@ -381,7 +378,7 @@ export default function ContactPage({
                     <strong>Send Here</strong>
                   </button>
                 </div>
-              </form>
+              </NetlifyForm>
             </div>
           </section>
         )}

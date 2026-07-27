@@ -1731,6 +1731,16 @@ body:not(.home) .site-header {
   background: var(--color-cream);
 }
 
+.form-submit-status {
+  width: 100%;
+  min-height: 24px;
+  margin: 18px 0 0;
+  color: currentColor;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
 .contact-form-submit-row {
   position: relative;
   display: grid;
@@ -3399,8 +3409,10 @@ body:not(.home) .site-header {
   justify-items: center;
   gap: 28px;
 }
-
 .stay-inquiry-form {
+  text-align: center;
+}
+.stay-inquiry-form .stay-inquiry-form-content {
   width: min(100%, 980px);
   padding: 24px 24px 26px;
   border: 1px solid rgb(var(--color-brown-rgb) / 0.22);
@@ -4929,7 +4941,7 @@ body:not(.home) .site-header {
     margin-top: 0;
   }
 
-  .stay-inquiry-form {
+  .stay-inquiry-form .stay-inquiry-form-content {
     width: min(100%, 840px);
   }
 
@@ -5115,10 +5127,6 @@ body:not(.home) .site-header {
 
   .stay-info-card:nth-child(2n + 1) {
     border-left: 0;
-  }
-
-  .stay-inquiry-form {
-    width: min(100%, 900px);
   }
 
   .stay-villa-copy {
@@ -6035,7 +6043,7 @@ body:not(.home) .site-header {
     font-size: var(--font-size-global-h3);
   }
 
-  .stay-inquiry-form {
+  .stay-inquiry-form .stay-inquiry-form-content {
     padding: 20px 16px 22px;
   }
 
@@ -6395,7 +6403,7 @@ body:not(.home) .site-header {
     padding: 0px 0 50px;
   }
 
-  .stay-inquiry-form {
+  .stay-inquiry-form .stay-inquiry-form-content {
     padding: 20px 16px 22px;
   }
 
@@ -6459,7 +6467,7 @@ body:not(.home) .site-header {
     gap: 28px;
   }
 
-  .stay-inquiry-form {
+  .stay-inquiry-form .stay-inquiry-form-content {
     padding-right: 12px;
     padding-left: 12px;
   }

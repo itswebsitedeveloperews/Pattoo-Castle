@@ -6,6 +6,8 @@ import {
 } from "./App";
 import EventUploadField from "./EventUploadField";
 import AosInitializer from "./AosInitializer";
+import MinTodayDateInput from "./MinTodayDateInput";
+import NetlifyForm from "./NetlifyForm";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 
@@ -104,16 +106,12 @@ export default function EventDetailsPage({
               <span aria-hidden="true" />
             </div>
 
-            <form
+            <NetlifyForm
               className="event-inquiry-form"
               id="event-inquiry-form"
-              name="event-inquiry"
-              method="POST"
+              formName="event-inquiry"
               encType="multipart/form-data"
-              data-netlify="true"
             >
-              <input type="hidden" name="form-name" value="event-inquiry" />
-
               <fieldset
                 className="event-inquiry-card"
                 data-aos="fade-up"
@@ -145,8 +143,8 @@ export default function EventDetailsPage({
 
                 <div className="event-inquiry-grid">
                   <label className="event-inquiry-field event-inquiry-field--full">
-                    <span>Event Type</span>
-                    <select name="eventType" defaultValue="">
+                    <span>Event Type *</span>
+                    <select name="eventType" required defaultValue="">
                       <option value="" disabled>
                         Select event type
                       </option>
@@ -158,38 +156,49 @@ export default function EventDetailsPage({
                   </label>
 
                   <label className="event-inquiry-field event-inquiry-field--half">
-                    <span>Estimated Number Of Attendees</span>
+                    <span>Estimated Number Of Attendees *</span>
                     <input
                       type="number"
                       name="attendees"
+                      required
                       min="1"
                       placeholder="Enter number of attendees"
                     />
                   </label>
 
                   <label className="event-inquiry-field event-inquiry-field--half">
-                    <span>Estimated Guest Room Count</span>
+                    <span>Estimated Guest Room Count *</span>
                     <input
                       type="number"
                       name="guestRooms"
+                      required
                       min="0"
                       placeholder="Enter number of guest rooms"
                     />
                   </label>
 
                   <label className="event-inquiry-field">
-                    <span>Decision Date</span>
-                    <input type="date" name="decisionDate" />
+                    <span>Decision Date *</span>
+                    <MinTodayDateInput
+                      name="decisionDate"
+                      ariaLabel="Decision date"
+                    />
                   </label>
 
                   <label className="event-inquiry-field">
-                    <span>Preferred Arrival Date</span>
-                    <input type="date" name="arrivalDate" />
+                    <span>Preferred Arrival Date *</span>
+                    <MinTodayDateInput
+                      name="arrivalDate"
+                      ariaLabel="Preferred arrival date"
+                    />
                   </label>
 
                   <label className="event-inquiry-field">
-                    <span>Preferred Departure Date</span>
-                    <input type="date" name="departureDate" />
+                    <span>Preferred Departure Date *</span>
+                    <MinTodayDateInput
+                      name="departureDate"
+                      ariaLabel="Preferred departure date"
+                    />
                   </label>
                 </div>
 
@@ -199,6 +208,7 @@ export default function EventDetailsPage({
                     <input
                       type="radio"
                       name="datesFlexible"
+                      required
                       value="yes"
                       defaultChecked
                     />
@@ -242,8 +252,8 @@ export default function EventDetailsPage({
 
                 <div className="event-inquiry-grid event-inquiry-grid--contact">
                   <label className="event-inquiry-field">
-                    <span>I am The</span>
-                    <select name="contactRole" defaultValue="">
+                    <span>I am The *</span>
+                    <select name="contactRole" required defaultValue="">
                       <option value="" disabled>
                         Select
                       </option>
@@ -254,8 +264,8 @@ export default function EventDetailsPage({
                   </label>
 
                   <label className="event-inquiry-field">
-                    <span>Title</span>
-                    <select name="title" defaultValue="">
+                    <span>Title *</span>
+                    <select name="title" required defaultValue="">
                       <option value="" disabled>
                         Select
                       </option>
@@ -267,28 +277,31 @@ export default function EventDetailsPage({
                   </label>
 
                   <label className="event-inquiry-field">
-                    <span>First Name</span>
+                    <span>First Name *</span>
                     <input
                       type="text"
                       name="firstName"
+                      required
                       placeholder="Enter first name"
                     />
                   </label>
 
                   <label className="event-inquiry-field">
-                    <span>Event Type</span>
+                    <span>Event Type *</span>
                     <input
                       type="text"
                       name="contactEventType"
+                      required
                       placeholder="Enter last name"
                     />
                   </label>
 
                   <label className="event-inquiry-field event-inquiry-field--full">
-                    <span>Address</span>
+                    <span>Address *</span>
                     <input
                       type="text"
                       name="address"
+                      required
                       placeholder="Enter address"
                     />
                   </label>
@@ -303,13 +316,18 @@ export default function EventDetailsPage({
                   </label>
 
                   <label className="event-inquiry-field event-inquiry-field--half">
-                    <span>City</span>
-                    <input type="text" name="city" placeholder="Enter city" />
+                    <span>City *</span>
+                    <input
+                      type="text"
+                      name="city"
+                      required
+                      placeholder="Enter city"
+                    />
                   </label>
 
                   <label className="event-inquiry-field">
-                    <span>State</span>
-                    <select name="state" defaultValue="">
+                    <span>State *</span>
+                    <select name="state" required defaultValue="">
                       <option value="" disabled>
                         Select state
                       </option>
@@ -319,28 +337,31 @@ export default function EventDetailsPage({
                   </label>
 
                   <label className="event-inquiry-field">
-                    <span>Postal Code</span>
+                    <span>Postal Code *</span>
                     <input
                       type="text"
                       name="postalCode"
+                      required
                       placeholder="Enter postal code"
                     />
                   </label>
 
                   <label className="event-inquiry-field">
-                    <span>Email Address</span>
+                    <span>Email Address *</span>
                     <input
                       type="email"
                       name="email"
+                      required
                       placeholder="Enter email address"
                     />
                   </label>
 
                   <label className="event-inquiry-field">
-                    <span>Phone</span>
+                    <span>Phone *</span>
                     <input
                       type="tel"
                       name="phone"
+                      required
                       placeholder="Enter phone number"
                     />
                   </label>
@@ -383,17 +404,18 @@ export default function EventDetailsPage({
 
                 <EventUploadField />
               </fieldset>
-            </form>
-
-            <button
-              className="button event-inquiry-submit"
-              type="submit"
-              form="event-inquiry-form"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              Submit Request
-            </button>
+              <div className="text-center">
+                <button
+                  className="button event-inquiry-submit"
+                  type="submit"
+                  form="event-inquiry-form"
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                >
+                  Submit Request
+                </button>
+              </div>
+            </NetlifyForm>
           </div>
         </section>
       </main>

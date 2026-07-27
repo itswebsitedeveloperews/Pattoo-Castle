@@ -7,6 +7,8 @@ import {
   richTextToPlainText,
 } from "./App";
 import AosInitializer from "./AosInitializer";
+import NetlifyForm from "./NetlifyForm";
+import StayDateRangeFields from "./StayDateRangeFields";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 
@@ -268,7 +270,10 @@ export default function StayPage({
                     {item.icon?.src && (
                       <img
                         src={item.icon.src}
-                        alt={item.icon.alt || (item.title ? `${item.title} icon` : "")}
+                        alt={
+                          item.icon.alt ||
+                          (item.title ? `${item.title} icon` : "")
+                        }
                       />
                     )}
                     {item.title && <h2>{item.title}</h2>}
@@ -285,113 +290,99 @@ export default function StayPage({
           aria-labelledby="stay-inquiry-title"
         >
           <div className="wrap">
-            <form
+            <NetlifyForm
               className="stay-inquiry-form"
               id="stay-inquiry-form"
-              name="stay-inquiry"
-              method="POST"
-              data-netlify="true"
+              formName="stay-inquiry"
               data-aos="fade-up"
             >
-              <input type="hidden" name="form-name" value="stay-inquiry" />
+              <div className="stay-inquiry-form-content">
+                <div className="stay-inquiry-heading">
+                  <span className="event-inquiry-icon" aria-hidden="true">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 22 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M17.4167 4.58398H4.58333C3.57081 4.58398 2.75 5.4048 2.75 6.41732V17.4173C2.75 18.4298 3.57081 19.2507 4.58333 19.2507H17.4167C18.4292 19.2507 19.25 18.4298 19.25 17.4173V6.41732C19.25 5.4048 18.4292 4.58398 17.4167 4.58398Z"
+                        stroke="#B9802E"
+                        strokeWidth="1.55833"
+                      ></path>
+                      <path
+                        d="M14.6667 2.75V6.41667M7.33333 2.75V6.41667M2.75 9.16667H19.25"
+                        stroke="#B9802E"
+                        strokeWidth="1.55833"
+                      ></path>
+                    </svg>
+                  </span>
+                  Contact Information
+                </div>
 
-              <div className="stay-inquiry-heading">
-                <span className="event-inquiry-icon" aria-hidden="true">
-                  <svg
-                    width="22"
-                    height="22"
-                    viewBox="0 0 22 22"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M17.4167 4.58398H4.58333C3.57081 4.58398 2.75 5.4048 2.75 6.41732V17.4173C2.75 18.4298 3.57081 19.2507 4.58333 19.2507H17.4167C18.4292 19.2507 19.25 18.4298 19.25 17.4173V6.41732C19.25 5.4048 18.4292 4.58398 17.4167 4.58398Z"
-                      stroke="#B9802E"
-                      strokeWidth="1.55833"
-                    ></path>
-                    <path
-                      d="M14.6667 2.75V6.41667M7.33333 2.75V6.41667M2.75 9.16667H19.25"
-                      stroke="#B9802E"
-                      strokeWidth="1.55833"
-                    ></path>
-                  </svg>
-                </span>
-                Contact Information
+                <div className="event-inquiry-grid event-inquiry-grid--contact">
+                  <label className="event-inquiry-field">
+                    <span>First Name *</span>
+                    <input
+                      type="text"
+                      name="firstName"
+                      required
+                      placeholder="Enter first name"
+                    />
+                  </label>
+
+                  <label className="event-inquiry-field">
+                    <span>Last Name *</span>
+                    <input
+                      type="text"
+                      name="lastName"
+                      required
+                      placeholder="Enter last name"
+                    />
+                  </label>
+
+                  <label className="event-inquiry-field">
+                    <span>Email *</span>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="Enter email name"
+                    />
+                  </label>
+
+                  <label className="event-inquiry-field">
+                    <span>Phone</span>
+                    <input
+                      type="tel"
+                      name="phone"
+                      required
+                      placeholder="Enter Phone number"
+                    />
+                  </label>
+
+                  <StayDateRangeFields />
+
+                  <label className="event-inquiry-field event-inquiry-field--full">
+                    <span>Details</span>
+                    <textarea
+                      name="details"
+                      required
+                      placeholder="Tell us more about your stay..."
+                    />
+                  </label>
+                </div>
               </div>
-
-              <div className="event-inquiry-grid event-inquiry-grid--contact">
-                <label className="event-inquiry-field">
-                  <span>First Name</span>
-                  <input
-                    type="text"
-                    name="firstName"
-                    placeholder="Enter first name"
-                  />
-                </label>
-
-                <label className="event-inquiry-field">
-                  <span>Last Name</span>
-                  <input
-                    type="text"
-                    name="lastName"
-                    placeholder="Enter last name"
-                  />
-                </label>
-
-                <label className="event-inquiry-field">
-                  <span>Email</span>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter email name"
-                  />
-                </label>
-
-                <label className="event-inquiry-field">
-                  <span>Phone</span>
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="Enter Phone number"
-                  />
-                </label>
-
-                <label className="event-inquiry-field event-inquiry-field--half">
-                  <span>Check-in Date</span>
-                  <input
-                    type="date"
-                    name="checkIn"
-                    aria-label="Check-in date"
-                  />
-                </label>
-
-                <label className="event-inquiry-field event-inquiry-field--half">
-                  <span>Check-Out Date</span>
-                  <input
-                    type="date"
-                    name="checkOut"
-                    aria-label="Check-out date"
-                  />
-                </label>
-
-                <label className="event-inquiry-field event-inquiry-field--full">
-                  <span>Details</span>
-                  <textarea
-                    name="details"
-                    placeholder="Tell us more about your stay..."
-                  />
-                </label>
-              </div>
-            </form>
-
-            <button
-              className="button event-inquiry-submit"
-              type="submit"
-              form="stay-inquiry-form"
-              data-aos="fade-up"
-            >
-              Send Inquiry
-            </button>
+              <button
+                className="button event-inquiry-submit"
+                type="submit"
+                form="stay-inquiry-form"
+                data-aos="fade-up"
+              >
+                Send Inquiry
+              </button>
+            </NetlifyForm>
           </div>
         </section>
 
@@ -425,7 +416,10 @@ export default function StayPage({
                       {item.image?.src && (
                         <img
                           src={item.image.src}
-                          alt={item.image.alt || `Pattoo Castle villa feature ${index + 1}`}
+                          alt={
+                            item.image.alt ||
+                            `Pattoo Castle villa feature ${index + 1}`
+                          }
                         />
                       )}
                       {item.title && <h3>{item.title}</h3>}
@@ -469,7 +463,9 @@ export default function StayPage({
                 <img
                   className="stay-experience-image"
                   src={stay.experienceImage.src}
-                  alt={stay.experienceImage.alt || "Pattoo Castle stay experience"}
+                  alt={
+                    stay.experienceImage.alt || "Pattoo Castle stay experience"
+                  }
                   data-aos="fade-up"
                   data-aos-delay="150"
                 />
