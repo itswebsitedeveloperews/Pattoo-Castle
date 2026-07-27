@@ -72,11 +72,6 @@ export default function SiteHeader({ header }) {
                   {header.menuItems.map((item, index) => (
                     <HeaderMenuLink item={item} key={`${item.name}-${index}`} />
                   ))}
-                </nav>
-              )}
-
-              {(hasHeaderButton || header.socialLinks.length > 0) && (
-                <div className="mobile-header-actions">
                   {hasHeaderButton && (
                     <a
                       className="button button--light enquire-link"
@@ -85,21 +80,28 @@ export default function SiteHeader({ header }) {
                       {header.buttonText}
                     </a>
                   )}
-                  {header.socialLinks.map((item, index) => (
-                    <a
-                      className="social-link"
-                      href={item.url || "#"}
-                      key={`${item.url}-${index}`}
-                      aria-label={getSocialLinkLabel(index)}
-                    >
-                      {item.icon?.src && (
-                        <img
-                          src={item.icon.src}
-                          alt={item.icon.alt || getSocialLinkLabel(index)}
-                        />
-                      )}
-                    </a>
-                  ))}
+                </nav>
+              )}
+
+              {(hasHeaderButton || header.socialLinks.length > 0) && (
+                <div className="mobile-header-actions">
+                  <div className="mobile-header-social">
+                    {header.socialLinks.map((item, index) => (
+                      <a
+                        className="social-link"
+                        href={item.url || "#"}
+                        key={`${item.url}-${index}`}
+                        aria-label={getSocialLinkLabel(index)}
+                      >
+                        {item.icon?.src && (
+                          <img
+                            src={item.icon.src}
+                            alt={item.icon.alt || getSocialLinkLabel(index)}
+                          />
+                        )}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

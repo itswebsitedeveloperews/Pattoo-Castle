@@ -275,7 +275,10 @@ body:not(.home) .site-header {
   bottom: 0;
   left: auto;
   z-index: 2;
-  display: grid;
+  justify-content: space-between;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   align-content: start;
   gap: 22px;
   width: 80vw;
@@ -290,6 +293,7 @@ body:not(.home) .site-header {
 .mobile-nav {
   display: grid;
   gap: 18px;
+  justify-content: start;
 }
 
 .mobile-nav a {
@@ -301,6 +305,12 @@ body:not(.home) .site-header {
   text-decoration: none;
   text-transform: uppercase;
   transition: color 180ms ease;
+}
+
+.mobile-header-social {
+  display: flex;
+  gap: 16px;
+  width: 100%;
 }
 
 .mobile-nav a:hover,
@@ -515,6 +525,8 @@ body:not(.home) .site-header {
   height: 64px;
   margin-bottom: 4px;
   object-fit: contain;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .number-item strong {
@@ -3414,7 +3426,9 @@ body:not(.home) .site-header {
 }
 .stay-inquiry-form {
   text-align: center;
+  width: 100%;
 }
+
 .stay-inquiry-form .stay-inquiry-form-content {
   width: min(100%, 980px);
   padding: 24px 24px 26px;
@@ -4945,7 +4959,7 @@ body:not(.home) .site-header {
   }
 
   .stay-inquiry-form .stay-inquiry-form-content {
-    width: min(100%, 840px);
+    width: 100%;
   }
 
   .stay-inquiry-field--half,
@@ -5233,6 +5247,10 @@ body:not(.home) .site-header {
   .contact-experience-card > p:not(.contact-experience-eyebrow) {
     max-width: 100%;
   }
+
+  #stay-inquiry-form .event-inquiry-submit {
+    margin-top: 24px;
+  }
 }
 
 @media only screen and (max-width: 767px) {
@@ -5253,7 +5271,7 @@ body:not(.home) .site-header {
   .site-header {
     grid-template-columns: auto 1fr auto;
     gap: 12px;
-    padding: 20px 16px 0;
+    padding: 10px 16px;
   }
 
   .brand img {
@@ -6560,5 +6578,9 @@ body:not(.home) .site-header {
   .event-inquiry-field select,
   .event-inquiry-field textarea {
     font-size: inherit;
+  }
+  .social-link {
+    width: 36px;
+    height: 36px;
   }
 }
