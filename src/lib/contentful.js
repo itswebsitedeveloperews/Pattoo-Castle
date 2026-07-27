@@ -525,6 +525,28 @@ export async function getEventDetailsEntryBySlug(slug) {
   return null
 }
 
+export async function getEventDetailsEntries() {
+  if (!isContentfulConfigured) {
+    return []
+  }
+
+  for (const contentType of [...new Set(eventDetailsContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType, {
+        limit: 100,
+      })
+
+      if (items.length > 0) {
+        return items
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return []
+}
+
 export async function getStayEntry() {
   if (!isContentfulConfigured) {
     return null
