@@ -5,6 +5,7 @@ import {
   getFooterEntry,
   getHeaderEntry,
 } from '../../../lib/contentful'
+import { createMetadata } from '../../../lib/seo'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -16,6 +17,41 @@ function withTimeout(promise, label) {
       setTimeout(() => reject(new Error(`${label} request timed out`)), 8000)
     }),
   ])
+}
+
+function getEventDetailsMetadata(entry, slug) {
+  const fields = entry?.fields || {}
+  const title = fields.eventHeading || 'Event Details'
+  const description =
+    fields.eventContent?.content?.[0]?.content?.[0]?.value ||
+    'Explore event details and plan a private celebration at Pattoo Castle in Negril, Jamaica.'
+
+  return createMetadata(`/events/${slug}/`, {
+    title,
+    description:
+      typeof description === 'string'
+        ? description.slice(0, 155)
+        : 'Explore event details and plan a private celebration at Pattoo Castle in Negril, Jamaica.',
+  })
+}
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params
+
+  try {
+    const eventDetailsEntry = await withTimeout(
+      getEventDetailsEntryBySlug(slug),
+      'Contentful event details metadata',
+    )
+
+    return getEventDetailsMetadata(eventDetailsEntry, slug)
+  } catch {
+    return createMetadata(`/events/${slug}/`, {
+      title: 'Event Details',
+      description:
+        'Explore event details and plan a private celebration at Pattoo Castle in Negril, Jamaica.',
+    })
+  }
 }
 
 export default async function EventDetailsRoute({ params }) {

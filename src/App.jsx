@@ -1,7 +1,9 @@
+import AosInitializer from "./AosInitializer";
 import AmenitiesSlider from "./AmenitiesSlider";
 import GalleryPreviewSlider from "./GalleryPreviewSlider";
-import HeaderMenuLink from "./HeaderMenuLink";
 import ReserveStaySection from "./ReserveStaySection";
+import SiteFooter from "./SiteFooter";
+import SiteHeader from "./SiteHeader";
 import heroImage from "./assets/hero.png";
 import logo from "./assets/patto-logo.svg";
 
@@ -86,10 +88,10 @@ function getHomePageContent(entry) {
           return {
             title: itemFields.amenitiesItemsTitle || "",
             content: richTextToPlainText(itemFields.amenitiesItemsContent),
-            imageSrc: getContentfulAssetSrc(itemFields.amenitiesItemsImage),
+            image: getContentfulImage(itemFields.amenitiesItemsImage),
           };
         })
-        .filter((item) => item.title || item.content || item.imageSrc)
+        .filter((item) => item.title || item.content || item.image?.src)
     : [];
   const exploreExperiences = Array.isArray(fields.exploreExperiences)
     ? fields.exploreExperiences
@@ -97,7 +99,7 @@ function getHomePageContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            imageSrc: getFirstContentfulAssetSrc(itemFields.images),
+            image: getFirstContentfulImage(itemFields.images),
             title: itemFields.title || "",
             content: richTextToPlainText(itemFields.content),
             buttonText: itemFields.buttonText || "",
@@ -106,7 +108,7 @@ function getHomePageContent(entry) {
         })
         .filter(
           (item) =>
-            item.imageSrc ||
+            item.image?.src ||
             item.title ||
             item.content ||
             (item.buttonText && item.buttonUrl),
@@ -119,12 +121,12 @@ function getHomePageContent(entry) {
   };
   const galleryImages = Array.isArray(fields.galleryImages)
     ? fields.galleryImages
-        .map((asset) => getContentfulAssetSrc(asset))
-        .filter(Boolean)
+        .map((asset) => getContentfulImage(asset))
+        .filter((image) => image?.src)
     : [];
   const reserveYourStayDateFields = fields.reserveYourStayDate?.fields || {};
   const reserveYourStayDate = {
-    logoSrc: getFirstContentfulAssetSrc(reserveYourStayDateFields.images),
+    logo: getFirstContentfulImage(reserveYourStayDateFields.images),
     title: reserveYourStayDateFields.title || "",
     content: richTextToPlainText(reserveYourStayDateFields.content),
     buttonText: reserveYourStayDateFields.buttonText || "",
@@ -132,8 +134,8 @@ function getHomePageContent(entry) {
   };
   const eventCards = Array.isArray(fields.eventCards)
     ? fields.eventCards
-        .map((asset) => getContentfulAssetSrc(asset))
-        .filter(Boolean)
+        .map((asset) => getContentfulImage(asset))
+        .filter((image) => image?.src)
     : [];
   const numberBlock = Array.isArray(fields.numberBlock)
     ? fields.numberBlock
@@ -141,12 +143,12 @@ function getHomePageContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            imageSrc: getFirstContentfulAssetSrc(itemFields.images),
+            image: getFirstContentfulImage(itemFields.images),
             value: itemFields.title || "",
             label: richTextToPlainText(itemFields.content),
           };
         })
-        .filter((item) => item.imageSrc || item.value || item.label)
+        .filter((item) => item.image?.src || item.value || item.label)
     : [];
 
   return {
@@ -157,11 +159,11 @@ function getHomePageContent(entry) {
     buttonUrl: fields.buttonUrl || "",
     button2Text: richTextToPlainText(fields.button2Text),
     button2Url: fields.button2Url || "",
-    introLogo: getContentfulAssetSrc(fields.introLogo),
+    introLogo: getContentfulImage(fields.introLogo),
     introHeading: fields.introHeading || "",
     introDescription: richTextToPlainText(fields.introDescription),
     numberBlock,
-    introImage: getContentfulAssetSrc(fields.introImage),
+    introImage: getContentfulImage(fields.introImage),
     eventSectionHeading: fields.eventSectionHeading || "",
     eventSectionHighlight: fields.eventSectionHighlight || "",
     eventCards,
@@ -170,7 +172,7 @@ function getHomePageContent(entry) {
     amenitiesEyebrow: fields.amenitiesEyebrow || "",
     amenitiesHeading: fields.amenitiesHeading || "",
     amenitiesItems,
-    caribbeanLivingImage: getContentfulAssetSrc(fields.caribbeanLivingImage),
+    caribbeanLivingImage: getContentfulImage(fields.caribbeanLivingImage),
     caribbeanLivingTitle: fields.caribbeanLivingTitle || "",
     caribbeanLivingContent: richTextToPlainText(fields.caribbeanLivingContent),
     caribbeanLivingButtonText: fields.caribbeanLivingButtonText || "",
@@ -183,7 +185,7 @@ function getHomePageContent(entry) {
     galleryTitle: fields.galleryTitle || "",
     galleryButtonText: fields.galleryButtonText || "",
     galleryButtonUrl: fields.galleryButtonUrl || "",
-    reserveYourStayImage: getContentfulAssetSrc(fields.reserveYourStayImage),
+    reserveYourStayImage: getContentfulImage(fields.reserveYourStayImage),
     reserveYourStayVideo: getContentfulAssetSrc(fields.reserveYourStayVideo),
     reserveYourStayDate,
   };
@@ -203,12 +205,45 @@ export function getContentfulAssetSrc(asset) {
   return url.startsWith("//") ? `https:${url}` : url;
 }
 
-function getFirstContentfulAssetSrc(assets) {
-  if (Array.isArray(assets)) {
-    return getContentfulAssetSrc(assets[0]);
+function formatAssetName(value) {
+  if (!value) {
+    return "";
   }
 
-  return getContentfulAssetSrc(assets);
+  return value
+    .replace(/\.[^/.]+$/, "")
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export function getContentfulAssetAlt(asset) {
+  return (
+    asset?.fields?.title ||
+    asset?.fields?.description ||
+    formatAssetName(asset?.fields?.file?.fileName)
+  );
+}
+
+export function getContentfulImage(asset) {
+  const src = getContentfulAssetSrc(asset);
+
+  if (!src) {
+    return null;
+  }
+
+  return {
+    src,
+    alt: getContentfulAssetAlt(asset),
+  };
+}
+
+export function getFirstContentfulImage(assets) {
+  if (Array.isArray(assets)) {
+    return getContentfulImage(assets[0]);
+  }
+
+  return getContentfulImage(assets);
 }
 
 export function getFooterContent(entry) {
@@ -219,11 +254,11 @@ export function getFooterContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            iconSrc: getContentfulAssetSrc(itemFields.socialIcon),
+            icon: getContentfulImage(itemFields.socialIcon),
             url: itemFields.socialUrl || "",
           };
         })
-        .filter((item) => item.iconSrc || item.url)
+        .filter((item) => item.icon?.src || item.url)
     : [];
   const menuItems = Array.isArray(fields.footerMenu)
     ? fields.footerMenu
@@ -239,7 +274,7 @@ export function getFooterContent(entry) {
     : [];
 
   return {
-    logoSrc: getContentfulAssetSrc(fields.footerLogo),
+    logo: getContentfulImage(fields.footerLogo),
     location: fields.location || "",
     phone: fields.phone || "",
     email: fields.email || "",
@@ -273,219 +308,20 @@ export function getHeaderContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            iconSrc: getContentfulAssetSrc(itemFields.socialIcon),
+            icon: getContentfulImage(itemFields.socialIcon),
             url: itemFields.socialUrl || "",
           };
         })
-        .filter((item) => item.iconSrc || item.url)
+        .filter((item) => item.icon?.src || item.url)
     : [];
 
   return {
-    logoSrc: getContentfulAssetSrc(fields.logo),
+    logo: getContentfulImage(fields.logo),
     menuItems,
     buttonText: fields.buttonText || "",
     buttonUrl: fields.buttonUrl || "",
     socialLinks,
   };
-}
-
-function getPhoneHref(phone) {
-  const value = phone.replace(/[^\d+]/g, "");
-
-  return value ? `tel:${value}` : "";
-}
-
-export function SiteHeader({ header }) {
-  const hasHeaderButton = Boolean(header.buttonText && header.buttonUrl);
-  const hasMobileMenu = Boolean(
-    header.menuItems.length || hasHeaderButton || header.socialLinks.length,
-  );
-
-  return (
-    <header className="site-header">
-      {header.logoSrc && (
-        <div className="navbar-logo">
-          <a className="brand" href="/" aria-label="Pattoo Castle home">
-            <img src={header.logoSrc} alt="Pattoo Castle" />
-          </a>
-        </div>
-      )}
-
-      <div className="right-header">
-        {header.menuItems.length > 0 && (
-          <nav className="primary-nav" aria-label="Primary navigation">
-            {header.menuItems.map((item, index) => (
-              <HeaderMenuLink item={item} key={`${item.name}-${index}`} />
-            ))}
-            {hasHeaderButton && (
-              <a
-                className="button button--light enquire-link"
-                href={header.buttonUrl}
-              >
-                {header.buttonText}
-              </a>
-            )}
-          </nav>
-        )}
-
-        <div className="header-actions">
-          {header.socialLinks.map((item, index) => (
-            <a
-              className="social-link"
-              href={item.url || "#"}
-              key={`${item.url}-${index}`}
-              aria-label={`Social link ${index + 1}`}
-            >
-              {item.iconSrc && <img src={item.iconSrc} alt="" />}
-            </a>
-          ))}
-        </div>
-
-        {hasMobileMenu && (
-          <details className="mobile-menu">
-            <summary aria-label="Open menu">
-              <span />
-              <span />
-              <span />
-            </summary>
-
-            <div className="mobile-menu-panel">
-              {header.menuItems.length > 0 && (
-                <nav className="mobile-nav" aria-label="Mobile navigation">
-                  {header.menuItems.map((item, index) => (
-                    <HeaderMenuLink item={item} key={`${item.name}-${index}`} />
-                  ))}
-                </nav>
-              )}
-
-              {(hasHeaderButton || header.socialLinks.length > 0) && (
-                <div className="mobile-header-actions">
-                  {hasHeaderButton && (
-                    <a
-                      className="button button--light enquire-link"
-                      href={header.buttonUrl}
-                    >
-                      {header.buttonText}
-                    </a>
-                  )}
-                  {header.socialLinks.map((item, index) => (
-                    <a
-                      className="social-link"
-                      href={item.url || "#"}
-                      key={`${item.url}-${index}`}
-                      aria-label={`Social link ${index + 1}`}
-                    >
-                      {item.iconSrc && <img src={item.iconSrc} alt="" />}
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-          </details>
-        )}
-      </div>
-    </header>
-  );
-}
-
-export function SiteFooter({ footer }) {
-  const hasContact = Boolean(
-    footer.location ||
-    footer.phone ||
-    footer.email ||
-    footer.socialLinks.length,
-  );
-  const hasFooter = Boolean(
-    footer.logoSrc ||
-    hasContact ||
-    footer.menuItems.length ||
-    footer.copyright ||
-    footer.designBy ||
-    footer.footerBarMenu,
-  );
-
-  if (!hasFooter) {
-    return null;
-  }
-
-  return (
-    <footer className="site-footer">
-      <div className="site-footer-inner container">
-        {footer.logoSrc && (
-          <a className="footer-brand" href="/" aria-label="Pattoo Castle home">
-            <img src={footer.logoSrc} alt="Pattoo Castle" />
-          </a>
-        )}
-
-        {hasContact && (
-          <div className="footer-contact-grid">
-            {footer.location && (
-              <div className="footer-contact-item">
-                <strong>Location</strong>
-                <p>{footer.location}</p>
-              </div>
-            )}
-            {footer.phone && (
-              <div className="footer-contact-item">
-                <strong>Tel</strong>
-                <a href={getPhoneHref(footer.phone)}>{footer.phone}</a>
-              </div>
-            )}
-            {footer.email && (
-              <div className="footer-contact-item">
-                <strong>Email</strong>
-                <a href={`mailto:${footer.email}`}>{footer.email}</a>
-              </div>
-            )}
-            {footer.socialLinks.length > 0 && (
-              <div className="footer-contact-item footer-socials">
-                <strong>Follow us on</strong>
-                <div>
-                  {footer.socialLinks.map((item, index) => (
-                    <a
-                      href={item.url || "#"}
-                      key={`${item.url}-${index}`}
-                      aria-label={`Social link ${index + 1}`}
-                    >
-                      {item.iconSrc && <img src={item.iconSrc} alt="" />}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {footer.menuItems.length > 0 && (
-          <nav className="footer-nav" aria-label="Footer navigation">
-            {footer.menuItems.map((item, index) => (
-              <a href={item.url || "#"} key={`${item.name}-${index}`}>
-                {item.name}
-              </a>
-            ))}
-          </nav>
-        )}
-
-        {(footer.copyright || footer.designBy || footer.footerBarMenu) && (
-          <div className="footer-bottom">
-            {footer.copyright && <p>{footer.copyright}</p>}
-            {(footer.designBy || footer.footerBarMenu) && (
-              <div>
-                {footer.designBy && (
-                  <span>{richTextToReact(footer.designByRichText)}</span>
-                )}
-                {footer.footerBarMenu && (
-                  <a href={footer.footerBarUrl || "#"}>
-                    {footer.footerBarMenu}
-                  </a>
-                )}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </footer>
-  );
 }
 
 function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
@@ -501,7 +337,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
     homePage.introHeading ||
     homePage.introDescription ||
     homePage.numberBlock.length ||
-    homePage.introImage,
+    homePage.introImage?.src,
   );
   const hasEventButton = Boolean(
     homePage.eventButtonText && homePage.eventButtonUrl,
@@ -524,7 +360,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
     homePage.caribbeanLivingButton2Text && homePage.caribbeanLivingButton2Url,
   );
   const hasCaribbeanLivingSection = Boolean(
-    homePage.caribbeanLivingImage ||
+    homePage.caribbeanLivingImage?.src ||
     homePage.caribbeanLivingTitle ||
     homePage.caribbeanLivingContent ||
     hasCaribbeanLivingButton ||
@@ -545,7 +381,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
     homePage.reserveYourStayDate.buttonUrl,
   );
   const hasReserveSection = Boolean(
-    homePage.reserveYourStayImage ||
+    homePage.reserveYourStayImage?.src ||
     homePage.reserveYourStayVideo ||
     homePage.reserveYourStayDate.title ||
     homePage.reserveYourStayDate.content ||
@@ -554,6 +390,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
 
   return (
     <>
+      <AosInitializer />
       <SiteHeader header={header} />
       <main className="site-main">
         <section
@@ -561,7 +398,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
           style={{ "--hero-image": `url(${getAssetSrc(heroImage)})` }}
           aria-label="Pattoo Castle in Negril, Jamaica"
         >
-          <div className="hero-content container">
+          <div className="hero-content container" data-aos="fade-in">
             {homePage.heroLeftText && (
               <div className="hero-kicker hero-kicker-left">
                 {homePage.heroLeftText}
@@ -616,13 +453,12 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
             aria-labelledby={homePage.introHeading ? "intro-title" : undefined}
           >
             <div className="container">
-              <div className="intro-panel">
+              <div className="intro-panel" data-aos="fade-up">
                 {homePage.introLogo && (
                   <img
                     className="intro-logo"
-                    src={homePage.introLogo}
-                    alt=""
-                    aria-hidden="true"
+                    src={homePage.introLogo.src}
+                    alt={homePage.introLogo.alt || "Pattoo Castle crest"}
                   />
                 )}
 
@@ -643,11 +479,11 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
                         className="number-item"
                         key={`${item.value}-${index}`}
                       >
-                        {item.imageSrc && (
+                        {item.image?.src && (
                           <img
                             className="number-item-image"
-                            src={item.imageSrc}
-                            alt=""
+                            src={item.image.src}
+                            alt={item.image.alt || (item.label ? `${item.label} icon` : "")}
                           />
                         )}
                         {item.value && <strong>{item.value}</strong>}
@@ -659,10 +495,13 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
               </div>
             </div>
 
-            {homePage.introImage && (
-              <div className="intro-image-wrap">
+            {homePage.introImage?.src && (
+              <div className="intro-image-wrap" data-aos="fade-up">
                 <div className="container">
-                  <img src={homePage.introImage} alt="" />
+                  <img
+                    src={homePage.introImage.src}
+                    alt={homePage.introImage.alt || "Pattoo Castle villa and oceanfront setting"}
+                  />
                 </div>
               </div>
             )}
@@ -671,16 +510,16 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
 
         {hasEventSection && (
           <section
-            className="event-section"
+            className="section event-section"
             id="events"
             aria-labelledby={
               homePage.eventSectionHeading ? "event-title" : undefined
             }
           >
-            <div className="container text-center">
+            <div className="wrap text-center">
               {(homePage.eventSectionHeading ||
                 homePage.eventSectionHighlight) && (
-                <h2 id="event-title">
+                <h2 id="event-title" data-aos="fade-up">
                   {homePage.eventSectionHeading && (
                     <span>{homePage.eventSectionHeading}</span>
                   )}
@@ -692,12 +531,17 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
 
               {homePage.eventCards.length > 0 && (
                 <div className="event-card-grid">
-                  {homePage.eventCards.map((imageSrc, index) => (
+                  {homePage.eventCards.map((image, index) => (
                     <article
                       className="event-card"
-                      key={`${imageSrc}-${index}`}
+                      key={`${image.src}-${index}`}
+                      data-aos="fade-up"
+                      data-aos-delay={String(index * 100)}
                     >
-                      <img src={imageSrc} alt="" />
+                      <img
+                        src={image.src}
+                        alt={image.alt || `Pattoo Castle event setting ${index + 1}`}
+                      />
                     </article>
                   ))}
                 </div>
@@ -707,6 +551,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
                 <a
                   className="button button--brown event-button"
                   href={homePage.eventButtonUrl}
+                  data-aos="fade-up"
                 >
                   {homePage.eventButtonText}
                 </a>
@@ -733,7 +578,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
 
         {hasCaribbeanLivingSection && (
           <section
-            className="caribbean-living-section"
+            className="section caribbean-living-section"
             id="explore-negril"
             aria-labelledby={
               homePage.caribbeanLivingTitle
@@ -741,16 +586,18 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
                 : undefined
             }
           >
-            {homePage.caribbeanLivingImage && (
+            {homePage.caribbeanLivingImage?.src && (
               <img
                 className="caribbean-living-map"
-                src={homePage.caribbeanLivingImage}
-                alt=""
-                aria-hidden="true"
+                src={homePage.caribbeanLivingImage.src}
+                alt={
+                  homePage.caribbeanLivingImage.alt ||
+                  "Map of Negril and Caribbean experiences near Pattoo Castle"
+                }
               />
             )}
 
-            <div className="caribbean-living-content">
+            <div className="caribbean-living-content" data-aos="fade-up">
               {homePage.caribbeanLivingTitle && (
                 <h2 id="caribbean-living-title">
                   {homePage.caribbeanLivingTitle}
@@ -787,7 +634,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
 
         {hasExploreExperiencesSection && (
           <section
-            className="explore-experiences-section"
+            className="section explore-experiences-section"
             aria-label="Explore experiences"
           >
             {homePage.exploreExperiences.map((item, index) => {
@@ -796,9 +643,16 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
               return (
                 <article
                   className="explore-experience-card"
+                  data-aos="fade-up"
+                  data-aos-delay={String(index * 100)}
                   key={`${item.title}-${index}`}
                 >
-                  {item.imageSrc && <img src={item.imageSrc} alt="" />}
+                  {item.image?.src && (
+                    <img
+                      src={item.image.src}
+                      alt={item.image.alt || `Pattoo Castle experience ${index + 1}`}
+                    />
+                  )}
                   <div className="explore-experience-overlay" />
                   <div className="explore-experience-content">
                     {item.title && <h2>{item.title}</h2>}
@@ -821,6 +675,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
         {hasFeaturedQuoteSection && (
           <section
             className="section featured-quote-section"
+            data-aos="fade-up"
             aria-label="Featured quote"
           >
             <div className="featured-quote-mark" aria-hidden="true">
@@ -847,7 +702,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
               <GalleryPreviewSlider images={homePage.galleryImages} />
             )}
 
-            <div className="gallery-preview-content">
+            <div className="gallery-preview-content" data-aos="fade-up">
               {homePage.galleryTitle && (
                 <h2 id="gallery-title">{homePage.galleryTitle}</h2>
               )}
@@ -869,11 +724,12 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
 
         {hasReserveSection && (
           <ReserveStaySection
-            backgroundImage={homePage.reserveYourStayImage}
+            backgroundImage={homePage.reserveYourStayImage?.src}
             buttonText={homePage.reserveYourStayDate.buttonText}
             buttonUrl={homePage.reserveYourStayDate.buttonUrl}
             content={homePage.reserveYourStayDate.content}
-            logoSrc={homePage.reserveYourStayDate.logoSrc || getAssetSrc(logo)}
+            logoAlt={homePage.reserveYourStayDate.logo?.alt}
+            logoSrc={homePage.reserveYourStayDate.logo?.src || getAssetSrc(logo)}
             title={homePage.reserveYourStayDate.title}
             videoSrc={homePage.reserveYourStayVideo}
           />

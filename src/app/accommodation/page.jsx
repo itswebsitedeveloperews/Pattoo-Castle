@@ -4,8 +4,10 @@ import {
   getFooterEntry,
   getHeaderEntry,
 } from '../../lib/contentful'
+import { createMetadata } from '../../lib/seo'
 
 export const dynamic = 'force-dynamic'
+export const metadata = createMetadata("/accommodation/")
 export const revalidate = 0
 
 function withTimeout(promise, label) {

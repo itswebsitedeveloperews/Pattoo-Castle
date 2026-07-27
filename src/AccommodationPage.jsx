@@ -1,19 +1,13 @@
 import {
   getContentfulAssetSrc,
+  getFirstContentfulImage,
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
-  SiteFooter,
-  SiteHeader,
 } from "./App";
-
-function getFirstContentfulAssetSrc(assets) {
-  if (Array.isArray(assets)) {
-    return getContentfulAssetSrc(assets[0]);
-  }
-
-  return getContentfulAssetSrc(assets);
-}
+import AosInitializer from "./AosInitializer";
+import SiteFooter from "./SiteFooter";
+import SiteHeader from "./SiteHeader";
 
 function getAccommodationContent(entry) {
   const fields = entry?.fields || {};
@@ -23,7 +17,7 @@ function getAccommodationContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            iconSrc: getFirstContentfulAssetSrc(itemFields.images),
+            icon: getFirstContentfulImage(itemFields.images),
             value: itemFields.count || "",
             label: itemFields.title || "",
             description: richTextToPlainText(itemFields.content),
@@ -31,7 +25,7 @@ function getAccommodationContent(entry) {
         })
         .filter(
           (item) =>
-            item.iconSrc || item.value || item.label || item.description,
+            item.icon?.src || item.value || item.label || item.description,
         )
     : [];
   const roomBox = Array.isArray(fields.roomBox)
@@ -40,12 +34,12 @@ function getAccommodationContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            imageSrc: getFirstContentfulAssetSrc(itemFields.images),
+            image: getFirstContentfulImage(itemFields.images),
             title: itemFields.title || "",
             content: richTextToPlainText(itemFields.content),
           };
         })
-        .filter((item) => item.imageSrc || item.title || item.content)
+        .filter((item) => item.image?.src || item.title || item.content)
     : [];
   const caribbeanLivingFacilities = Array.isArray(
     fields.caribbeanLivingFacilities,
@@ -84,7 +78,7 @@ function getAccommodationContent(entry) {
     memoriesContent: richTextToPlainText(fields.memoriesContent),
     memoriesButtonText: fields.memoriesButtonText || "",
     memoriesButtonUrl: fields.memoriesButtonUrl || "",
-    memoriesImage: getContentfulAssetSrc(fields.memoriesImage),
+    memoriesImage: getFirstContentfulImage(fields.memoriesImage),
     caribbeanLivingSubHeading: fields.caribbeanLivingSubHeading || "",
     caribbeanLivingHeading: fields.caribbeanLivingHeading || "",
     caribbeanLivingFacilities,
@@ -126,7 +120,7 @@ export default function AccommodationPage({
     accommodation.memoriesHeading ||
     accommodation.memoriesContent ||
     hasMemoriesButton ||
-    accommodation.memoriesImage,
+    accommodation.memoriesImage?.src,
   );
   const hasCaribbeanLivingSection = Boolean(
     accommodation.caribbeanLivingSubHeading ||
@@ -136,8 +130,9 @@ export default function AccommodationPage({
 
   return (
     <>
+      <AosInitializer />
       <SiteHeader header={header} />
-      <main>
+      <main className="site-main">
         <section
           className="page-hero accommodation-hero"
           style={
@@ -153,20 +148,34 @@ export default function AccommodationPage({
         >
           <div className="page-hero-content accommodation-hero-content">
             {accommodation.bannerSubHeading && (
-              <p className="eyebrow page-hero-eyebrow accommodation-hero-eyebrow">
+              <p
+                className="eyebrow page-hero-eyebrow accommodation-hero-eyebrow"
+                data-aos="fade-up"
+                data-aos-delay="20"
+              >
                 {accommodation.bannerSubHeading}
               </p>
             )}
             {accommodation.bannerHeading && (
-              <h1 id="accommodation-title">{accommodation.bannerHeading}</h1>
+              <h1
+                id="accommodation-title"
+                data-aos="fade-up"
+                data-aos-delay="60"
+              >
+                {accommodation.bannerHeading}
+              </h1>
             )}
             {accommodation.bannerContent && (
-              <p>{accommodation.bannerContent}</p>
+              <p data-aos="fade-up" data-aos-delay="100">
+                {accommodation.bannerContent}
+              </p>
             )}
             {hasButton && (
               <a
                 className="button button--light page-hero-button accommodation-hero-button"
                 href={accommodation.buttonUrl}
+                data-aos="fade-up"
+                data-aos-delay="150"
               >
                 {accommodation.buttonText}
               </a>
@@ -185,7 +194,7 @@ export default function AccommodationPage({
           >
             <div className="wrap">
               <div className="accommodation-intro-header">
-                <div>
+                <div data-aos="fade-up" data-aos-delay="50">
                   {accommodation.introSubHeading && (
                     <p className="eyebrow accommodation-intro-eyebrow">
                       {accommodation.introSubHeading}
@@ -199,7 +208,11 @@ export default function AccommodationPage({
                 </div>
 
                 {accommodation.introDescription && (
-                  <p className="accommodation-intro-description">
+                  <p
+                    className="accommodation-intro-description"
+                    data-aos="fade-up"
+                    data-aos-delay="100"
+                  >
                     {accommodation.introDescription}
                   </p>
                 )}
@@ -211,12 +224,14 @@ export default function AccommodationPage({
                     <article
                       className="accommodation-intro-item"
                       key={`${item.value}-${item.label}-${index}`}
+                      data-aos="fade-up"
+                      data-aos-delay={String(index * 100)}
                     >
-                      {item.iconSrc && (
+                      {item.icon?.src && (
                         <img
                           className="accommodation-intro-icon"
-                          src={item.iconSrc}
-                          alt=""
+                          src={item.icon.src}
+                          alt={item.icon.alt || (item.label ? `${item.label} icon` : "")}
                         />
                       )}
                       {item.value && <strong>{item.value}</strong>}
@@ -240,7 +255,7 @@ export default function AccommodationPage({
             }
           >
             <div className="wrap">
-              <div className="accommodation-rooms-header">
+              <div className="accommodation-rooms-header" data-aos="fade-up">
                 {accommodation.roomSubHeading && (
                   <p className="eyebrow accommodation-rooms-eyebrow">
                     {accommodation.roomSubHeading}
@@ -270,8 +285,15 @@ export default function AccommodationPage({
                     <article
                       className="accommodation-room-card"
                       key={`${item.title}-${index}`}
+                      data-aos="fade-up"
+                      data-aos-delay={String(index * 100)}
                     >
-                      {item.imageSrc && <img src={item.imageSrc} alt="" />}
+                      {item.image?.src && (
+                        <img
+                          src={item.image.src}
+                          alt={item.image.alt || `Pattoo Castle accommodation ${index + 1}`}
+                        />
+                      )}
                       {item.title && <h3>{item.title}</h3>}
                       {item.content && <p>{item.content}</p>}
                     </article>
@@ -292,7 +314,11 @@ export default function AccommodationPage({
             }
           >
             <div className="wrap">
-              <div className="accommodation-memories-content">
+              <div
+                className="accommodation-memories-content"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
                 {accommodation.memoriesSubHeading && (
                   <p className="eyebrow accommodation-memories-eyebrow">
                     {accommodation.memoriesSubHeading}
@@ -316,9 +342,16 @@ export default function AccommodationPage({
                 )}
               </div>
 
-              {accommodation.memoriesImage && (
-                <div className="accommodation-memories-image">
-                  <img src={accommodation.memoriesImage} alt="" />
+              {accommodation.memoriesImage?.src && (
+                <div
+                  className="accommodation-memories-image"
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                >
+                  <img
+                    src={accommodation.memoriesImage.src}
+                    alt={accommodation.memoriesImage.alt || "Pattoo Castle guest memories"}
+                  />
                 </div>
               )}
             </div>
@@ -336,13 +369,16 @@ export default function AccommodationPage({
           >
             <div className="wrap">
               {accommodation.caribbeanLivingSubHeading && (
-                <p className="eyebrow accommodation-living-eyebrow">
+                <p
+                  className="eyebrow accommodation-living-eyebrow"
+                  data-aos="fade-up"
+                >
                   {accommodation.caribbeanLivingSubHeading}
                 </p>
               )}
 
               {accommodation.caribbeanLivingHeading && (
-                <h2 id="accommodation-living-title">
+                <h2 id="accommodation-living-title" data-aos="fade-up">
                   {accommodation.caribbeanLivingHeading}
                 </h2>
               )}
@@ -354,6 +390,8 @@ export default function AccommodationPage({
                       <article
                         className="accommodation-living-item"
                         key={`${item.title}-${index}`}
+                        data-aos="fade-up"
+                        data-aos-delay={String(index * 100)}
                       >
                         {item.title && <h3>{item.title}</h3>}
                         {item.content && <p>{item.content}</p>}

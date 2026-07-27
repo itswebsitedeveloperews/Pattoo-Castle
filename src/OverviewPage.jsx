@@ -1,11 +1,13 @@
 import {
   getContentfulAssetSrc,
+  getContentfulImage,
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
-  SiteFooter,
-  SiteHeader,
 } from "./App";
+import AosInitializer from "./AosInitializer";
+import SiteFooter from "./SiteFooter";
+import SiteHeader from "./SiteHeader";
 
 function getOverviewContent(entry) {
   const fields = entry?.fields || {};
@@ -18,7 +20,7 @@ function getOverviewContent(entry) {
             : itemFields.images;
 
           return {
-            imageSrc: getContentfulAssetSrc(imageAsset),
+            image: getContentfulImage(imageAsset),
             title: itemFields.title || "",
             content: richTextToPlainText(itemFields.content),
             buttonText: itemFields.buttonText || "",
@@ -27,7 +29,7 @@ function getOverviewContent(entry) {
         })
         .filter(
           (item) =>
-            item.imageSrc ||
+            item.image?.src ||
             item.title ||
             item.content ||
             (item.buttonText && item.buttonUrl),
@@ -59,7 +61,7 @@ function getOverviewContent(entry) {
     introHeading: fields.introHeading || "",
     introDescription: richTextToPlainText(fields.introDescription),
     overviewBlocks,
-    villaImage: getContentfulAssetSrc(fields.villaImage),
+    villaImage: getContentfulImage(fields.villaImage),
     villaSubHeading: fields.villaSubHeading || "",
     villaHeading: fields.villaHeading || "",
     villaContent: richTextToPlainText(fields.villaContent),
@@ -90,7 +92,7 @@ export default function OverviewPage({
     overview.villaButtonText && overview.villaButtonUrl,
   );
   const hasVillaSection = Boolean(
-    overview.villaImage ||
+    overview.villaImage?.src ||
     overview.villaSubHeading ||
     overview.villaHeading ||
     overview.villaContent ||
@@ -104,6 +106,7 @@ export default function OverviewPage({
 
   return (
     <>
+      <AosInitializer />
       <SiteHeader header={header} />
       <main>
         <section
@@ -119,18 +122,30 @@ export default function OverviewPage({
         >
           <div className="page-hero-content overview-hero-content">
             {overview.bannerSubHeading && (
-              <p className="eyebrow page-hero-eyebrow overview-hero-eyebrow">
+              <p
+                className="eyebrow page-hero-eyebrow overview-hero-eyebrow"
+                data-aos="fade-up"
+                data-aos-delay="20"
+              >
                 {overview.bannerSubHeading}
               </p>
             )}
             {overview.bannerHeading && (
-              <h1 id="overview-title">{overview.bannerHeading}</h1>
+              <h1 id="overview-title" data-aos="fade-up" data-aos-delay="50">
+                {overview.bannerHeading}
+              </h1>
             )}
-            {overview.bannerContent && <p>{overview.bannerContent}</p>}
+            {overview.bannerContent && (
+              <p data-aos="fade-up" data-aos-delay="100">
+                {overview.bannerContent}
+              </p>
+            )}
             {hasButton && (
               <a
                 className="button button--light page-hero-button overview-hero-button"
                 href={overview.buttonUrl}
+                data-aos="fade-up"
+                data-aos-delay="150"
               >
                 {overview.buttonText}
               </a>
@@ -147,14 +162,28 @@ export default function OverviewPage({
           >
             <div className="wrap">
               {overview.introSubHeading && (
-                <p className="eyebrow overview-intro-eyebrow">
+                <p
+                  className="eyebrow overview-intro-eyebrow"
+                  data-aos="fade-up"
+                  data-aos-delay="50"
+                >
                   {overview.introSubHeading}
                 </p>
               )}
               {overview.introHeading && (
-                <h2 id="overview-intro-title">{overview.introHeading}</h2>
+                <h2
+                  id="overview-intro-title"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
+                  {overview.introHeading}
+                </h2>
               )}
-              {overview.introDescription && <p>{overview.introDescription}</p>}
+              {overview.introDescription && (
+                <p data-aos="fade-up" data-aos-delay="150">
+                  {overview.introDescription}
+                </p>
+              )}
             </div>
           </section>
         )}
@@ -174,8 +203,15 @@ export default function OverviewPage({
                   <article
                     className="overview-block-card"
                     key={`${item.title}-${index}`}
+                    data-aos="fade-up"
+                    data-aos-delay={String(index * 100)}
                   >
-                    {item.imageSrc && <img src={item.imageSrc} alt="" />}
+                    {item.image?.src && (
+                      <img
+                        src={item.image.src}
+                        alt={item.image.alt || `Pattoo Castle overview ${index + 1}`}
+                      />
+                    )}
                     <div className="overview-block-content">
                       {item.title && <h2>{item.title}</h2>}
                       {item.content && <p>{item.content}</p>}
@@ -203,13 +239,24 @@ export default function OverviewPage({
             }
           >
             <div className="wrap">
-              {overview.villaImage && (
-                <div className="overview-villa-image">
-                  <img src={overview.villaImage} alt="" />
+              {overview.villaImage?.src && (
+                <div
+                  className="overview-villa-image"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
+                  <img
+                    src={overview.villaImage.src}
+                    alt={overview.villaImage.alt || "Pattoo Castle villa overview"}
+                  />
                 </div>
               )}
 
-              <div className="overview-villa-content">
+              <div
+                className="overview-villa-content"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
                 {overview.villaSubHeading && (
                   <p className="eyebrow overview-villa-eyebrow">
                     {overview.villaSubHeading}
@@ -246,13 +293,16 @@ export default function OverviewPage({
           >
             <div className="wrap">
               {overview.caribbeanLivingSubHeading && (
-                <p className="eyebrow overview-living-eyebrow">
+                <p
+                  className="eyebrow overview-living-eyebrow"
+                  data-aos="fade-up"
+                >
                   {overview.caribbeanLivingSubHeading}
                 </p>
               )}
 
               {overview.caribbeanLivingHeading && (
-                <h2 id="overview-living-title">
+                <h2 id="overview-living-title" data-aos="fade-up">
                   {overview.caribbeanLivingHeading}
                 </h2>
               )}
@@ -263,6 +313,8 @@ export default function OverviewPage({
                     <article
                       className="overview-living-item"
                       key={`${item.title}-${index}`}
+                      data-aos="fade-up"
+                      data-aos-delay={String(index * 100)}
                     >
                       {item.title && <h3>{item.title}</h3>}
                       {item.content && <p>{item.content}</p>}

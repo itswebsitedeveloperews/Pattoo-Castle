@@ -568,8 +568,6 @@ body:not(.home) .site-header {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
-  width: calc(100% - (var(--container-gutter) * 2));
-  max-width: var(--container-width);
   margin-top: 52px;
 }
 
@@ -609,8 +607,8 @@ body:not(.home) .site-header {
   grid-template-columns: minmax(280px, 1fr) minmax(220px, 360px);
   gap: 48px;
   align-items: start;
-  width: calc(100% - (var(--container-gutter) * 2));
-  max-width: var(--container-width);
+  width: 100%;
+  /* max-width: var(--container-width); */
   margin: 0 auto;
 }
 
@@ -697,8 +695,8 @@ body:not(.home) .site-header {
     );
   gap: 18px;
   align-items: end;
-  width: calc(100% - (var(--container-gutter) * 2));
-  max-width: var(--container-width);
+  width: 100%;
+  /* max-width: var(--container-width); */
   margin: 0 auto;
   cursor: grab;
   touch-action: pan-y;
@@ -1304,6 +1302,42 @@ body:not(.home) .site-header {
 
 .page-hero-button {
   margin-top: 24px;
+}
+
+.not-found-hero {
+  --page-hero-image: var(--hero-image);
+  --page-hero-overlay-opacity: 0.58;
+  min-height: 100vh;
+}
+
+.not-found-content {
+  max-width: 760px;
+}
+
+.not-found-eyebrow {
+  margin-bottom: 18px;
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.not-found-actions .button {
+  margin-top: 0;
+  min-width: 164px;
+}
+
+.not-found-code {
+  display: block;
+  margin-top: 38px;
+  color: rgb(var(--color-white) / 0.9);
+  font-family: var(--font-display);
+  font-size: clamp(82px, 12vw, 190px);
+  line-height: 0.8;
 }
 
 .about-hero {
@@ -1946,7 +1980,7 @@ body:not(.home) .site-header {
   align-items: start;
 }
 
-.about-experience-card {
+.experience-card-content {
   margin: 0;
   padding: 12px 12px 28px;
   background: rgb(var(--color-white));
@@ -1954,14 +1988,19 @@ body:not(.home) .site-header {
   transform: rotate(-3deg);
   transition: all 0.4s;
 }
-.about-experience-card:hover {
+
+.about-experience-card {
+  margin: 0;
+}
+
+.about-experience-card .experience-card-content:hover {
   transform: rotate(0deg) !important;
 }
-.about-experience-card:nth-child(2n) {
+.about-experience-card:nth-child(2n) .experience-card-content {
   transform: rotate(3deg);
 }
 
-.about-experience-card:nth-child(3n) {
+.about-experience-card:nth-child(3n) .experience-card-content {
   transform: rotate(-2deg);
 }
 
@@ -4492,7 +4531,6 @@ body:not(.home) .site-header {
 
   .event-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    width: 100%;
   }
 
   .amenities-section {
@@ -4591,6 +4629,14 @@ body:not(.home) .site-header {
 
   .page-hero-content {
     padding: 200px 0 70px;
+  }
+
+  .not-found-hero {
+    min-height: 720px;
+  }
+
+  .not-found-code {
+    font-size: clamp(76px, 18vw, 150px);
   }
   .number-item .number-icon {
     max-height: 56px;
@@ -5466,6 +5512,30 @@ body:not(.home) .site-header {
 
   .page-hero-content {
     padding: 142px 0 60px;
+  }
+
+  .not-found-hero {
+    min-height: 620px;
+  }
+
+  .not-found-content {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .not-found-actions {
+    width: 100%;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .not-found-actions .button {
+    width: min(100%, 240px);
+    min-width: 0;
+  }
+
+  .not-found-code {
+    margin-top: 30px;
   }
 
   .contact-connect-section {

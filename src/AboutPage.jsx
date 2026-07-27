@@ -1,11 +1,14 @@
 import {
   getContentfulAssetSrc,
+  getContentfulImage,
+  getFirstContentfulImage,
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
-  SiteFooter,
-  SiteHeader,
 } from "./App";
+import AosInitializer from "./AosInitializer";
+import SiteFooter from "./SiteFooter";
+import SiteHeader from "./SiteHeader";
 
 function getAboutContent(entry) {
   const fields = entry?.fields || {};
@@ -15,16 +18,12 @@ function getAboutContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            imageSrc: getContentfulAssetSrc(
-              Array.isArray(itemFields.images)
-                ? itemFields.images[0]
-                : itemFields.images,
-            ),
+            image: getFirstContentfulImage(itemFields.images),
             value: itemFields.title || "",
             label: richTextToPlainText(itemFields.content),
           };
         })
-        .filter((item) => item.imageSrc || item.value || item.label)
+        .filter((item) => item.image?.src || item.value || item.label)
     : [];
   const experienceImages = Array.isArray(fields.experienceImages)
     ? fields.experienceImages
@@ -35,11 +34,11 @@ function getAboutContent(entry) {
             : itemFields.images;
 
           return {
-            imageSrc: getContentfulAssetSrc(imageAsset),
+            image: getContentfulImage(imageAsset),
             caption: itemFields.title || "",
           };
         })
-        .filter((item) => item.imageSrc || item.caption)
+        .filter((item) => item.image?.src || item.caption)
     : [];
   const caribbeanLivingFacilities = Array.isArray(
     fields.caribbeanLivingFacilities,
@@ -78,7 +77,7 @@ function getAboutContent(entry) {
     introHeading: fields.introHeading || "",
     introDescription: richTextToPlainText(fields.introDescription),
     numberBlock,
-    villaImage: getContentfulAssetSrc(fields.villaImage),
+    villaImage: getContentfulImage(fields.villaImage),
     villaSubHeading: fields.villaSubHeading || "",
     villaHeading: fields.villaHeading || "",
     villaContent: richTextToPlainText(fields.villaContent),
@@ -116,7 +115,7 @@ export default function AboutPage({
   );
   const hasVillaButton = Boolean(about.villaButtonText && about.villaButtonUrl);
   const hasVillaSection = Boolean(
-    about.villaImage ||
+    about.villaImage?.src ||
     about.villaSubHeading ||
     about.villaHeading ||
     about.villaContent ||
@@ -153,8 +152,9 @@ export default function AboutPage({
 
   return (
     <>
+      <AosInitializer />
       <SiteHeader header={header} />
-      <main>
+      <main className="site-main">
         <section
           className="section page-hero about-hero"
           style={
@@ -166,18 +166,30 @@ export default function AboutPage({
         >
           <div className="page-hero-content about-hero-content">
             {about.bannerSubHeading && (
-              <p className="eyebrow page-hero-eyebrow about-hero-eyebrow">
+              <p
+                className="eyebrow page-hero-eyebrow about-hero-eyebrow"
+                data-aos="fade-up"
+                data-aos-delay="20"
+              >
                 {about.bannerSubHeading}
               </p>
             )}
             {about.bannerHeading && (
-              <h1 id="about-title">{about.bannerHeading}</h1>
+              <h1 id="about-title" data-aos="fade-up" data-aos-delay="50">
+                {about.bannerHeading}
+              </h1>
             )}
-            {about.bannerContent && <p>{about.bannerContent}</p>}
+            {about.bannerContent && (
+              <p data-aos="fade-up" data-aos-delay="100">
+                {about.bannerContent}
+              </p>
+            )}
             {hasButton && (
               <a
                 className="button button--light page-hero-button about-hero-button"
                 href={about.buttonUrl}
+                data-aos="fade-up"
+                data-aos-delay="150"
               >
                 {about.buttonText}
               </a>
@@ -193,27 +205,54 @@ export default function AboutPage({
             }
           >
             {about.introSubHeading && (
-              <p className="eyebrow about-intro-eyebrow">
+              <p
+                className="eyebrow about-intro-eyebrow"
+                data-aos="fade-up"
+                data-aos-delay="20"
+              >
                 {about.introSubHeading}
               </p>
             )}
 
             {about.introHeading && (
-              <h2 id="about-intro-title">{about.introHeading}</h2>
+              <h2 id="about-intro-title" data-aos="fade-up" data-aos-delay="50">
+                {about.introHeading}
+              </h2>
             )}
 
             {about.introDescription && (
-              <p className="about-intro-description">
+              <p
+                className="about-intro-description"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
                 {about.introDescription}
               </p>
             )}
 
             {about.numberBlock.length > 0 && (
-              <div className="number-block" aria-label="Villa highlights">
+              <div
+                className="number-block"
+                aria-label="Villa highlights"
+                data-aos="fade-up"
+                data-aos-delay="150"
+              >
                 {about.numberBlock.map((item, index) => (
-                  <div className="number-item" key={`${item.value}-${index}`}>
-                    {item.imageSrc && (
-                      <img className="number-icon" src={item.imageSrc} alt="" />
+                  <div
+                    className="number-item"
+                    key={`${item.value}-${index}`}
+                    data-aos="fade-up"
+                    data-aos-delay={String(index * 100)}
+                  >
+                    {item.image?.src && (
+                      <img
+                        className="number-icon"
+                        src={item.image.src}
+                        alt={
+                          item.image.alt ||
+                          (item.label ? `${item.label} icon` : "")
+                        }
+                      />
                     )}
                     {item.value && <strong>{item.value}</strong>}
                     {item.label && <span>{item.label}</span>}
@@ -232,13 +271,24 @@ export default function AboutPage({
             }
           >
             <div className="wrap">
-              {about.villaImage && (
-                <div className="about-villa-image">
-                  <img src={about.villaImage} alt="" />
+              {about.villaImage?.src && (
+                <div
+                  className="about-villa-image"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
+                  <img
+                    src={about.villaImage.src}
+                    alt={about.villaImage.alt || "Pattoo Castle villa"}
+                  />
                 </div>
               )}
 
-              <div className="about-villa-content">
+              <div
+                className="about-villa-content"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
                 {about.villaSubHeading && (
                   <p className="eyebrow about-villa-eyebrow">
                     {about.villaSubHeading}
@@ -273,24 +323,43 @@ export default function AboutPage({
           >
             <div className="wrap">
               {about.experienceSubHeading && (
-                <p className="eyebrow about-experience-eyebrow">
+                <p
+                  className="eyebrow about-experience-eyebrow"
+                  data-aos="fade-up"
+                >
                   {about.experienceSubHeading}
                 </p>
               )}
 
               {about.experienceHeading && (
-                <h2 id="about-experience-title">{about.experienceHeading}</h2>
+                <h2 id="about-experience-title" data-aos="fade-up">
+                  {about.experienceHeading}
+                </h2>
               )}
 
               {about.experienceImages.length > 0 && (
-                <div className="about-experience-grid">
+                <div className="about-experience-grid" data-aos="fade-up">
                   {about.experienceImages.map((item, index) => (
                     <figure
                       className="about-experience-card"
-                      key={`${item.imageSrc}-${index}`}
+                      key={`${item.image?.src || item.caption}-${index}`}
+                      data-aos="fade-up"
+                      data-aos-delay={String(index * 100)}
                     >
-                      {item.imageSrc && <img src={item.imageSrc} alt="" />}
-                      {item.caption && <figcaption>{item.caption}</figcaption>}
+                      <div className="experience-card-content">
+                        {item.image?.src && (
+                          <img
+                            src={item.image.src}
+                            alt={
+                              item.image.alt ||
+                              `Pattoo Castle experience ${index + 1}`
+                            }
+                          />
+                        )}
+                        {item.caption && (
+                          <figcaption>{item.caption}</figcaption>
+                        )}
+                      </div>
                     </figure>
                   ))}
                 </div>
@@ -308,13 +377,15 @@ export default function AboutPage({
           >
             <div className="wrap">
               {about.caribbeanLivingSubHeading && (
-                <p className="eyebrow about-living-eyebrow">
+                <p className="eyebrow about-living-eyebrow" data-aos="fade-up">
                   {about.caribbeanLivingSubHeading}
                 </p>
               )}
 
               {about.caribbeanLivingHeading && (
-                <h2 id="about-living-title">{about.caribbeanLivingHeading}</h2>
+                <h2 id="about-living-title" data-aos="fade-up">
+                  {about.caribbeanLivingHeading}
+                </h2>
               )}
 
               {about.caribbeanLivingFacilities.length > 0 && (
@@ -323,6 +394,8 @@ export default function AboutPage({
                     <article
                       className="about-living-item"
                       key={`${item.title}-${index}`}
+                      data-aos="fade-up"
+                      data-aos-delay={String(index * 100)}
                     >
                       {item.title && <h3>{item.title}</h3>}
                       {item.content && <p>{item.content}</p>}
@@ -343,21 +416,36 @@ export default function AboutPage({
           >
             <div className="wrap">
               {about.locationSubHeading && (
-                <p className="eyebrow about-location-eyebrow">
+                <p
+                  className="eyebrow about-location-eyebrow"
+                  data-aos="fade-up"
+                >
                   {about.locationSubHeading}
                 </p>
               )}
 
               {about.locationHeading && (
-                <h2 id="about-location-title">{about.locationHeading}</h2>
+                <h2
+                  id="about-location-title"
+                  data-aos="fade-up"
+                  data-aos-delay="50"
+                >
+                  {about.locationHeading}
+                </h2>
               )}
 
-              {about.locationContent && <p>{about.locationContent}</p>}
+              {about.locationContent && (
+                <p data-aos="fade-up" data-aos-delay="100">
+                  {about.locationContent}
+                </p>
+              )}
 
               {hasLocationButton && (
                 <a
                   className="button button--brown about-location-button"
                   href={about.locationButtonUrl}
+                  data-aos="fade-up"
+                  data-aos-delay="150"
                 >
                   {about.locationButtonText}
                 </a>
@@ -381,7 +469,7 @@ export default function AboutPage({
             }
           >
             <div className="wrap">
-              <div className="about-story-content">
+              <div className="about-story-content" data-aos="fade-up">
                 {about.reserveYourStory.content && (
                   <p className="eyebrow about-story-eyebrow">
                     {about.reserveYourStory.content}

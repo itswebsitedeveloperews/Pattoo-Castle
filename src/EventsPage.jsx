@@ -1,19 +1,14 @@
 import {
   getContentfulAssetSrc,
+  getContentfulImage,
+  getFirstContentfulImage,
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
-  SiteFooter,
-  SiteHeader,
 } from "./App";
-
-function getFirstContentfulAssetSrc(assets) {
-  if (Array.isArray(assets)) {
-    return getContentfulAssetSrc(assets[0]);
-  }
-
-  return getContentfulAssetSrc(assets);
-}
+import AosInitializer from "./AosInitializer";
+import SiteFooter from "./SiteFooter";
+import SiteHeader from "./SiteHeader";
 
 function richTextToListItems(value) {
   if (!value || typeof value !== "object") {
@@ -87,14 +82,14 @@ function getEventContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            iconSrc: getFirstContentfulAssetSrc(itemFields.images),
+            icon: getFirstContentfulImage(itemFields.images),
             count: itemFields.count || "",
             title: itemFields.title || "",
             content: richTextToPlainText(itemFields.content),
           };
         })
         .filter(
-          (item) => item.iconSrc || item.count || item.title || item.content,
+          (item) => item.icon?.src || item.count || item.title || item.content,
         )
     : [];
   const eventBox = Array.isArray(fields.eventBox)
@@ -103,7 +98,7 @@ function getEventContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            imageSrc: getFirstContentfulAssetSrc(itemFields.images),
+            image: getFirstContentfulImage(itemFields.images),
             title: itemFields.title || "",
             content: richTextToPlainText(itemFields.content),
             buttonText: itemFields.buttonText || "",
@@ -112,7 +107,7 @@ function getEventContent(entry) {
         })
         .filter(
           (item) =>
-            item.imageSrc ||
+            item.image?.src ||
             item.title ||
             item.content ||
             (item.buttonText && item.buttonUrl),
@@ -139,7 +134,7 @@ function getEventContent(entry) {
     experienceListItems: richTextToListItems(fields.experienceContent),
     experienceButtonText: fields.experienceButtonText || "",
     experienceButtonUrl: fields.experienceButtonUrl || "",
-    experienceImage: getContentfulAssetSrc(fields.experienceImage),
+    experienceImage: getContentfulImage(fields.experienceImage),
     planImage: getContentfulAssetSrc(fields.planImage),
     planContent: richTextToPlainText(fields.planContent),
     planButtonText: fields.planButtonText || "",
@@ -147,7 +142,9 @@ function getEventContent(entry) {
     memoriesSubHeading: fields.memoriesSubHeading || "",
     memoriesHeading: fields.memoriesHeading || "",
     memoriesImages: Array.isArray(fields.memoriesImages)
-      ? fields.memoriesImages.map(getContentfulAssetSrc).filter(Boolean)
+      ? fields.memoriesImages
+          .map((asset) => getContentfulImage(asset))
+          .filter((image) => image?.src)
       : [],
     memoriesButtonText: fields.memoriesButtonText || "",
     memoriesButtonUrl: fields.memoriesButtonUrl || "",
@@ -177,7 +174,7 @@ export default function EventsPage({
     event.experienceHeading ||
     event.experienceContent ||
     (event.experienceButtonText && event.experienceButtonUrl) ||
-    event.experienceImage,
+    event.experienceImage?.src,
   );
   const hasPlanSection = Boolean(
     event.planImage ||
@@ -193,6 +190,7 @@ export default function EventsPage({
 
   return (
     <>
+      <AosInitializer />
       <SiteHeader header={header} />
       <main>
         <section
@@ -207,18 +205,30 @@ export default function EventsPage({
           <div className="wrap">
             <div className="page-hero-content events-hero-content">
               {event.bannerSubHeading && (
-                <p className="eyebrow page-hero-eyebrow events-hero-eyebrow">
+                <p
+                  className="eyebrow page-hero-eyebrow events-hero-eyebrow"
+                  data-aos="fade-up"
+                  data-aos-delay="20"
+                >
                   {event.bannerSubHeading}
                 </p>
               )}
               {event.bannerHeading && (
-                <h1 id="events-title">{event.bannerHeading}</h1>
+                <h1 id="events-title" data-aos="fade-up" data-aos-delay="60">
+                  {event.bannerHeading}
+                </h1>
               )}
-              {event.bannerContent && <p>{event.bannerContent}</p>}
+              {event.bannerContent && (
+                <p data-aos="fade-up" data-aos-delay="100">
+                  {event.bannerContent}
+                </p>
+              )}
               {hasButton && (
                 <a
                   className="button button--light page-hero-button events-hero-button"
                   href={event.buttonUrl}
+                  data-aos="fade-up"
+                  data-aos-delay="150"
                 >
                   {event.buttonText}
                 </a>
@@ -230,7 +240,11 @@ export default function EventsPage({
         {hasIntroSection && (
           <section className="section events-intro-section">
             <div className="wrap">
-              <div className="events-intro-copy">
+              <div
+                className="events-intro-copy"
+                data-aos="fade-up"
+                data-aos-delay="50"
+              >
                 {event.introSubHeading && (
                   <p className="eyebrow events-intro-eyebrow">
                     {event.introSubHeading}
@@ -243,8 +257,18 @@ export default function EventsPage({
               {event.numberBlock.length > 0 && (
                 <div className="events-intro-grid">
                   {event.numberBlock.map((item, index) => (
-                    <article className="events-intro-card" key={index}>
-                      {item.iconSrc && <img src={item.iconSrc} alt="" />}
+                    <article
+                      className="events-intro-card"
+                      key={index}
+                      data-aos="fade-up"
+                      data-aos-delay={String(index * 100)}
+                    >
+                      {item.icon?.src && (
+                        <img
+                          src={item.icon.src}
+                          alt={item.icon.alt || (item.title ? `${item.title} icon` : "")}
+                        />
+                      )}
                       {item.count && <strong>{item.count}</strong>}
                       {item.title && <h3>{item.title}</h3>}
                       {item.content && <p>{item.content}</p>}
@@ -259,7 +283,7 @@ export default function EventsPage({
         {hasEventSection && (
           <section className="section events-host-section">
             <div className="wrap">
-              <div className="events-host-header">
+              <div className="events-host-header" data-aos="fade-up">
                 {event.eventSubHeading && (
                   <p className="eyebrow events-host-eyebrow">
                     {event.eventSubHeading}
@@ -271,17 +295,28 @@ export default function EventsPage({
               {event.eventBox.length > 0 && (
                 <div className="events-host-grid">
                   {event.eventBox.map((item, index) => (
-                    <article className="events-host-card" key={index}>
-                      {item.imageSrc &&
+                    <article
+                      className="events-host-card"
+                      key={index}
+                      data-aos="fade-up"
+                      data-aos-delay={String(index * 100)}
+                    >
+                      {item.image?.src &&
                         (item.buttonUrl ? (
                           <a
                             className="events-host-card-image-link"
                             href={item.buttonUrl}
                           >
-                            <img src={item.imageSrc} alt="" />
+                            <img
+                              src={item.image.src}
+                              alt={item.image.alt || `Pattoo Castle event ${index + 1}`}
+                            />
                           </a>
                         ) : (
-                          <img src={item.imageSrc} alt="" />
+                          <img
+                            src={item.image.src}
+                            alt={item.image.alt || `Pattoo Castle event ${index + 1}`}
+                          />
                         ))}
                       {item.title &&
                         (item.buttonUrl ? (
@@ -316,7 +351,11 @@ export default function EventsPage({
         {hasExperienceSection && (
           <section className="section events-experience-section">
             <div className="wrap">
-              <div className="events-experience-content">
+              <div
+                className="events-experience-content"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
                 {event.experienceSubHeading && (
                   <p className="eyebrow events-experience-eyebrow">
                     {event.experienceSubHeading}
@@ -341,9 +380,16 @@ export default function EventsPage({
                 )}
               </div>
 
-              {event.experienceImage && (
-                <figure className="events-experience-image">
-                  <img src={event.experienceImage} alt="" />
+              {event.experienceImage?.src && (
+                <figure
+                  className="events-experience-image"
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                >
+                  <img
+                    src={event.experienceImage.src}
+                    alt={event.experienceImage.alt || "Pattoo Castle event experience"}
+                  />
                 </figure>
               )}
             </div>
@@ -360,7 +406,7 @@ export default function EventsPage({
             }
           >
             <div className="wrap">
-              <div className="events-plan-content">
+              <div className="events-plan-content" data-aos="fade-up">
                 {event.planContent && (
                   <blockquote>{event.planContent}</blockquote>
                 )}
@@ -380,7 +426,7 @@ export default function EventsPage({
         {hasMemoriesSection && (
           <section className="section events-memories-section">
             <div className="wrap">
-              <div className="events-memories-header">
+              <div className="events-memories-header" data-aos="fade-up">
                 {event.memoriesSubHeading && (
                   <p className="eyebrow events-memories-eyebrow">
                     {event.memoriesSubHeading}
@@ -391,12 +437,17 @@ export default function EventsPage({
 
               {event.memoriesImages.length > 0 && (
                 <div className="events-memories-grid">
-                  {event.memoriesImages.map((imageSrc, index) => (
+                  {event.memoriesImages.map((image, index) => (
                     <figure
                       className="events-memories-image"
-                      key={`${imageSrc}-${index}`}
+                      key={`${image.src}-${index}`}
+                      data-aos="fade-up"
+                      data-aos-delay={String(index * 100)}
                     >
-                      <img src={imageSrc} alt="" />
+                      <img
+                        src={image.src}
+                        alt={image.alt || `Pattoo Castle event memory ${index + 1}`}
+                      />
                     </figure>
                   ))}
                 </div>
@@ -406,6 +457,8 @@ export default function EventsPage({
                 <a
                   className="button button--brown events-memories-button"
                   href={event.memoriesButtonUrl}
+                  data-aos="fade-up"
+                  data-aos-delay="100"
                 >
                   {event.memoriesButtonText}
                 </a>

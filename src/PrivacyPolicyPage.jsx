@@ -3,10 +3,11 @@ import {
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
-  SiteFooter,
-  SiteHeader,
 } from "./App";
 import styles from "./PrivacyPolicyPage.module.css";
+import AosInitializer from "./AosInitializer";
+import SiteFooter from "./SiteFooter";
+import SiteHeader from "./SiteHeader";
 
 function renderRichTextNode(node, key) {
   if (!node) {
@@ -109,10 +110,15 @@ export default function PrivacyPolicyPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const privacyPolicy = getPrivacyPolicyContent(privacyPolicyEntry);
-  const hasButton = Boolean(privacyPolicy.buttonText && privacyPolicy.buttonUrl);
+  const hasButton = Boolean(
+    privacyPolicy.buttonText && privacyPolicy.buttonUrl,
+  );
 
   return (
     <main>
+      <AosInitializer />
+      <SiteHeader header={header} />
+
       <section
         className={`page-hero ${styles.privacyPolicyHero}`}
         style={
@@ -126,22 +132,36 @@ export default function PrivacyPolicyPage({
           privacyPolicy.bannerHeading ? "privacy-policy-title" : undefined
         }
       >
-        <SiteHeader header={header} />
-
         <div className="page-hero-content">
           {privacyPolicy.bannerSubHeading && (
-            <p className="page-hero-eyebrow">
+            <p
+              className="eyebrow page-hero-eyebrow"
+              data-aos="fade-up"
+              data-aos-delay="20"
+            >
               {privacyPolicy.bannerSubHeading}
             </p>
           )}
           {privacyPolicy.bannerHeading && (
-            <h1 id="privacy-policy-title">{privacyPolicy.bannerHeading}</h1>
+            <h1
+              id="privacy-policy-title"
+              data-aos="fade-up"
+              data-aos-delay="50"
+            >
+              {privacyPolicy.bannerHeading}
+            </h1>
           )}
-          {privacyPolicy.bannerContent && <p>{privacyPolicy.bannerContent}</p>}
+          {privacyPolicy.bannerContent && (
+            <p data-aos="fade-up" data-aos-delay="100">
+              {privacyPolicy.bannerContent}
+            </p>
+          )}
           {hasButton && (
             <a
               className="button button--light page-hero-button"
               href={privacyPolicy.buttonUrl}
+              data-aos="fade-up"
+              data-aos-delay="100"
             >
               {privacyPolicy.buttonText}
             </a>
@@ -151,7 +171,7 @@ export default function PrivacyPolicyPage({
 
       {privacyPolicy.policyContent && (
         <section className={styles.contentSection}>
-          <div className={styles.contentInner}>
+          <div className={styles.contentInner} data-aos="fade-up">
             {renderRichText(privacyPolicy.policyContent)}
           </div>
         </section>

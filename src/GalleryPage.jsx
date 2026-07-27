@@ -1,23 +1,18 @@
 import {
   getContentfulAssetSrc,
   getAssetSrc,
+  getContentfulImage,
+  getFirstContentfulImage,
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
-  SiteFooter,
-  SiteHeader,
 } from "./App";
 import GalleryFilterGrid from "./GalleryFilterGrid";
 import ReserveStaySection from "./ReserveStaySection";
 import logo from "./assets/patto-logo.svg";
-
-function getFirstContentfulAssetSrc(assets) {
-  if (Array.isArray(assets)) {
-    return getContentfulAssetSrc(assets[0]);
-  }
-
-  return getContentfulAssetSrc(assets);
-}
+import AosInitializer from "./AosInitializer";
+import SiteFooter from "./SiteFooter";
+import SiteHeader from "./SiteHeader";
 
 function getGalleryContent(entry) {
   const fields = entry?.fields || {};
@@ -27,18 +22,20 @@ function getGalleryContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            imageSrc: getContentfulAssetSrc(itemFields.galleryImage),
+            image: getContentfulImage(itemFields.galleryImage),
             type: itemFields.galleryImageType || "",
           };
         })
-        .filter((item) => item.imageSrc)
+        .filter((item) => item.image?.src)
     : [];
   const pattooCastleImages = Array.isArray(fields.pattooCastleImages)
-    ? fields.pattooCastleImages.map(getContentfulAssetSrc).filter(Boolean)
+    ? fields.pattooCastleImages
+        .map((asset) => getContentfulImage(asset))
+        .filter((image) => image?.src)
     : [];
   const reserveYourStayDateFields = fields.reserveYourStayDate?.fields || {};
   const reserveYourStayDate = {
-    logoSrc: getFirstContentfulAssetSrc(reserveYourStayDateFields.images),
+    logo: getFirstContentfulImage(reserveYourStayDateFields.images),
     title: reserveYourStayDateFields.title || "",
     content: richTextToPlainText(reserveYourStayDateFields.content),
     buttonText: reserveYourStayDateFields.buttonText || "",
@@ -59,7 +56,7 @@ function getGalleryContent(entry) {
     pattooCastleHeading: fields.pattooCastleHeading || "",
     pattooCastleSubHeading: fields.pattooCastleSubHeading || "",
     pattooCastleImages,
-    reserveYourStayImage: getContentfulAssetSrc(fields.reserveYourStayImage),
+    reserveYourStayImage: getContentfulImage(fields.reserveYourStayImage),
     reserveYourStayVideo: getContentfulAssetSrc(fields.reserveYourStayVideo),
     reserveYourStayDate,
   };
@@ -91,8 +88,9 @@ export default function GalleryPage({
 
   return (
     <>
+      <AosInitializer />
       <SiteHeader header={header} />
-      <main>
+      <main className="site-main">
         <section
           className="section page-hero gallery-hero"
           style={
@@ -105,18 +103,30 @@ export default function GalleryPage({
           <div className="wrap">
             <div className="page-hero-content gallery-hero-content">
               {gallery.bannerSubHeading && (
-                <p className="eyebrow page-hero-eyebrow gallery-hero-eyebrow">
+                <p
+                  className="eyebrow page-hero-eyebrow gallery-hero-eyebrow"
+                  data-aos="fade-up"
+                  data-aos-delay="20"
+                >
                   {gallery.bannerSubHeading}
                 </p>
               )}
               {gallery.bannerHeading && (
-                <h1 id="gallery-title">{gallery.bannerHeading}</h1>
+                <h1 id="gallery-title" data-aos="fade-up" data-aos-delay="50">
+                  {gallery.bannerHeading}
+                </h1>
               )}
-              {gallery.bannerContent && <p>{gallery.bannerContent}</p>}
+              {gallery.bannerContent && (
+                <p data-aos="fade-up" data-aos-delay="100">
+                  {gallery.bannerContent}
+                </p>
+              )}
               {hasButton && (
                 <a
                   className="button button--light page-hero-button gallery-hero-button"
                   href={gallery.buttonUrl}
+                  data-aos="fade-up"
+                  data-aos-delay="150"
                 >
                   {gallery.buttonText}
                 </a>
@@ -132,7 +142,7 @@ export default function GalleryPage({
               gallery.introHeading ? "gallery-intro-title" : undefined
             }
           >
-            <div className="wrap">
+            <div className="wrap" data-aos="fade-up">
               {gallery.introSubHeading && (
                 <p className="eyebrow gallery-intro-eyebrow">
                   {gallery.introSubHeading}
@@ -155,7 +165,11 @@ export default function GalleryPage({
           gallery.pattooCastleImages.length > 0) && (
           <section className="section gallery-pattoo-section">
             <div className="wrap">
-              <div className="gallery-pattoo-quote">
+              <div
+                className="gallery-pattoo-quote"
+                data-aos="fade-up"
+                data-aos-delay="50"
+              >
                 <span aria-hidden="true">“</span>
                 {gallery.pattooCastleHeading && (
                   <h2>{gallery.pattooCastleHeading}</h2>
@@ -169,8 +183,14 @@ export default function GalleryPage({
                 <div className="gallery-pattoo-images">
                   {gallery.pattooCastleImages
                     .slice(0, 2)
-                    .map((imageSrc, index) => (
-                      <img src={imageSrc} alt="" key={`${imageSrc}-${index}`} />
+                    .map((image, index) => (
+                      <img
+                        src={image.src}
+                        alt={image.alt || `Pattoo Castle gallery highlight ${index + 1}`}
+                        key={`${image.src}-${index}`}
+                        data-aos="fade-up"
+                        data-aos-delay={String(index * 100)}
+                      />
                     ))}
                 </div>
               )}
@@ -180,11 +200,12 @@ export default function GalleryPage({
 
         {hasReserveSection && (
           <ReserveStaySection
-            backgroundImage={gallery.reserveYourStayImage}
+            backgroundImage={gallery.reserveYourStayImage?.src}
             buttonText={gallery.reserveYourStayDate.buttonText}
             buttonUrl={gallery.reserveYourStayDate.buttonUrl}
             content={gallery.reserveYourStayDate.content}
-            logoSrc={gallery.reserveYourStayDate.logoSrc || getAssetSrc(logo)}
+            logoAlt={gallery.reserveYourStayDate.logo?.alt}
+            logoSrc={gallery.reserveYourStayDate.logo?.src || getAssetSrc(logo)}
             title={gallery.reserveYourStayDate.title}
             videoSrc={gallery.reserveYourStayVideo}
           />

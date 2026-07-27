@@ -1,19 +1,14 @@
 import {
   getContentfulAssetSrc,
+  getContentfulImage,
+  getFirstContentfulImage,
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
-  SiteFooter,
-  SiteHeader,
 } from "./App";
-
-function getFirstContentfulAssetSrc(assets) {
-  if (Array.isArray(assets)) {
-    return getContentfulAssetSrc(assets[0]);
-  }
-
-  return getContentfulAssetSrc(assets);
-}
+import AosInitializer from "./AosInitializer";
+import SiteFooter from "./SiteFooter";
+import SiteHeader from "./SiteHeader";
 
 function renderRichTextNode(node, key) {
   if (!node) {
@@ -101,12 +96,12 @@ function getStayContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            iconSrc: getFirstContentfulAssetSrc(itemFields.images),
+            icon: getFirstContentfulImage(itemFields.images),
             title: itemFields.title || "",
             content: richTextToPlainText(itemFields.content),
           };
         })
-        .filter((item) => item.iconSrc || item.title || item.content)
+        .filter((item) => item.icon?.src || item.title || item.content)
     : [];
   const roomBox = Array.isArray(fields.roomBox)
     ? fields.roomBox
@@ -114,7 +109,7 @@ function getStayContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            imageSrc: getFirstContentfulAssetSrc(itemFields.images),
+            image: getFirstContentfulImage(itemFields.images),
             title: itemFields.title || "",
             content: richTextToPlainText(itemFields.content),
             buttonText: itemFields.buttonText || "",
@@ -123,7 +118,7 @@ function getStayContent(entry) {
         })
         .filter(
           (item) =>
-            item.imageSrc ||
+            item.image?.src ||
             item.title ||
             item.content ||
             (item.buttonText && item.buttonUrl),
@@ -135,11 +130,11 @@ function getStayContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            imageSrc: getFirstContentfulAssetSrc(itemFields.images),
+            image: getFirstContentfulImage(itemFields.images),
             title: itemFields.title || "",
           };
         })
-        .filter((item) => item.imageSrc || item.title)
+        .filter((item) => item.image?.src || item.title)
     : [];
 
   return {
@@ -163,7 +158,7 @@ function getStayContent(entry) {
     experienceSubHeading: fields.experienceSubHeading || "",
     experienceHeading: fields.experienceHeading || "",
     experienceContent: fields.experienceContent || null,
-    experienceImage: getContentfulAssetSrc(fields.experienceImage),
+    experienceImage: getContentfulImage(fields.experienceImage),
     review: fields.review || "",
     reviewAuthor: fields.reviewAuthor || "",
     ctaImage: getContentfulAssetSrc(fields.ctaImage),
@@ -194,7 +189,7 @@ export default function StayPage({
     stay.experienceSubHeading ||
     stay.experienceHeading ||
     stay.experienceContent ||
-    stay.experienceImage ||
+    stay.experienceImage?.src ||
     stay.review ||
     stay.reviewAuthor,
   );
@@ -207,6 +202,7 @@ export default function StayPage({
 
   return (
     <>
+      <AosInitializer />
       <SiteHeader header={header} />
       <main>
         <section
@@ -223,18 +219,30 @@ export default function StayPage({
           <div className="wrap">
             <div className="page-hero-content stay-hero-content">
               {stay.bannerSubHeading && (
-                <p className="eyebrow page-hero-eyebrow stay-hero-eyebrow">
+                <p
+                  className="eyebrow page-hero-eyebrow stay-hero-eyebrow"
+                  data-aos="fade-up"
+                  data-aos-delay="20"
+                >
                   {stay.bannerSubHeading}
                 </p>
               )}
               {stay.bannerHeading && (
-                <h1 id="stay-title">{stay.bannerHeading}</h1>
+                <h1 id="stay-title" data-aos="fade-up" data-aos-delay="50">
+                  {stay.bannerHeading}
+                </h1>
               )}
-              {stay.bannerContent && <p>{stay.bannerContent}</p>}
+              {stay.bannerContent && (
+                <p data-aos="fade-up" data-aos-delay="100">
+                  {stay.bannerContent}
+                </p>
+              )}
               {hasButton && (
                 <a
                   className="button button--light page-hero-button stay-hero-button"
                   href={stay.buttonUrl}
+                  data-aos="fade-up"
+                  data-aos-delay="150"
                 >
                   {stay.buttonText}
                 </a>
@@ -254,8 +262,15 @@ export default function StayPage({
                   <article
                     className="stay-info-card"
                     key={`${item.title}-${index}`}
+                    data-aos="fade-up"
+                    data-aos-delay={String(index * 100)}
                   >
-                    {item.iconSrc && <img src={item.iconSrc} alt="" />}
+                    {item.icon?.src && (
+                      <img
+                        src={item.icon.src}
+                        alt={item.icon.alt || (item.title ? `${item.title} icon` : "")}
+                      />
+                    )}
                     {item.title && <h2>{item.title}</h2>}
                     {item.content && <p>{item.content}</p>}
                   </article>
@@ -270,7 +285,16 @@ export default function StayPage({
           aria-labelledby="stay-inquiry-title"
         >
           <div className="wrap">
-            <form className="stay-inquiry-form" id="stay-inquiry-form">
+            <form
+              className="stay-inquiry-form"
+              id="stay-inquiry-form"
+              name="stay-inquiry"
+              method="POST"
+              data-netlify="true"
+              data-aos="fade-up"
+            >
+              <input type="hidden" name="form-name" value="stay-inquiry" />
+
               <div className="stay-inquiry-heading">
                 <span className="event-inquiry-icon" aria-hidden="true">
                   <svg
@@ -364,6 +388,7 @@ export default function StayPage({
               className="button event-inquiry-submit"
               type="submit"
               form="stay-inquiry-form"
+              data-aos="fade-up"
             >
               Send Inquiry
             </button>
@@ -376,7 +401,7 @@ export default function StayPage({
             aria-labelledby={stay.villaHeading ? "stay-villa-title" : undefined}
           >
             <div className="wrap">
-              <div className="stay-villa-copy">
+              <div className="stay-villa-copy" data-aos="fade-up">
                 {stay.villaSubHeading && (
                   <p className="eyebrow stay-villa-eyebrow">
                     {stay.villaSubHeading}
@@ -394,8 +419,15 @@ export default function StayPage({
                     <article
                       className="stay-villa-card"
                       key={`${item.title}-${index}`}
+                      data-aos="fade-up"
+                      data-aos-delay={String(index * 100)}
                     >
-                      {item.imageSrc && <img src={item.imageSrc} alt="" />}
+                      {item.image?.src && (
+                        <img
+                          src={item.image.src}
+                          alt={item.image.alt || `Pattoo Castle villa feature ${index + 1}`}
+                        />
+                      )}
                       {item.title && <h3>{item.title}</h3>}
                     </article>
                   ))}
@@ -413,7 +445,11 @@ export default function StayPage({
             }
           >
             <div className="wrap">
-              <div className="stay-experience-copy">
+              <div
+                className="stay-experience-copy"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
                 {stay.experienceSubHeading && (
                   <p className="eyebrow stay-experience-eyebrow">
                     {stay.experienceSubHeading}
@@ -429,16 +465,22 @@ export default function StayPage({
                 )}
               </div>
 
-              {stay.experienceImage && (
+              {stay.experienceImage?.src && (
                 <img
                   className="stay-experience-image"
-                  src={stay.experienceImage}
-                  alt=""
+                  src={stay.experienceImage.src}
+                  alt={stay.experienceImage.alt || "Pattoo Castle stay experience"}
+                  data-aos="fade-up"
+                  data-aos-delay="150"
                 />
               )}
 
               {(stay.review || stay.reviewAuthor) && (
-                <div className="stay-experience-review">
+                <div
+                  className="stay-experience-review"
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                >
                   <span aria-hidden="true">“</span>
                   {stay.review && <blockquote>{stay.review}</blockquote>}
                   {stay.reviewAuthor && <p>{stay.reviewAuthor}</p>}
@@ -462,13 +504,25 @@ export default function StayPage({
           >
             <div className="wrap stay-cta-content">
               {stay.ctaSubHeading && (
-                <p className="eyebrow stay-cta-eyebrow">{stay.ctaSubHeading}</p>
+                <p
+                  className="eyebrow stay-cta-eyebrow"
+                  data-aos="fade-up"
+                  data-aos-delay="20"
+                >
+                  {stay.ctaSubHeading}
+                </p>
               )}
               {stay.ctaHeading && (
-                <h2 id="stay-cta-title">{stay.ctaHeading}</h2>
+                <h2 id="stay-cta-title" data-aos="fade-up" data-aos-delay="50">
+                  {stay.ctaHeading}
+                </h2>
               )}
               {stay.ctaContent && (
-                <div className="stay-cta-text">
+                <div
+                  className="stay-cta-text"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
                   {renderRichText(stay.ctaContent)}
                 </div>
               )}
@@ -476,6 +530,8 @@ export default function StayPage({
                 <a
                   className="button button--light stay-cta-button"
                   href={stay.ctaButtonUrl}
+                  data-aos="fade-up"
+                  data-aos-delay="150"
                 >
                   {stay.ctaButtonText}
                 </a>

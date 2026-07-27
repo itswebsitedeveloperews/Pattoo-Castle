@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@fontsource/quattrocento-sans": "^5.2.8",
+    "aos": "^2.3.4",
     "contentful": "^11.12.5",
     "next": "^16.0.0",
     "react": "^19.2.7",

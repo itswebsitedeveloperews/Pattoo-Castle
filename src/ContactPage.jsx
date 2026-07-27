@@ -1,35 +1,16 @@
 import {
   getContentfulAssetSrc,
+  getContentfulImage,
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
-  SiteFooter,
-  SiteHeader,
 } from "./App";
+import AosInitializer from "./AosInitializer";
+import SiteFooter from "./SiteFooter";
+import SiteHeader from "./SiteHeader";
 
 function getFirstContentfulAsset(assets) {
   return Array.isArray(assets) ? assets[0] : assets;
-}
-
-function formatAssetName(value) {
-  if (!value) {
-    return "";
-  }
-
-  return value
-    .replace(/\.[^/.]+$/, "")
-    .replace(/[-_]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/\b\w/g, (letter) => letter.toUpperCase());
-}
-
-function getAssetLabel(asset) {
-  return (
-    asset?.fields?.title ||
-    asset?.fields?.description ||
-    formatAssetName(asset?.fields?.file?.fileName)
-  );
 }
 
 function richTextToParagraphs(value) {
@@ -73,8 +54,8 @@ function getContactContent(entry) {
     const contentLines = richTextToParagraphs(itemFields.content);
 
     return {
-      iconSrc: getContentfulAssetSrc(iconAsset),
-      iconLabel: getAssetLabel(iconAsset),
+      icon: getContentfulImage(iconAsset),
+      iconLabel: getContentfulImage(iconAsset)?.alt || "",
       count: itemFields.count || "",
       title: itemFields.title || "",
       content: richTextToPlainText(itemFields.content),
@@ -88,7 +69,7 @@ function getContactContent(entry) {
         .map(mapImageBox)
         .filter(
           (item) =>
-            item.iconSrc ||
+            item.icon?.src ||
             item.iconLabel ||
             item.count ||
             item.title ||
@@ -115,7 +96,7 @@ function getContactContent(entry) {
     contactSubTitle: fields.contactSubTitle || "",
     contactTitle: fields.contactTitle || "",
     contactContent: richTextToPlainText(fields.contactContent),
-    findUsImage: getContentfulAssetSrc(fields.findUsImage),
+    findUsImage: getContentfulImage(fields.findUsImage),
     findUsSubHeading: fields.findUsSubHeading || "",
     findUsHeading: fields.findUsHeading || "",
     findUsContent: richTextToPlainText(fields.findUsContent),
@@ -150,7 +131,7 @@ export default function ContactPage({
     contact.findUsButtonText && contact.findUsButtonUrl,
   );
   const hasFindUsSection = Boolean(
-    contact.findUsImage ||
+    contact.findUsImage?.src ||
     contact.findUsSubHeading ||
     contact.findUsHeading ||
     contact.findUsContent ||
@@ -170,6 +151,7 @@ export default function ContactPage({
 
   return (
     <>
+      <AosInitializer />
       <SiteHeader header={header} />
       <main>
         <section
@@ -184,18 +166,30 @@ export default function ContactPage({
           <div className="wrap">
             <div className="page-hero-content contact-hero-content">
               {contact.bannerSubHeading && (
-                <p className="eyebrow page-hero-eyebrow contact-hero-eyebrow">
+                <p
+                  className="eyebrow page-hero-eyebrow contact-hero-eyebrow"
+                  data-aos="fade-up"
+                  data-aos-delay="20"
+                >
                   {contact.bannerSubHeading}
                 </p>
               )}
               {contact.bannerHeading && (
-                <h1 id="contact-title">{contact.bannerHeading}</h1>
+                <h1 id="contact-title" data-aos="fade-up" data-aos-delay="50">
+                  {contact.bannerHeading}
+                </h1>
               )}
-              {contact.bannerContent && <p>{contact.bannerContent}</p>}
+              {contact.bannerContent && (
+                <p data-aos="fade-up" data-aos-delay="100">
+                  {contact.bannerContent}
+                </p>
+              )}
               {hasButton && (
                 <a
                   className="button button--light page-hero-button contact-hero-button"
                   href={contact.buttonUrl}
+                  data-aos="fade-up"
+                  data-aos-delay="150"
                 >
                   {contact.buttonText}
                 </a>
@@ -215,8 +209,15 @@ export default function ContactPage({
                   <article
                     className="contact-connect-card"
                     key={`${item.title}-${index}`}
+                    data-aos="fade-up"
+                    data-aos-delay={String(index * 100)}
                   >
-                    {item.iconSrc && <img src={item.iconSrc} alt="" />}
+                    {item.icon?.src && (
+                      <img
+                        src={item.icon.src}
+                        alt={item.icon.alt || item.title || "Contact icon"}
+                      />
+                    )}
                     {item.iconLabel && (
                       <p className="contact-connect-label">{item.iconLabel}</p>
                     )}
@@ -251,7 +252,11 @@ export default function ContactPage({
             }
           >
             <div className="wrap">
-              <div className="contact-planning-copy">
+              <div
+                className="contact-planning-copy"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
                 {contact.contactSubTitle && (
                   <p className="eyebrow contact-planning-eyebrow">
                     {contact.contactSubTitle}
@@ -264,7 +269,16 @@ export default function ContactPage({
                 {contact.contactContent && <p>{contact.contactContent}</p>}
               </div>
 
-              <form className="contact-planning-form">
+              <form
+                className="contact-planning-form"
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+
                 <div className="contact-form-field contact-form-field--quarter">
                   <label htmlFor="contact-company">Company</label>
                   <input id="contact-company" name="company" type="text" />
@@ -383,6 +397,8 @@ export default function ContactPage({
                   <article
                     className="contact-experience-card"
                     key={`${item.title}-${index}`}
+                    data-aos="fade-up"
+                    data-aos-delay={String(index * 100)}
                   >
                     {item.count && (
                       <p className="eyebrow contact-experience-eyebrow">
@@ -406,13 +422,24 @@ export default function ContactPage({
             }
           >
             <div className="wrap">
-              {contact.findUsImage && (
-                <figure className="contact-find-image">
-                  <img src={contact.findUsImage} alt="" />
+              {contact.findUsImage?.src && (
+                <figure
+                  className="contact-find-image"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
+                  <img
+                    src={contact.findUsImage.src}
+                    alt={contact.findUsImage.alt || "Pattoo Castle location and contact"}
+                  />
                 </figure>
               )}
 
-              <div className="contact-find-content">
+              <div
+                className="contact-find-content"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
                 {contact.findUsSubHeading && (
                   <p className="eyebrow contact-find-eyebrow">
                     {contact.findUsSubHeading}
@@ -441,7 +468,11 @@ export default function ContactPage({
             aria-label="Guest experience"
           >
             <div className="wrap">
-              <div className="contact-quote-mark" aria-hidden="true">
+              <div
+                className="contact-quote-mark"
+                aria-hidden="true"
+                data-aos="fade-up"
+              >
                 &ldquo;
               </div>
               {contact.pattooCastleHeading && (
@@ -469,18 +500,34 @@ export default function ContactPage({
             <div className="wrap">
               <div className="contact-cta-content">
                 {contact.ctaSubHeading && (
-                  <p className="eyebrow contact-cta-eyebrow">
+                  <p
+                    className="eyebrow contact-cta-eyebrow"
+                    data-aos="fade-up"
+                    data-aos-delay="50"
+                  >
                     {contact.ctaSubHeading}
                   </p>
                 )}
                 {contact.ctaHeading && (
-                  <h2 id="contact-cta-title">{contact.ctaHeading}</h2>
+                  <h2
+                    id="contact-cta-title"
+                    data-aos="fade-up"
+                    data-aos-delay="100"
+                  >
+                    {contact.ctaHeading}
+                  </h2>
                 )}
-                {contact.ctaContent && <p>{contact.ctaContent}</p>}
+                {contact.ctaContent && (
+                  <p data-aos="fade-up" data-aos-delay="150">
+                    {contact.ctaContent}
+                  </p>
+                )}
                 {hasCtaButton && (
                   <a
                     className="button button--light contact-cta-button"
                     href={contact.ctaButtonUrl}
+                    data-aos="fade-up"
+                    data-aos-delay="200"
                   >
                     {contact.ctaButtonText}
                   </a>

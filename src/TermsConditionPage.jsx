@@ -3,10 +3,10 @@ import {
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
-  SiteFooter,
-  SiteHeader,
 } from "./App";
 import styles from "./TermsConditionPage.module.css";
+import SiteFooter from "./SiteFooter";
+import SiteHeader from "./SiteHeader";
 
 function renderRichTextNode(node, key) {
   if (!node) {

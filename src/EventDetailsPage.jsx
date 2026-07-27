@@ -3,10 +3,11 @@ import {
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
-  SiteFooter,
-  SiteHeader,
 } from "./App";
 import EventUploadField from "./EventUploadField";
+import AosInitializer from "./AosInitializer";
+import SiteFooter from "./SiteFooter";
+import SiteHeader from "./SiteHeader";
 
 function getEventDetailsContent(entry) {
   const fields = entry?.fields || {};
@@ -36,6 +37,7 @@ export default function EventDetailsPage({
 
   return (
     <>
+      <AosInitializer />
       <SiteHeader header={header} />
       <main>
         <section
@@ -53,17 +55,33 @@ export default function EventDetailsPage({
         >
           <div className="wrap">
             <div className="page-hero-content event-detail-hero-content">
-              <p className="eyebrow page-hero-eyebrow event-detail-hero-eyebrow">
+              <p
+                className="eyebrow page-hero-eyebrow event-detail-hero-eyebrow"
+                data-aos="fade-up"
+                data-aos-delay="20"
+              >
                 Event
               </p>
               {eventDetails.heading && (
-                <h1 id="event-detail-title">{eventDetails.heading}</h1>
+                <h1
+                  id="event-detail-title"
+                  data-aos="fade-up"
+                  data-aos-delay="50"
+                >
+                  {eventDetails.heading}
+                </h1>
               )}
-              {eventDetails.content && <p>{eventDetails.content}</p>}
+              {eventDetails.content && (
+                <p data-aos="fade-up" data-aos-delay="100">
+                  {eventDetails.content}
+                </p>
+              )}
               {hasButton && (
                 <a
                   className="button button--light page-hero-button event-detail-hero-button"
                   href={eventDetails.buttonUrl}
+                  data-aos="fade-up"
+                  data-aos-delay="150"
                 >
                   {eventDetails.buttonText}
                 </a>
@@ -77,13 +95,30 @@ export default function EventDetailsPage({
           aria-labelledby="event-inquiry-title"
         >
           <div className="wrap">
-            <div className="event-inquiry-header">
+            <div
+              className="event-inquiry-header"
+              data-aos="fade-up"
+              data-aos-delay="50"
+            >
               <h2 id="event-inquiry-title">{inquiryTitle}</h2>
               <span aria-hidden="true" />
             </div>
 
-            <form className="event-inquiry-form" id="event-inquiry-form">
-              <fieldset className="event-inquiry-card">
+            <form
+              className="event-inquiry-form"
+              id="event-inquiry-form"
+              name="event-inquiry"
+              method="POST"
+              encType="multipart/form-data"
+              data-netlify="true"
+            >
+              <input type="hidden" name="form-name" value="event-inquiry" />
+
+              <fieldset
+                className="event-inquiry-card"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
                 <div className="legend">
                   <span className="event-inquiry-icon" aria-hidden="true">
                     <svg
@@ -176,7 +211,11 @@ export default function EventDetailsPage({
                 </div>
               </fieldset>
 
-              <fieldset className="event-inquiry-card">
+              <fieldset
+                className="event-inquiry-card"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
                 <div className="legend">
                   <span className="event-inquiry-icon" aria-hidden="true">
                     <svg
@@ -308,7 +347,11 @@ export default function EventDetailsPage({
                 </div>
               </fieldset>
 
-              <fieldset className="event-inquiry-card">
+              <fieldset
+                className="event-inquiry-card"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
                 <div className="legend">
                   <span className="event-inquiry-icon" aria-hidden="true">
                     <svg
@@ -346,6 +389,8 @@ export default function EventDetailsPage({
               className="button event-inquiry-submit"
               type="submit"
               form="event-inquiry-form"
+              data-aos="fade-up"
+              data-aos-delay="200"
             >
               Submit Request
             </button>

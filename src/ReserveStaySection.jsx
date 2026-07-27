@@ -3,6 +3,7 @@ export default function ReserveStaySection({
   buttonText = "",
   buttonUrl = "",
   content = "",
+  logoAlt = "",
   logoSrc = "",
   title = "",
   images = "",
@@ -35,7 +36,7 @@ export default function ReserveStaySection({
         />
       )}
 
-      <div className="reserve-stay-card">
+      <div className="reserve-stay-card" data-aos="fade-up">
         <span className="reserve-stay-pin" />
         <span className="reserve-stay-pin" />
         <span className="reserve-stay-pin" />
@@ -44,8 +45,7 @@ export default function ReserveStaySection({
           <img
             className="reserve-stay-logo"
             src={reserveLogoSrc}
-            alt=""
-            aria-hidden="true"
+            alt={logoAlt || "Pattoo Castle"}
           />
         )}
 

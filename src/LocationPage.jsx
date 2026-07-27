@@ -1,19 +1,14 @@
 import {
   getContentfulAssetSrc,
+  getContentfulImage,
+  getFirstContentfulImage,
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
-  SiteFooter,
-  SiteHeader,
 } from "./App";
-
-function getFirstContentfulAssetSrc(assets) {
-  if (Array.isArray(assets)) {
-    return getContentfulAssetSrc(assets[0]);
-  }
-
-  return getContentfulAssetSrc(assets);
-}
+import AosInitializer from "./AosInitializer";
+import SiteFooter from "./SiteFooter";
+import SiteHeader from "./SiteHeader";
 
 function getLocationContent(entry) {
   const fields = entry?.fields || {};
@@ -23,12 +18,12 @@ function getLocationContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            iconSrc: getFirstContentfulAssetSrc(itemFields.images),
+            icon: getFirstContentfulImage(itemFields.images),
             title: itemFields.title || "",
             content: richTextToPlainText(itemFields.content),
           };
         })
-        .filter((item) => item.iconSrc || item.title || item.content)
+        .filter((item) => item.icon?.src || item.title || item.content)
     : [];
   const exploreNearbyBox = Array.isArray(fields.exploreNearbyBox)
     ? fields.exploreNearbyBox
@@ -36,7 +31,7 @@ function getLocationContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            imageSrc: getFirstContentfulAssetSrc(itemFields.images),
+            image: getFirstContentfulImage(itemFields.images),
             title: itemFields.title || "",
             content: richTextToPlainText(itemFields.content),
             buttonText: itemFields.buttonText || "",
@@ -45,7 +40,7 @@ function getLocationContent(entry) {
         })
         .filter(
           (item) =>
-            item.imageSrc ||
+            item.image?.src ||
             item.title ||
             item.content ||
             (item.buttonText && item.buttonUrl),
@@ -64,10 +59,10 @@ function getLocationContent(entry) {
     locationContent: richTextToPlainText(fields.locationContent),
     locationButtonText: fields.locationButtonText || "",
     locationButtonUrl: fields.locationButtonUrl || "",
-    locationImage: getContentfulAssetSrc(fields.locationImage),
+    locationImage: getContentfulImage(fields.locationImage),
     locationHighlightsHeading: fields.locationHighlightsHeading || "",
     locationHighlights,
-    experienceImage: getContentfulAssetSrc(fields.experienceImages),
+    experienceImage: getFirstContentfulImage(fields.experienceImages),
     experienceSubHeading: fields.experienceSubHeading || "",
     experienceHeading: fields.experienceHeading || "",
     experienceContent: richTextToPlainText(fields.experienceContent),
@@ -95,7 +90,7 @@ export default function LocationPage({
     location.locationHeading ||
     location.locationContent ||
     hasLocationButton ||
-    location.locationImage,
+    location.locationImage?.src,
   );
   const hasHighlightsSection = Boolean(
     location.locationHighlightsHeading || location.locationHighlights.length,
@@ -104,7 +99,7 @@ export default function LocationPage({
     location.experienceButtonText && location.experienceButtonUrl,
   );
   const hasExperienceSection = Boolean(
-    location.experienceImage ||
+    location.experienceImage?.src ||
     location.experienceSubHeading ||
     location.experienceHeading ||
     location.experienceContent ||
@@ -116,6 +111,7 @@ export default function LocationPage({
 
   return (
     <>
+      <AosInitializer />
       <SiteHeader header={header} />
       <main>
         <section
@@ -131,18 +127,30 @@ export default function LocationPage({
         >
           <div className="page-hero-content location-hero-content">
             {location.bannerSubHeading && (
-              <p className="eyebrow page-hero-eyebrow location-hero-eyebrow">
+              <p
+                className="eyebrow page-hero-eyebrow location-hero-eyebrow"
+                data-aos="fade-up"
+                data-aos-delay="20"
+              >
                 {location.bannerSubHeading}
               </p>
             )}
             {location.bannerHeading && (
-              <h1 id="location-title">{location.bannerHeading}</h1>
+              <h1 id="location-title" data-aos="fade-up" data-aos-delay="50">
+                {location.bannerHeading}
+              </h1>
             )}
-            {location.bannerContent && <p>{location.bannerContent}</p>}
+            {location.bannerContent && (
+              <p data-aos="fade-up" data-aos-delay="100">
+                {location.bannerContent}
+              </p>
+            )}
             {hasButton && (
               <a
                 className="button button--light page-hero-button location-hero-button"
                 href={location.buttonUrl}
+                data-aos="fade-up"
+                data-aos-delay="150"
               >
                 {location.buttonText}
               </a>
@@ -153,7 +161,11 @@ export default function LocationPage({
         {hasLocationSection && (
           <section className="section location-map-section">
             <div className="wrap">
-              <div className="location-map-content">
+              <div
+                className="location-map-content"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
                 {location.locationSubHeading && (
                   <p className="eyebrow location-map-eyebrow">
                     {location.locationSubHeading}
@@ -173,9 +185,16 @@ export default function LocationPage({
                 )}
               </div>
 
-              {location.locationImage && (
-                <figure className="location-map-image">
-                  <img src={location.locationImage} alt="" />
+              {location.locationImage?.src && (
+                <figure
+                  className="location-map-image"
+                  data-aos="fade-in"
+                  data-aos-delay="200"
+                >
+                  <img
+                    src={location.locationImage.src}
+                    alt={location.locationImage.alt || "Pattoo Castle Negril location"}
+                  />
                 </figure>
               )}
             </div>
@@ -186,14 +205,24 @@ export default function LocationPage({
           <section className="section location-highlights-section">
             <div className="wrap">
               {location.locationHighlightsHeading && (
-                <h2>{location.locationHighlightsHeading}</h2>
+                <h2 data-aos="fade-up">{location.locationHighlightsHeading}</h2>
               )}
 
               {location.locationHighlights.length > 0 && (
                 <div className="location-highlights-grid">
                   {location.locationHighlights.map((item, index) => (
-                    <article className="location-highlight-card" key={index}>
-                      {item.iconSrc && <img src={item.iconSrc} alt="" />}
+                    <article
+                      className="location-highlight-card"
+                      key={index}
+                      data-aos="fade-up"
+                      data-aos-delay={String(index * 100)}
+                    >
+                      {item.icon?.src && (
+                        <img
+                          src={item.icon.src}
+                          alt={item.icon.alt || (item.title ? `${item.title} icon` : "")}
+                        />
+                      )}
                       {item.title && <h3>{item.title}</h3>}
                       {item.content && <p>{item.content}</p>}
                     </article>
@@ -206,13 +235,24 @@ export default function LocationPage({
 
         {hasExperienceSection && (
           <section className="location-experience-section">
-            {location.experienceImage && (
-              <figure className="location-experience-image">
-                <img src={location.experienceImage} alt="" />
+            {location.experienceImage?.src && (
+              <figure
+                className="location-experience-image"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <img
+                  src={location.experienceImage.src}
+                  alt={location.experienceImage.alt || "Negril experience near Pattoo Castle"}
+                />
               </figure>
             )}
 
-            <div className="location-experience-content">
+            <div
+              className="location-experience-content"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
               {location.experienceSubHeading && (
                 <p className="eyebrow location-experience-eyebrow">
                   {location.experienceSubHeading}
@@ -240,18 +280,30 @@ export default function LocationPage({
           <section className="section location-nearby-section">
             <div className="wrap">
               {location.exploreNearbyHeading && (
-                <h2>{location.exploreNearbyHeading}</h2>
+                <h2 data-aos="fade-up">{location.exploreNearbyHeading}</h2>
               )}
 
               {location.exploreNearbyBox.length > 0 && (
                 <div className="location-nearby-grid">
                   {location.exploreNearbyBox.map((item, index) => (
-                    <article className="location-nearby-card" key={index}>
-                      {item.imageSrc && <img src={item.imageSrc} alt="" />}
+                    <article
+                      className="location-nearby-card"
+                      key={index}
+                      data-aos="fade-up"
+                      data-aos-delay={String(index * 100)}
+                    >
+                      {item.image?.src && (
+                        <img
+                          src={item.image.src}
+                          alt={item.image.alt || `Negril nearby experience ${index + 1}`}
+                        />
+                      )}
                       {item.title && <h3>{item.title}</h3>}
                       {item.content && <p>{item.content}</p>}
                       {item.buttonText && item.buttonUrl && (
-                        <a className="text-link" href={item.buttonUrl}>{item.buttonText}</a>
+                        <a className="text-link" href={item.buttonUrl}>
+                          {item.buttonText}
+                        </a>
                       )}
                     </article>
                   ))}

@@ -88,6 +88,7 @@ export default function GalleryFilterGrid({ items = [] }) {
             className="gallery-filter-list"
             role="list"
             aria-label="Gallery filters"
+            data-aos="fade-up"
           >
             {filters.map((filter) => (
               <button
@@ -113,7 +114,9 @@ export default function GalleryFilterGrid({ items = [] }) {
           {visibleItems.map((item, index) => (
             <figure
               className="gallery-filter-card"
-              key={`${item.imageSrc}-${item.type}-${index}`}
+              key={`${item.image?.src}-${item.type}-${index}`}
+              data-aos="fade-up"
+              data-aos-delay={String(index * 50)}
             >
               <button
                 aria-label="Open gallery image"
@@ -121,7 +124,10 @@ export default function GalleryFilterGrid({ items = [] }) {
                 onClick={() => openLightbox(index)}
                 type="button"
               >
-                <img src={item.imageSrc} alt="" />
+                <img
+                  src={item.image.src}
+                  alt={item.image.alt || `Pattoo Castle gallery image ${index + 1}`}
+                />
               </button>
             </figure>
           ))}
@@ -176,8 +182,8 @@ export default function GalleryFilterGrid({ items = [] }) {
           >
             <img
               className="gallery-lightbox-image"
-              src={selectedImage.imageSrc}
-              alt=""
+              src={selectedImage.image.src}
+              alt={selectedImage.image.alt || "Pattoo Castle gallery preview"}
             />
           </figure>
 

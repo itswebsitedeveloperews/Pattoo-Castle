@@ -85,11 +85,15 @@ export default function AmenitiesSlider({
 
   return (
     <section
-      className="amenities-section container"
+      className="section amenities-section"
       aria-labelledby={heading ? "amenities-title" : undefined}
     >
       <div className="amenities-top">
-        <div className="amenities-heading-block">
+        <div
+          className="amenities-heading-block"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
           {eyebrow && (
             <p className="eyebrow amenities-eyebrow">
               <span />
@@ -103,6 +107,8 @@ export default function AmenitiesSlider({
           <div
             className="amenities-list"
             aria-label="Amenities"
+            data-aos="fade-up"
+            data-aos-delay="200"
             style={{
               "--amenities-list-offset": `${listOffset * -LIST_ITEM_STEP}px`,
             }}
@@ -128,7 +134,11 @@ export default function AmenitiesSlider({
       </div>
 
       <div className="amenities-content">
-        <div className="amenities-copy-viewport">
+        <div
+          className="amenities-copy-viewport"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
           <div
             className="amenities-copy"
             key={`${activeItem.title}-copy-${activeIndex}`}
@@ -138,28 +148,44 @@ export default function AmenitiesSlider({
           </div>
         </div>
 
-        <div className="amenities-main-image">
+        <div
+          className="amenities-main-image"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
           <Slider ref={sliderRef} {...settings} className="amenities-slick">
             {slides.map((item, index) => (
               <div
                 className="amenities-image-slide"
                 key={`${item.title}-main-${index}`}
               >
-                {item.imageSrc && (
-                  <img src={item.imageSrc} alt="" draggable="false" />
+                {item.image?.src && (
+                  <img
+                    src={item.image.src}
+                    alt={item.image.alt || `Pattoo Castle amenity ${index + 1}`}
+                    draggable="false"
+                  />
                 )}
               </div>
             ))}
           </Slider>
         </div>
 
-        <div className="amenities-side-image">
+        <div
+          className="amenities-side-image"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
           <div
             className="amenities-side-slide"
             key={`${sideItem.title}-side-${sideImageIndex}`}
           >
-            {sideItem.imageSrc && (
-              <img src={sideItem.imageSrc} alt="" draggable="false" />
+            {sideItem.image?.src && (
+              <img
+                src={sideItem.image.src}
+                alt={sideItem.image.alt || "Pattoo Castle amenity"}
+                draggable="false"
+              />
             )}
           </div>
         </div>

@@ -1,14 +1,17 @@
-import EventsPage from '../../EventsPage'
-import {
-  getEventEntry,
-  getFooterEntry,
-  getHeaderEntry,
-} from '../../lib/contentful'
-import { createMetadata } from '../../lib/seo'
+import NotFoundPage from '../NotFoundPage'
+import { getFooterEntry, getHeaderEntry } from '../lib/contentful'
 
 export const dynamic = 'force-dynamic'
-export const metadata = createMetadata("/events/")
 export const revalidate = 0
+
+export const metadata = {
+  title: 'Page Not Found',
+  description: 'The page you are looking for could not be found.',
+  alternates: {
+    canonical: '/404/',
+  },
+  robots: { index: false, follow: false },
+}
 
 function withTimeout(promise, label) {
   return Promise.race([
@@ -19,22 +22,15 @@ function withTimeout(promise, label) {
   ])
 }
 
-export default async function EventsRoute() {
-  const [eventResult, footerResult, headerResult] = await Promise.allSettled([
-    withTimeout(getEventEntry(), 'Contentful event'),
+export default async function NotFoundRoute() {
+  const [footerResult, headerResult] = await Promise.allSettled([
     withTimeout(getFooterEntry(), 'Contentful footer'),
     withTimeout(getHeaderEntry(), 'Contentful header'),
   ])
-  const eventEntry =
-    eventResult.status === 'fulfilled' ? eventResult.value : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
-
-  if (eventResult.status === 'rejected') {
-    console.error('Contentful event request failed:', eventResult.reason)
-  }
 
   if (footerResult.status === 'rejected') {
     console.error('Contentful footer request failed:', footerResult.reason)
@@ -44,11 +40,5 @@ export default async function EventsRoute() {
     console.error('Contentful header request failed:', headerResult.reason)
   }
 
-  return (
-    <EventsPage
-      eventEntry={eventEntry}
-      footerEntry={footerEntry}
-      headerEntry={headerEntry}
-    />
-  )
+  return <NotFoundPage footerEntry={footerEntry} headerEntry={headerEntry} />
 }

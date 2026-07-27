@@ -7,8 +7,19 @@ function getSlideIndex(index, direction, totalItems) {
   return (index + direction + totalItems) % totalItems;
 }
 
-export default function GalleryPreviewSlider({ images = [] }) {
-  const slides = useMemo(() => images.filter(Boolean), [images]);
+export default function GalleryPreviewSlider({
+  images = [],
+  imageAltPrefix = "Pattoo Castle gallery image",
+}) {
+  const slides = useMemo(
+    () =>
+      images
+        .map((image) =>
+          typeof image === "string" ? { src: image, alt: imageAltPrefix } : image,
+        )
+        .filter((image) => image?.src),
+    [imageAltPrefix, images],
+  );
   const sliderRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState(0);
@@ -85,6 +96,7 @@ export default function GalleryPreviewSlider({ images = [] }) {
             ? " is-prev"
             : ""
       }`}
+      data-aos="fade-up"
     >
       <button
         aria-label="Show previous gallery image"
@@ -95,7 +107,11 @@ export default function GalleryPreviewSlider({ images = [] }) {
         }}
         type="button"
       >
-        <img src={slides[previousIndex]} alt="" draggable="false" />
+        <img
+          src={slides[previousIndex].src}
+          alt={slides[previousIndex].alt || `${imageAltPrefix} ${previousIndex + 1}`}
+          draggable="false"
+        />
         <span className="gallery-preview-arrow" aria-hidden="true">
           <svg
             width="24"
@@ -115,8 +131,12 @@ export default function GalleryPreviewSlider({ images = [] }) {
       <div className="gallery-preview-main" aria-live="polite">
         <Slider ref={sliderRef} {...settings} className="gallery-preview-slick">
           {slides.map((image, index) => (
-            <div className="gallery-preview-slide" key={`${image}-${index}`}>
-              <img src={image} alt="" draggable="false" />
+            <div className="gallery-preview-slide" key={`${image.src}-${index}`}>
+              <img
+                src={image.src}
+                alt={image.alt || `${imageAltPrefix} ${index + 1}`}
+                draggable="false"
+              />
             </div>
           ))}
         </Slider>
@@ -131,7 +151,11 @@ export default function GalleryPreviewSlider({ images = [] }) {
         }}
         type="button"
       >
-        <img src={slides[nextIndex]} alt="" draggable="false" />
+        <img
+          src={slides[nextIndex].src}
+          alt={slides[nextIndex].alt || `${imageAltPrefix} ${nextIndex + 1}`}
+          draggable="false"
+        />
         <span className="gallery-preview-arrow" aria-hidden="true">
           <svg
             width="24"
