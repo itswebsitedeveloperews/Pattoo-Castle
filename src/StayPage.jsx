@@ -377,7 +377,6 @@ export default function StayPage({
               <button
                 className="button event-inquiry-submit"
                 type="submit"
-                form="stay-inquiry-form"
                 data-aos="fade-up"
               >
                 Send Inquiry

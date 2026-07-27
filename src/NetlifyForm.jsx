@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function NetlifyForm({
   children,
@@ -10,12 +10,13 @@ export default function NetlifyForm({
   id,
   ...props
 }) {
+  const isSubmittingRef = useRef(false);
   const [status, setStatus] = useState("idle");
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (status === "submitting") {
+    if (isSubmittingRef.current) {
       return;
     }
 
@@ -25,6 +26,7 @@ export default function NetlifyForm({
       return;
     }
 
+    isSubmittingRef.current = true;
     setStatus("submitting");
 
     try {
@@ -56,6 +58,8 @@ export default function NetlifyForm({
       setStatus("success");
     } catch {
       setStatus("error");
+    } finally {
+      isSubmittingRef.current = false;
     }
   }
 

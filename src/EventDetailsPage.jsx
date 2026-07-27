@@ -408,7 +408,6 @@ export default function EventDetailsPage({
                 <button
                   className="button event-inquiry-submit"
                   type="submit"
-                  form="event-inquiry-form"
                   data-aos="fade-up"
                   data-aos-delay="200"
                 >

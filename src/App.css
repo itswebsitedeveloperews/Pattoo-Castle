@@ -1829,7 +1829,7 @@ body:not(.home) .site-header {
 }
 
 .contact-form-submit:hover {
-  background: linear-gradient(180deg, #fff2da, #e5cca4);
+  background: rgb(var(--color-white) / 1);
 }
 
 .about-intro-section {
@@ -2464,7 +2464,9 @@ body:not(.home) .site-header {
 }
 
 .event-inquiry-form {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   gap: 12px;
   width: min(100%, 1010px);
 }

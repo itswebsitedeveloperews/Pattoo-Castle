@@ -40,6 +40,8 @@ const netlifyForm = read("src/NetlifyForm.jsx");
 
 for (const expected of [
   "event.preventDefault()",
+  "useRef",
+  "isSubmittingRef.current",
   "form.reportValidity()",
   'const formAction = "/netlify-forms.html"',
   "isMultipartForm",
@@ -53,6 +55,17 @@ for (const expected of [
 ]) {
   if (!netlifyForm.includes(expected)) {
     failures.push(`NetlifyForm must include ${expected}.`);
+  }
+}
+
+for (const [path, formId] of [
+  ["src/StayPage.jsx", "stay-inquiry-form"],
+  ["src/EventDetailsPage.jsx", "event-inquiry-form"],
+]) {
+  const source = read(path);
+
+  if (source.includes(`form="${formId}"`)) {
+    failures.push(`${path} submit button must not use redundant form="${formId}".`);
   }
 }
 
