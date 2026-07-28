@@ -43,6 +43,11 @@ export const contentfulConfig = {
     process.env.NEXT_PUBLIC_CONTENTFUL_OVERVIEW_CONTENT_TYPE ||
     process.env.VITE_CONTENTFUL_OVERVIEW_CONTENT_TYPE ||
     'overview',
+  overviewLocationContentType:
+    process.env.CONTENTFUL_OVERVIEW_LOCATION_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_OVERVIEW_LOCATION_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_OVERVIEW_LOCATION_CONTENT_TYPE ||
+    'pattooCastleLocation',
   accommodationContentType:
     process.env.CONTENTFUL_ACCOMMODATION_CONTENT_TYPE ||
     process.env.NEXT_PUBLIC_CONTENTFUL_ACCOMMODATION_CONTENT_TYPE ||
@@ -124,6 +129,16 @@ const overviewContentTypes = [
   'overview',
   'overviewPage',
   'overview-page',
+].filter(Boolean)
+
+const overviewLocationContentTypes = [
+  contentfulConfig.overviewLocationContentType,
+  'pattooCastleLocation',
+  'pattoo-castle-location',
+  'overviewLocation',
+  'overview-location',
+  'overviewLocationPage',
+  'overview-location-page',
 ].filter(Boolean)
 
 const accommodationContentTypes = [
@@ -409,6 +424,26 @@ export async function getOverviewEntry() {
   }
 
   for (const contentType of [...new Set(overviewContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getOverviewLocationEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(overviewLocationContentTypes)]) {
     try {
       const items = await getEntriesByContentType(contentType)
 

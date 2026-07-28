@@ -24,6 +24,11 @@ const PAGE_METADATA = {
     description:
       "View an overview of Pattoo Castle, including the villa, location, accommodations, events, and the Negril experience.",
   },
+  "/overview/pattoo-castle-location/": {
+    title: "Pattoo Castle Location",
+    description:
+      "Find Pattoo Castle in Negril, Jamaica with map details, directions, and location information for planning your visit.",
+  },
   "/gallery/": {
     title: "Gallery",
     description:

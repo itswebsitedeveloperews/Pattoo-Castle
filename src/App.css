@@ -2307,6 +2307,68 @@ body:not(.home) .site-header {
   --page-hero-image: var(--location-banner-image);
 }
 
+.overview-location-hero {
+  --page-hero-image: var(--overview-location-banner-image);
+  --page-hero-overlay-opacity: 0.48;
+}
+
+.overview-location-hero-content {
+  max-width: 760px;
+}
+
+.overview-location-section {
+  padding: 88px 0;
+  color: var(--color-brown);
+  background: var(--color-cream);
+}
+
+.overview-location-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(420px, 1fr);
+  gap: 72px;
+  align-items: center;
+}
+
+.overview-location-copy {
+  display: grid;
+  justify-items: start;
+}
+
+.overview-location-rich-text {
+  display: grid;
+  gap: 18px;
+  color: var(--color-brown-dark);
+  line-height: var(--line-height-body);
+}
+
+.overview-location-rich-text p {
+  margin: 0;
+}
+
+.overview-location-rich-text a {
+  color: var(--color-brown);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.overview-location-button {
+  margin-top: 30px;
+}
+
+.overview-location-map-frame {
+  min-width: 0;
+  overflow: hidden;
+  background: #fffaf3;
+  box-shadow: 0 18px 42px rgb(var(--color-black) / 0.12);
+}
+
+.overview-location-map-frame iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
 .location-map-section {
   padding: 80px 0;
   color: var(--color-brown);
@@ -4931,6 +4993,20 @@ body:not(.home) .site-header {
     min-height: 320px;
   }
 
+  .overview-location-section {
+    padding: 64px 0;
+  }
+
+  .overview-location-grid {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 44px;
+  }
+
+  .overview-location-map-frame {
+    width: 100%;
+  }
+
   .location-map-section {
     padding: 60px 0;
   }
@@ -5913,6 +5989,19 @@ body:not(.home) .site-header {
 
   .about-story-section h2 {
     font-size: var(--font-size-h2-mobile);
+  }
+
+  .overview-location-section {
+    padding: 50px 0;
+  }
+
+  .overview-location-grid {
+    gap: 30px;
+  }
+
+  .overview-location-button {
+    width: 100%;
+    margin-top: 22px;
   }
 
   .location-map-section {

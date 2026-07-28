@@ -8,6 +8,7 @@ const STATIC_PATHS = [
   "/about/",
   "/accommodation/",
   "/overview/",
+  "/overview/pattoo-castle-location/",
   "/gallery/",
   "/location/",
   "/events/",

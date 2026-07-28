@@ -52,6 +52,7 @@ for (const [path, pageTitle] of [
   ["/gallery/", "Gallery"],
   ["/location/", "Explore Negril"],
   ["/overview/", "Villa Overview"],
+  ["/overview/pattoo-castle-location/", "Pattoo Castle Location"],
   ["/stay/", "Reserve Your Stay"],
   ["/privacy-policy/", "Privacy Policy"],
   ["/terms-condition/", "Terms and Conditions"],
@@ -80,6 +81,10 @@ const routeMetadata = [
   ["src/app/gallery/page.jsx", 'createMetadata("/gallery/")'],
   ["src/app/location/page.jsx", 'createMetadata("/location/")'],
   ["src/app/overview/page.jsx", 'createMetadata("/overview/")'],
+  [
+    "src/app/overview/pattoo-castle-location/page.jsx",
+    'createMetadata("/overview/pattoo-castle-location/")',
+  ],
   ["src/app/stay/page.jsx", 'createMetadata("/stay/")'],
   ["src/app/privacy-policy/page.jsx", 'createMetadata("/privacy-policy/")'],
   ["src/app/terms-condition/page.jsx", 'createMetadata("/terms-condition/")'],
@@ -139,13 +144,16 @@ const imageTitleFlowChecks = [
   ["src/GalleryFilterGrid.jsx", "alt={item.image.alt"],
   ["src/GalleryPreviewSlider.jsx", "alt={slides[previousIndex].alt"],
   ["src/LocationPage.jsx", "alt={location.locationImage.alt"],
-  ["src/StayPage.jsx", "alt={stay.experienceImage.alt"],
+  ["src/StayPage.jsx", /alt=\{\s*stay\.experienceImage\.alt/],
 ];
 
 for (const [path, expected] of imageTitleFlowChecks) {
   const source = path === "src/App.jsx" ? appSource : read(path);
 
-  if (!source.includes(expected)) {
+  const passes =
+    expected instanceof RegExp ? expected.test(source) : source.includes(expected);
+
+  if (!passes) {
     failures.push(`${path} must use Contentful image Title field alt flow: ${expected}`);
   }
 }

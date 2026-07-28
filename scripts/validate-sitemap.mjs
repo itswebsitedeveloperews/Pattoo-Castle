@@ -8,6 +8,7 @@ const requiredRoutes = [
   "/about/",
   "/accommodation/",
   "/overview/",
+  "/overview/pattoo-castle-location/",
   "/gallery/",
   "/location/",
   "/events/",
