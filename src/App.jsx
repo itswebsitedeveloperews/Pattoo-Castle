@@ -50,11 +50,9 @@ export function richTextToReact(value, keyPrefix = "rich-text") {
   }
 
   if (Array.isArray(value)) {
-    return value.map((item, index) => (
-      <span key={`${keyPrefix}-${index}`}>
-        {richTextToReact(item, `${keyPrefix}-${index}`)}
-      </span>
-    ));
+    return value.map((item, index) =>
+      richTextToReact(item, `${keyPrefix}-${index}`),
+    );
   }
 
   if (typeof value !== "object") {
@@ -67,15 +65,42 @@ export function richTextToReact(value, keyPrefix = "rich-text") {
 
   const children = richTextToReact(value.content, `${keyPrefix}-content`);
 
-  if (value.nodeType === "hyperlink") {
-    return (
-      <a href={value.data?.uri || "#"} key={keyPrefix}>
-        {children}
-      </a>
-    );
+  switch (value.nodeType) {
+    case "document":
+      return children;
+    case "paragraph":
+      return <p key={keyPrefix}>{children}</p>;
+    case "heading-1":
+      return <h1 key={keyPrefix}>{children}</h1>;
+    case "heading-2":
+      return <h2 key={keyPrefix}>{children}</h2>;
+    case "heading-3":
+      return <h3 key={keyPrefix}>{children}</h3>;
+    case "heading-4":
+      return <h4 key={keyPrefix}>{children}</h4>;
+    case "heading-5":
+      return <h5 key={keyPrefix}>{children}</h5>;
+    case "heading-6":
+      return <h6 key={keyPrefix}>{children}</h6>;
+    case "unordered-list":
+      return <ul key={keyPrefix}>{children}</ul>;
+    case "ordered-list":
+      return <ol key={keyPrefix}>{children}</ol>;
+    case "list-item":
+      return <li key={keyPrefix}>{children}</li>;
+    case "blockquote":
+      return <blockquote key={keyPrefix}>{children}</blockquote>;
+    case "hr":
+      return <hr key={keyPrefix} />;
+    case "hyperlink":
+      return (
+        <a href={value.data?.uri || "#"} key={keyPrefix}>
+          {children}
+        </a>
+      );
+    default:
+      return children;
   }
-
-  return children;
 }
 
 function getHomePageContent(entry) {

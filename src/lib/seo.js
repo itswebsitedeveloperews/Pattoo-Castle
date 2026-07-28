@@ -9,7 +9,7 @@ const PAGE_METADATA = {
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
   },
-  "/about/": {
+  "/overview/about-pattoo-castle/": {
     title: "About",
     description:
       "Learn about Pattoo Castle, a private oceanfront villa in Negril designed for secluded luxury, family gatherings, and Caribbean living.",
@@ -28,6 +28,11 @@ const PAGE_METADATA = {
     title: "Pattoo Castle Location",
     description:
       "Find Pattoo Castle in Negril, Jamaica with map details, directions, and location information for planning your visit.",
+  },
+  "/overview/getting-here/": {
+    title: "Getting Here",
+    description:
+      "Plan how to get to Pattoo Castle in Negril, Jamaica with travel details, directions, and arrival information.",
   },
   "/gallery/": {
     title: "Gallery",

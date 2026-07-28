@@ -5,9 +5,10 @@ export const dynamic = "force-dynamic";
 
 const STATIC_PATHS = [
   "/",
-  "/about/",
   "/accommodation/",
   "/overview/",
+  "/overview/about-pattoo-castle/",
+  "/overview/getting-here/",
   "/overview/pattoo-castle-location/",
   "/gallery/",
   "/location/",

@@ -18,6 +18,7 @@
     "test:gallery-lightbox": "node scripts/validate-gallery-lightbox.mjs",
     "test:location-nearby-cta": "node scripts/validate-location-nearby-cta-alignment.mjs",
     "test:header-submenu": "node scripts/validate-header-submenu.mjs",
+    "test:getting-here": "node scripts/validate-getting-here-page.mjs",
     "test:overview-location": "node scripts/validate-overview-location-page.mjs",
     "test:sitemap": "node scripts/validate-sitemap.mjs",
     "test:react-dom-properties": "node scripts/validate-react-dom-properties.mjs"

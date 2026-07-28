@@ -5,9 +5,10 @@ const contentful = readFileSync("src/lib/contentful.js", "utf8");
 
 const requiredRoutes = [
   "/",
-  "/about/",
   "/accommodation/",
   "/overview/",
+  "/overview/about-pattoo-castle/",
+  "/overview/getting-here/",
   "/overview/pattoo-castle-location/",
   "/gallery/",
   "/location/",

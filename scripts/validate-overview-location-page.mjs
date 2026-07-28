@@ -25,6 +25,7 @@ const contentful = readRequired("src/lib/contentful.js");
 const seo = readRequired("src/lib/seo.js");
 const sitemap = readRequired("src/app/sitemap.js");
 const css = readRequired("src/App.css");
+const app = readRequired("src/App.jsx");
 
 if (!page.includes("getOverviewLocationContent")) {
   failures.push("Overview location page must normalize its Contentful fields.");
@@ -71,6 +72,17 @@ if (!page.includes("className=\"section stay-cta-section\"")) {
 
 if (!page.includes("ctaContent: richTextToReact")) {
   failures.push("Overview location CTA content must render rich text.");
+}
+
+for (const expected of [
+  'case "heading-2"',
+  'case "paragraph"',
+  "<h2",
+  "<p",
+]) {
+  if (!app.includes(expected)) {
+    failures.push(`Rich text renderer must preserve semantic node output: ${expected}`);
+  }
 }
 
 for (const forbidden of ["stay.", "stpageay", "renderRichText"]) {
