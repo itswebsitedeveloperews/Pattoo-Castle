@@ -2,8 +2,9 @@ import StayPage from '../../StayPage'
 import { getFooterEntry, getHeaderEntry, getStayEntry } from '../../lib/contentful'
 import { createMetadata } from '../../lib/seo'
 
+export const dynamic = 'force-dynamic'
 export const metadata = createMetadata("/stay/")
-export const revalidate = 60
+export const revalidate = 0
 
 function withTimeout(promise, label) {
   return Promise.race([

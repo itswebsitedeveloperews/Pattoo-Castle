@@ -1,7 +1,8 @@
 import NotFoundPage from '../NotFoundPage'
 import { getFooterEntry, getHeaderEntry } from '../lib/contentful'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export const metadata = {
   title: 'Page Not Found',
