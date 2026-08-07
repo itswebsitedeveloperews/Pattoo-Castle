@@ -98,6 +98,13 @@ export const contentfulConfig = {
     process.env.NEXT_PUBLIC_CONTENTFUL_TERMS_CONDITION_CONTENT_TYPE ||
     process.env.VITE_CONTENTFUL_TERMS_CONDITION_CONTENT_TYPE ||
     'termsCondition',
+  revalidateSeconds:
+    Number(
+      process.env.CONTENTFUL_REVALIDATE_SECONDS ||
+        process.env.NEXT_PUBLIC_CONTENTFUL_REVALIDATE_SECONDS ||
+        process.env.VITE_CONTENTFUL_REVALIDATE_SECONDS ||
+        60,
+    ) || 60,
 }
 
 const homePageContentTypes = [
@@ -319,7 +326,7 @@ async function getEntriesByContentType(contentType, query = {}) {
   const response = await fetch(
     `https://cdn.contentful.com/spaces/${contentfulConfig.space}/environments/${contentfulConfig.environment}/entries?${params}`,
     {
-      cache: 'no-store',
+      next: { revalidate: contentfulConfig.revalidateSeconds },
       signal: controller.signal,
     },
   )
