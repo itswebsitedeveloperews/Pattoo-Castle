@@ -1,12 +1,12 @@
-import GettingHerePage from '../../../GettingHerePage'
+import VillaInclusionPage from '../../../VillaInclusionPage'
 import {
   getFooterEntry,
-  getGettingHereEntry,
   getHeaderEntry,
+  getVillaInclusionEntry,
 } from '../../../lib/contentful'
 import { createMetadata } from '../../../lib/seo'
 
-export const metadata = createMetadata("/overview/getting-here/")
+export const metadata = createMetadata("/accommodation/villa-inclusion/")
 export const revalidate = 60
 
 function withTimeout(promise, label) {
@@ -18,22 +18,28 @@ function withTimeout(promise, label) {
   ])
 }
 
-export default async function GettingHereRoute() {
-  const [gettingHereResult, footerResult, headerResult] =
+export default async function VillaInclusionRoute() {
+  const [villaInclusionResult, footerResult, headerResult] =
     await Promise.allSettled([
-      withTimeout(getGettingHereEntry(), 'Contentful getting here'),
+      withTimeout(getVillaInclusionEntry(), 'Contentful villa inclusion'),
       withTimeout(getFooterEntry(), 'Contentful footer'),
       withTimeout(getHeaderEntry(), 'Contentful header'),
     ])
-  const gettingHereEntry =
-    gettingHereResult.status === 'fulfilled' ? gettingHereResult.value : null
+
+  const villaInclusionEntry =
+    villaInclusionResult.status === 'fulfilled'
+      ? villaInclusionResult.value
+      : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (gettingHereResult.status === 'rejected') {
-    console.error('Contentful getting here request failed:', gettingHereResult.reason)
+  if (villaInclusionResult.status === 'rejected') {
+    console.error(
+      'Contentful villa inclusion request failed:',
+      villaInclusionResult.reason,
+    )
   }
 
   if (footerResult.status === 'rejected') {
@@ -45,10 +51,10 @@ export default async function GettingHereRoute() {
   }
 
   return (
-    <GettingHerePage
+    <VillaInclusionPage
       footerEntry={footerEntry}
-      gettingHereEntry={gettingHereEntry}
       headerEntry={headerEntry}
+      villaInclusionEntry={villaInclusionEntry}
     />
   )
 }

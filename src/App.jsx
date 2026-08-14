@@ -111,9 +111,9 @@ function getHomePageContent(entry) {
           const itemFields = item?.fields || {};
 
           return {
-            title: itemFields.amenitiesItemsTitle || "",
-            content: richTextToPlainText(itemFields.amenitiesItemsContent),
-            image: getContentfulImage(itemFields.amenitiesItemsImage),
+            title: itemFields.title || "",
+            content: richTextToPlainText(itemFields.content),
+            image: getFirstContentfulImage(itemFields.images),
           };
         })
         .filter((item) => item.title || item.content || item.image?.src)
@@ -273,18 +273,48 @@ export function getFirstContentfulImage(assets) {
 
 export function getFooterContent(entry) {
   const fields = entry?.fields || {};
-  const socialLinks = Array.isArray(fields.followUsOn)
-    ? fields.followUsOn
-        .map((item) => {
-          const itemFields = item?.fields || {};
-
-          return {
-            icon: getContentfulImage(itemFields.socialIcon),
-            url: itemFields.socialUrl || "",
-          };
-        })
-        .filter((item) => item.icon?.src || item.url)
-    : [];
+  const socialLinks = [
+    fields.facebookLink
+      ? {
+          icon: {
+            src: "/footer-facebook.svg",
+            alt: "Facebook",
+          },
+          label: "Pattoo Castle Facebook",
+          url: fields.facebookLink,
+        }
+      : null,
+    fields.instagramLink
+      ? {
+          icon: {
+            src: "/footer-instagram.svg",
+            alt: "Instagram",
+          },
+          label: "Pattoo Castle Instagram",
+          url: fields.instagramLink,
+        }
+      : null,
+    fields.linkdinLink
+      ? {
+          icon: {
+            src: "/footer-linkedin.svg",
+            alt: "LinkedIn",
+          },
+          label: "Pattoo Castle LinkedIn",
+          url: fields.linkdinLink,
+        }
+      : null,
+    fields.twitterLink
+      ? {
+          icon: {
+            src: "/footer-twitter.svg",
+            alt: "X",
+          },
+          label: "Pattoo Castle X",
+          url: fields.twitterLink,
+        }
+      : null,
+  ].filter(Boolean);
   const menuItems = Array.isArray(fields.footerMenu)
     ? fields.footerMenu
         .map((item) => {
@@ -340,18 +370,28 @@ export function getHeaderContent(entry) {
         })
         .filter((item) => item.name || item.url || item.subMenuItems.length)
     : [];
-  const socialLinks = Array.isArray(fields.socialIcons)
-    ? fields.socialIcons
-        .map((item) => {
-          const itemFields = item?.fields || {};
-
-          return {
-            icon: getContentfulImage(itemFields.socialIcon),
-            url: itemFields.socialUrl || "",
-          };
-        })
-        .filter((item) => item.icon?.src || item.url)
-    : [];
+  const socialLinks = [
+    fields.facebookLink
+      ? {
+          icon: {
+            src: "/facebook.svg",
+            alt: "Facebook",
+          },
+          label: "Pattoo Castle Facebook",
+          url: fields.facebookLink,
+        }
+      : null,
+    fields.instagramLink
+      ? {
+          icon: {
+            src: "/instagram.svg",
+            alt: "Instagram",
+          },
+          label: "Pattoo Castle Instagram",
+          url: fields.instagramLink,
+        }
+      : null,
+  ].filter(Boolean);
 
   return {
     logo: getContentfulImage(fields.logo),

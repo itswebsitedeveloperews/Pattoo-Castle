@@ -50,7 +50,8 @@ for (const [path, pageTitle] of [
   ["/contact/", "Contact"],
   ["/events/", "Events"],
   ["/gallery/", "Gallery"],
-  ["/location/", "Explore Negril"],
+  ["/explore-negril/", "Explore Negril"],
+  ["/explore-negril/about-negril/", "About Negril"],
   ["/overview/", "Villa Overview"],
   ["/overview/pattoo-castle-location/", "Pattoo Castle Location"],
   ["/overview/getting-here/", "Getting Here"],
@@ -83,7 +84,11 @@ const routeMetadata = [
   ["src/app/contact/page.jsx", 'createMetadata("/contact/")'],
   ["src/app/events/page.jsx", 'createMetadata("/events/")'],
   ["src/app/gallery/page.jsx", 'createMetadata("/gallery/")'],
-  ["src/app/location/page.jsx", 'createMetadata("/location/")'],
+  ["src/app/explore-negril/page.jsx", 'createMetadata("/explore-negril/")'],
+  [
+    "src/app/explore-negril/about-negril/page.jsx",
+    'createMetadata("/explore-negril/about-negril/")',
+  ],
   ["src/app/overview/page.jsx", 'createMetadata("/overview/")'],
   [
     "src/app/overview/pattoo-castle-location/page.jsx",

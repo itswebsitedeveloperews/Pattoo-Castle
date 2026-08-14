@@ -1,0 +1,359 @@
+.dedicatedSection {
+  padding: 78px var(--container-gutter) 86px;
+  color: var(--color-brown);
+  background: var(--color-cream);
+}
+
+.dedicatedInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(420px, 0.95fr);
+  gap: clamp(50px, 6vw, 92px);
+  width: min(100%, 1690px);
+  margin: 0 auto;
+  align-items: center;
+}
+
+.dedicatedInnerNoImage {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.dedicatedContent {
+  max-width: 820px;
+}
+
+.dedicatedInnerNoImage .dedicatedContent {
+  max-width: 980px;
+}
+
+.dedicatedEyebrow {
+  margin: 0 0 22px;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-small);
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-body);
+  text-transform: uppercase;
+}
+
+.dedicatedContent h2 {
+  margin: 0;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: clamp(36px, 3.2vw, 52px);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-heading);
+}
+
+.dedicatedContent p:not(.dedicatedEyebrow) {
+  margin: 24px 0 0;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.dedicatedIconGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 40px;
+}
+
+.dedicatedIconItem {
+  min-width: 0;
+  padding: 0 28px;
+  border-left: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
+  text-align: center;
+}
+
+.dedicatedIconItem:first-child {
+  border-left: 0;
+}
+
+.dedicatedIconItem img {
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 16px;
+  object-fit: contain;
+}
+
+.dedicatedIconItem h3 {
+  max-width: 150px;
+  margin: 0 auto;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: 1.18;
+}
+
+.dedicatedImage {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.5;
+  object-fit: cover;
+}
+
+.teamSection {
+  padding: 76px var(--container-gutter) 86px;
+  color: var(--color-brown);
+  background: #F6EEE5;
+}
+
+.teamInner {
+  width: min(100%, 1690px);
+  margin: 0 auto;
+}
+
+.teamHeader {
+  max-width: 760px;
+  margin: 0 auto 42px;
+  text-align: center;
+}
+
+.teamEyebrow {
+  margin: 0 0 16px;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-small);
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-body);
+  text-transform: uppercase;
+}
+
+.teamHeader h2 {
+  margin: 0;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: clamp(36px, 3.2vw, 52px);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-heading);
+}
+
+.teamHeader p:not(.teamEyebrow) {
+  max-width: 620px;
+  margin: 20px auto 0;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 26px;
+}
+
+.teamCard {
+  min-width: 0;
+  text-align: center;
+}
+
+.teamCard img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 0.82;
+  object-fit: cover;
+}
+
+.teamCard h3 {
+  margin: 18px 0 6px;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: 1.18;
+}
+
+.teamCard p {
+  margin: 0;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-nav);
+  line-height: 1.45;
+}
+
+.teamRole {
+  margin-bottom: 8px !important;
+  color: var(--color-brown) !important;
+  font-weight: 700;
+}
+
+.staffServiceSection {
+  padding: 78px var(--container-gutter) 86px;
+  color: var(--color-brown);
+  background: var(--color-cream);
+}
+
+.staffServiceInner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(380px, 1fr);
+  gap: clamp(46px, 5.5vw, 78px);
+  width: min(100%, 1690px);
+  margin: 0 auto;
+  align-items: center;
+}
+
+.staffServiceImage {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.48;
+  object-fit: cover;
+}
+
+.staffServiceContent {
+  max-width: 760px;
+}
+
+.staffServiceEyebrow {
+  margin: 0 0 18px;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-small);
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-body);
+  text-transform: uppercase;
+}
+
+.staffServiceContent h2 {
+  margin: 0;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: clamp(36px, 3.2vw, 52px);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-heading);
+}
+
+.staffServiceContent p:not(.staffServiceEyebrow) {
+  margin: 22px 0 0;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.staffServiceList {
+  display: grid;
+  gap: 12px;
+  margin: 22px 0 0;
+  padding: 0;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  list-style: none;
+}
+
+.staffServiceList li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.staffServiceList li::before {
+  content: "\2713";
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--color-brown);
+}
+
+@media (max-width: 1100px) {
+  .dedicatedInner {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .dedicatedContent {
+    max-width: none;
+  }
+
+  .teamGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 34px 24px;
+  }
+
+  .staffServiceInner {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .staffServiceContent {
+    max-width: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .dedicatedSection,
+  .teamSection,
+  .staffServiceSection {
+    padding: 58px 18px 68px;
+  }
+
+  .dedicatedContent h2,
+  .teamHeader h2,
+  .staffServiceContent h2 {
+    font-size: var(--font-size-global-h3);
+  }
+
+  .dedicatedContent p:not(.dedicatedEyebrow),
+  .teamHeader p:not(.teamEyebrow),
+  .staffServiceContent p:not(.staffServiceEyebrow),
+  .staffServiceList {
+    font-size: var(--font-size-nav);
+  }
+
+  .dedicatedIconGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 0;
+  }
+
+  .dedicatedIconItem {
+    padding: 0 18px;
+  }
+
+  .dedicatedIconItem:nth-child(odd) {
+    border-left: 0;
+  }
+
+  .dedicatedImage {
+    aspect-ratio: 1.32;
+  }
+
+  .teamGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 18px;
+  }
+
+  .teamCard h3 {
+    font-size: 20px;
+  }
+
+  .staffServiceImage {
+    aspect-ratio: 1.32;
+  }
+}
+
+@media (max-width: 420px) {
+  .dedicatedSection,
+  .teamSection,
+  .staffServiceSection {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .dedicatedIconGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dedicatedIconItem {
+    padding: 0;
+    border-left: 0;
+  }
+
+  .dedicatedIconItem + .dedicatedIconItem {
+    padding-top: 24px;
+    border-top: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
+  }
+
+  .teamGrid {
+    grid-template-columns: 1fr;
+  }
+}

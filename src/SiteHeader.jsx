@@ -1,10 +1,30 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import HeaderMenuLink from "./HeaderMenuLink";
+import { getInternalHref, isInternalHref } from "./linkUtils";
 
 function getSocialLinkLabel(index) {
   return `Pattoo Castle social link ${index + 1}`;
+}
+
+function HeaderLink({ children, className, href, ...props }) {
+  const internalHref = getInternalHref(href);
+
+  if (isInternalHref(internalHref)) {
+    return (
+      <Link className={className} href={internalHref} {...props}>
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <a className={className} href={href} {...props}>
+      {children}
+    </a>
+  );
 }
 
 export default function SiteHeader({ header }) {
@@ -47,12 +67,12 @@ export default function SiteHeader({ header }) {
     <header className="site-header">
       {header.logo?.src && (
         <div className="navbar-logo">
-          <a className="brand" href="/" aria-label="Pattoo Castle home">
+          <HeaderLink className="brand" href="/" aria-label="Pattoo Castle home">
             <img
               src={header.logo.src}
               alt={header.logo.alt || "Pattoo Castle"}
             />
-          </a>
+          </HeaderLink>
         </div>
       )}
 
@@ -67,12 +87,12 @@ export default function SiteHeader({ header }) {
               />
             ))}
             {hasHeaderButton && (
-              <a
+              <HeaderLink
                 className="button button--light enquire-link"
                 href={header.buttonUrl}
               >
                 {header.buttonText}
-              </a>
+              </HeaderLink>
             )}
           </nav>
         )}
@@ -83,12 +103,12 @@ export default function SiteHeader({ header }) {
               className="social-link"
               href={item.url || "#"}
               key={`${item.url}-${index}`}
-              aria-label={getSocialLinkLabel(index)}
+              aria-label={item.label || getSocialLinkLabel(index)}
             >
               {item.icon?.src && (
                 <img
                   src={item.icon.src}
-                  alt={item.icon.alt || getSocialLinkLabel(index)}
+                  alt={item.icon.alt || item.label || getSocialLinkLabel(index)}
                 />
               )}
             </a>
@@ -127,12 +147,12 @@ export default function SiteHeader({ header }) {
                     />
                   ))}
                   {hasHeaderButton && (
-                    <a
+                    <HeaderLink
                       className="button button--light enquire-link"
                       href={header.buttonUrl}
                     >
                       {header.buttonText}
-                    </a>
+                    </HeaderLink>
                   )}
                 </nav>
               )}
@@ -145,12 +165,16 @@ export default function SiteHeader({ header }) {
                         className="social-link"
                         href={item.url || "#"}
                         key={`${item.url}-${index}`}
-                        aria-label={getSocialLinkLabel(index)}
+                        aria-label={item.label || getSocialLinkLabel(index)}
                       >
                         {item.icon?.src && (
                           <img
                             src={item.icon.src}
-                            alt={item.icon.alt || getSocialLinkLabel(index)}
+                            alt={
+                              item.icon.alt ||
+                              item.label ||
+                              getSocialLinkLabel(index)
+                            }
                           />
                         )}
                       </a>

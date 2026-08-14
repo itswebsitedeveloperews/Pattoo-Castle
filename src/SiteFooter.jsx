@@ -106,12 +106,16 @@ export default function SiteFooter({ footer }) {
                     <a
                       href={item.url || "#"}
                       key={`${item.url}-${index}`}
-                      aria-label={getSocialLinkLabel(index)}
+                      aria-label={item.label || getSocialLinkLabel(index)}
                     >
                       {item.icon?.src && (
                         <img
                           src={item.icon.src}
-                          alt={item.icon.alt || getSocialLinkLabel(index)}
+                          alt={
+                            item.icon.alt ||
+                            item.label ||
+                            getSocialLinkLabel(index)
+                          }
                         />
                       )}
                     </a>

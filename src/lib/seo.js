@@ -19,6 +19,31 @@ const PAGE_METADATA = {
     description:
       "Explore Pattoo Castle accommodations, villa inclusions, room details, outdoor spaces, dining options, and staffed luxury amenities.",
   },
+  "/accommodation/villa-inclusion/": {
+    title: "Villa Inclusions",
+    description:
+      "Explore Pattoo Castle villa inclusions, services, amenities, and luxury details included with your private Negril stay.",
+  },
+  "/accommodation/villa-details/": {
+    title: "Villa Details",
+    description:
+      "Explore Pattoo Castle villa details, spaces, features, and luxury accommodation information for your private Negril stay.",
+  },
+  "/accommodation/outdoors/": {
+    title: "Outdoors",
+    description:
+      "Explore Pattoo Castle outdoor spaces, views, pool, terraces, and open-air amenities for a private Negril villa stay.",
+  },
+  "/accommodation/staff/": {
+    title: "Staff",
+    description:
+      "Meet the Pattoo Castle staff and services that help create a seamless private villa stay in Negril, Jamaica.",
+  },
+  "/accommodation/food-and-beverage/": {
+    title: "Food & Beverage",
+    description:
+      "Explore Pattoo Castle food and beverage options, dining, private chef service, and villa hospitality for your Negril stay.",
+  },
   "/overview/": {
     title: "Villa Overview",
     description:
@@ -39,10 +64,20 @@ const PAGE_METADATA = {
     description:
       "Browse the Pattoo Castle gallery for views of the villa, oceanfront spaces, accommodations, events, and Negril surroundings.",
   },
-  "/location/": {
+  "/explore-negril/": {
     title: "Explore Negril",
     description:
       "Explore Pattoo Castle's Negril location near the Caribbean Sea, Seven Mile Beach, local restaurants, bars, and island experiences.",
+  },
+  "/explore-negril/about-negril/": {
+    title: "About Negril",
+    description:
+      "Learn about Negril, Jamaica, from beaches and Caribbean culture to experiences near Pattoo Castle.",
+  },
+  "/explore-negril/optional-tours-activities/": {
+    title: "Optional Tours & Activities",
+    description:
+      "Explore optional tours, activities, excursions, and island experiences near Pattoo Castle in Negril, Jamaica.",
   },
   "/events/": {
     title: "Events",

@@ -7,7 +7,7 @@ for (const width of [320, 375, 768, 1024, 1280, 1920]) {
       viewport: { width, height: 900 },
     });
 
-    await page.goto("http://localhost:3000/location", {
+    await page.goto("http://localhost:3000/explore-negril", {
       waitUntil: "networkidle",
     });
 

@@ -1,13 +1,15 @@
-import OverviewPage from '../../OverviewPage'
+import LocationPage from '../../LocationPage'
 import {
   getFooterEntry,
   getHeaderEntry,
-  getOverviewEntry,
+  getLocationEntry,
+  getLocationEntryBySlug,
 } from '../../lib/contentful'
 import { createMetadata } from '../../lib/seo'
 
-export const metadata = createMetadata("/overview/")
+export const metadata = createMetadata("/explore-negril/")
 export const revalidate = 60
+const pageSlug = 'explore-negril'
 
 function withTimeout(promise, label) {
   return Promise.race([
@@ -18,21 +20,25 @@ function withTimeout(promise, label) {
   ])
 }
 
-export default async function OverviewRoute() {
-  const [overviewResult, footerResult, headerResult] = await Promise.allSettled([
-    withTimeout(getOverviewEntry(), 'Contentful overview'),
+export default async function ExploreNegrilRoute() {
+  const [locationResult, footerResult, headerResult] = await Promise.allSettled([
+    withTimeout(getLocationEntryBySlug(pageSlug), 'Contentful location'),
     withTimeout(getFooterEntry(), 'Contentful footer'),
     withTimeout(getHeaderEntry(), 'Contentful header'),
   ])
-  const overviewEntry =
-    overviewResult.status === 'fulfilled' ? overviewResult.value : null
+  let locationEntry =
+    locationResult.status === 'fulfilled' ? locationResult.value : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (overviewResult.status === 'rejected') {
-    console.error('Contentful overview request failed:', overviewResult.reason)
+  if (!locationEntry) {
+    locationEntry = await getLocationEntry()
+  }
+
+  if (locationResult.status === 'rejected') {
+    console.error('Contentful location request failed:', locationResult.reason)
   }
 
   if (footerResult.status === 'rejected') {
@@ -44,10 +50,10 @@ export default async function OverviewRoute() {
   }
 
   return (
-    <OverviewPage
+    <LocationPage
       footerEntry={footerEntry}
       headerEntry={headerEntry}
-      overviewEntry={overviewEntry}
+      locationEntry={locationEntry}
     />
   )
 }

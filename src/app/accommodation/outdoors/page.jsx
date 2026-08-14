@@ -1,12 +1,12 @@
-import GettingHerePage from '../../../GettingHerePage'
+import OutdoorsPage from '../../../OutdoorsPage'
 import {
   getFooterEntry,
-  getGettingHereEntry,
   getHeaderEntry,
+  getOutdoorsEntry,
 } from '../../../lib/contentful'
 import { createMetadata } from '../../../lib/seo'
 
-export const metadata = createMetadata("/overview/getting-here/")
+export const metadata = createMetadata("/accommodation/outdoors/")
 export const revalidate = 60
 
 function withTimeout(promise, label) {
@@ -18,22 +18,23 @@ function withTimeout(promise, label) {
   ])
 }
 
-export default async function GettingHereRoute() {
-  const [gettingHereResult, footerResult, headerResult] =
+export default async function OutdoorsRoute() {
+  const [outdoorsResult, footerResult, headerResult] =
     await Promise.allSettled([
-      withTimeout(getGettingHereEntry(), 'Contentful getting here'),
+      withTimeout(getOutdoorsEntry(), 'Contentful outdoors'),
       withTimeout(getFooterEntry(), 'Contentful footer'),
       withTimeout(getHeaderEntry(), 'Contentful header'),
     ])
-  const gettingHereEntry =
-    gettingHereResult.status === 'fulfilled' ? gettingHereResult.value : null
+
+  const outdoorsEntry =
+    outdoorsResult.status === 'fulfilled' ? outdoorsResult.value : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (gettingHereResult.status === 'rejected') {
-    console.error('Contentful getting here request failed:', gettingHereResult.reason)
+  if (outdoorsResult.status === 'rejected') {
+    console.error('Contentful outdoors request failed:', outdoorsResult.reason)
   }
 
   if (footerResult.status === 'rejected') {
@@ -45,10 +46,10 @@ export default async function GettingHereRoute() {
   }
 
   return (
-    <GettingHerePage
+    <OutdoorsPage
       footerEntry={footerEntry}
-      gettingHereEntry={gettingHereEntry}
       headerEntry={headerEntry}
+      outdoorsEntry={outdoorsEntry}
     />
   )
 }

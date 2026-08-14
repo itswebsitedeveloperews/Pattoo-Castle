@@ -58,6 +58,36 @@ export const contentfulConfig = {
     process.env.NEXT_PUBLIC_CONTENTFUL_ACCOMMODATION_CONTENT_TYPE ||
     process.env.VITE_CONTENTFUL_ACCOMMODATION_CONTENT_TYPE ||
     'accommodation',
+  villaInclusionContentType:
+    process.env.CONTENTFUL_VILLA_INCLUSION_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_VILLA_INCLUSION_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_VILLA_INCLUSION_CONTENT_TYPE ||
+    'villaInclusions',
+  villaDetailsContentType:
+    process.env.CONTENTFUL_VILLA_DETAILS_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_VILLA_DETAILS_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_VILLA_DETAILS_CONTENT_TYPE ||
+    'villaDetails',
+  outdoorsContentType:
+    process.env.CONTENTFUL_OUTDOORS_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_OUTDOORS_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_OUTDOORS_CONTENT_TYPE ||
+    'outdoors',
+  staffContentType:
+    process.env.CONTENTFUL_STAFF_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_STAFF_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_STAFF_CONTENT_TYPE ||
+    'staff',
+  foodBeverageContentType:
+    process.env.CONTENTFUL_FOOD_BEVERAGE_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_FOOD_BEVERAGE_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_FOOD_BEVERAGE_CONTENT_TYPE ||
+    'foodBeverage',
+  optionalToursActivitiesContentType:
+    process.env.CONTENTFUL_OPTIONAL_TOURS_ACTIVITIES_CONTENT_TYPE ||
+    process.env.NEXT_PUBLIC_CONTENTFUL_OPTIONAL_TOURS_ACTIVITIES_CONTENT_TYPE ||
+    process.env.VITE_CONTENTFUL_OPTIONAL_TOURS_ACTIVITIES_CONTENT_TYPE ||
+    'optionalToursActivities',
   galleryContentType:
     process.env.CONTENTFUL_GALLERY_CONTENT_TYPE ||
     process.env.NEXT_PUBLIC_CONTENTFUL_GALLERY_CONTENT_TYPE ||
@@ -98,6 +128,13 @@ export const contentfulConfig = {
     process.env.NEXT_PUBLIC_CONTENTFUL_TERMS_CONDITION_CONTENT_TYPE ||
     process.env.VITE_CONTENTFUL_TERMS_CONDITION_CONTENT_TYPE ||
     'termsCondition',
+  revalidateSeconds:
+    Number(
+      process.env.CONTENTFUL_REVALIDATE_SECONDS ||
+        process.env.NEXT_PUBLIC_CONTENTFUL_REVALIDATE_SECONDS ||
+        process.env.VITE_CONTENTFUL_REVALIDATE_SECONDS ||
+        60,
+    ) || 60,
 }
 
 const homePageContentTypes = [
@@ -161,6 +198,39 @@ const accommodationContentTypes = [
   'accommodation-page',
 ].filter(Boolean)
 
+const villaInclusionContentTypes = [
+  contentfulConfig.villaInclusionContentType,
+  'villaInclusions',
+].filter(Boolean)
+
+const villaDetailsContentTypes = [
+  contentfulConfig.villaDetailsContentType,
+  'villaDetails',
+].filter(Boolean)
+
+const outdoorsContentTypes = [
+  contentfulConfig.outdoorsContentType,
+  'outdoors',
+].filter(Boolean)
+
+const staffContentTypes = [
+  contentfulConfig.staffContentType,
+  'staff',
+].filter(Boolean)
+
+const foodBeverageContentTypes = [
+  contentfulConfig.foodBeverageContentType,
+  'foodBeverage',
+].filter(Boolean)
+
+const optionalToursActivitiesContentTypes = [
+  contentfulConfig.optionalToursActivitiesContentType,
+  'optionalToursActivities',
+  'optionalToursAndActivities',
+  'optional-tours-activities',
+  'optional-tours-and-activities',
+].filter(Boolean)
+
 const galleryContentTypes = [
   contentfulConfig.galleryContentType,
   'gallery',
@@ -173,6 +243,11 @@ const locationContentTypes = [
   'location',
   'locationPage',
   'location-page',
+].filter(Boolean)
+
+const locationSlugContentTypes = [
+  contentfulConfig.locationContentType,
+  'location',
 ].filter(Boolean)
 
 const eventContentTypes = [
@@ -319,7 +394,7 @@ async function getEntriesByContentType(contentType, query = {}) {
   const response = await fetch(
     `https://cdn.contentful.com/spaces/${contentfulConfig.space}/environments/${contentfulConfig.environment}/entries?${params}`,
     {
-      cache: 'no-store',
+      next: { revalidate: contentfulConfig.revalidateSeconds },
       signal: controller.signal,
     },
   )
@@ -511,6 +586,148 @@ export async function getAccommodationEntry() {
   return null
 }
 
+export async function getVillaInclusionEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(villaInclusionContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getVillaDetailsEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(villaDetailsContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getOutdoorsEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(outdoorsContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getStaffEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(staffContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getFoodBeverageEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(foodBeverageContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getOptionalToursActivitiesEntry() {
+  if (!isContentfulConfigured) {
+    return null
+  }
+
+  for (const contentType of [...new Set(optionalToursActivitiesContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType)
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getOptionalToursActivitiesEntryBySlug(slug) {
+  if (!isContentfulConfigured || !slug) {
+    return null
+  }
+
+  for (const contentType of [...new Set(optionalToursActivitiesContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType, {
+        'fields.slug': slug,
+      })
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} slug request failed:`, error)
+    }
+  }
+
+  return null
+}
+
 export async function getGalleryEntry() {
   if (!isContentfulConfigured) {
     return null
@@ -545,6 +762,28 @@ export async function getLocationEntry() {
       }
     } catch (error) {
       console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getLocationEntryBySlug(slug) {
+  if (!isContentfulConfigured || !slug) {
+    return null
+  }
+
+  for (const contentType of [...new Set(locationSlugContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType, {
+        'fields.slug': slug,
+      })
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} slug request failed:`, error)
     }
   }
 
@@ -669,6 +908,33 @@ export async function getPrivacyPolicyEntry() {
       }
     } catch (error) {
       console.error(`Contentful ${contentType} request failed:`, error)
+    }
+  }
+
+  return null
+}
+
+export async function getLegalPageEntryBySlug(slug) {
+  if (!isContentfulConfigured || !slug) {
+    return null
+  }
+
+  const legalContentTypes = [
+    ...termsConditionContentTypes,
+    ...privacyPolicyContentTypes,
+  ]
+
+  for (const contentType of [...new Set(legalContentTypes)]) {
+    try {
+      const items = await getEntriesByContentType(contentType, {
+        'fields.slug': slug,
+      })
+
+      if (items[0]) {
+        return items[0]
+      }
+    } catch (error) {
+      console.error(`Contentful ${contentType} slug request failed:`, error)
     }
   }
 

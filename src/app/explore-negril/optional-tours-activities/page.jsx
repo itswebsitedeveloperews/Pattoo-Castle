@@ -1,12 +1,12 @@
-import GettingHerePage from '../../../GettingHerePage'
+import LocationPage from '../../../LocationPage'
 import {
   getFooterEntry,
-  getGettingHereEntry,
   getHeaderEntry,
+  getOptionalToursActivitiesEntry,
 } from '../../../lib/contentful'
 import { createMetadata } from '../../../lib/seo'
 
-export const metadata = createMetadata("/overview/getting-here/")
+export const metadata = createMetadata("/explore-negril/optional-tours-activities/")
 export const revalidate = 60
 
 function withTimeout(promise, label) {
@@ -18,22 +18,28 @@ function withTimeout(promise, label) {
   ])
 }
 
-export default async function GettingHereRoute() {
-  const [gettingHereResult, footerResult, headerResult] =
-    await Promise.allSettled([
-      withTimeout(getGettingHereEntry(), 'Contentful getting here'),
-      withTimeout(getFooterEntry(), 'Contentful footer'),
-      withTimeout(getHeaderEntry(), 'Contentful header'),
-    ])
-  const gettingHereEntry =
-    gettingHereResult.status === 'fulfilled' ? gettingHereResult.value : null
+export default async function OptionalToursActivitiesRoute() {
+  const [locationResult, footerResult, headerResult] = await Promise.allSettled([
+    withTimeout(
+      getOptionalToursActivitiesEntry(),
+      'Contentful optional tours activities',
+    ),
+    withTimeout(getFooterEntry(), 'Contentful footer'),
+    withTimeout(getHeaderEntry(), 'Contentful header'),
+  ])
+
+  let locationEntry =
+    locationResult.status === 'fulfilled' ? locationResult.value : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (gettingHereResult.status === 'rejected') {
-    console.error('Contentful getting here request failed:', gettingHereResult.reason)
+  if (locationResult.status === 'rejected') {
+    console.error(
+      'Contentful optional tours activities request failed:',
+      locationResult.reason,
+    )
   }
 
   if (footerResult.status === 'rejected') {
@@ -45,10 +51,10 @@ export default async function GettingHereRoute() {
   }
 
   return (
-    <GettingHerePage
+    <LocationPage
       footerEntry={footerEntry}
-      gettingHereEntry={gettingHereEntry}
       headerEntry={headerEntry}
+      locationEntry={locationEntry}
     />
   )
 }

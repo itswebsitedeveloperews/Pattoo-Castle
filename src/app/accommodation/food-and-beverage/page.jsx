@@ -1,12 +1,12 @@
-import GettingHerePage from '../../../GettingHerePage'
+import FoodBeveragePage from '../../../FoodBeveragePage'
 import {
+  getFoodBeverageEntry,
   getFooterEntry,
-  getGettingHereEntry,
   getHeaderEntry,
 } from '../../../lib/contentful'
 import { createMetadata } from '../../../lib/seo'
 
-export const metadata = createMetadata("/overview/getting-here/")
+export const metadata = createMetadata("/accommodation/food-and-beverage/")
 export const revalidate = 60
 
 function withTimeout(promise, label) {
@@ -18,22 +18,28 @@ function withTimeout(promise, label) {
   ])
 }
 
-export default async function GettingHereRoute() {
-  const [gettingHereResult, footerResult, headerResult] =
+export default async function FoodBeverageRoute() {
+  const [foodBeverageResult, footerResult, headerResult] =
     await Promise.allSettled([
-      withTimeout(getGettingHereEntry(), 'Contentful getting here'),
+      withTimeout(getFoodBeverageEntry(), 'Contentful food and beverage'),
       withTimeout(getFooterEntry(), 'Contentful footer'),
       withTimeout(getHeaderEntry(), 'Contentful header'),
     ])
-  const gettingHereEntry =
-    gettingHereResult.status === 'fulfilled' ? gettingHereResult.value : null
+
+  const foodBeverageEntry =
+    foodBeverageResult.status === 'fulfilled'
+      ? foodBeverageResult.value
+      : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (gettingHereResult.status === 'rejected') {
-    console.error('Contentful getting here request failed:', gettingHereResult.reason)
+  if (foodBeverageResult.status === 'rejected') {
+    console.error(
+      'Contentful food and beverage request failed:',
+      foodBeverageResult.reason,
+    )
   }
 
   if (footerResult.status === 'rejected') {
@@ -45,9 +51,9 @@ export default async function GettingHereRoute() {
   }
 
   return (
-    <GettingHerePage
+    <FoodBeveragePage
+      foodBeverageEntry={foodBeverageEntry}
       footerEntry={footerEntry}
-      gettingHereEntry={gettingHereEntry}
       headerEntry={headerEntry}
     />
   )

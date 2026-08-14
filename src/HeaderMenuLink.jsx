@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { getInternalHref, isInternalHref } from "./linkUtils";
 
 function normalizePath(value) {
   if (!value || value === "#" || value.startsWith("#")) {
@@ -32,7 +34,30 @@ function isExternalUrl(value) {
 }
 
 function getIsActive(pathname, href) {
-  return !isExternalUrl(href) && normalizePath(pathname) === normalizePath(href);
+  const internalHref = getInternalHref(href);
+
+  return (
+    !isExternalUrl(internalHref) &&
+    normalizePath(pathname) === normalizePath(internalHref)
+  );
+}
+
+function NavigationLink({ children, className, href, ...props }) {
+  const internalHref = getInternalHref(href);
+
+  if (isInternalHref(internalHref)) {
+    return (
+      <Link className={className} href={internalHref} {...props}>
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <a className={className} href={href} {...props}>
+      {children}
+    </a>
+  );
 }
 
 export default function HeaderMenuLink({
@@ -55,13 +80,13 @@ export default function HeaderMenuLink({
 
   if (!hasSubmenu) {
     return (
-      <a
+      <NavigationLink
         aria-current={isActive ? "page" : undefined}
         className={className}
         href={href}
       >
         {item.name}
-      </a>
+      </NavigationLink>
     );
   }
 
@@ -88,14 +113,14 @@ export default function HeaderMenuLink({
             const isSubItemActive = getIsActive(pathname, subHref);
 
             return (
-              <a
+              <NavigationLink
                 aria-current={isSubItemActive ? "page" : undefined}
                 className={isSubItemActive ? "is-active" : undefined}
                 href={subHref}
                 key={`${subItem.name}-${index}`}
               >
                 {subItem.name}
-              </a>
+              </NavigationLink>
             );
           })}
         </div>
@@ -109,13 +134,13 @@ export default function HeaderMenuLink({
         isActive || hasActiveSubmenuItem ? " is-active" : ""
       }`}
     >
-      <a
+      <NavigationLink
         aria-current={isActive ? "page" : undefined}
         className={className}
         href={href}
       >
         {item.name}
-      </a>
+      </NavigationLink>
 
       <div className="header-submenu">
         {subMenuItems.map((subItem, index) => {
@@ -123,14 +148,14 @@ export default function HeaderMenuLink({
           const isSubItemActive = getIsActive(pathname, subHref);
 
           return (
-            <a
+            <NavigationLink
               aria-current={isSubItemActive ? "page" : undefined}
               className={isSubItemActive ? "is-active" : undefined}
               href={subHref}
               key={`${subItem.name}-${index}`}
             >
               {subItem.name}
-            </a>
+            </NavigationLink>
           );
         })}
       </div>

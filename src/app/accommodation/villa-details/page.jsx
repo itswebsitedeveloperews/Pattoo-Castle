@@ -1,12 +1,12 @@
-import GettingHerePage from '../../../GettingHerePage'
+import VillaDetailsPage from '../../../VillaDetailsPage'
 import {
   getFooterEntry,
-  getGettingHereEntry,
   getHeaderEntry,
+  getVillaDetailsEntry,
 } from '../../../lib/contentful'
 import { createMetadata } from '../../../lib/seo'
 
-export const metadata = createMetadata("/overview/getting-here/")
+export const metadata = createMetadata("/accommodation/villa-details/")
 export const revalidate = 60
 
 function withTimeout(promise, label) {
@@ -18,22 +18,26 @@ function withTimeout(promise, label) {
   ])
 }
 
-export default async function GettingHereRoute() {
-  const [gettingHereResult, footerResult, headerResult] =
+export default async function VillaDetailsRoute() {
+  const [villaDetailsResult, footerResult, headerResult] =
     await Promise.allSettled([
-      withTimeout(getGettingHereEntry(), 'Contentful getting here'),
+      withTimeout(getVillaDetailsEntry(), 'Contentful villa details'),
       withTimeout(getFooterEntry(), 'Contentful footer'),
       withTimeout(getHeaderEntry(), 'Contentful header'),
     ])
-  const gettingHereEntry =
-    gettingHereResult.status === 'fulfilled' ? gettingHereResult.value : null
+
+  const villaDetailsEntry =
+    villaDetailsResult.status === 'fulfilled' ? villaDetailsResult.value : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (gettingHereResult.status === 'rejected') {
-    console.error('Contentful getting here request failed:', gettingHereResult.reason)
+  if (villaDetailsResult.status === 'rejected') {
+    console.error(
+      'Contentful villa details request failed:',
+      villaDetailsResult.reason,
+    )
   }
 
   if (footerResult.status === 'rejected') {
@@ -45,10 +49,10 @@ export default async function GettingHereRoute() {
   }
 
   return (
-    <GettingHerePage
+    <VillaDetailsPage
       footerEntry={footerEntry}
-      gettingHereEntry={gettingHereEntry}
       headerEntry={headerEntry}
+      villaDetailsEntry={villaDetailsEntry}
     />
   )
 }

@@ -1,14 +1,14 @@
-import TermsConditionPage from '../../TermsConditionPage'
+import LegalPage from '../../LegalPage'
 import {
   getFooterEntry,
   getHeaderEntry,
-  getTermsConditionEntry,
+  getLegalPageEntryBySlug,
 } from '../../lib/contentful'
 import { createMetadata } from '../../lib/seo'
 
-export const dynamic = 'force-dynamic'
 export const metadata = createMetadata("/terms-condition/")
-export const revalidate = 0
+export const revalidate = 60
+const pageSlug = 'terms-condition'
 
 function withTimeout(promise, label) {
   return Promise.race([
@@ -20,26 +20,29 @@ function withTimeout(promise, label) {
 }
 
 export default async function TermsConditionRoute() {
-  const [termsConditionResult, footerResult, headerResult] =
+  const [legalPageResult, footerResult, headerResult] =
     await Promise.allSettled([
-      withTimeout(getTermsConditionEntry(), 'Contentful terms condition'),
+      withTimeout(
+        getLegalPageEntryBySlug(pageSlug),
+        'Contentful terms condition',
+      ),
       withTimeout(getFooterEntry(), 'Contentful footer'),
       withTimeout(getHeaderEntry(), 'Contentful header'),
     ])
 
-  const termsConditionEntry =
-    termsConditionResult.status === 'fulfilled'
-      ? termsConditionResult.value
+  const legalEntry =
+    legalPageResult.status === 'fulfilled'
+      ? legalPageResult.value
       : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (termsConditionResult.status === 'rejected') {
+  if (legalPageResult.status === 'rejected') {
     console.error(
       'Contentful terms condition request failed:',
-      termsConditionResult.reason,
+      legalPageResult.reason,
     )
   }
 
@@ -52,10 +55,11 @@ export default async function TermsConditionRoute() {
   }
 
   return (
-    <TermsConditionPage
+    <LegalPage
       footerEntry={footerEntry}
       headerEntry={headerEntry}
-      termsConditionEntry={termsConditionEntry}
+      legalEntry={legalEntry}
+      pageId={pageSlug}
     />
   )
 }

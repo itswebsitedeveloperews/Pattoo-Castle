@@ -1,14 +1,14 @@
-import PrivacyPolicyPage from '../../PrivacyPolicyPage'
+import LegalPage from '../../LegalPage'
 import {
   getFooterEntry,
   getHeaderEntry,
-  getPrivacyPolicyEntry,
+  getLegalPageEntryBySlug,
 } from '../../lib/contentful'
 import { createMetadata } from '../../lib/seo'
 
-export const dynamic = 'force-dynamic'
 export const metadata = createMetadata("/privacy-policy/")
-export const revalidate = 0
+export const revalidate = 60
+const pageSlug = 'privacy-policy'
 
 function withTimeout(promise, label) {
   return Promise.race([
@@ -20,26 +20,29 @@ function withTimeout(promise, label) {
 }
 
 export default async function PrivacyPolicyRoute() {
-  const [privacyPolicyResult, footerResult, headerResult] =
+  const [legalPageResult, footerResult, headerResult] =
     await Promise.allSettled([
-      withTimeout(getPrivacyPolicyEntry(), 'Contentful privacy policy'),
+      withTimeout(
+        getLegalPageEntryBySlug(pageSlug),
+        'Contentful privacy policy',
+      ),
       withTimeout(getFooterEntry(), 'Contentful footer'),
       withTimeout(getHeaderEntry(), 'Contentful header'),
     ])
 
-  const privacyPolicyEntry =
-    privacyPolicyResult.status === 'fulfilled'
-      ? privacyPolicyResult.value
+  const legalEntry =
+    legalPageResult.status === 'fulfilled'
+      ? legalPageResult.value
       : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (privacyPolicyResult.status === 'rejected') {
+  if (legalPageResult.status === 'rejected') {
     console.error(
       'Contentful privacy policy request failed:',
-      privacyPolicyResult.reason,
+      legalPageResult.reason,
     )
   }
 
@@ -52,10 +55,11 @@ export default async function PrivacyPolicyRoute() {
   }
 
   return (
-    <PrivacyPolicyPage
+    <LegalPage
       footerEntry={footerEntry}
       headerEntry={headerEntry}
-      privacyPolicyEntry={privacyPolicyEntry}
+      legalEntry={legalEntry}
+      pageId={pageSlug}
     />
   )
 }

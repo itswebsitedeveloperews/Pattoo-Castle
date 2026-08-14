@@ -1,0 +1,343 @@
+.outdoorsSection {
+  padding: 78px var(--container-gutter) 86px;
+  color: var(--color-brown);
+  background: var(--color-cream);
+}
+
+.outdoorsInner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.96fr) minmax(390px, 1fr);
+  gap: clamp(48px, 5vw, 76px);
+  width: min(100%, 1690px);
+  margin: 0 auto;
+  align-items: center;
+}
+
+.outdoorsImage {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.5;
+  object-fit: cover;
+}
+
+.outdoorsContent {
+  max-width: 820px;
+}
+
+.outdoorsEyebrow {
+  margin: 0 0 18px;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-small);
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-body);
+  text-transform: uppercase;
+}
+
+.outdoorsContent h2 {
+  margin: 0;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: clamp(36px, 3.3vw, 52px);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-heading);
+}
+
+.outdoorsContent p,
+.outdoorsList li {
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.outdoorsContent p {
+  margin: 20px 0;
+}
+
+.outdoorsList {
+  display: grid;
+  gap: 11px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.outdoorsList li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.outdoorsList li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--color-brown);
+  content: "\2713";
+}
+
+.outdoorsIconGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 34px;
+}
+
+.outdoorsIconItem {
+  min-width: 0;
+  padding: 0 24px;
+  border-left: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
+  text-align: center;
+}
+
+.outdoorsIconItem:first-child {
+  border-left: 0;
+}
+
+.outdoorsIconItem img {
+  display: block;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  object-fit: contain;
+}
+
+.outdoorsIconItem h3 {
+  margin: 0;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: 1.2;
+}
+
+.balconiesSection {
+  padding: 78px var(--container-gutter) 86px;
+  color: var(--color-brown);
+  background: #F6EEE5;
+}
+
+.balconiesInner {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(48px, 5vw, 78px);
+  width: min(100%, 1690px);
+  margin: 0 auto;
+  align-items: center;
+}
+
+.balconiesContent {
+  max-width: 620px;
+}
+
+.balconiesEyebrow {
+  margin: 0 0 22px;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-small);
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-body);
+  text-transform: uppercase;
+}
+
+.balconiesContent h2 {
+  margin: 0;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: clamp(36px, 3.2vw, 52px);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-heading);
+}
+
+.balconiesContent p {
+  margin: 24px 0 0;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.balconiesImageGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.98fr);
+  gap: 18px;
+}
+
+.balconiesImageGrid img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.balconiesImageLarge {
+  grid-row: span 2;
+  aspect-ratio: 1.08;
+}
+
+.balconiesImageSmall {
+  aspect-ratio: 1.9;
+}
+
+.exploreSpacesSection {
+  padding: 76px var(--container-gutter) 86px;
+  color: var(--color-brown);
+  background: var(--color-cream);
+}
+
+.exploreSpacesInner {
+  width: min(100%, 1690px);
+  margin: 0 auto;
+}
+
+.exploreSpacesHeader {
+  max-width: 720px;
+  margin: 0 auto 42px;
+  text-align: center;
+}
+
+.exploreSpacesEyebrow {
+  margin: 0 0 16px;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-small);
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-body);
+  text-transform: uppercase;
+}
+
+.exploreSpacesHeader h2 {
+  margin: 0;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: clamp(36px, 3.2vw, 52px);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-none);
+  line-height: var(--line-height-heading);
+}
+
+.exploreSpacesHeader p:not(.exploreSpacesEyebrow) {
+  margin: 22px auto 0;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.exploreSpacesGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.exploreSpacesGrid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.58;
+  object-fit: cover;
+}
+
+@media (max-width: 1100px) {
+  .outdoorsInner {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .outdoorsContent {
+    max-width: none;
+  }
+
+  .balconiesInner {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .balconiesContent {
+    max-width: none;
+  }
+
+  .exploreSpacesGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .outdoorsSection,
+  .balconiesSection,
+  .exploreSpacesSection {
+    padding: 58px 18px 68px;
+  }
+
+  .outdoorsImage {
+    aspect-ratio: 1.32;
+  }
+
+  .outdoorsContent h2 {
+    font-size: var(--font-size-global-h3);
+  }
+
+  .outdoorsContent p,
+  .outdoorsList li,
+  .balconiesContent p {
+    font-size: var(--font-size-nav);
+  }
+
+  .outdoorsIconGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 0;
+  }
+
+  .outdoorsIconItem:nth-child(odd) {
+    border-left: 0;
+  }
+
+  .balconiesContent h2 {
+    font-size: var(--font-size-global-h3);
+  }
+
+  .exploreSpacesHeader h2 {
+    font-size: var(--font-size-global-h3);
+  }
+
+  .exploreSpacesHeader p:not(.exploreSpacesEyebrow) {
+    font-size: var(--font-size-nav);
+  }
+
+  .exploreSpacesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .balconiesImageGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .balconiesImageLarge,
+  .balconiesImageSmall {
+    grid-row: auto;
+    aspect-ratio: 1.35;
+  }
+}
+
+@media (max-width: 420px) {
+  .outdoorsSection,
+  .balconiesSection,
+  .exploreSpacesSection {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .outdoorsIconGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .outdoorsIconItem {
+    padding: 0;
+    border-left: 0;
+  }
+
+  .outdoorsIconItem + .outdoorsIconItem {
+    padding-top: 24px;
+    border-top: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
+  }
+
+  .exploreSpacesGrid {
+    grid-template-columns: 1fr;
+  }
+}

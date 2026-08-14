@@ -1,13 +1,14 @@
-import GettingHerePage from '../../../GettingHerePage'
+import LocationPage from '../../../LocationPage'
 import {
   getFooterEntry,
-  getGettingHereEntry,
   getHeaderEntry,
+  getLocationEntryBySlug,
 } from '../../../lib/contentful'
 import { createMetadata } from '../../../lib/seo'
 
-export const metadata = createMetadata("/overview/getting-here/")
+export const metadata = createMetadata("/explore-negril/about-negril/")
 export const revalidate = 60
+const pageSlug = 'about-negril'
 
 function withTimeout(promise, label) {
   return Promise.race([
@@ -18,22 +19,25 @@ function withTimeout(promise, label) {
   ])
 }
 
-export default async function GettingHereRoute() {
-  const [gettingHereResult, footerResult, headerResult] =
-    await Promise.allSettled([
-      withTimeout(getGettingHereEntry(), 'Contentful getting here'),
-      withTimeout(getFooterEntry(), 'Contentful footer'),
-      withTimeout(getHeaderEntry(), 'Contentful header'),
-    ])
-  const gettingHereEntry =
-    gettingHereResult.status === 'fulfilled' ? gettingHereResult.value : null
+export default async function AboutNegrilRoute() {
+  const [locationResult, footerResult, headerResult] = await Promise.allSettled([
+    withTimeout(getLocationEntryBySlug(pageSlug), 'Contentful about Negril'),
+    withTimeout(getFooterEntry(), 'Contentful footer'),
+    withTimeout(getHeaderEntry(), 'Contentful header'),
+  ])
+
+  const locationEntry =
+    locationResult.status === 'fulfilled' ? locationResult.value : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (gettingHereResult.status === 'rejected') {
-    console.error('Contentful getting here request failed:', gettingHereResult.reason)
+  if (locationResult.status === 'rejected') {
+    console.error(
+      'Contentful about Negril request failed:',
+      locationResult.reason,
+    )
   }
 
   if (footerResult.status === 'rejected') {
@@ -45,10 +49,10 @@ export default async function GettingHereRoute() {
   }
 
   return (
-    <GettingHerePage
+    <LocationPage
       footerEntry={footerEntry}
-      gettingHereEntry={gettingHereEntry}
       headerEntry={headerEntry}
+      locationEntry={locationEntry}
     />
   )
 }
