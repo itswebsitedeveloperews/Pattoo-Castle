@@ -220,6 +220,40 @@ export function getAssetSrc(asset) {
   return typeof asset === "string" ? asset : asset.src;
 }
 
+function isTransformableContentfulImage(asset, url) {
+  const contentType = asset?.fields?.file?.contentType || "";
+
+  if (!contentType.startsWith("image/")) {
+    return false;
+  }
+
+  if (contentType === "image/svg+xml" || contentType === "image/gif") {
+    return false;
+  }
+
+  try {
+    const parsedUrl = new URL(url);
+    return (
+      parsedUrl.hostname === "images.ctfassets.net" ||
+      parsedUrl.hostname === "images.contentful.com"
+    );
+  } catch {
+    return false;
+  }
+}
+
+function getOptimizedContentfulImageUrl(asset, url) {
+  if (!isTransformableContentfulImage(asset, url)) {
+    return url;
+  }
+
+  const optimizedUrl = new URL(url);
+  optimizedUrl.searchParams.set("w", "1920");
+  optimizedUrl.searchParams.set("q", "80");
+  optimizedUrl.searchParams.set("fm", "webp");
+  return optimizedUrl.toString();
+}
+
 export function getContentfulAssetSrc(asset) {
   const url = asset?.fields?.file?.url;
 
@@ -227,7 +261,8 @@ export function getContentfulAssetSrc(asset) {
     return "";
   }
 
-  return url.startsWith("//") ? `https:${url}` : url;
+  const src = url.startsWith("//") ? `https:${url}` : url;
+  return getOptimizedContentfulImageUrl(asset, src);
 }
 
 function formatAssetName(value) {

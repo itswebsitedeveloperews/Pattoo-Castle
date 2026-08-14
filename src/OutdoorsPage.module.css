@@ -234,6 +234,12 @@
 }
 
 @media (max-width: 1100px) {
+  .outdoorsSection,
+  .balconiesSection,
+  .exploreSpacesSection {
+    padding: 50px 30px;
+  }
+
   .outdoorsInner {
     grid-template-columns: 1fr;
     gap: 34px;

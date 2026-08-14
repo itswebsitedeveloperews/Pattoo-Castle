@@ -5715,6 +5715,24 @@ body:not(.home) .site-header {
     gap: 32px 22px;
   }
 
+  .location-explore-section,
+  .location-adventure-explore-section,
+  .location-jamaica-section,
+  .location-map-section,
+  .location-history-section,
+  .location-highlights-section,
+  .location-coast-section,
+  .location-nearby-section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .location-adventure-section,
+  .location-experience-content {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
   .events-intro-section {
     padding: 60px 0;
   }

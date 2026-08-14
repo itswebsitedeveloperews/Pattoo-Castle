@@ -365,6 +365,18 @@
 }
 
 @media (max-width: 1180px) {
+  .bedroomsSection,
+  .additionalChargeSection,
+  .readyForStaySection,
+  .whatsIncludedSection,
+  .experienceSection {
+    padding: 50px 30px;
+  }
+
+  .whatsIncludedItem {
+    padding: 20px 10px;
+  }
+
   .bedroomsInner,
   .additionalChargeInner {
     grid-template-columns: 1fr;
@@ -377,10 +389,35 @@
 
 }
 
+@media (max-width: 900px) {
+  .whatsIncludedGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .whatsIncludedItem {
+    border: 0;
+  }
+
+  .whatsIncludedItem:nth-child(even) {
+    border-left: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
+  }
+
+  .whatsIncludedItem:nth-child(odd) {
+    border-left: 0;
+  }
+
+  .whatsIncludedItem:nth-child(n + 3) {
+    border-top: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
+  }
+}
+
 @media (max-width: 767px) {
-  .bedroomsSection,
+  .bedroomsSection {
+    padding: 54px 18px 20px 18px;
+  }
+
   .additionalChargeSection {
-    padding: 54px 18px;
+    padding: 20px 18px;
   }
 
   .bedroomsInner,
@@ -455,6 +492,10 @@
 
   .whatsIncludedItem:nth-child(even) {
     border-left: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
+  }
+
+  .whatsIncludedItem:nth-child(odd) {
+    border-left: 0;
   }
 
   .whatsIncludedItem:nth-child(n + 3) {

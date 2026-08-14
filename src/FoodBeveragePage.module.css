@@ -187,6 +187,12 @@
 }
 
 @media (max-width: 1100px) {
+  .diningSection,
+  .glanceSection,
+  .experienceSection {
+    padding: 50px 30px;
+  }
+
   .diningInner {
     grid-template-columns: 1fr;
     gap: 34px;
