@@ -85,7 +85,7 @@ export default function FoodBeveragePage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className="page-hero accommodation-hero food-beverage-hero"
+          className="section page-hero accommodation-hero food-beverage-hero"
           style={
             foodBeverage.bannerImage
               ? {

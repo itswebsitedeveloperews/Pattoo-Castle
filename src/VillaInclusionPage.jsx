@@ -207,7 +207,7 @@ export default function VillaInclusionPage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className="page-hero accommodation-hero villa-inclusion-hero"
+          className="section page-hero accommodation-hero villa-inclusion-hero"
           style={
             villaInclusion.bannerImage
               ? {

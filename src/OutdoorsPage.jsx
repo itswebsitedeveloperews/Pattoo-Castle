@@ -130,7 +130,7 @@ export default function OutdoorsPage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className="page-hero accommodation-hero outdoors-hero"
+          className="section page-hero accommodation-hero outdoors-hero"
           style={
             outdoors.bannerImage
               ? {

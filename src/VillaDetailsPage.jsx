@@ -142,7 +142,7 @@ export default function VillaDetailsPage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className="page-hero accommodation-hero villa-details-hero"
+          className="section page-hero accommodation-hero villa-details-hero"
           style={
             villaDetails.bannerImage
               ? {

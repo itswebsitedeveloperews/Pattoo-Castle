@@ -152,7 +152,7 @@ export default function StaffPage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className="page-hero accommodation-hero staff-hero"
+          className="section page-hero accommodation-hero staff-hero"
           style={
             staff.bannerImage
               ? {

@@ -266,7 +266,7 @@ export default function LocationPage({
       <SiteHeader header={header} />
       <main>
         <section
-          className="page-hero location-hero"
+          className="section page-hero location-hero"
           style={
             location.bannerImage
               ? { "--location-banner-image": `url(${location.bannerImage})` }
