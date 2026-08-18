@@ -127,23 +127,23 @@ export default function StaffPage({
   const hasButton = Boolean(staff.buttonText && staff.buttonUrl);
   const hasDedicatedSection = Boolean(
     staff.dedicatedImage?.src ||
-      staff.dedicatedSubHeading ||
-      staff.dedicatedHeading ||
-      staff.dedicatedContent ||
-      staff.dedicatedIcons.length,
+    staff.dedicatedSubHeading ||
+    staff.dedicatedHeading ||
+    staff.dedicatedContent ||
+    staff.dedicatedIcons.length,
   );
   const hasTeamSection = Boolean(
     staff.teamSubHeading ||
-      staff.teamHeading ||
-      staff.teamContent ||
-      staff.teamDetails.length,
+    staff.teamHeading ||
+    staff.teamContent ||
+    staff.teamDetails.length,
   );
   const hasStaffServiceSection = Boolean(
     staff.staffServiceImage?.src ||
-      staff.staffServiceSubHeading ||
-      staff.staffServiceHeading ||
-      staff.staffServiceContent ||
-      staff.staffServiceListItems.length,
+    staff.staffServiceSubHeading ||
+    staff.staffServiceHeading ||
+    staff.staffServiceContent ||
+    staff.staffServiceListItems.length,
   );
 
   return (
@@ -197,19 +197,19 @@ export default function StaffPage({
 
         {hasDedicatedSection && (
           <section
-            className={styles.dedicatedSection}
+            className="section overview-villa-section outdoors-section"
             aria-labelledby={
               staff.dedicatedHeading ? "staff-dedicated-title" : undefined
             }
           >
-            <div
-              className={`${styles.dedicatedInner} ${
-                staff.dedicatedImage?.src ? "" : styles.dedicatedInnerNoImage
-              }`}
-            >
-              <div className={styles.dedicatedContent}>
+            <div className="wrap">
+              <div
+                className="overview-villa-content"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
                 {staff.dedicatedSubHeading && (
-                  <p className={styles.dedicatedEyebrow}>
+                  <p className={`eyebrow ${styles.dedicatedEyebrow}`}>
                     {staff.dedicatedSubHeading}
                   </p>
                 )}
@@ -244,11 +244,17 @@ export default function StaffPage({
               </div>
 
               {staff.dedicatedImage?.src && (
-                <img
-                  className={styles.dedicatedImage}
-                  src={staff.dedicatedImage.src}
-                  alt={staff.dedicatedImage.alt || "Pattoo Castle staff"}
-                />
+                <div
+                  className="overview-villa-image"
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                >
+                  <img
+                    className={styles.dedicatedImage}
+                    src={staff.dedicatedImage.src}
+                    alt={staff.dedicatedImage.alt || "Pattoo Castle staff"}
+                  />
+                </div>
               )}
             </div>
           </section>
@@ -256,13 +262,15 @@ export default function StaffPage({
 
         {hasTeamSection && (
           <section
-            className={styles.teamSection}
+            className={`section ${styles.teamSection}`}
             aria-labelledby={staff.teamHeading ? "staff-team-title" : undefined}
           >
-            <div className={styles.teamInner}>
+            <div className={`wrap ${styles.teamInner}`}>
               <div className={styles.teamHeader}>
                 {staff.teamSubHeading && (
-                  <p className={styles.teamEyebrow}>{staff.teamSubHeading}</p>
+                  <p className={`eyebrow ${styles.teamEyebrow}`}>
+                    {staff.teamSubHeading}
+                  </p>
                 )}
                 {staff.teamHeading && (
                   <h2 id="staff-team-title">{staff.teamHeading}</h2>
@@ -303,33 +311,45 @@ export default function StaffPage({
 
         {hasStaffServiceSection && (
           <section
-            className={styles.staffServiceSection}
+            className="section overview-villa-section staff-service-section"
             aria-labelledby={
               staff.staffServiceHeading ? "staff-service-title" : undefined
             }
           >
-            <div className={styles.staffServiceInner}>
+            <div className="wrap">
               {staff.staffServiceImage?.src && (
-                <img
-                  className={styles.staffServiceImage}
-                  src={staff.staffServiceImage.src}
-                  alt={
-                    staff.staffServiceImage.alt ||
-                    "Pattoo Castle staff service setting"
-                  }
-                />
+                <div
+                  className="overview-villa-image"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
+                  <img
+                    className={styles.staffServiceImage}
+                    src={staff.staffServiceImage.src}
+                    alt={
+                      staff.staffServiceImage.alt ||
+                      "Pattoo Castle staff service setting"
+                    }
+                  />
+                </div>
               )}
 
-              <div className={styles.staffServiceContent}>
+              <div
+                className="overview-villa-content"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
                 {staff.staffServiceSubHeading && (
-                  <p className={styles.staffServiceEyebrow}>
+                  <p className="eyebrow overview-villa-eyebrow">
                     {staff.staffServiceSubHeading}
                   </p>
                 )}
                 {staff.staffServiceHeading && (
                   <h2 id="staff-service-title">{staff.staffServiceHeading}</h2>
                 )}
-                {staff.staffServiceContent && <p>{staff.staffServiceContent}</p>}
+                {staff.staffServiceContent && (
+                  <p>{staff.staffServiceContent}</p>
+                )}
 
                 {staff.staffServiceListItems.length > 0 && (
                   <ul className={styles.staffServiceList}>

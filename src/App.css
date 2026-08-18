@@ -2923,6 +2923,7 @@ body:not(.home) .site-header {
   display: grid;
   justify-items: center;
   align-content: start;
+  text-align: center;
   min-width: 0;
   padding: 20px 28px 30px;
   border-left: 1px solid rgb(var(--color-brown-rgb) / 0.16);
@@ -2950,6 +2951,19 @@ body:not(.home) .site-header {
 .location-highlight-card p {
   margin-top: 10px;
   color: var(--color-brown-dark);
+  text-align: center;
+  line-height: 1.33;
+}
+
+.location-highlight-card:not(:nth-child(5n + 1)) {
+  border-left: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
+}
+.location-highlight-card:nth-child(6) {
+  border-left: none;
+}
+
+.location-highlight-card:nth-child(n + 6) {
+  border-top: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
 }
 
 .location-coast-section {
@@ -3842,6 +3856,9 @@ body:not(.home) .site-header {
   font-size: var(--font-size-h2);
 }
 
+.events-memories-header p:not(.eyebrow) {
+  margin: 18px 0 0;
+}
 .events-memories-grid {
   display: flex;
   flex-wrap: wrap;
@@ -4854,6 +4871,10 @@ body:not(.home) .site-header {
   color: var(--color-brown);
   background: var(--color-cream);
 }
+.overview-villa-section.experience-section {
+  background: #f6eee5;
+}
+
 .overview-villa-section .wrap {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(340px, 1fr);
@@ -4872,6 +4893,9 @@ body:not(.home) .site-header {
   color: var(--color-brown);
 }
 
+.outdoors-section .eyebrow {
+  margin: 0 0 24px;
+}
 .overview-villa-content h2 {
   color: var(--color-brown);
   font-size: var(--font-size-h2);
@@ -5664,6 +5688,9 @@ body:not(.home) .site-header {
   .location-highlights-grid {
     gap: 22px 0;
   }
+  .location-highlights-grid.whats-included-grid {
+    gap: 0;
+  }
 
   .location-highlight-card {
     width: 33.333%;
@@ -5671,6 +5698,14 @@ body:not(.home) .site-header {
 
   .location-highlight-card:nth-child(3n + 1) {
     border-left: 0;
+  }
+
+  .whats-included-grid .location-highlight-card:nth-child(n + 4) {
+    border-top: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
+  }
+
+  .whats-included-grid .location-highlight-card:nth-child(6) {
+    border-left: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
   }
 
   .location-coast-section {
@@ -5811,6 +5846,9 @@ body:not(.home) .site-header {
     padding: 60px 0;
   }
 
+  .whats-included-grid .location-highlight-card:first-child {
+    border-top: 0;
+  }
   .stay-info-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0;
@@ -6885,6 +6923,9 @@ body:not(.home) .site-header {
   .location-highlight-card:last-child {
     border-left: 0;
   }
+  .whats-included-grid .location-highlight-card:nth-child(n + 3) {
+    border-top: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
+  }
 
   .location-coast-section {
     padding: 50px 0;
@@ -7649,7 +7690,12 @@ body:not(.home) .site-header {
   .events-memories-image img {
     aspect-ratio: 4 / 3;
   }
-
+  .whats-included-grid .location-highlight-card:nth-child(2n + 1) {
+    border-left: 0;
+  }
+  .whats-included-grid .location-highlight-card:nth-child(6) {
+    border-right: 0;
+  }
   .amenities-top,
   .amenities-content {
     gap: 24px;
@@ -7676,5 +7722,9 @@ body:not(.home) .site-header {
   .social-link {
     width: 36px;
     height: 36px;
+  }
+
+  .outdoors-section .eyebrow {
+    margin: 0 0 10px;
   }
 }

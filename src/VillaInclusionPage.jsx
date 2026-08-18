@@ -82,7 +82,9 @@ function renderRichText(value) {
       .split(/\r?\n/)
       .map((item) => item.trim())
       .filter(Boolean)
-      .map((item, index) => <p key={`villa-inclusion-text-${index}`}>{item}</p>);
+      .map((item, index) => (
+        <p key={`villa-inclusion-text-${index}`}>{item}</p>
+      ));
   }
 
   return (value.content || []).map((node, index) =>
@@ -111,7 +113,9 @@ function getVillaInclusionContent(entry) {
           const images = Array.isArray(itemFields.images)
             ? itemFields.images
             : [itemFields.images];
-          const icon = images.map((asset) => getContentfulImage(asset)).find(Boolean);
+          const icon = images
+            .map((asset) => getContentfulImage(asset))
+            .find(Boolean);
 
           return {
             icon,
@@ -173,32 +177,31 @@ export default function VillaInclusionPage({
   );
   const hasBedroomsSection = Boolean(
     villaInclusion.bedroomsImages.length ||
-      villaInclusion.bedroomsHeading ||
-      villaInclusion.bedroomsContent,
+    villaInclusion.bedroomsHeading ||
+    villaInclusion.bedroomsContent,
   );
   const hasAdditionalChargeSection = Boolean(
     villaInclusion.additionalChargeImages.length ||
-      villaInclusion.additionalChargeHeading ||
-      villaInclusion.additionalChargeContent,
+    villaInclusion.additionalChargeHeading ||
+    villaInclusion.additionalChargeContent,
   );
   const hasReadyForStaySection = Boolean(
     villaInclusion.readyForStayImage ||
-      villaInclusion.readyForStaySubHeading ||
-      villaInclusion.readyForStayHeading ||
-      villaInclusion.readyForStayContent,
+    villaInclusion.readyForStaySubHeading ||
+    villaInclusion.readyForStayHeading ||
+    villaInclusion.readyForStayContent,
   );
   const hasWhatsIncludedSection = Boolean(
     villaInclusion.whatsIncludedSubHeading ||
-      villaInclusion.whatsIncludedHeading ||
-      villaInclusion.whatsIncludedIcons.length,
+    villaInclusion.whatsIncludedHeading ||
+    villaInclusion.whatsIncludedIcons.length,
   );
   const hasExperienceSection = Boolean(
     villaInclusion.experienceImage ||
-      villaInclusion.experienceSubHeading ||
-      villaInclusion.experienceHeading ||
-      villaInclusion.experienceContent ||
-      (villaInclusion.experienceButtonText &&
-        villaInclusion.experienceButtonUrl),
+    villaInclusion.experienceSubHeading ||
+    villaInclusion.experienceHeading ||
+    villaInclusion.experienceContent ||
+    (villaInclusion.experienceButtonText && villaInclusion.experienceButtonUrl),
   );
 
   return (
@@ -258,15 +261,17 @@ export default function VillaInclusionPage({
 
         {hasBedroomsSection && (
           <section
-            className={styles.bedroomsSection}
+            className={`section bedrooms-section ${styles.bedroomsSection}`}
             aria-labelledby={
               villaInclusion.bedroomsHeading
                 ? "villa-inclusion-bedrooms-title"
                 : undefined
             }
           >
-            <div className={styles.bedroomsInner}>
-              <VillaInclusionImageSlider images={villaInclusion.bedroomsImages} />
+            <div className={`wrap ${styles.bedroomsInner}`}>
+              <VillaInclusionImageSlider
+                images={villaInclusion.bedroomsImages}
+              />
 
               <div className={styles.bedroomsContent}>
                 {villaInclusion.bedroomsHeading && (
@@ -286,14 +291,14 @@ export default function VillaInclusionPage({
 
         {hasAdditionalChargeSection && (
           <section
-            className={styles.additionalChargeSection}
+            className={`section ${styles.additionalChargeSection}`}
             aria-labelledby={
               villaInclusion.additionalChargeHeading
                 ? "villa-inclusion-additional-charge-title"
                 : undefined
             }
           >
-            <div className={styles.additionalChargeInner}>
+            <div className={`wrap ${styles.additionalChargeInner}`}>
               <div className={styles.additionalChargeContent}>
                 {villaInclusion.additionalChargeHeading && (
                   <h2 id="villa-inclusion-additional-charge-title">
@@ -316,11 +321,11 @@ export default function VillaInclusionPage({
 
         {hasReadyForStaySection && (
           <section
-            className={styles.readyForStaySection}
+            className="section stay-cta-section"
             style={
               villaInclusion.readyForStayImage
                 ? {
-                    "--ready-for-stay-image": `url(${villaInclusion.readyForStayImage})`,
+                    "--stay-cta-image": `url(${villaInclusion.readyForStayImage})`,
                   }
                 : undefined
             }
@@ -330,19 +335,33 @@ export default function VillaInclusionPage({
                 : undefined
             }
           >
-            <div className={styles.readyForStayContent}>
+            <div className="wrap stay-cta-content">
               {villaInclusion.readyForStaySubHeading && (
-                <p className={styles.readyForStayEyebrow}>
+                <p
+                  className="eyebrow stay-cta-eyebrow"
+                  data-aos="fade-up"
+                  data-aos-delay="20"
+                >
                   {villaInclusion.readyForStaySubHeading}
                 </p>
               )}
               {villaInclusion.readyForStayHeading && (
-                <h2 id="villa-inclusion-ready-for-stay-title">
+                <h2
+                  id="getting-here-cta-title"
+                  data-aos="fade-up"
+                  data-aos-delay="50"
+                >
                   {villaInclusion.readyForStayHeading}
                 </h2>
               )}
               {villaInclusion.readyForStayContent && (
-                <p>{villaInclusion.readyForStayContent}</p>
+                <div
+                  className="stay-cta-text"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
+                  {villaInclusion.readyForStayContent}
+                </div>
               )}
             </div>
           </section>
@@ -350,17 +369,17 @@ export default function VillaInclusionPage({
 
         {hasWhatsIncludedSection && (
           <section
-            className={styles.whatsIncludedSection}
+            className={`section ${styles.whatsIncludedSection}`}
             aria-labelledby={
               villaInclusion.whatsIncludedHeading
                 ? "villa-inclusion-whats-included-title"
                 : undefined
             }
           >
-            <div className={styles.whatsIncludedInner}>
+            <div className={`wrap ${styles.whatsIncludedInner}`}>
               <div className={styles.whatsIncludedHeader}>
                 {villaInclusion.whatsIncludedSubHeading && (
-                  <p className={styles.whatsIncludedEyebrow}>
+                  <p className={`eyebrow ${styles.whatsIncludedEyebrow}`}>
                     {villaInclusion.whatsIncludedSubHeading}
                   </p>
                 )}
@@ -372,16 +391,21 @@ export default function VillaInclusionPage({
               </div>
 
               {villaInclusion.whatsIncludedIcons.length > 0 && (
-                <div className={styles.whatsIncludedGrid}>
+                <div className="location-highlights-grid whats-included-grid">
                   {villaInclusion.whatsIncludedIcons.map((item, index) => (
                     <article
-                      className={styles.whatsIncludedItem}
+                      className="location-highlight-card"
                       key={`${item.title}-${index}`}
+                      data-aos="fade-up"
+                      data-aos-delay={String(index * 100)}
                     >
                       {item.icon?.src && (
                         <img
                           src={item.icon.src}
-                          alt={item.icon.alt || (item.title ? `${item.title} icon` : "")}
+                          alt={
+                            item.icon.alt ||
+                            (item.title ? `${item.title} icon` : "")
+                          }
                         />
                       )}
                       {item.title && <h3>{item.title}</h3>}
@@ -396,39 +420,55 @@ export default function VillaInclusionPage({
 
         {hasExperienceSection && (
           <section
-            className={styles.experienceSection}
+            className="section stay-cta-section"
             style={
               villaInclusion.experienceImage
                 ? {
-                    "--experience-image": `url(${villaInclusion.experienceImage})`,
+                    "--stay-cta-image": `url(${villaInclusion.experienceImage})`,
                   }
                 : undefined
             }
             aria-labelledby={
-              villaInclusion.experienceHeading
-                ? "villa-inclusion-experience-title"
+              villaInclusion.readyForStayHeading
+                ? "villa-inclusion-ready-for-stay-title"
                 : undefined
             }
           >
-            <div className={styles.experienceContent}>
+            <div className="wrap stay-cta-content">
               {villaInclusion.experienceSubHeading && (
-                <p className={styles.experienceEyebrow}>
+                <p
+                  className="eyebrow stay-cta-eyebrow"
+                  data-aos="fade-up"
+                  data-aos-delay="20"
+                >
                   {villaInclusion.experienceSubHeading}
                 </p>
               )}
               {villaInclusion.experienceHeading && (
-                <h2 id="villa-inclusion-experience-title">
+                <h2
+                  id="getting-here-cta-title"
+                  data-aos="fade-up"
+                  data-aos-delay="50"
+                >
                   {villaInclusion.experienceHeading}
                 </h2>
               )}
               {villaInclusion.experienceContent && (
-                <p>{villaInclusion.experienceContent}</p>
+                <div
+                  className="stay-cta-text"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
+                  {villaInclusion.experienceContent}
+                </div>
               )}
-              {villaInclusion.experienceButtonText &&
-                villaInclusion.experienceButtonUrl && (
+              {villaInclusion.experienceButtonUrl &&
+                villaInclusion.experienceButtonText && (
                   <a
-                    className={styles.experienceButton}
+                    className="button button--light stay-cta-button"
                     href={villaInclusion.experienceButtonUrl}
+                    data-aos="fade-up"
+                    data-aos-delay="150"
                   >
                     {villaInclusion.experienceButtonText}
                   </a>

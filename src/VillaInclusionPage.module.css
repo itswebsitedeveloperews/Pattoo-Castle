@@ -1,5 +1,5 @@
 .bedroomsSection {
-  padding: 76px var(--container-gutter);
+  padding: 80px 0;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -9,13 +9,12 @@
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(340px, 1fr);
   gap: clamp(36px, 4vw, 64px);
-  width: min(100%, 1690px);
   margin: 0 auto;
   align-items: center;
 }
 
 .additionalChargeSection {
-  padding: 70px var(--container-gutter) 80px;
+  padding-bottom: 80px;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -59,27 +58,23 @@
 .sliderButton {
   position: absolute;
   top: 50%;
-  display: grid;
-  width: 42px;
-  height: 42px;
+  display: flex;
+  width: 48px;
+  height: 48px;
   padding: 0;
   color: var(--color-brown);
-  background: #FFFFFF;
-  border: 1px solid rgb(var(--color-black) / 0.08);
+  background: #ffffff;
+  border: 1px solid rgb(var(--color-white) / 1);
   border-radius: 50%;
-  box-shadow: 0 12px 24px rgb(var(--color-black) / 0.12);
   cursor: pointer;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
   transform: translateY(-50%);
 }
 
-.sliderButton span {
+/* .sliderButton span {
   display: block;
-  margin-top: -2px;
-  font-family: var(--font-body);
-  font-size: 32px;
-  line-height: 1;
-}
+} */
 
 .sliderButtonPrevious {
   left: 22px;
@@ -89,16 +84,12 @@
   right: 22px;
 }
 
-
 .bedroomsContent h2,
 .additionalChargeContent h2 {
   margin: 0 0 18px;
   color: var(--color-brown);
-  font-family: var(--font-display);
-  font-size: clamp(36px, 3vw, 48px);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: 1.08;
+  font-size: var(--font-size-h2);
+  max-width: 810px;
 }
 
 .richText {
@@ -111,7 +102,6 @@
 
 .richText p,
 .richText li {
-  font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
@@ -121,13 +111,20 @@
 
 .richText ul,
 .richText ol {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  column-gap: 10px;
+  row-gap: 13px;
+}
+
+.bedroomsSection ul {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 10px;
   row-gap: 13px;
-  margin: 18px 0 0;
-  padding: 0;
-  list-style: none;
 }
 
 .richText li {
@@ -206,9 +203,9 @@
 }
 
 .whatsIncludedSection {
-  padding: 76px var(--container-gutter) 86px;
+  padding: 80px 0;
   color: var(--color-brown);
-  background: var(--color-cream);
+  background: #f6eee5;
 }
 
 .whatsIncludedInner {
@@ -224,20 +221,12 @@
 .whatsIncludedEyebrow {
   margin: 0 0 13px;
   color: var(--color-brown-dark);
-  font-size: var(--font-size-small);
-  letter-spacing: var(--letter-spacing-wide);
-  line-height: var(--line-height-body);
-  text-transform: uppercase;
 }
 
 .whatsIncludedHeader h2 {
   margin: 0;
   color: var(--color-brown);
-  font-family: var(--font-display);
-  font-size: clamp(36px, 3.6vw, 48px);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-heading);
+  font-size: var(--font-size-h2);
 }
 
 .whatsIncludedGrid {
@@ -251,37 +240,23 @@
   text-align: center;
 }
 
-.whatsIncludedItem:not(:nth-child(5n + 1)) {
-  border-left: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
-}
-
-.whatsIncludedItem:nth-child(n + 6) {
-  border-top: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
-}
-
 .whatsIncludedItem img {
   display: block;
-  width: 42px;
-  height: 42px;
-  margin: 0 auto 20px;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
   object-fit: contain;
 }
 
 .whatsIncludedItem h3 {
-  margin: 0 0 12px;
+  margin: 0 0 9px;
   color: var(--color-brown);
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: 1.16;
+  font-size: var(--font-size-global-h4);
+  line-height: 1.33;
 }
 
 .whatsIncludedItem p {
-  margin: 0;
-  color: var(--color-brown-dark);
-  font-size: var(--font-size-nav);
-  line-height: 1.45;
+  line-height: 1.33;
 }
 
 .experienceSection {
@@ -386,7 +361,6 @@
   .additionalChargeContent {
     max-width: none;
   }
-
 }
 
 @media (max-width: 900px) {
@@ -478,10 +452,6 @@
     margin-bottom: 34px;
   }
 
-  .whatsIncludedHeader h2 {
-    font-size: var(--font-size-global-h3);
-  }
-
   .whatsIncludedGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -505,10 +475,6 @@
   .whatsIncludedItem {
     min-height: 190px;
     padding: 28px 18px 26px;
-  }
-
-  .whatsIncludedItem h3 {
-    font-size: 20px;
   }
 
   .experienceSection {

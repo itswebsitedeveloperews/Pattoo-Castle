@@ -66,15 +66,19 @@ function getAmenityIcon(item) {
 function getVillaDetailsContent(entry) {
   const fields = entry?.fields || {};
   const bedroomBlocks = Array.isArray(fields.bedroomBlocks)
-    ? fields.bedroomBlocks.map(getBedroomBlock).filter(
-        (item) =>
-          item.image?.src ||
-          item.title ||
-          item.content ||
-          item.contentItems.length,
-      )
+    ? fields.bedroomBlocks
+        .map(getBedroomBlock)
+        .filter(
+          (item) =>
+            item.image?.src ||
+            item.title ||
+            item.content ||
+            item.contentItems.length,
+        )
     : [];
-  const thoughtfulAmenitiesIcons = Array.isArray(fields.thoughtfulAmenitiesIconBox)
+  const thoughtfulAmenitiesIcons = Array.isArray(
+    fields.thoughtfulAmenitiesIconBox,
+  )
     ? fields.thoughtfulAmenitiesIconBox
         .map(getAmenityIcon)
         .filter((item) => item.icon?.src || item.title)
@@ -118,22 +122,22 @@ export default function VillaDetailsPage({
   const hasButton = Boolean(villaDetails.buttonText && villaDetails.buttonUrl);
   const hasBedroomSection = Boolean(
     villaDetails.bedroomSubHeading ||
-      villaDetails.bedroomHeading ||
-      villaDetails.bedroomContent ||
-      villaDetails.bedroomBlocks.length,
+    villaDetails.bedroomHeading ||
+    villaDetails.bedroomContent ||
+    villaDetails.bedroomBlocks.length,
   );
   const hasThoughtfulAmenitiesSection = Boolean(
     villaDetails.thoughtfulAmenitiesImage ||
-      villaDetails.thoughtfulAmenitiesSubHeading ||
-      villaDetails.thoughtfulAmenitiesHeading ||
-      villaDetails.thoughtfulAmenitiesIcons.length,
+    villaDetails.thoughtfulAmenitiesSubHeading ||
+    villaDetails.thoughtfulAmenitiesHeading ||
+    villaDetails.thoughtfulAmenitiesIcons.length,
   );
   const hasExperienceSection = Boolean(
     villaDetails.experienceImage?.src ||
-      villaDetails.experienceSubHeading ||
-      villaDetails.experienceHeading ||
-      villaDetails.experienceContent ||
-      (villaDetails.experienceButtonText && villaDetails.experienceButtonUrl),
+    villaDetails.experienceSubHeading ||
+    villaDetails.experienceHeading ||
+    villaDetails.experienceContent ||
+    (villaDetails.experienceButtonText && villaDetails.experienceButtonUrl),
   );
 
   return (
@@ -193,15 +197,17 @@ export default function VillaDetailsPage({
 
         {hasBedroomSection && (
           <section
-            className={styles.bedroomSection}
+            className={`section ${styles.bedroomSection}`}
             aria-labelledby={
-              villaDetails.bedroomHeading ? "villa-details-bedrooms-title" : undefined
+              villaDetails.bedroomHeading
+                ? "villa-details-bedrooms-title"
+                : undefined
             }
           >
-            <div className={styles.bedroomInner}>
+            <div className="wrap">
               <div className={styles.bedroomHeader}>
                 {villaDetails.bedroomSubHeading && (
-                  <p className={styles.bedroomEyebrow}>
+                  <p className={`eyebrow  ${styles.bedroomEyebrow}`}>
                     {villaDetails.bedroomSubHeading}
                   </p>
                 )}
@@ -259,7 +265,7 @@ export default function VillaDetailsPage({
 
         {hasThoughtfulAmenitiesSection && (
           <section
-            className={styles.thoughtfulAmenitiesSection}
+            className={`section  ${styles.thoughtfulAmenitiesSection}`}
             style={
               villaDetails.thoughtfulAmenitiesImage
                 ? {
@@ -273,10 +279,12 @@ export default function VillaDetailsPage({
                 : undefined
             }
           >
-            <div className={styles.thoughtfulAmenitiesInner}>
+            <div className={`wrap  ${styles.thoughtfulAmenitiesInner}`}>
               <div className={styles.thoughtfulAmenitiesHeader}>
                 {villaDetails.thoughtfulAmenitiesSubHeading && (
-                  <p className={styles.thoughtfulAmenitiesEyebrow}>
+                  <p
+                    className={`eyebrow  ${styles.thoughtfulAmenitiesEyebrow}`}
+                  >
                     {villaDetails.thoughtfulAmenitiesSubHeading}
                   </p>
                 )}
@@ -316,28 +324,38 @@ export default function VillaDetailsPage({
 
         {hasExperienceSection && (
           <section
-            className={styles.experienceSection}
+            className="section overview-villa-section experience-section"
             aria-labelledby={
               villaDetails.experienceHeading
                 ? "villa-details-experience-title"
                 : undefined
             }
           >
-            <div className={styles.experienceInner}>
+            <div className="wrap">
               {villaDetails.experienceImage?.src && (
-                <img
-                  className={styles.experienceImage}
-                  src={villaDetails.experienceImage.src}
-                  alt={
-                    villaDetails.experienceImage.alt ||
-                    "Pattoo Castle private escape"
-                  }
-                />
+                <div
+                  className="overview-villa-image"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
+                  <img
+                    className={styles.experienceImage}
+                    src={villaDetails.experienceImage.src}
+                    alt={
+                      villaDetails.experienceImage.alt ||
+                      "Pattoo Castle private escape"
+                    }
+                  />
+                </div>
               )}
 
-              <div className={styles.experienceContent}>
+              <div
+                className="overview-villa-content"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
                 {villaDetails.experienceSubHeading && (
-                  <p className={styles.experienceEyebrow}>
+                  <p className="eyebrow overview-villa-eyebrow">
                     {villaDetails.experienceSubHeading}
                   </p>
                 )}
@@ -352,7 +370,7 @@ export default function VillaDetailsPage({
                 {villaDetails.experienceButtonText &&
                   villaDetails.experienceButtonUrl && (
                     <a
-                      className={styles.experienceButton}
+                      className="button button--brown overview-villa-button"
                       href={villaDetails.experienceButtonUrl}
                     >
                       {villaDetails.experienceButtonText}

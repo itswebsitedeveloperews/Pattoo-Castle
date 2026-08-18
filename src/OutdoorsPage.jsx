@@ -39,6 +39,24 @@ function getRichTextListItems(value) {
   return items;
 }
 
+function getRichTextParagraphs(value) {
+  if (!value) {
+    return [];
+  }
+
+  if (typeof value === "string") {
+    return value
+      .split(/\r?\n\s*\r?\n/)
+      .map((paragraph) => paragraph.trim())
+      .filter(Boolean);
+  }
+
+  return (value.content || [])
+    .filter((node) => node?.nodeType === "paragraph")
+    .map((node) => richTextToPlainText(node).trim())
+    .filter(Boolean);
+}
+
 function getOutdoorsIcon(item) {
   const fields = item?.fields || {};
 
@@ -85,7 +103,7 @@ function getOutdoorsContent(entry) {
     outdoorsIcons,
     balconiesSubHeading: fields.balconiesSubHeading || "",
     balconiesHeading: fields.balconiesHeading || "",
-    balconiesContent: richTextToPlainText(fields.balconiesContent),
+    balconiesParagraphs: getRichTextParagraphs(fields.balconiesContent),
     balconiesImages,
     exploreSpacesSubHeading: fields.exploreSpacesSubHeading || "",
     exploreSpacesHeading: fields.exploreSpacesHeading || "",
@@ -105,23 +123,23 @@ export default function OutdoorsPage({
   const hasButton = Boolean(outdoors.buttonText && outdoors.buttonUrl);
   const hasOutdoorsSection = Boolean(
     outdoors.outdoorsImage?.src ||
-      outdoors.outdoorsSubHeading ||
-      outdoors.outdoorsHeading ||
-      outdoors.outdoorsContent ||
-      outdoors.outdoorsListItems.length ||
-      outdoors.outdoorsIcons.length,
+    outdoors.outdoorsSubHeading ||
+    outdoors.outdoorsHeading ||
+    outdoors.outdoorsContent ||
+    outdoors.outdoorsListItems.length ||
+    outdoors.outdoorsIcons.length,
   );
   const hasBalconiesSection = Boolean(
     outdoors.balconiesSubHeading ||
-      outdoors.balconiesHeading ||
-      outdoors.balconiesContent ||
-      outdoors.balconiesImages.length,
+    outdoors.balconiesHeading ||
+    outdoors.balconiesParagraphs.length ||
+    outdoors.balconiesImages.length,
   );
   const hasExploreSpacesSection = Boolean(
     outdoors.exploreSpacesSubHeading ||
-      outdoors.exploreSpacesHeading ||
-      outdoors.exploreSpacesContent ||
-      outdoors.exploreSpacesImages.length,
+    outdoors.exploreSpacesHeading ||
+    outdoors.exploreSpacesContent ||
+    outdoors.exploreSpacesImages.length,
   );
 
   return (
@@ -138,7 +156,9 @@ export default function OutdoorsPage({
                 }
               : undefined
           }
-          aria-labelledby={outdoors.bannerHeading ? "outdoors-title" : undefined}
+          aria-labelledby={
+            outdoors.bannerHeading ? "outdoors-title" : undefined
+          }
         >
           <div className="page-hero-content accommodation-hero-content">
             {outdoors.bannerSubHeading && (
@@ -175,28 +195,42 @@ export default function OutdoorsPage({
 
         {hasOutdoorsSection && (
           <section
-            className={styles.outdoorsSection}
+            className="section overview-villa-section outdoors-section"
             aria-labelledby={
               outdoors.outdoorsHeading ? "outdoors-section-title" : undefined
             }
           >
-            <div className={styles.outdoorsInner}>
+            <div className="wrap">
               {outdoors.outdoorsImage?.src && (
-                <img
-                  className={styles.outdoorsImage}
-                  src={outdoors.outdoorsImage.src}
-                  alt={outdoors.outdoorsImage.alt || "Pattoo Castle outdoor pool"}
-                />
+                <div
+                  className="overview-villa-image"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
+                  <img
+                    className={styles.outdoorsImage}
+                    src={outdoors.outdoorsImage.src}
+                    alt={
+                      outdoors.outdoorsImage.alt || "Pattoo Castle outdoor pool"
+                    }
+                  />
+                </div>
               )}
 
-              <div className={styles.outdoorsContent}>
+              <div
+                className="overview-villa-content"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
                 {outdoors.outdoorsSubHeading && (
-                  <p className={styles.outdoorsEyebrow}>
+                  <p className="eyebrow overview-villa-eyebrow">
                     {outdoors.outdoorsSubHeading}
                   </p>
                 )}
                 {outdoors.outdoorsHeading && (
-                  <h2 id="outdoors-section-title">{outdoors.outdoorsHeading}</h2>
+                  <h2 id="outdoors-section-title">
+                    {outdoors.outdoorsHeading}
+                  </h2>
                 )}
                 {outdoors.outdoorsListItems.length > 0 ? (
                   <ul className={styles.outdoorsList}>
@@ -238,28 +272,40 @@ export default function OutdoorsPage({
 
         {hasBalconiesSection && (
           <section
-            className={styles.balconiesSection}
+            className={`section ${styles.balconiesSection}`}
             aria-labelledby={
               outdoors.balconiesHeading ? "balconies-title" : undefined
             }
           >
-            <div className={styles.balconiesInner}>
-              <div className={styles.balconiesContent}>
+            <div className={`wrap ${styles.balconiesInner}`}>
+              <div
+                className={styles.balconiesContent}
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
                 {outdoors.balconiesSubHeading && (
-                  <p className={styles.balconiesEyebrow}>
+                  <p className={`eyebrow  ${styles.balconiesEyebrow}`}>
                     {outdoors.balconiesSubHeading}
                   </p>
                 )}
                 {outdoors.balconiesHeading && (
                   <h2 id="balconies-title">{outdoors.balconiesHeading}</h2>
                 )}
-                {outdoors.balconiesContent && (
-                  <p>{outdoors.balconiesContent}</p>
+                {outdoors.balconiesParagraphs.length > 0 && (
+                  <div className={styles.balconiesBody}>
+                    {outdoors.balconiesParagraphs.map((paragraph, index) => (
+                      <p key={`balconies-paragraph-${index}`}>{paragraph}</p>
+                    ))}
+                  </div>
                 )}
               </div>
 
               {outdoors.balconiesImages.length > 0 && (
-                <div className={styles.balconiesImageGrid}>
+                <div
+                  className={styles.balconiesImageGrid}
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                >
                   {outdoors.balconiesImages.slice(0, 3).map((image, index) => (
                     <img
                       className={
@@ -285,24 +331,20 @@ export default function OutdoorsPage({
 
         {hasExploreSpacesSection && (
           <section
-            className={styles.exploreSpacesSection}
+            className="section events-memories-section"
             aria-labelledby={
-              outdoors.exploreSpacesHeading
-                ? "explore-spaces-title"
-                : undefined
+              outdoors.exploreSpacesHeading ? "explore-spaces-title" : undefined
             }
           >
-            <div className={styles.exploreSpacesInner}>
-              <div className={styles.exploreSpacesHeader}>
+            <div className="wrap">
+              <div className="events-memories-header" data-aos="fade-up">
                 {outdoors.exploreSpacesSubHeading && (
-                  <p className={styles.exploreSpacesEyebrow}>
+                  <p className="eyebrow events-memories-eyebrow">
                     {outdoors.exploreSpacesSubHeading}
                   </p>
                 )}
                 {outdoors.exploreSpacesHeading && (
-                  <h2 id="explore-spaces-title">
-                    {outdoors.exploreSpacesHeading}
-                  </h2>
+                  <h2>{outdoors.exploreSpacesHeading}</h2>
                 )}
                 {outdoors.exploreSpacesContent && (
                   <p>{outdoors.exploreSpacesContent}</p>
@@ -310,19 +352,25 @@ export default function OutdoorsPage({
               </div>
 
               {outdoors.exploreSpacesImages.length > 0 && (
-                <div className={styles.exploreSpacesGrid}>
-                  {outdoors.exploreSpacesImages.slice(0, 5).map((image, index) => (
-                    <img
-                      data-aos="fade-up"
-                      data-aos-delay={String(index * 70)}
-                      src={image.src}
-                      alt={
-                        image.alt ||
-                        `Pattoo Castle outdoor space ${index + 1}`
-                      }
-                      key={`${image.src}-${index}`}
-                    />
-                  ))}
+                <div className="events-memories-grid">
+                  {outdoors.exploreSpacesImages
+                    .slice(0, 5)
+                    .map((image, index) => (
+                      <figure
+                        className="events-memories-image"
+                        data-aos="fade-up"
+                        data-aos-delay={String(index * 70)}
+                        key={`${image.src}-${index}`}
+                      >
+                        <img
+                          src={image.src}
+                          alt={
+                            image.alt ||
+                            `Pattoo Castle outdoor space ${index + 1}`
+                          }
+                        />
+                      </figure>
+                    ))}
                 </div>
               )}
             </div>

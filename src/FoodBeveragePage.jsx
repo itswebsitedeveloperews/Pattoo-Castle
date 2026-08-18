@@ -61,22 +61,20 @@ export default function FoodBeveragePage({
   const foodBeverage = getFoodBeverageContent(foodBeverageEntry);
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
-  const hasButton = Boolean(
-    foodBeverage.buttonText && foodBeverage.buttonUrl,
-  );
+  const hasButton = Boolean(foodBeverage.buttonText && foodBeverage.buttonUrl);
   const hasDiningSection = Boolean(
     foodBeverage.diningSubHeading ||
-      foodBeverage.diningHeading ||
-      foodBeverage.diningContent ||
-      foodBeverage.diningImage?.src,
+    foodBeverage.diningHeading ||
+    foodBeverage.diningContent ||
+    foodBeverage.diningImage?.src,
   );
   const hasVillaGlanceSection = Boolean(
     foodBeverage.villaGlanceHeading || foodBeverage.villaGlanceItems.length,
   );
   const hasExperienceSection = Boolean(
     foodBeverage.experienceSubHeading ||
-      foodBeverage.experienceHeading ||
-      foodBeverage.experienceCards.length,
+    foodBeverage.experienceHeading ||
+    foodBeverage.experienceCards.length,
   );
 
   return (
@@ -136,15 +134,21 @@ export default function FoodBeveragePage({
 
         {hasDiningSection && (
           <section
-            className={styles.diningSection}
+            className="section overview-villa-section outdoors-section"
             aria-labelledby={
-              foodBeverage.diningHeading ? "food-beverage-dining-title" : undefined
+              foodBeverage.diningHeading
+                ? "food-beverage-dining-title"
+                : undefined
             }
           >
-            <div className={styles.diningInner}>
-              <div className={styles.diningContent}>
+            <div className="wrap">
+              <div
+                className="overview-villa-content"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
                 {foodBeverage.diningSubHeading && (
-                  <p className={styles.diningEyebrow}>
+                  <p className="eyebrow overview-villa-eyebrow">
                     {foodBeverage.diningSubHeading}
                   </p>
                 )}
@@ -159,14 +163,20 @@ export default function FoodBeveragePage({
               </div>
 
               {foodBeverage.diningImage?.src && (
-                <img
-                  className={styles.diningImage}
-                  src={foodBeverage.diningImage.src}
-                  alt={
-                    foodBeverage.diningImage.alt ||
-                    "Food and beverage experience at Pattoo Castle"
-                  }
-                />
+                <div
+                  className="overview-villa-image"
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                >
+                  <img
+                    className={styles.diningImage}
+                    src={foodBeverage.diningImage.src}
+                    alt={
+                      foodBeverage.diningImage.alt ||
+                      "Food and beverage experience at Pattoo Castle"
+                    }
+                  />
+                </div>
               )}
             </div>
           </section>

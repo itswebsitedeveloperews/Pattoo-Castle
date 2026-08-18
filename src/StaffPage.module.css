@@ -58,10 +58,10 @@
 }
 
 .dedicatedIconItem {
-  min-width: 0;
-  padding: 0 28px;
-  border-left: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
+  border-left: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.25);
   text-align: center;
+  min-width: 0;
+  padding: 14px 24px;
 }
 
 .dedicatedIconItem:first-child {
@@ -69,22 +69,16 @@
 }
 
 .dedicatedIconItem img {
-  display: block;
-  width: 46px;
-  height: 46px;
-  margin: 0 auto 16px;
   object-fit: contain;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  display: block;
 }
-
 .dedicatedIconItem h3 {
-  max-width: 150px;
-  margin: 0 auto;
   color: var(--color-brown);
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: 1.18;
+  font-size: var(--font-size-large);
+  margin: 0;
 }
 
 .dedicatedImage {
@@ -95,14 +89,9 @@
 }
 
 .teamSection {
-  padding: 76px var(--container-gutter) 86px;
+  padding: 80px 0;
   color: var(--color-brown);
-  background: #F6EEE5;
-}
-
-.teamInner {
-  width: min(100%, 1690px);
-  margin: 0 auto;
+  background: #f6eee5;
 }
 
 .teamHeader {
@@ -123,25 +112,20 @@
 .teamHeader h2 {
   margin: 0;
   color: var(--color-brown);
-  font-family: var(--font-display);
-  font-size: clamp(36px, 3.2vw, 52px);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-heading);
+  font-size: var(--font-size-h2);
 }
 
 .teamHeader p:not(.teamEyebrow) {
   max-width: 620px;
-  margin: 20px auto 0;
+  margin: 15px auto 0;
   color: var(--color-brown-dark);
-  font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
 .teamGrid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 26px;
+  gap: 24px;
 }
 
 .teamCard {
@@ -152,25 +136,20 @@
 .teamCard img {
   display: block;
   width: 100%;
-  aspect-ratio: 0.82;
+  aspect-ratio: 0.81;
   object-fit: cover;
 }
 
 .teamCard h3 {
   margin: 18px 0 6px;
   color: var(--color-brown);
-  font-family: var(--font-display);
-  font-size: 21px;
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: 1.18;
+  font-size: var(--font-size-global-h4);
 }
 
 .teamCard p {
   margin: 0;
   color: var(--color-brown-dark);
-  font-size: var(--font-size-nav);
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 .teamRole {
@@ -232,29 +211,33 @@
 }
 
 .staffServiceList {
-  display: grid;
-  gap: 12px;
-  margin: 22px 0 0;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 13px 10px;
+  margin: 18px 0 0;
   padding: 0;
-  color: var(--color-brown-dark);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
   list-style: none;
+  display: grid;
 }
 
 .staffServiceList li {
-  position: relative;
+  margin: 0;
   padding-left: 22px;
+  position: relative;
+  line-height: var(--line-height-body);
 }
 
 .staffServiceList li::before {
-  content: "\2713";
+  color: var(--color-brown);
+  content: "✓";
   position: absolute;
   top: 0;
   left: 0;
-  color: var(--color-brown);
 }
 
+.staffServiceList li p {
+  line-height: var(--line-height-body);
+  margin: 0;
+}
 @media (max-width: 1100px) {
   .dedicatedSection,
   .teamSection,
@@ -328,16 +311,10 @@
     gap: 32px 18px;
   }
 
-  .teamCard h3 {
-    font-size: 20px;
-  }
-
   .staffServiceImage {
     aspect-ratio: 1.32;
   }
-}
 
-@media (max-width: 420px) {
   .dedicatedSection,
   .teamSection,
   .staffServiceSection {
@@ -345,21 +322,19 @@
     padding-left: 14px;
   }
 
-  .dedicatedIconGrid {
-    grid-template-columns: 1fr;
+  .dedicatedIconItem:nth-child(2n + 1) {
+    border-left: 0px;
   }
-
-  .dedicatedIconItem {
-    padding: 0;
-    border-left: 0;
-  }
-
-  .dedicatedIconItem + .dedicatedIconItem {
-    padding-top: 24px;
-    border-top: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
-  }
-
   .teamGrid {
     grid-template-columns: 1fr;
+  }
+  .dedicatedIconItem img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .teamCard img {
+    aspect-ratio: 0.96;
+    object-position: top center;
   }
 }
