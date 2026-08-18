@@ -11,6 +11,12 @@ import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 
 function renderTextNode(node, key) {
+  const textWithLineBreaks = (node.value || "")
+    .split(/\r?\n/)
+    .flatMap((line, index) =>
+      index === 0 ? [line] : [<br key={`${key}-line-break-${index}`} />, line],
+    );
+
   return (node.marks || []).reduce((value, mark, markIndex) => {
     const markKey = `${key}-${mark.type}-${markIndex}`;
 
@@ -27,7 +33,7 @@ function renderTextNode(node, key) {
     }
 
     return value;
-  }, node.value || "");
+  }, textWithLineBreaks);
 }
 
 function renderRichTextNode(node, key) {
@@ -64,6 +70,10 @@ function renderRichTextNode(node, key) {
       return <ol key={key}>{children}</ol>;
     case "list-item":
       return <li key={key}>{children}</li>;
+    case "blockquote":
+      return <blockquote key={key}>{children}</blockquote>;
+    case "hr":
+      return <hr key={key} />;
     case "hyperlink":
       return (
         <a href={node.data?.uri || "#"} key={key}>
@@ -166,7 +176,7 @@ function getLocationContent(entry) {
     jamaicaRightCards,
     locationSubHeading: fields.locationSubHeading || "",
     locationHeading: fields.locationHeading || "",
-    locationContent: richTextToPlainText(fields.locationContent),
+    locationContent: fields.locationContent || null,
     locationButtonText: fields.locationButtonText || "",
     locationButtonUrl: fields.locationButtonUrl || "",
     locationImage: getContentfulImage(fields.locationImage),
@@ -363,11 +373,11 @@ export default function LocationPage({
 
         {hasAdventureSection && (
           <section
-            className="location-adventure-section"
+            className="section stay-cta-section"
             style={
               location.adventureImage?.src
                 ? {
-                    "--location-adventure-image": `url(${location.adventureImage.src})`,
+                    "--stay-cta-image": `url(${location.adventureImage.src})`,
                   }
                 : undefined
             }
@@ -375,22 +385,34 @@ export default function LocationPage({
               location.adventureHeading ? "location-adventure-title" : undefined
             }
           >
-            <div
-              className="location-adventure-content"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
+            <div className="wrap stay-cta-content">
               {location.adventureSubHeading && (
-                <p className="eyebrow location-adventure-eyebrow">
+                <p
+                  className="eyebrow stay-cta-eyebrow"
+                  data-aos="fade-up"
+                  data-aos-delay="20"
+                >
                   {location.adventureSubHeading}
                 </p>
               )}
               {location.adventureHeading && (
-                <h2 id="location-adventure-title">
+                <h2
+                  id="location-adventure-title"
+                  data-aos="fade-up"
+                  data-aos-delay="50"
+                >
                   {location.adventureHeading}
                 </h2>
               )}
-              {location.adventureContent && <p>{location.adventureContent}</p>}
+              {location.adventureContent && (
+                <div
+                  className="stay-cta-text"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
+                  {location.adventureContent}
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -503,10 +525,7 @@ export default function LocationPage({
                 {location.jamaicaRightCards.length > 0 && (
                   <div className="location-jamaica-card-grid">
                     {location.jamaicaRightCards.map((item, index) => (
-                      <article
-                        className="location-jamaica-card"
-                        key={index}
-                      >
+                      <article className="location-jamaica-card" key={index}>
                         {item.image?.src && (
                           <img
                             src={item.image.src}
@@ -529,7 +548,7 @@ export default function LocationPage({
         )}
 
         {hasLocationSection && (
-          <section className="section location-map-section">
+          <section className="section location-map-section negril-location-section">
             <div className="wrap">
               <div
                 className="location-map-content"
@@ -544,7 +563,14 @@ export default function LocationPage({
                 {location.locationHeading && (
                   <h2>{location.locationHeading}</h2>
                 )}
-                {location.locationContent && <p>{location.locationContent}</p>}
+                {location.locationContent && (
+                  <div className="content">
+                    {renderRichText(
+                      location.locationContent,
+                      "location-map-content",
+                    )}
+                  </div>
+                )}
                 {hasLocationButton && (
                   <a
                     className="button button--brown location-map-button"
@@ -563,7 +589,10 @@ export default function LocationPage({
                 >
                   <img
                     src={location.locationImage.src}
-                    alt={location.locationImage.alt || "Pattoo Castle Negril location"}
+                    alt={
+                      location.locationImage.alt ||
+                      "Pattoo Castle Negril location"
+                    }
                   />
                 </figure>
               )}
@@ -612,17 +641,17 @@ export default function LocationPage({
         )}
 
         {hasHighlightsSection && (
-          <section className="section location-highlights-section">
+          <section className="section stay-info-section glance-section quick-highlights">
             <div className="wrap">
               {location.locationHighlightsHeading && (
                 <h2 data-aos="fade-up">{location.locationHighlightsHeading}</h2>
               )}
 
               {location.locationHighlights.length > 0 && (
-                <div className="location-highlights-grid">
+                <div className="stay-info-grid">
                   {location.locationHighlights.map((item, index) => (
                     <article
-                      className="location-highlight-card"
+                      className="stay-info-card"
                       key={index}
                       data-aos="fade-up"
                       data-aos-delay={String(index * 100)}
@@ -630,7 +659,10 @@ export default function LocationPage({
                       {item.icon?.src && (
                         <img
                           src={item.icon.src}
-                          alt={item.icon.alt || (item.title ? `${item.title} icon` : "")}
+                          alt={
+                            item.icon.alt ||
+                            (item.title ? `${item.title} icon` : "")
+                          }
                         />
                       )}
                       {item.title && <h3>{item.title}</h3>}
@@ -681,7 +713,21 @@ export default function LocationPage({
                       {item.title && <h3>{item.title}</h3>}
                       {item.content && <p>{item.content}</p>}
                       {item.buttonText && item.buttonUrl && (
-                        <a href={item.buttonUrl}>{item.buttonText}</a>
+                        <a href={item.buttonUrl}>
+                          {item.buttonText}{" "}
+                          <svg
+                            width="12"
+                            height="11"
+                            viewBox="0 0 12 11"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M6.60227 10.1818L5.72727 9.31813L9.32955 5.71585H0V4.46585H9.32955L5.72727 0.874945L6.60227 -5.53131e-05L11.6932 5.09085L6.60227 10.1818Z"
+                              fill="#3A291F"
+                            />
+                          </svg>
+                        </a>
                       )}
                     </article>
                   ))}
@@ -701,7 +747,10 @@ export default function LocationPage({
               >
                 <img
                   src={location.experienceImage.src}
-                  alt={location.experienceImage.alt || "Negril experience near Pattoo Castle"}
+                  alt={
+                    location.experienceImage.alt ||
+                    "Negril experience near Pattoo Castle"
+                  }
                 />
               </figure>
             )}
@@ -753,14 +802,29 @@ export default function LocationPage({
                       {item.image?.src && (
                         <img
                           src={item.image.src}
-                          alt={item.image.alt || `Negril nearby experience ${index + 1}`}
+                          alt={
+                            item.image.alt ||
+                            `Negril nearby experience ${index + 1}`
+                          }
                         />
                       )}
                       {item.title && <h3>{item.title}</h3>}
                       {item.content && <p>{item.content}</p>}
                       {item.buttonText && item.buttonUrl && (
                         <a className="text-link" href={item.buttonUrl}>
-                          {item.buttonText}
+                          {item.buttonText}{" "}
+                          <svg
+                            width="12"
+                            height="11"
+                            viewBox="0 0 12 11"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M6.60227 10.1818L5.72727 9.31813L9.32955 5.71585H0V4.46585H9.32955L5.72727 0.874945L6.60227 -5.53131e-05L11.6932 5.09085L6.60227 10.1818Z"
+                              fill="#3A291F"
+                            />
+                          </svg>
                         </a>
                       )}
                     </article>

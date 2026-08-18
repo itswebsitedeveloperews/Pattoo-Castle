@@ -2459,7 +2459,7 @@ body:not(.home) .site-header {
 }
 
 .location-explore-section {
-  padding: 78px 0;
+  padding: 80px 0;
   color: var(--color-brown);
   background: var(--color-cream);
   text-align: center;
@@ -2483,8 +2483,8 @@ body:not(.home) .site-header {
 
 .location-explore-grid {
   display: grid;
-  grid-template-columns: minmax(320px, 1.35fr) repeat(3, minmax(150px, 0.62fr));
-  gap: 30px 26px;
+  grid-template-columns: minmax(320px, 1.58fr) repeat(3, minmax(150px, 0.5fr));
+  gap: 30px;
   align-items: start;
 }
 
@@ -2499,7 +2499,7 @@ body:not(.home) .site-header {
 .location-explore-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 1.5 / 1;
+  aspect-ratio: 2 / 1;
   object-fit: cover;
 }
 
@@ -2515,19 +2515,15 @@ body:not(.home) .site-header {
 }
 
 .location-explore-card p {
-  max-width: 620px;
+  max-width: 730px;
   margin: 10px auto 0;
   color: var(--color-brown-dark);
-  font-size: var(--font-size-small);
   line-height: var(--line-height-body);
 }
 
 .location-explore-card:first-child h3 {
-  margin-top: 24px;
-}
-
-.location-explore-card:first-child p {
-  font-size: var(--font-size-body);
+  margin-top: 30px;
+  font-size: var(--font-size-global-h2);
 }
 
 .location-explore-card a {
@@ -2653,20 +2649,20 @@ body:not(.home) .site-header {
 .location-adventure-explore-card p {
   margin: 10px auto 0;
   color: var(--color-brown-dark);
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
 .location-jamaica-section {
-  padding: 76px 0 80px;
+  padding: 80px 0;
   color: var(--color-brown);
-  background: var(--color-cream);
+  background: var(--color-dark-cream);
 }
 
 .location-jamaica-grid {
   display: grid;
-  grid-template-columns: minmax(360px, 0.95fr) minmax(420px, 1.05fr);
-  gap: 74px;
+  grid-template-columns: minmax(360px, 1fr) minmax(360px, 1fr);
+  gap: 30px;
   align-items: start;
 }
 
@@ -2676,7 +2672,7 @@ body:not(.home) .site-header {
 }
 
 .location-jamaica-eyebrow {
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   color: var(--color-brown);
 }
 
@@ -2690,7 +2686,7 @@ body:not(.home) .site-header {
   display: grid;
   grid-template-columns: minmax(190px, 0.82fr) minmax(210px, 1fr);
   gap: 26px;
-  align-items: start;
+  align-items: center;
   margin-top: 34px;
 }
 
@@ -2708,7 +2704,6 @@ body:not(.home) .site-header {
 
 .location-jamaica-rich-text {
   color: var(--color-brown-dark);
-  font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
@@ -2730,17 +2725,17 @@ body:not(.home) .site-header {
   color: var(--color-brown);
   font-family: var(--font-display);
   font-size: var(--font-size-global-h4);
-  line-height: var(--line-height-tight);
 }
 
 .location-jamaica-rich-text p {
   color: var(--color-brown-dark);
+  margin-bottom: 24px;
 }
 
 .location-jamaica-card-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px;
+  gap: 30px;
   margin-top: 34px;
 }
 
@@ -2761,14 +2756,14 @@ body:not(.home) .site-header {
   color: var(--color-brown);
   font-family: var(--font-display);
   font-size: var(--font-size-global-h4);
-  line-height: var(--line-height-tight);
+  max-width: 380px;
 }
 
 .location-jamaica-card p {
-  margin: 10px auto 0;
+  margin: 8px auto 0;
   color: var(--color-brown-dark);
-  font-size: var(--font-size-small);
   line-height: var(--line-height-body);
+  max-width: 360px;
 }
 
 .location-map-section {
@@ -2779,9 +2774,18 @@ body:not(.home) .site-header {
 .location-map-section .wrap {
   display: grid;
   grid-template-columns: minmax(280px, 0.82fr) minmax(360px, 1.08fr);
-  gap: 86px;
+  gap: 64px;
   align-items: center;
 }
+
+.negril-location-section .wrap {
+  grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
+}
+
+.negril-location-section .location-map-content {
+  max-width: 736px;
+}
+
 .location-map-content {
   display: grid;
   justify-items: start;
@@ -2827,15 +2831,16 @@ body:not(.home) .site-header {
 }
 
 .location-history-section {
-  padding: 70px 0;
+  padding: 0 0 80px;
   color: var(--color-brown);
   background: var(--color-cream);
+  padding-top: 0 !important;
 }
 
 .location-history-grid {
   display: grid;
-  grid-template-columns: minmax(320px, 0.95fr) minmax(360px, 1.05fr);
-  gap: 58px;
+  grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
+  gap: 64px;
   align-items: start;
 }
 
@@ -2847,12 +2852,12 @@ body:not(.home) .site-header {
 .location-history-image img {
   display: block;
   width: 100%;
-  aspect-ratio: 1.45 / 1;
+  aspect-ratio: 1.6 / 1;
   object-fit: cover;
 }
 
 .location-history-content {
-  min-width: 0;
+  max-width: 736px;
 }
 
 .location-history-content h2 {
@@ -2863,7 +2868,6 @@ body:not(.home) .site-header {
 
 .location-history-rich-text {
   color: var(--color-brown-dark);
-  font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
@@ -2904,10 +2908,12 @@ body:not(.home) .site-header {
   text-align: center;
 }
 
-.location-highlights-section h2 {
+.location-highlights-section h2,
+.glance-section h2 {
   margin: 0 0 36px;
   color: var(--color-brown);
   font-size: var(--font-size-h2);
+  text-align: center;
 }
 
 .location-highlights-grid {
@@ -2992,7 +2998,7 @@ body:not(.home) .site-header {
 .location-coast-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 34px;
+  gap: 30px;
 }
 
 .location-coast-card {
@@ -3007,17 +3013,15 @@ body:not(.home) .site-header {
 }
 
 .location-coast-card h3 {
-  margin: 22px 0 0;
+  margin: 20px 0 0;
   color: var(--color-brown);
   font-family: var(--font-display);
-  font-size: var(--font-size-global-h4);
+  font-size: var(--font-size-global-h2);
 }
 
 .location-coast-card p {
-  max-width: 700px;
-  margin: 12px auto 0;
+  margin: 10px auto 0;
   color: var(--color-brown-dark);
-  font-size: var(--font-size-body);
   line-height: var(--line-height-body);
 }
 
@@ -3025,18 +3029,17 @@ body:not(.home) .site-header {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 22px;
+  margin-top: 20px;
   color: var(--color-brown);
-  font-size: var(--font-size-button-small);
-  font-weight: 500;
+  font-size: var(--font-size-body);
+  font-weight: 400;
   letter-spacing: var(--letter-spacing-small);
   line-height: var(--line-height-tight);
   text-decoration: none;
   text-transform: uppercase;
 }
 
-.location-coast-card a::after {
-  content: "\2192";
+.location-coast-card a svg {
   transition: transform 0.3s ease;
 }
 
@@ -3044,7 +3047,7 @@ body:not(.home) .site-header {
   color: var(--color-brown-darker);
 }
 
-.location-coast-card a:hover::after {
+.location-coast-card a:hover svg {
   transform: translateX(5px);
 }
 
@@ -3148,7 +3151,7 @@ body:not(.home) .site-header {
 }
 
 .location-nearby-card p {
-  margin: 12px 0 0;
+  margin: 8px 0 0;
   color: var(--color-brown-dark);
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
@@ -3161,7 +3164,7 @@ body:not(.home) .site-header {
   padding-top: 16px;
   color: var(--color-brown);
   font-size: var(--font-size-button-small);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: var(--letter-spacing-small);
   line-height: var(--line-height-tight);
   text-decoration: none;
@@ -3169,9 +3172,8 @@ body:not(.home) .site-header {
   white-space: nowrap;
 }
 
-.location-nearby-card a::after {
+.location-nearby-card a svg {
   margin-left: 8px;
-  content: "→";
   transition: all 0.4s;
 }
 
@@ -3179,7 +3181,7 @@ body:not(.home) .site-header {
   color: var(--color-brown-darker);
 }
 
-.location-nearby-card .text-link:hover::after {
+.location-nearby-card .text-link:hover svg {
   transform: translateX(6px);
 }
 .events-hero {
@@ -4158,9 +4160,12 @@ body:not(.home) .site-header {
   justify-items: center;
   align-content: start;
   min-height: 150px;
-  padding: 18px 34px 8px;
+  padding: 24px;
   text-align: center;
   border-left: 1px solid rgb(var(--color-brown-rgb) / 0.18);
+}
+.quick-highlights .stay-info-card {
+  padding: 24px 34px;
 }
 
 .stay-info-card:first-child {
@@ -4168,13 +4173,14 @@ body:not(.home) .site-header {
 }
 
 .stay-info-card img {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   margin-bottom: 16px;
   object-fit: contain;
 }
 
-.stay-info-card h2 {
+.stay-info-card h2,
+.stay-info-card h3 {
   margin: 0;
   color: var(--color-brown);
   font-size: var(--font-size-global-h4);
@@ -4620,6 +4626,11 @@ body:not(.home) .site-header {
   background: var(--color-cream);
 }
 
+.accommodation-rooms-section.experience-section,
+.quick-highlights {
+  background: var(--color-dark-cream);
+}
+
 .accommodation-rooms-header {
   display: grid;
   justify-items: center;
@@ -4669,7 +4680,7 @@ body:not(.home) .site-header {
 }
 
 .accommodation-room-card h3 {
-  margin: 20px 0 0;
+  margin: 20px 0 10px;
   color: var(--color-brown);
   font-size: var(--font-size-global-h4);
 }
@@ -4677,7 +4688,7 @@ body:not(.home) .site-header {
 .accommodation-room-card p {
   margin: 0;
   color: var(--color-brown-dark);
-  font-size: var(--font-size-body);
+  /* font-size: var(--font-size-body); */
   line-height: var(--line-height-body);
 }
 
@@ -4893,7 +4904,8 @@ body:not(.home) .site-header {
   color: var(--color-brown);
 }
 
-.outdoors-section .eyebrow {
+.outdoors-section .eyebrow,
+.food-beverage-section .eyebrow {
   margin: 0 0 24px;
 }
 .overview-villa-content h2 {
@@ -4902,9 +4914,20 @@ body:not(.home) .site-header {
   margin: 0;
   max-width: 540px;
 }
-.overview-villa-content p:not(.overview-villa-eyebrow) {
-  margin-top: 20px;
+
+.food-beverage-section h2 {
+  max-width: 100%;
+}
+
+.food-beverage-section {
+  padding-bottom: 0 !important;
+}
+
+.overview-villa-content p:not(.overview-villa-eyebrow),
+.location-map-content p:not(.overview-villa-eyebrow) {
+  margin-top: 16px;
   color: var(--color-brown-dark);
+  line-height: var(--line-height-body);
 }
 
 .overview-villa-button {
@@ -5139,6 +5162,10 @@ body:not(.home) .site-header {
 
   .events-intro-section .wrap {
     gap: 32px;
+  }
+  .location-jamaica-card p,
+  .location-jamaica-card h3 {
+    max-width: 100%;
   }
 }
 
@@ -6051,7 +6078,6 @@ body:not(.home) .site-header {
   }
 
   .stay-info-card {
-    padding: 28px 26px;
     border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18);
   }
 
@@ -6760,12 +6786,7 @@ body:not(.home) .site-header {
   .location-explore-card h3,
   .location-explore-card:first-child h3 {
     margin-top: 16px;
-    font-size: var(--font-size-global-h3);
-  }
-
-  .location-explore-card p,
-  .location-explore-card:first-child p {
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-global-h4);
   }
 
   .location-adventure-section {
@@ -6808,10 +6829,6 @@ body:not(.home) .site-header {
     font-size: var(--font-size-global-h3);
   }
 
-  .location-adventure-explore-card p {
-    font-size: var(--font-size-small);
-  }
-
   .location-jamaica-section {
     padding: 50px 0;
   }
@@ -6834,21 +6851,6 @@ body:not(.home) .site-header {
   .location-jamaica-image img,
   .location-jamaica-card img {
     aspect-ratio: 4 / 3;
-  }
-
-  .location-jamaica-rich-text,
-  .location-jamaica-card p {
-    font-size: var(--font-size-small);
-  }
-
-  .location-jamaica-card h3,
-  .location-jamaica-rich-text h1,
-  .location-jamaica-rich-text h2,
-  .location-jamaica-rich-text h3,
-  .location-jamaica-rich-text h4,
-  .location-jamaica-rich-text h5,
-  .location-jamaica-rich-text h6 {
-    font-size: var(--font-size-global-h3);
   }
 
   .location-map-section {
@@ -6896,7 +6898,8 @@ body:not(.home) .site-header {
     padding: 50px 0;
   }
 
-  .location-highlights-section h2 {
+  .location-highlights-section h2,
+  .glance-section h2 {
     margin-bottom: 24px;
   }
 
@@ -6942,23 +6945,6 @@ body:not(.home) .site-header {
   .location-coast-grid {
     grid-template-columns: 1fr;
     gap: 34px;
-  }
-
-  .location-coast-card h3 {
-    margin-top: 16px;
-    font-size: var(--font-size-global-h3);
-  }
-
-  .location-coast-card p {
-    font-size: var(--font-size-small);
-  }
-
-  .location-coast-card a {
-    margin-top: 16px;
-  }
-
-  .accommodation-room-card h3 {
-    font-size: var(--font-size-global-h3);
   }
 
   .location-experience-image img {
@@ -7186,9 +7172,13 @@ body:not(.home) .site-header {
   .stay-info-card,
   .stay-info-card:nth-child(-n + 2) {
     min-height: auto;
-    padding: 26px 18px;
+    padding: 24px 18px;
     border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18);
     border-left: 0;
+  }
+
+  .quick-highlights .stay-info-card {
+    padding: 24px 18px;
   }
 
   .stay-info-card:first-child {
@@ -7317,7 +7307,7 @@ body:not(.home) .site-header {
   }
 
   .accommodation-room-card h3 {
-    margin-top: 10px;
+    margin: 16px 0 6px;
   }
 
   .accommodation-room-card p {
@@ -7545,7 +7535,7 @@ body:not(.home) .site-header {
   .stay-info-card:nth-child(-n + 2),
   .stay-info-card:nth-child(2n + 1) {
     min-height: auto;
-    padding: 26px 18px;
+    padding: 24px 18px;
     border-left: 0;
     border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18);
   }
@@ -7723,8 +7713,15 @@ body:not(.home) .site-header {
     width: 36px;
     height: 36px;
   }
-
-  .outdoors-section .eyebrow {
+  .location-jamaica-rich-text p {
+    margin-bottom: 16px;
+  }
+  .outdoors-section .eyebrow,
+  .food-beverage-section .eyebrow {
     margin: 0 0 10px;
+  }
+  .location-adventure-explore-card p,
+  .location-explore-card p {
+    font-size: var(--font-size-medium);
   }
 }

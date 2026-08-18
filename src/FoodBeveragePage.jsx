@@ -5,6 +5,7 @@ import {
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
+  richTextToReact,
 } from "./App";
 import AosInitializer from "./AosInitializer";
 import SiteFooter from "./SiteFooter";
@@ -43,7 +44,7 @@ function getFoodBeverageContent(entry) {
     buttonUrl: fields.buttonUrl || "",
     diningSubHeading: fields.diningSubHeading || "",
     diningHeading: fields.diningHeading || "",
-    diningContent: richTextToPlainText(fields.diningContent),
+    diningContent: fields.diningContent,
     diningImage: getContentfulImage(fields.diningImage),
     villaGlanceHeading: fields.villaGlanceHeading || "",
     villaGlanceItems,
@@ -134,7 +135,7 @@ export default function FoodBeveragePage({
 
         {hasDiningSection && (
           <section
-            className="section overview-villa-section outdoors-section"
+            className="section overview-villa-section food-beverage-section"
             aria-labelledby={
               foodBeverage.diningHeading
                 ? "food-beverage-dining-title"
@@ -158,7 +159,12 @@ export default function FoodBeveragePage({
                   </h2>
                 )}
                 {foodBeverage.diningContent && (
-                  <p>{foodBeverage.diningContent}</p>
+                  <div className="content">
+                    {richTextToReact(
+                      foodBeverage.diningContent,
+                      "food-beverage-dining-content",
+                    )}
+                  </div>
                 )}
               </div>
 
@@ -184,25 +190,23 @@ export default function FoodBeveragePage({
 
         {hasVillaGlanceSection && (
           <section
-            className={styles.glanceSection}
+            className="section stay-info-section glance-section"
             aria-labelledby={
               foodBeverage.villaGlanceHeading
                 ? "food-beverage-glance-title"
                 : undefined
             }
           >
-            <div className={styles.glanceInner}>
+            <div className="wrap">
               {foodBeverage.villaGlanceHeading && (
-                <h2 id="food-beverage-glance-title">
-                  {foodBeverage.villaGlanceHeading}
-                </h2>
+                <h2 data-aos="fade-up">{foodBeverage.villaGlanceHeading}</h2>
               )}
 
               {foodBeverage.villaGlanceItems.length > 0 && (
-                <div className={styles.glanceGrid}>
+                <div className="stay-info-grid">
                   {foodBeverage.villaGlanceItems.map((item, index) => (
                     <article
-                      className={styles.glanceItem}
+                      className="stay-info-card"
                       data-aos="fade-up"
                       data-aos-delay={String(index * 70)}
                       key={`${item.title}-${index}`}
@@ -228,17 +232,17 @@ export default function FoodBeveragePage({
 
         {hasExperienceSection && (
           <section
-            className={styles.experienceSection}
+            className="section accommodation-rooms-section experience-section"
             aria-labelledby={
               foodBeverage.experienceHeading
                 ? "food-beverage-experience-title"
                 : undefined
             }
           >
-            <div className={styles.experienceInner}>
-              <div className={styles.experienceHeader}>
+            <div className="wrap">
+              <div className="accommodation-rooms-header" data-aos="fade-up">
                 {foodBeverage.experienceSubHeading && (
-                  <p className={styles.experienceEyebrow}>
+                  <p className="eyebrow accommodation-rooms-eyebrow">
                     {foodBeverage.experienceSubHeading}
                   </p>
                 )}
@@ -250,10 +254,10 @@ export default function FoodBeveragePage({
               </div>
 
               {foodBeverage.experienceCards.length > 0 && (
-                <div className={styles.experienceGrid}>
+                <div className="accommodation-rooms-grid">
                   {foodBeverage.experienceCards.map((item, index) => (
                     <article
-                      className={styles.experienceCard}
+                      className="accommodation-room-card"
                       data-aos="fade-up"
                       data-aos-delay={String(index * 80)}
                       key={`${item.title}-${index}`}
