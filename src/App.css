@@ -3170,6 +3170,7 @@ body:not(.home) .site-header {
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
+  display: none;
 }
 
 .location-nearby-card a svg {
