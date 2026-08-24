@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Slider from "react-slick";
 
 const VISIBLE_ITEM_COUNT = 4;
 const LIST_ITEM_STEP = 58;
@@ -17,12 +16,28 @@ export default function AmenitiesSlider({
 }) {
   const slides = useMemo(() => items.filter(Boolean), [items]);
   const [activeIndex, setActiveIndex] = useState(0);
-  const sliderRef = useRef(null);
+  const [slideDirection, setSlideDirection] = useState(0);
+  const swipeStartX = useRef(null);
 
   useEffect(() => {
     setActiveIndex(0);
-    sliderRef.current?.slickGoTo(0, true);
+    setSlideDirection(0);
   }, [slides]);
+
+  useEffect(() => {
+    slides.forEach((slide) => {
+      if (slide.image?.src) {
+        const image = new window.Image();
+        image.src = slide.image.src;
+      }
+    });
+  }, [slides]);
+
+  useEffect(() => {
+    if (slideDirection === 0) return undefined;
+    const timeout = window.setTimeout(() => setSlideDirection(0), 650);
+    return () => window.clearTimeout(timeout);
+  }, [activeIndex, slideDirection]);
 
   const sideImageIndex =
     slides.length > 1
@@ -40,12 +55,10 @@ export default function AmenitiesSlider({
       return;
     }
 
-    if (direction < 0) {
-      sliderRef.current?.slickPrev();
-      return;
-    }
-
-    sliderRef.current?.slickNext();
+    setSlideDirection(direction < 0 ? -1 : 1);
+    setActiveIndex((currentIndex) =>
+      getNextIndex(currentIndex, direction < 0 ? -1 : 1, slides.length),
+    );
   }
 
   function handleControlClick(event, direction) {
@@ -63,21 +76,9 @@ export default function AmenitiesSlider({
       return;
     }
 
-    sliderRef.current?.slickGoTo(index);
+    setSlideDirection(index > activeIndex ? 1 : -1);
+    setActiveIndex(index);
   }
-
-  const settings = {
-    arrows: false,
-    dots: false,
-    draggable: true,
-    infinite: slides.length > 1,
-    speed: 580,
-    slidesToScroll: 1,
-    slidesToShow: 1,
-    swipe: true,
-    touchMove: true,
-    afterChange: setActiveIndex,
-  };
 
   if (!eyebrow && !heading && slides.length === 0) {
     return null;
@@ -153,22 +154,36 @@ export default function AmenitiesSlider({
           data-aos="fade-up"
           data-aos-delay="200"
         >
-          <Slider ref={sliderRef} {...settings} className="amenities-slick">
-            {slides.map((item, index) => (
-              <div
-                className="amenities-image-slide"
-                key={`${item.title}-main-${index}`}
-              >
-                {item.image?.src && (
-                  <img
-                    src={item.image.src}
-                    alt={item.image.alt || `Pattoo Castle amenity ${index + 1}`}
-                    draggable="false"
-                  />
-                )}
-              </div>
-            ))}
-          </Slider>
+          <div
+            className={`amenities-image-stage${
+              slideDirection === 1
+                ? " is-next"
+                : slideDirection === -1
+                  ? " is-prev"
+                  : ""
+            }`}
+            onPointerDown={(event) => {
+              swipeStartX.current = event.clientX;
+            }}
+            onPointerUp={(event) => {
+              if (swipeStartX.current === null) return;
+              const distance = event.clientX - swipeStartX.current;
+              swipeStartX.current = null;
+              if (Math.abs(distance) >= 40) moveSlide(distance > 0 ? -1 : 1);
+            }}
+            onPointerCancel={() => {
+              swipeStartX.current = null;
+            }}
+          >
+            {activeItem.image?.src && (
+              <img
+                key={activeItem.image.src}
+                src={activeItem.image.src}
+                alt={activeItem.image.alt || `Pattoo Castle amenity ${activeIndex + 1}`}
+                draggable="false"
+              />
+            )}
+          </div>
         </div>
 
         <div
@@ -177,11 +192,17 @@ export default function AmenitiesSlider({
           data-aos-delay="300"
         >
           <div
-            className="amenities-side-slide"
-            key={`${sideItem.title}-side-${sideImageIndex}`}
+            className={`amenities-side-stage${
+              slideDirection === 1
+                ? " is-next"
+                : slideDirection === -1
+                  ? " is-prev"
+                  : ""
+            }`}
           >
             {sideItem.image?.src && (
               <img
+                key={sideItem.image.src}
                 src={sideItem.image.src}
                 alt={sideItem.image.alt || "Pattoo Castle amenity"}
                 draggable="false"

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Slider from "react-slick";
 
 function getSlideIndex(index, direction, totalItems) {
   return (index + direction + totalItems) % totalItems;
@@ -20,15 +19,35 @@ export default function GalleryPreviewSlider({
         .filter((image) => image?.src),
     [imageAltPrefix, images],
   );
-  const sliderRef = useRef(null);
+  const swipeStartX = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [exitingIndex, setExitingIndex] = useState(null);
   const [slideDirection, setSlideDirection] = useState(0);
 
   useEffect(() => {
     setActiveIndex(0);
+    setExitingIndex(null);
     setSlideDirection(0);
-    sliderRef.current?.slickGoTo(0, true);
   }, [slides]);
+
+  useEffect(() => {
+    slides.forEach((slide) => {
+      const image = new window.Image();
+      image.src = slide.src;
+    });
+  }, [slides]);
+
+  useEffect(() => {
+    if (slideDirection === 0) {
+      return undefined;
+    }
+
+    const timeout = window.setTimeout(() => {
+      setExitingIndex(null);
+      setSlideDirection(0);
+    }, 950);
+    return () => window.clearTimeout(timeout);
+  }, [activeIndex, slideDirection]);
 
   if (slides.length === 0) {
     return null;
@@ -43,42 +62,16 @@ export default function GalleryPreviewSlider({
       ? getSlideIndex(activeIndex, 1, slides.length)
       : activeIndex;
 
-  const settings = {
-    arrows: false,
-    dots: false,
-    draggable: true,
-    infinite: slides.length > 1,
-    speed: 520,
-    slidesToScroll: 1,
-    slidesToShow: 1,
-    swipe: true,
-    touchMove: true,
-    beforeChange: (current, next) => {
-      const direction =
-        next === current
-          ? 0
-          : next > current || (current === slides.length - 1 && next === 0)
-            ? 1
-            : -1;
-      setSlideDirection(direction);
-    },
-    afterChange: (index) => {
-      setActiveIndex(index);
-      window.setTimeout(() => setSlideDirection(0), 80);
-    },
-  };
-
   function moveSlide(direction) {
-    if (slides.length <= 1) {
+    if (slides.length <= 1 || slideDirection !== 0) {
       return;
     }
 
-    if (direction < 0) {
-      sliderRef.current?.slickPrev();
-      return;
-    }
-
-    sliderRef.current?.slickNext();
+    setExitingIndex(activeIndex);
+    setSlideDirection(direction < 0 ? -1 : 1);
+    setActiveIndex((currentIndex) =>
+      getSlideIndex(currentIndex, direction < 0 ? -1 : 1, slides.length),
+    );
   }
 
   function handleControlClick(event, direction) {
@@ -88,16 +81,16 @@ export default function GalleryPreviewSlider({
   }
 
   return (
-    <div
-      className={`gallery-preview-images${
-        slideDirection === 1
-          ? " is-next"
-          : slideDirection === -1
-            ? " is-prev"
-            : ""
-      }`}
-      data-aos="fade-up"
-    >
+    <div className="gallery-preview-reveal" data-aos="fade-up">
+      <div
+        className={`gallery-preview-images${
+          slideDirection === 1
+            ? " is-next"
+            : slideDirection === -1
+              ? " is-prev"
+              : ""
+        }`}
+      >
       <button
         aria-label="Show previous gallery image"
         className="gallery-preview-image-button gallery-preview-image-1"
@@ -128,18 +121,46 @@ export default function GalleryPreviewSlider({
         </span>
       </button>
 
-      <div className="gallery-preview-main" aria-live="polite">
-        <Slider ref={sliderRef} {...settings} className="gallery-preview-slick">
-          {slides.map((image, index) => (
-            <div className="gallery-preview-slide" key={`${image.src}-${index}`}>
-              <img
-                src={image.src}
-                alt={image.alt || `${imageAltPrefix} ${index + 1}`}
-                draggable="false"
-              />
-            </div>
-          ))}
-        </Slider>
+      <div
+        className="gallery-preview-main"
+        aria-live="polite"
+        onPointerDown={(event) => {
+          swipeStartX.current = event.clientX;
+        }}
+        onPointerUp={(event) => {
+          if (swipeStartX.current === null) {
+            return;
+          }
+
+          const distance = event.clientX - swipeStartX.current;
+          swipeStartX.current = null;
+
+          if (Math.abs(distance) >= 40) {
+            moveSlide(distance > 0 ? -1 : 1);
+          }
+        }}
+        onPointerCancel={() => {
+          swipeStartX.current = null;
+        }}
+      >
+        {exitingIndex !== null && slides[exitingIndex]?.src && (
+          <img
+            className="gallery-preview-main-image is-exiting"
+            src={slides[exitingIndex].src}
+            alt=""
+            aria-hidden="true"
+            draggable="false"
+          />
+        )}
+        <img
+          className={`gallery-preview-main-image${
+            exitingIndex !== null ? " is-entering" : ""
+          }`}
+          key={slides[activeIndex].src}
+          src={slides[activeIndex].src}
+          alt={slides[activeIndex].alt || `${imageAltPrefix} ${activeIndex + 1}`}
+          draggable="false"
+        />
       </div>
 
       <button
@@ -171,6 +192,7 @@ export default function GalleryPreviewSlider({
           </svg>
         </span>
       </button>
+      </div>
     </div>
   );
 }
