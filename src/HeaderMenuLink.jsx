@@ -97,15 +97,25 @@ export default function HeaderMenuLink({
           isOpen ? " header-menu-item--open" : ""
         }${isActive || hasActiveSubmenuItem ? " is-active" : ""}`}
       >
-        <button
-          aria-expanded={isOpen}
-          className="header-menu-toggle"
-          onClick={onToggle}
-          type="button"
-        >
-          <span>{item.name}</span>
-          <span aria-hidden="true" className="header-menu-toggle-icon" />
-        </button>
+        <div className="header-menu-row">
+          <NavigationLink
+            aria-current={isActive ? "page" : undefined}
+            className={className}
+            href={href}
+          >
+            {item.name}
+          </NavigationLink>
+
+          <button
+            aria-expanded={isOpen}
+            aria-label={`${isOpen ? "Close" : "Open"} ${item.name} submenu`}
+            className="header-menu-toggle"
+            onClick={onToggle}
+            type="button"
+          >
+            <span aria-hidden="true" className="header-menu-toggle-icon" />
+          </button>
+        </div>
 
         <div className="header-submenu">
           {subMenuItems.map((subItem, index) => {

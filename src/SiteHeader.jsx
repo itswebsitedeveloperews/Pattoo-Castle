@@ -136,7 +136,15 @@ export default function SiteHeader({ header }) {
 
             <div className="mobile-menu-panel">
               {header.menuItems.length > 0 && (
-                <nav className="mobile-nav" aria-label="Mobile navigation">
+                <nav
+                  className="mobile-nav"
+                  aria-label="Mobile navigation"
+                  onClick={(event) => {
+                    if (event.target.closest("a")) {
+                      closeMobileMenu();
+                    }
+                  }}
+                >
                   {header.menuItems.map((item, index) => (
                     <HeaderMenuLink
                       isOpen={openMobileSubmenuIndex === index}
