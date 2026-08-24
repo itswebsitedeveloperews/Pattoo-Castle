@@ -79,6 +79,7 @@ export default function GalleryFilterGrid({ items = [] }) {
 
   return (
     <section
+      id="gallerygrid"
       className="section gallery-grid-section"
       aria-label="Gallery images"
     >
