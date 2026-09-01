@@ -201,11 +201,12 @@
 .tableWrap {
   overflow-x: auto;
   padding-top: 18px;
+  scrollbar-gutter: stable;
 }
 
 .submissionsTable {
   border-collapse: collapse;
-  min-width: 860px;
+  min-width: 940px;
   table-layout: fixed;
   width: 100%;
 }
@@ -241,7 +242,7 @@
 }
 
 .submissionsTable th:nth-child(6) {
-  width: 9%;
+  width: 11%;
 }
 
 .submissionsTable td {
@@ -282,7 +283,9 @@
   font: inherit;
   font-weight: 700;
   min-height: 36px;
+  min-width: 76px;
   padding: 8px 12px;
+  white-space: nowrap;
   width: 100%;
 }
 
@@ -323,6 +326,40 @@
   white-space: pre-wrap;
 }
 
+@media (max-width: 1100px) {
+  .shell {
+    width: 100%;
+  }
+
+  .submissionsPanel {
+    padding: 18px;
+  }
+
+  .submissionsTable th:nth-child(1) {
+    width: 56px;
+  }
+
+  .submissionsTable th:nth-child(2) {
+    width: 210px;
+  }
+
+  .submissionsTable th:nth-child(3) {
+    width: 210px;
+  }
+
+  .submissionsTable th:nth-child(4) {
+    width: 250px;
+  }
+
+  .submissionsTable th:nth-child(5) {
+    width: 170px;
+  }
+
+  .submissionsTable th:nth-child(6) {
+    width: 100px;
+  }
+}
+
 @media (max-width: 760px) {
   .page {
     padding: 24px 14px;
@@ -350,6 +387,7 @@
 
   .tableWrap {
     overflow-x: visible;
+    scrollbar-gutter: auto;
   }
 
   .submissionsTable,
