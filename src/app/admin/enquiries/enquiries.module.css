@@ -221,23 +221,27 @@
 }
 
 .submissionsTable th:nth-child(1) {
-  width: 22%;
+  width: 6%;
 }
 
 .submissionsTable th:nth-child(2) {
-  width: 24%;
+  width: 21%;
 }
 
 .submissionsTable th:nth-child(3) {
-  width: 26%;
+  width: 22%;
 }
 
 .submissionsTable th:nth-child(4) {
-  width: 18%;
+  width: 25%;
 }
 
 .submissionsTable th:nth-child(5) {
-  width: 10%;
+  width: 17%;
+}
+
+.submissionsTable th:nth-child(6) {
+  width: 9%;
 }
 
 .submissionsTable td {
@@ -257,6 +261,11 @@
 
 .submissionsTable a {
   color: #007c7a;
+  font-weight: 700;
+}
+
+.sequenceCell {
+  color: #8b5a2b;
   font-weight: 700;
 }
 

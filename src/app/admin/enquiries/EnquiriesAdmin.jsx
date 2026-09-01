@@ -255,6 +255,7 @@ export default function EnquiriesAdmin() {
                   <table className={styles.submissionsTable}>
                     <thead>
                       <tr>
+                        <th scope="col">#</th>
                         <th scope="col">Submitted</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
@@ -263,13 +264,19 @@ export default function EnquiriesAdmin() {
                       </tr>
                     </thead>
                     <tbody>
-                      {activeForm.submissions.map((submission) => {
+                      {activeForm.submissions.map((submission, index) => {
                         const isExpanded = Boolean(expandedRows[submission.id]);
                         const detailsId = `submission-details-${submission.id}`;
 
                         return (
                           <Fragment key={submission.id}>
                             <tr className={styles.tableRow}>
+                              <td
+                                className={styles.sequenceCell}
+                                data-label="#"
+                              >
+                                {index + 1}
+                              </td>
                               <td data-label="Submitted">
                                 {formatDate(submission.createdAt)}
                               </td>
@@ -313,7 +320,7 @@ export default function EnquiriesAdmin() {
                                 className={styles.detailsRow}
                                 id={detailsId}
                               >
-                                <td colSpan={5}>
+                                <td colSpan={6}>
                                   <dl className={styles.fields}>
                                     {getVisibleFields(submission.data).map(
                                       ([key, value]) => (
