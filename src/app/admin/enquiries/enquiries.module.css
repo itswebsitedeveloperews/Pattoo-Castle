@@ -198,41 +198,93 @@
   padding: 24px 0 4px;
 }
 
-.submissionList {
-  display: grid;
-  gap: 14px;
+.tableWrap {
+  overflow-x: auto;
   padding-top: 18px;
 }
 
-.submission {
-  border: 1px solid #e8ded3;
-  border-radius: 8px;
-  padding: 16px;
+.submissionsTable {
+  border-collapse: collapse;
+  min-width: 860px;
+  table-layout: fixed;
+  width: 100%;
 }
 
-.submissionHeader {
-  align-items: start;
-  display: flex;
-  gap: 18px;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.submissionHeader h3 {
-  font-size: 18px;
-  margin: 0 0 4px;
-}
-
-.submissionHeader p {
+.submissionsTable th {
+  background: #f7f4ef;
+  border-bottom: 1px solid #ded7cd;
   color: #6e665d;
-  font-size: 13px;
-  margin: 0;
+  font-size: 12px;
+  padding: 12px 14px;
+  text-align: left;
+  text-transform: uppercase;
 }
 
-.submissionHeader a {
+.submissionsTable th:nth-child(1) {
+  width: 22%;
+}
+
+.submissionsTable th:nth-child(2) {
+  width: 24%;
+}
+
+.submissionsTable th:nth-child(3) {
+  width: 26%;
+}
+
+.submissionsTable th:nth-child(4) {
+  width: 18%;
+}
+
+.submissionsTable th:nth-child(5) {
+  width: 10%;
+}
+
+.submissionsTable td {
+  border-bottom: 1px solid #ebe4da;
+  padding: 14px;
+  vertical-align: middle;
+}
+
+.tableRow:hover td {
+  background: #fbf9f5;
+}
+
+.submissionsTable td,
+.submissionsTable a {
+  overflow-wrap: anywhere;
+}
+
+.submissionsTable a {
   color: #007c7a;
   font-weight: 700;
-  overflow-wrap: anywhere;
+}
+
+.muted {
+  color: #8a837a;
+}
+
+.detailToggle {
+  background: #2d5f52;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  min-height: 36px;
+  padding: 8px 12px;
+  width: 100%;
+}
+
+.detailToggle[aria-expanded="true"] {
+  background: #24211e;
+}
+
+.detailsRow td {
+  background: #fbf9f5;
+  border-bottom: 1px solid #d8cbbd;
+  padding: 16px;
 }
 
 .fields {
@@ -268,8 +320,7 @@
   }
 
   .header,
-  .panelHeader,
-  .submissionHeader {
+  .panelHeader {
     align-items: stretch;
     flex-direction: column;
   }
@@ -286,5 +337,66 @@
   .tabs,
   .fields {
     grid-template-columns: 1fr;
+  }
+
+  .tableWrap {
+    overflow-x: visible;
+  }
+
+  .submissionsTable,
+  .submissionsTable thead,
+  .submissionsTable tbody,
+  .submissionsTable tr,
+  .submissionsTable td {
+    display: block;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .submissionsTable thead {
+    display: none;
+  }
+
+  .tableRow {
+    border: 1px solid #e8ded3;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .submissionsTable td {
+    align-items: start;
+    border-bottom: 1px solid #f0e9df;
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 112px minmax(0, 1fr);
+    padding: 10px 12px;
+  }
+
+  .submissionsTable td::before {
+    color: #736b62;
+    content: attr(data-label);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .detailsRow {
+    margin: -10px 0 10px;
+  }
+
+  .detailsRow td {
+    border: 1px solid #e8ded3;
+    border-radius: 0 0 8px 8px;
+    display: block;
+  }
+
+  .detailsRow td::before {
+    content: "";
+    display: none;
+  }
+
+  .detailToggle {
+    width: auto;
   }
 }

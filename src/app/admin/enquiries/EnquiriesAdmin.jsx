@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import styles from "./enquiries.module.css";
 
 const FIELD_LABELS = {
@@ -84,6 +84,7 @@ export default function EnquiriesAdmin() {
   const [savedPassword, setSavedPassword] = useState("");
   const [forms, setForms] = useState([]);
   const [activeFormName, setActiveFormName] = useState("contact");
+  const [expandedRows, setExpandedRows] = useState({});
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
 
@@ -151,7 +152,20 @@ export default function EnquiriesAdmin() {
     setSavedPassword("");
     setPassword("");
     setStatus("idle");
+    setExpandedRows({});
     sessionStorage.removeItem("pattoo-enquiries-password");
+  }
+
+  function handleTabChange(formName) {
+    setActiveFormName(formName);
+    setExpandedRows({});
+  }
+
+  function toggleSubmission(submissionId) {
+    setExpandedRows((currentRows) => ({
+      ...currentRows,
+      [submissionId]: !currentRows[submissionId],
+    }));
   }
 
   return (
@@ -218,7 +232,7 @@ export default function EnquiriesAdmin() {
                   aria-selected={form.name === activeForm.name}
                   className={styles.tab}
                   key={form.name}
-                  onClick={() => setActiveFormName(form.name)}
+                  onClick={() => handleTabChange(form.name)}
                   role="tab"
                   type="button"
                 >
@@ -237,35 +251,87 @@ export default function EnquiriesAdmin() {
               {activeForm.submissions.length === 0 && status !== "loading" ? (
                 <p className={styles.empty}>No submissions found for this form.</p>
               ) : (
-                <div className={styles.submissionList}>
-                  {activeForm.submissions.map((submission) => (
-                    <article className={styles.submission} key={submission.id}>
-                      <div className={styles.submissionHeader}>
-                        <div>
-                          <h3>
-                            {submission.name ||
-                              submission.email ||
-                              `Submission #${submission.number || submission.id}`}
-                          </h3>
-                          <p>{formatDate(submission.createdAt)}</p>
-                        </div>
-                        {submission.email && (
-                          <a href={`mailto:${submission.email}`}>
-                            {submission.email}
-                          </a>
-                        )}
-                      </div>
+                <div className={styles.tableWrap}>
+                  <table className={styles.submissionsTable}>
+                    <thead>
+                      <tr>
+                        <th scope="col">Submitted</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {activeForm.submissions.map((submission) => {
+                        const isExpanded = Boolean(expandedRows[submission.id]);
+                        const detailsId = `submission-details-${submission.id}`;
 
-                      <dl className={styles.fields}>
-                        {getVisibleFields(submission.data).map(([key, value]) => (
-                          <div className={styles.field} key={key}>
-                            <dt>{formatFieldName(key)}</dt>
-                            <dd>{formatValue(value)}</dd>
-                          </div>
-                        ))}
-                      </dl>
-                    </article>
-                  ))}
+                        return (
+                          <Fragment key={submission.id}>
+                            <tr className={styles.tableRow}>
+                              <td data-label="Submitted">
+                                {formatDate(submission.createdAt)}
+                              </td>
+                              <td data-label="Name">
+                                <strong>
+                                  {submission.name ||
+                                    `Submission #${
+                                      submission.number || submission.id
+                                    }`}
+                                </strong>
+                              </td>
+                              <td data-label="Email">
+                                {submission.email ? (
+                                  <a href={`mailto:${submission.email}`}>
+                                    {submission.email}
+                                  </a>
+                                ) : (
+                                  <span className={styles.muted}>Not provided</span>
+                                )}
+                              </td>
+                              <td data-label="Phone">
+                                {submission.phone || (
+                                  <span className={styles.muted}>Not provided</span>
+                                )}
+                              </td>
+                              <td data-label="Details">
+                                <button
+                                  aria-controls={detailsId}
+                                  aria-expanded={isExpanded}
+                                  className={styles.detailToggle}
+                                  onClick={() => toggleSubmission(submission.id)}
+                                  type="button"
+                                >
+                                  {isExpanded ? "Hide" : "View"}
+                                </button>
+                              </td>
+                            </tr>
+
+                            {isExpanded && (
+                              <tr
+                                className={styles.detailsRow}
+                                id={detailsId}
+                              >
+                                <td colSpan={5}>
+                                  <dl className={styles.fields}>
+                                    {getVisibleFields(submission.data).map(
+                                      ([key, value]) => (
+                                        <div className={styles.field} key={key}>
+                                          <dt>{formatFieldName(key)}</dt>
+                                          <dd>{formatValue(value)}</dd>
+                                        </div>
+                                      ),
+                                    )}
+                                  </dl>
+                                </td>
+                              </tr>
+                            )}
+                          </Fragment>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
               )}
             </section>
