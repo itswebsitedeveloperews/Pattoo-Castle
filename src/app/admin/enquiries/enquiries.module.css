@@ -8,6 +8,7 @@
 .shell {
   width: min(1180px, 100%);
   margin: 0 auto;
+  min-width: 0;
 }
 
 .header {
@@ -110,6 +111,7 @@
 .dashboard {
   display: grid;
   gap: 18px;
+  min-width: 0;
 }
 
 .summary {
@@ -144,6 +146,7 @@
   display: flex;
   justify-content: space-between;
   min-height: 58px;
+  min-width: 0;
   padding: 12px 14px;
   text-align: left;
 }
@@ -171,6 +174,7 @@
 }
 
 .submissionsPanel {
+  min-width: 0;
   padding: 20px;
 }
 
@@ -199,6 +203,8 @@
 }
 
 .tableWrap {
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
   padding-top: 18px;
   scrollbar-gutter: stable;
@@ -360,7 +366,7 @@
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .page {
     padding: 24px 14px;
   }
