@@ -1,7 +1,6 @@
 "use client";
 
 import { Fragment, useEffect, useMemo, useState } from "react";
-import logo from "../../../assets/patto-logo.svg";
 import styles from "./enquiries.module.css";
 
 const FIELD_LABELS = {
@@ -30,8 +29,6 @@ const FIELD_LABELS = {
   state: "State",
   title: "Title",
 };
-
-const logoSrc = typeof logo === "string" ? logo : logo.src;
 
 function formatDate(value) {
   if (!value) {
@@ -175,16 +172,9 @@ export default function EnquiriesAdmin() {
     <main className={styles.page}>
       <section className={styles.shell} aria-labelledby="enquiries-title">
         <div className={styles.header}>
-          <div className={styles.brandBlock}>
-            <img
-              className={styles.logo}
-              src={logoSrc}
-              alt="Pattoo Castle"
-            />
-            <div>
-              <p className={styles.eyebrow}>Pattoo Castle Admin</p>
-              <h1 id="enquiries-title">Form Enquiries</h1>
-            </div>
+          <div>
+            <p className={styles.eyebrow}>Pattoo Castle Admin</p>
+            <h1 id="enquiries-title">Form Enquiries</h1>
           </div>
 
           {savedPassword && (
