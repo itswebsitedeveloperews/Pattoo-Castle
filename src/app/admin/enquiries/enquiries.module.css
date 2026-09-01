@@ -1,0 +1,290 @@
+.page {
+  min-height: 100vh;
+  background: #f4f1ec;
+  color: #24211e;
+  padding: 40px 18px;
+}
+
+.shell {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  color: #007c7a;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.header h1 {
+  font-size: 36px;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.headerActions,
+.passwordRow {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.loginPanel,
+.submissionsPanel,
+.summary {
+  background: #fff;
+  border: 1px solid #ded7cd;
+  border-radius: 8px;
+  box-shadow: 0 18px 40px rgba(40, 33, 27, 0.08);
+}
+
+.loginPanel {
+  max-width: 520px;
+  padding: 24px;
+}
+
+.loginPanel label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.loginPanel input {
+  border: 1px solid #cfc7bc;
+  border-radius: 6px;
+  color: #24211e;
+  flex: 1;
+  font: inherit;
+  min-height: 44px;
+  min-width: 0;
+  padding: 10px 12px;
+}
+
+.primaryButton,
+.secondaryButton,
+.tab {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.primaryButton,
+.secondaryButton {
+  border-radius: 6px;
+  font-weight: 700;
+  min-height: 42px;
+  padding: 10px 16px;
+}
+
+.primaryButton {
+  background: #2d5f52;
+  color: #fff;
+}
+
+.secondaryButton {
+  background: #24211e;
+  color: #fff;
+}
+
+.error {
+  background: #fff4f0;
+  border: 1px solid #e2a18e;
+  border-radius: 8px;
+  color: #8a2b16;
+  margin: 16px 0;
+  padding: 12px 14px;
+}
+
+.dashboard {
+  display: grid;
+  gap: 18px;
+}
+
+.summary {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 20px;
+}
+
+.summary span {
+  color: #5e5850;
+  font-size: 14px;
+}
+
+.summary strong {
+  color: #8b5a2b;
+  font-size: 30px;
+}
+
+.tabs {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tab {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #ded7cd;
+  border-radius: 8px;
+  color: #24211e;
+  display: flex;
+  justify-content: space-between;
+  min-height: 58px;
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.tab[aria-selected="true"] {
+  background: #2d5f52;
+  border-color: #2d5f52;
+  color: #fff;
+}
+
+.tab span {
+  font-weight: 700;
+}
+
+.tab strong {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  min-width: 34px;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+.tab[aria-selected="true"] strong {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.submissionsPanel {
+  padding: 20px;
+}
+
+.panelHeader {
+  align-items: end;
+  border-bottom: 1px solid #ebe4da;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding-bottom: 16px;
+}
+
+.panelHeader h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.panelHeader p,
+.empty {
+  color: #5e5850;
+  margin: 0;
+}
+
+.empty {
+  padding: 24px 0 4px;
+}
+
+.submissionList {
+  display: grid;
+  gap: 14px;
+  padding-top: 18px;
+}
+
+.submission {
+  border: 1px solid #e8ded3;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.submissionHeader {
+  align-items: start;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.submissionHeader h3 {
+  font-size: 18px;
+  margin: 0 0 4px;
+}
+
+.submissionHeader p {
+  color: #6e665d;
+  font-size: 13px;
+  margin: 0;
+}
+
+.submissionHeader a {
+  color: #007c7a;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.fields {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.field {
+  background: #faf8f5;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.field dt {
+  color: #736b62;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.field dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding: 24px 14px;
+  }
+
+  .header,
+  .panelHeader,
+  .submissionHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .header h1 {
+    font-size: 30px;
+  }
+
+  .headerActions,
+  .passwordRow {
+    align-items: stretch;
+  }
+
+  .tabs,
+  .fields {
+    grid-template-columns: 1fr;
+  }
+}
