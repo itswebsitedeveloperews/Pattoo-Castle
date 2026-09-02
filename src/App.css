@@ -89,7 +89,7 @@ body:not(.home) .site-header {
 .scroll-cue {
   color: rgb(var(--color-white));
   font-size: var(--font-size-small);
-  letter-spacing: 19%;
+  letter-spacing: 10%;
   font-family: inherit;
   text-decoration: none;
   text-transform: uppercase;
@@ -550,6 +550,12 @@ body:not(.home) .site-header {
   letter-spacing: var(--letter-spacing-small);
 }
 
+.hero-button svg {
+  flex: 0 0 auto;
+  height: 18px;
+  width: 18px;
+}
+
 .hero-button--primary {
   background: var(--color-cream);
   border-color: rgb(var(--color-white));
@@ -563,6 +569,20 @@ body:not(.home) .site-header {
 .hero-button--primary:hover {
   background: transparent;
   color: rgb(var(--color-white)) !important;
+}
+.primary-nav .enquire-link {
+    background: var(--color-cream);
+    border-color: rgb(var(--color-white));
+    color: var(--color-brown-dark);
+    border-radius: 3px;
+    min-width: 198px;
+    min-height: 48px;
+    padding: 0 24px;
+}
+
+.primary-nav .enquire-link:hover {
+    background: none;
+    color: rgb(var(--color-white)) !important;
 }
 
 .hero-button--secondary {
