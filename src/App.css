@@ -209,7 +209,7 @@ body:not(.home) .site-header {
   font-size: 14px;
   gap: 12px;
   justify-content: center;
-  letter-spacing: 0;
+  letter-spacing: 2px;
   line-height: var(--line-height-tight);
   text-decoration: none;
   text-transform: uppercase;
@@ -520,36 +520,41 @@ body:not(.home) .site-header {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 24px;
+  gap: 28px;
   margin-top: 6px;
 }
 
-.hero-actions a {
-  min-width: 198px;
+.hero-button {
+  gap: 10px;
+  letter-spacing: var(--letter-spacing-small);
 }
 
-.hero-actions a:first-child {
+.hero-button--primary {
   background: rgb(var(--color-white));
   border-color: rgb(var(--color-white));
+  border-radius: 3px;
   color: var(--color-brown-dark);
+  min-height: 48px;
+  min-width: 198px;
+  padding: 0 24px;
 }
 
-.hero-actions a:first-child:hover {
+.hero-button--primary:hover {
   background: transparent;
   color: rgb(var(--color-white)) !important;
 }
 
-.hero-actions a:nth-child(2) {
+.hero-button--secondary {
   background: transparent;
   border-color: transparent transparent rgb(var(--color-white) / 0.56);
   border-radius: 0;
   color: rgb(var(--color-white));
+  min-height: 36px;
   min-width: 0;
-  padding-left: 0;
-  padding-right: 0;
+  padding: 0 0 8px;
 }
 
-.hero-actions a:nth-child(2):hover {
+.hero-button--secondary:hover {
   background: transparent;
   border-color: transparent transparent var(--golden-sand);
   color: var(--golden-sand) !important;
@@ -6364,7 +6369,7 @@ body:not(.home) .site-header {
     margin-top: 4px;
   }
 
-  .hero-actions a:first-child {
+  .hero-button--primary {
     min-width: 220px;
   }
 
