@@ -42,6 +42,20 @@ function getIsActive(pathname, href) {
   );
 }
 
+function getMenuSlug(item) {
+  const normalizedPath = normalizePath(getInternalHref(item.url || ""));
+  const value =
+    normalizedPath && normalizedPath !== "/"
+      ? normalizedPath.split("/").filter(Boolean).pop()
+      : item.name;
+
+  return String(value || "menu")
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function NavigationLink({ children, className, href, ...props }) {
   const internalHref = getInternalHref(href);
 
@@ -72,6 +86,8 @@ export default function HeaderMenuLink({
     ? item.subMenuItems
     : [];
   const hasSubmenu = subMenuItems.length > 0;
+  const isMegaMenu = Boolean(item.megaMenu);
+  const menuSlug = getMenuSlug(item);
   const isActive = getIsActive(pathname, href);
   const hasActiveSubmenuItem = subMenuItems.some((subItem) =>
     getIsActive(pathname, subItem.url || "#"),
@@ -141,6 +157,8 @@ export default function HeaderMenuLink({
   return (
     <div
       className={`header-menu-item header-menu-item--has-submenu${
+        isMegaMenu ? " header-menu-item--mega" : ""
+      }${
         isActive || hasActiveSubmenuItem ? " is-active" : ""
       }`}
     >
@@ -153,23 +171,84 @@ export default function HeaderMenuLink({
         <span aria-hidden="true" className="header-menu-caret" />
       </NavigationLink>
 
-      <div className="header-submenu">
-        {subMenuItems.map((subItem, index) => {
-          const subHref = subItem.url || "#";
-          const isSubItemActive = getIsActive(pathname, subHref);
+      {isMegaMenu ? (
+        <div
+          className={`header-submenu header-submenu--mega header-megamenu-${menuSlug}${
+            item.megaMenuImage?.src ? "" : " header-submenu--mega-no-media"
+          }`}
+        >
+          {item.megaMenuImage?.src && (
+            <div className="mega-menu-media">
+              <img
+                src={item.megaMenuImage.src}
+                alt={item.megaMenuImage.alt || item.name}
+              />
+              <span>{item.megaMenuImage.alt || item.megaMenuTitle || item.name}</span>
+            </div>
+          )}
 
-          return (
-            <NavigationLink
-              aria-current={isSubItemActive ? "page" : undefined}
-              className={isSubItemActive ? "is-active" : undefined}
-              href={subHref}
-              key={`${subItem.name}-${index}`}
-            >
-              {subItem.name}
-            </NavigationLink>
-          );
-        })}
-      </div>
+          <div className="mega-menu-content">
+            <p>{item.name}</p>
+            <h2>{item.megaMenuTitle || `Explore ${item.name}`}</h2>
+            <div className="mega-menu-links">
+              {subMenuItems.map((subItem, index) => {
+                const subHref = subItem.url || "#";
+                const isSubItemActive = getIsActive(pathname, subHref);
+
+                return (
+                  <NavigationLink
+                    aria-current={isSubItemActive ? "page" : undefined}
+                    className={isSubItemActive ? "is-active" : undefined}
+                    href={subHref}
+                    key={`${subItem.name}-${index}`}
+                  >
+                    <span className="mega-menu-number">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span>{subItem.name}</span>
+                    <span aria-hidden="true" className="mega-menu-arrow">
+                     <svg
+                        aria-hidden="true"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6 18L18 6M18 6H9M18 6V15"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </NavigationLink>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="header-submenu">
+          {subMenuItems.map((subItem, index) => {
+            const subHref = subItem.url || "#";
+            const isSubItemActive = getIsActive(pathname, subHref);
+
+            return (
+              <NavigationLink
+                aria-current={isSubItemActive ? "page" : undefined}
+                className={isSubItemActive ? "is-active" : undefined}
+                href={subHref}
+                key={`${subItem.name}-${index}`}
+              >
+                {subItem.name}
+              </NavigationLink>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

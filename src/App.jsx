@@ -398,6 +398,13 @@ export function getHeaderContent(entry) {
             : [];
 
           return {
+            megaMenuImage: getContentfulImage(itemFields.megaMenuImage),
+            megaMenuTitle: itemFields.megaMenuTitle || "",
+            megaMenu: Boolean(
+              itemFields.megaMenu ||
+                itemFields.megaMenuImage ||
+                itemFields.megaMenuTitle,
+            ),
             name: itemFields.menuName || "",
             url: itemFields.menuUrl || "",
             subMenuItems,
