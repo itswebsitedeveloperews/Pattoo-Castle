@@ -340,14 +340,14 @@ body:not(.home) .site-header {
 
 .primary-nav .header-submenu--mega .mega-menu-links a {
   display: grid;
-  grid-template-columns: 34px minmax(0, 1fr) 24px;
+  grid-template-columns: auto minmax(0, 1fr) 24px;
   align-items: center;
   gap: 12px;
   min-height: 58px;
   padding: 0 12px 0 16px;
   border-bottom: 1px solid rgb(var(--color-brown-rgb) / 0.16);
   color: var(--color-brown-dark);
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 1px;
   white-space: normal;
 }
