@@ -218,7 +218,7 @@ body:not(.home) .site-header {
 }
 
 .primary-nav .header-menu-item--mega .header-submenu--mega {
-  grid-template-columns: minmax(340px, 450px) minmax(500px, 620px);
+  grid-template-columns: minmax(220px,450px) minmax(510px,620px);
   gap: 0;
   left: 50%;
   /* min-width: min(1060px, calc(100vw - 80px)); */
@@ -391,9 +391,13 @@ form.contact-planning-form.aos-init.aos-animate {
 }
 
 .mega-menu-arrow {
-  justify-self: end;
-  font-size: 18px;
-  line-height: 1;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    font-size: 18px;
+    line-height: 1;
+    width: 30px;
+    height: 30px;
 }
 .header-megamenu-overview .mega-menu-links,
 .header-megamenu-events .mega-menu-links {
