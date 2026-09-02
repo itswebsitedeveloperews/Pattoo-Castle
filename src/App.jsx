@@ -391,6 +391,7 @@ export function getHeaderContent(entry) {
 
                   return {
                     name: subItemFields.menuName || "",
+                    subName: subItemFields.menuSubName || "",
                     url: subItemFields.menuUrl || "",
                   };
                 })

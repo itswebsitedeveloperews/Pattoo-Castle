@@ -347,7 +347,7 @@ body:not(.home) .site-header {
   border-bottom: 1px solid rgb(var(--color-brown-rgb) / 0.16);
   color: var(--color-brown-dark);
   font-size: 12px;
-  letter-spacing: var(--letter-spacing-small);
+  letter-spacing: 1px;
   white-space: normal;
 }
 
@@ -356,10 +356,37 @@ body:not(.home) .site-header {
   background: #ebe1d8;
   color: var(--color-brown-dark);
 }
-
+form.contact-planning-form.aos-init.aos-animate {
+    border: 1px solid rgb(var(--color-brown-rgb) / .22);
+    background: var(--color-cream);
+    box-shadow: 0 12px 28px rgb(var(--color-black) / .08);
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 24px 24px 26px;
+}
 .mega-menu-number {
   color: #c3996c;
   font-weight: 600;
+}
+
+.mega-menu-link-copy {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.mega-menu-link-subname {
+  color: rgb(var(--color-brown-rgb) / 0.55);
+  font-size: 13px;
+  letter-spacing: 0;
+  line-height: 1.35;
+  text-transform: none;
+}
+
+.primary-nav .header-submenu--mega .mega-menu-links a:hover .mega-menu-link-subname,
+.primary-nav .header-submenu--mega .mega-menu-links a.is-active .mega-menu-link-subname {
+  color: rgb(var(--color-brown-rgb) / 0.66);
 }
 
 .mega-menu-arrow {
@@ -2146,7 +2173,7 @@ body:not(.home) .site-header {
 }
 
 .contact-form-field label {
-  color: rgb(var(--color-white) / 0.86);
+  color: var(--color-brown);
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.02em;

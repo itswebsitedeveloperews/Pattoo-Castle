@@ -205,7 +205,14 @@ export default function HeaderMenuLink({
                     <span className="mega-menu-number">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <span>{subItem.name}</span>
+                    <span className="mega-menu-link-copy">
+                      <span>{subItem.name}</span>
+                      {subItem.subName && (
+                        <span className="mega-menu-link-subname">
+                          {subItem.subName}
+                        </span>
+                      )}
+                    </span>
                     <span aria-hidden="true" className="mega-menu-arrow">
                      <svg
                         aria-hidden="true"
