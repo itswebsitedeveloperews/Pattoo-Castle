@@ -119,10 +119,10 @@ body:not(.home) .site-header {
   transition: transform 180ms ease;
 }
 
-.primary-nav .header-menu-item--has-submenu:hover .header-menu-caret,
+/* .primary-nav .header-menu-item--has-submenu:hover .header-menu-caret,
 .primary-nav .header-menu-item--has-submenu:focus-within .header-menu-caret {
   transform: translateY(1px) rotate(225deg);
-}
+} */
 
 .header-menu-toggle {
   padding: 0;
