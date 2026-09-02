@@ -221,7 +221,7 @@ body:not(.home) .site-header {
   grid-template-columns: minmax(340px, 450px) minmax(500px, 620px);
   gap: 0;
   left: 50%;
-  min-width: min(1060px, calc(100vw - 80px));
+  /* min-width: min(1060px, calc(100vw - 80px)); */
   overflow: visible;
   padding: 0;
   border-radius: 14px;
