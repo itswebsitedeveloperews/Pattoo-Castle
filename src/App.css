@@ -344,7 +344,7 @@ body:not(.home) .site-header {
   align-items: center;
   gap: 12px;
   min-height: 58px;
-  padding: 0 12px 0 16px;
+  padding: 16px 12px 16px 16px;
   border-bottom: 1px solid rgb(var(--color-brown-rgb) / 0.16);
   color: var(--color-brown-dark);
   font-size: 14px;
@@ -395,7 +395,8 @@ form.contact-planning-form.aos-init.aos-animate {
   font-size: 18px;
   line-height: 1;
 }
-.header-megamenu-overview .mega-menu-links {
+.header-megamenu-overview .mega-menu-links,
+.header-megamenu-events .mega-menu-links {
     grid-template-columns: 1fr;
 }
 .primary-nav a.enquire-link:hover {
