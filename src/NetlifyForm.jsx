@@ -88,12 +88,14 @@ export default function NetlifyForm({
     >
       <input type="hidden" name="form-name" value={formName} />
       {children}
-      <p className="form-submit-status" aria-live="polite">
-        {status === "submitting" && "Submitting..."}
-        {status === "success" && "Thank you. Your inquiry has been sent."}
-        {status === "error" &&
-          "Sorry, something went wrong. Please try again."}
-      </p>
+      {status !== "idle" && (
+        <p className="form-submit-status" aria-live="polite">
+          {status === "submitting" && "Submitting..."}
+          {status === "success" && "Thank you. Your inquiry has been sent."}
+          {status === "error" &&
+            "Sorry, something went wrong. Please try again."}
+        </p>
+      )}
     </form>
   );
 }

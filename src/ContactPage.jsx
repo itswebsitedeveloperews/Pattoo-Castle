@@ -375,7 +375,7 @@ export default function ContactPage({
                 <div className="contact-form-submit-row">
                   <button className="contact-form-submit" type="submit">
                     <span aria-hidden="true">{"\u2723"}</span>
-                    <strong>Send Here</strong>
+                    <strong>Send Inquiry</strong>
                   </button>
                 </div>
               </NetlifyForm>
