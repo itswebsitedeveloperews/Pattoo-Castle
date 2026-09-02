@@ -512,12 +512,16 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
           aria-label="Pattoo Castle in Negril, Jamaica"
         >
           <div className="hero-content container" data-aos="fade-in">
-            {homePage.heroLeftText && (
-              <div className="hero-kicker hero-kicker-left">
-                {homePage.heroLeftText}
-              </div>
-            )}
             <div className="hero-heading-wrap">
+              {(homePage.heroLeftText || homePage.heroRightText) && (
+                <div className="hero-kicker">
+                  {homePage.heroLeftText && <span>{homePage.heroLeftText}</span>}
+                  {homePage.heroLeftText && homePage.heroRightText && (
+                    <span className="hero-kicker-separator" aria-hidden="true" />
+                  )}
+                  {homePage.heroRightText && <span>{homePage.heroRightText}</span>}
+                </div>
+              )}
               {homePage.heroHeading && <h1>{homePage.heroHeading}</h1>}
               {(hasPrimaryButton || hasSecondaryButton) && (
                 <div className="hero-actions">
@@ -541,11 +545,6 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
                 </div>
               )}
             </div>
-            {homePage.heroRightText && (
-              <div className="hero-kicker hero-kicker-right">
-                {homePage.heroRightText}
-              </div>
-            )}
           </div>
 
           <a
