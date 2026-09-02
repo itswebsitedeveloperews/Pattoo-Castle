@@ -551,7 +551,7 @@ body:not(.home) .site-header {
 }
 
 .hero-button--primary {
-  background: rgb(var(--color-white));
+  background: var(--color-cream);
   border-color: rgb(var(--color-white));
   border-radius: 3px;
   color: var(--color-brown-dark);
