@@ -108,6 +108,21 @@ body:not(.home) .site-header {
   gap: 8px;
 }
 
+.header-menu-caret {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-3px) rotate(45deg);
+  transition: transform 180ms ease;
+}
+
+.primary-nav .header-menu-item--has-submenu:hover .header-menu-caret,
+.primary-nav .header-menu-item--has-submenu:focus-within .header-menu-caret {
+  transform: translateY(1px) rotate(225deg);
+}
+
 .header-menu-toggle {
   padding: 0;
   border: 0;
@@ -213,6 +228,12 @@ body:not(.home) .site-header {
   line-height: var(--line-height-tight);
   text-decoration: none;
   text-transform: uppercase;
+}
+.hero-button--primary:hover svg path {
+    stroke: #FFFFFF;
+}
+.hero-button--secondary:hover svg path {
+    stroke: var(--golden-sand) !important;
 }
 
 .primary-nav a:hover,

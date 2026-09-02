@@ -150,6 +150,7 @@ export default function HeaderMenuLink({
         href={href}
       >
         {item.name}
+        <span aria-hidden="true" className="header-menu-caret" />
       </NavigationLink>
 
       <div className="header-submenu">
