@@ -111,7 +111,12 @@ export default function GalleryFilterGrid({ items = [] }) {
           </div>
         )}
 
-        <div className="gallery-filter-grid">
+        <div
+          className={`gallery-filter-grid gallery-filter-grid--count-${Math.min(
+            visibleItems.length,
+            3,
+          )}`}
+        >
           {visibleItems.map((item, index) => (
             <figure
               className="gallery-filter-card"
