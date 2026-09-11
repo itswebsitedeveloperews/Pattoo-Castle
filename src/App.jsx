@@ -176,7 +176,7 @@ function getHomePageContent(entry) {
     : [];
 
   return {
-    heroImage: getContentfulImage(fields.heroImage),
+    heroImage: getContentfulMedia(fields.heroImage),
     heroHeading: fields.heroHeading || "",
     heroLeftText: fields.heroLeftText || "",
     heroRightText: fields.heroRightText || "",
@@ -295,6 +295,20 @@ export function getContentfulImage(asset) {
   return {
     src,
     alt: getContentfulAssetAlt(asset),
+  };
+}
+
+function getContentfulMedia(asset) {
+  const src = getContentfulAssetSrc(asset);
+
+  if (!src) {
+    return null;
+  }
+
+  return {
+    src,
+    alt: getContentfulAssetAlt(asset),
+    contentType: asset?.fields?.file?.contentType || "",
   };
 }
 
@@ -449,7 +463,8 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
   const homePage = getHomePageContent(homePageEntry);
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
-  const heroImageStyle = homePage.heroImage?.src
+  const isHeroVideo = homePage.heroImage?.contentType.startsWith("video/");
+  const heroImageStyle = homePage.heroImage?.src && !isHeroVideo
     ? { "--hero-image": `url(${homePage.heroImage.src})` }
     : undefined;
   const hasPrimaryButton = Boolean(homePage.buttonText && homePage.buttonUrl);
@@ -522,6 +537,17 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
           style={heroImageStyle}
           aria-label="Pattoo Castle in Negril, Jamaica"
         >
+          {isHeroVideo && (
+            <video
+              aria-hidden="true"
+              autoPlay
+              className="hero-media"
+              loop
+              muted
+              playsInline
+              src={homePage.heroImage.src}
+            />
+          )}
           <div className="hero-content container" data-aos="fade-in">
             <div className="hero-heading-wrap">
               {(homePage.heroLeftText || homePage.heroRightText) && (
