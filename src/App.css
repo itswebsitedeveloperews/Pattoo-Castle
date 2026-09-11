@@ -175,7 +175,7 @@ body:not(.home) .site-header {
 .primary-nav .header-submenu {
   position: absolute;
   gap: 0;
-  top: calc(100% - 20px);
+  top: calc(100% + 20px);
   left: 50%;
   z-index: 5;
   min-width: 190px;
@@ -191,6 +191,9 @@ body:not(.home) .site-header {
     opacity 180ms ease,
     transform 180ms ease,
     visibility 180ms ease;
+}
+.primary-nav .header-menu-item--mega .header-submenu {
+    top: calc(100% - 20px);
 }
 
 .primary-nav .header-submenu::before {
