@@ -1855,7 +1855,7 @@ form.contact-planning-form.aos-init.aos-animate {
 
 .contact-hero {
   --page-hero-image: var(--contact-banner-image);
-  --page-hero-overlay-opacity: 0.5;
+  --page-hero-overlay-opacity: 0.6;
 }
 
 .contact-connect-section {
