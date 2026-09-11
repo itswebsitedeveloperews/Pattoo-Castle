@@ -4,7 +4,6 @@ import GalleryPreviewSlider from "./GalleryPreviewSlider";
 import ReserveStaySection from "./ReserveStaySection";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
-import heroImage from "./assets/hero.png";
 import logo from "./assets/patto-logo.svg";
 
 const navItems = [
@@ -177,6 +176,7 @@ function getHomePageContent(entry) {
     : [];
 
   return {
+    heroImage: getContentfulImage(fields.heroImage),
     heroHeading: fields.heroHeading || "",
     heroLeftText: fields.heroLeftText || "",
     heroRightText: fields.heroRightText || "",
@@ -449,6 +449,9 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
   const homePage = getHomePageContent(homePageEntry);
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
+  const heroImageStyle = homePage.heroImage?.src
+    ? { "--hero-image": `url(${homePage.heroImage.src})` }
+    : undefined;
   const hasPrimaryButton = Boolean(homePage.buttonText && homePage.buttonUrl);
   const hasSecondaryButton = Boolean(
     homePage.button2Text && homePage.button2Url,
@@ -516,7 +519,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
       <main className="site-main">
         <section
           className="hero"
-          style={{ "--hero-image": `url(${getAssetSrc(heroImage)})` }}
+          style={heroImageStyle}
           aria-label="Pattoo Castle in Negril, Jamaica"
         >
           <div className="hero-content container" data-aos="fade-in">
