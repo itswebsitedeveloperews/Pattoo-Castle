@@ -553,15 +553,6 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
               {homePage.heroHeading && <h1>{homePage.heroHeading}</h1>}
             </div>
           </div>
-
-          <a
-            className="scroll-cue"
-            href="#overview"
-            aria-label="Scroll to overview"
-          >
-            <span />
-            Scroll more
-          </a>
         </section>
 
         <span className="section-anchor" id="overview" aria-hidden="true" />

@@ -94,8 +94,7 @@ body:not(.home) .site-header {
 }
 
 .primary-nav a,
-.primary-nav .header-menu-toggle,
-.scroll-cue {
+.primary-nav .header-menu-toggle{
   color: rgb(var(--color-white));
   font-size: var(--font-size-small);
   letter-spacing: 10%;
@@ -714,7 +713,7 @@ form.contact-planning-form.aos-init.aos-animate {
   font-family: var(--font-display);
   font-size: 64px;
   font-weight: 400;
-  letter-spacing: 7%;
+  letter-spacing: 3%;
   line-height: 0.95;
   text-shadow: var(--shadow-hero-text);
 }
@@ -739,37 +738,6 @@ form.contact-planning-form.aos-init.aos-animate {
 .mobile-nav .header-call-link:hover {
     background: none;
     color: rgb(var(--color-white)) !important;
-}
-
-.scroll-cue {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  justify-items: center;
-  gap: 16px;
-  width: max-content;
-  margin: 0 auto 24px;
-  line-height: var(--line-height-tight);
-}
-
-.scroll-cue span {
-  position: relative;
-  display: block;
-  width: 2px;
-  height: 54px;
-  background: rgb(var(--color-white) / var(--opacity-high));
-}
-
-.scroll-cue span::after {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 8px;
-  height: 8px;
-  content: "";
-  background: rgb(var(--color-white));
-  transform: translateX(-50%) rotate(45deg);
-  animation: scrollArrow 1.5s linear infinite;
 }
 
 @keyframes scrollArrow {
@@ -6520,24 +6488,6 @@ form.contact-planning-form.aos-init.aos-animate {
     font-size: 44px;
     max-width: 360px;
   }
-
-  .scroll-cue {
-    gap: 12px;
-    margin-bottom: 18px;
-    font-size: var(--font-size-scroll-mobile);
-    letter-spacing: var(--letter-spacing-wide);
-  }
-
-  .scroll-cue span {
-    height: 46px;
-  }
-
-  .scroll-cue span::after {
-    bottom: -6px;
-    width: 10px;
-    height: 10px;
-  }
-
   .intro-section {
     padding: 44px 0 48px;
     background: linear-gradient(
