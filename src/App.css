@@ -757,7 +757,6 @@ form.contact-planning-form.aos-init.aos-animate {
 .home-intro-image--primary {
   width: min(70%, 430px);
   aspect-ratio: 0.78;
-  margin-left: 8%;
 }
 
 .home-intro-image--secondary {
@@ -1059,8 +1058,56 @@ form.contact-planning-form.aos-init.aos-animate {
     left: 14px;
   }
 
-  .home-gallery-modal-control--next {
+.home-gallery-modal-control--next {
     right: 14px;
+  }
+}
+
+.home-map-section {
+  padding: 70px 0 78px;
+  background: var(--color-brown);
+  color: rgb(var(--color-white));
+}
+
+.home-map-inner {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.home-map-frame {
+  width: min(100%, 1020px);
+  padding: 7px;
+  border: 1px solid rgb(var(--color-white) / 0.58);
+}
+
+.home-map-frame iframe {
+  display: block;
+  width: 100%;
+  height: clamp(260px, 29vw, 400px);
+  border: 0;
+}
+
+.home-map-button {
+  margin-top: 26px;
+  min-width: 142px;
+  min-height: 44px;
+  padding: 13px 30px;
+}
+
+@media only screen and (max-width: 767px) {
+  .home-map-section {
+    padding: 52px 0 60px;
+  }
+
+  .home-map-frame {
+    padding: 5px;
+  }
+
+  .home-map-frame iframe {
+    height: 280px;
   }
 }
 

@@ -3,6 +3,27 @@ import HomeGallerySection from "./HomeGallerySection";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 
+function decodeHtmlEntities(value) {
+  return value
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
+function getMapEmbedSrc(value) {
+  const scriptText = decodeHtmlEntities(richTextToPlainText(value));
+  const iframeSrcMatch = scriptText.match(/\bsrc=(["'])(.*?)\1/i);
+  const rawSrc = iframeSrcMatch?.[2] || scriptText;
+  const urlMatch = rawSrc.match(
+    /https:\/\/(?:www\.)?google\.com\/maps\/embed\?[^"'<\s)]+/i,
+  );
+  const src = urlMatch?.[0] || "";
+
+  return src.replace(/\]$/, "");
+}
+
 export function richTextToPlainText(value) {
   if (!value) {
     return "";
@@ -117,6 +138,9 @@ function getHomePageContent(entry) {
     galleryImages,
     galleryButtonText: fields.galleryButtonText || "",
     galleryButtonUrl: fields.galleryButtonUrl || "",
+    mapEmbedSrc: getMapEmbedSrc(fields.mapScript),
+    mapButtonText: fields.mapButtonText || "",
+    mapButtonUrl: fields.mapButtonUrl || "",
   };
 }
 
@@ -391,6 +415,10 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
       homePage.galleryHeading ||
       (homePage.galleryButtonText && homePage.galleryButtonUrl),
   );
+  const hasMapSection = Boolean(
+    homePage.mapEmbedSrc ||
+      (homePage.mapButtonText && homePage.mapButtonUrl),
+  );
 
   return (
     <>
@@ -482,6 +510,33 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
             heading={homePage.galleryHeading}
             images={homePage.galleryImages}
           />
+        )}
+
+        {hasMapSection && (
+          <section className="home-map-section" aria-label="Pattoo Castle map">
+            <div className="home-map-inner container">
+              {homePage.mapEmbedSrc && (
+                <div className="home-map-frame" data-aos="fade-up">
+                  <iframe
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    src={homePage.mapEmbedSrc}
+                    title="Pattoo Castle location on Google Maps"
+                  />
+                </div>
+              )}
+
+              {homePage.mapButtonText && homePage.mapButtonUrl && (
+                <a
+                  className="button button--light home-map-button"
+                  href={homePage.mapButtonUrl}
+                >
+                  {homePage.mapButtonText}
+                </a>
+              )}
+            </div>
+          </section>
         )}
       </main>
       <SiteFooter footer={footer} />
