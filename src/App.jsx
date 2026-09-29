@@ -178,12 +178,6 @@ function getHomePageContent(entry) {
   return {
     heroImage: getContentfulMedia(fields.heroImage),
     heroHeading: fields.heroHeading || "",
-    heroLeftText: fields.heroLeftText || "",
-    heroRightText: fields.heroRightText || "",
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    button2Text: richTextToPlainText(fields.button2Text),
-    button2Url: fields.button2Url || "",
     introLogo: getContentfulImage(fields.introLogo),
     introHeading: fields.introHeading || "",
     introDescription: richTextToPlainText(fields.introDescription),
@@ -477,10 +471,6 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
   const heroImageStyle = homePage.heroImage?.src && !isHeroVideo
     ? { "--hero-image": `url(${homePage.heroImage.src})` }
     : undefined;
-  const hasPrimaryButton = Boolean(homePage.buttonText && homePage.buttonUrl);
-  const hasSecondaryButton = Boolean(
-    homePage.button2Text && homePage.button2Url,
-  );
   const hasIntroSection = Boolean(
     homePage.introLogo ||
     homePage.introHeading ||
@@ -560,69 +550,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
           )}
           <div className="hero-content container" data-aos="fade-in">
             <div className="hero-heading-wrap">
-              {(homePage.heroLeftText || homePage.heroRightText) && (
-                <div className="hero-kicker">
-                  {homePage.heroLeftText && <span>{homePage.heroLeftText}</span>}
-                  {homePage.heroLeftText && homePage.heroRightText && (
-                    <span className="hero-kicker-separator" aria-hidden="true" />
-                  )}
-                  {homePage.heroRightText && <span>{homePage.heroRightText}</span>}
-                </div>
-              )}
               {homePage.heroHeading && <h1>{homePage.heroHeading}</h1>}
-              {(hasPrimaryButton || hasSecondaryButton) && (
-                <div className="hero-actions">
-                  {hasPrimaryButton && (
-                    <a
-                      className="button button--light hero-button hero-button--primary"
-                      href={homePage.buttonUrl}
-                    >
-                      {homePage.buttonText}
-                      <svg
-                        aria-hidden="true"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6 18L18 6M18 6H9M18 6V15"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </a>
-                  )}
-                  {hasSecondaryButton && (
-                    <a
-                      className="button button--light hero-button hero-button--secondary"
-                      href={homePage.button2Url}
-                      target="_blank"
-                    >
-                      {homePage.button2Text}
-                      <svg
-                        aria-hidden="true"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6 18L18 6M18 6H9M18 6V15"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </a>
-                  )}
-                </div>
-              )}
             </div>
           </div>
 
