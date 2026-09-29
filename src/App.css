@@ -2637,87 +2637,15 @@ form.contact-planning-form.aos-init.aos-animate {
   background: var(--color-brown-dark);
 }
 
-.about-intro-section {
-  display: grid;
-  justify-items: center;
-  padding: 80px 0;
-  color: rgb(var(--color-white));
-  background: var(--color-brown);
-  text-align: center;
-}
 .eyebrow {
   font-size: var(--font-size-small);
   letter-spacing: var(--letter-spacing-wide);
   line-height: var(--line-height-tight);
   text-transform: uppercase;
 }
-.about-intro-eyebrow {
-  margin: 0 0 22px;
-  color: rgb(var(--color-white) / var(--opacity-high));
-}
-
-.about-intro-section h2 {
-  max-width: 650px;
-  margin: 0;
-  color: rgb(var(--color-white));
-  font-size: var(--font-size-h2);
-}
-
-.about-intro-description {
-  max-width: 810px;
-  margin-top: 30px;
-  color: rgb(var(--color-white) / var(--opacity-high));
-  line-height: var(--line-height-body);
-}
-
-.about-number-block {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(120px, 1fr));
-  max-width: 1054px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 48px;
-}
-
-.about-number-item {
-  display: grid;
-  justify-items: center;
-  min-height: 72px;
-  padding: 0 28px;
-  border-right: 1px solid rgb(var(--color-white) / 0.13);
-}
-
-.about-number-item:last-child {
-  border-right: 0;
-}
-
-.about-number-icon {
-  display: block;
-  width: 64px;
-  height: 42px;
-  object-fit: contain;
-  margin-bottom: 4px;
-}
-
-.about-number-item strong {
-  color: rgb(var(--color-white));
-  font-family: var(--font-display);
-  font-size: var(--font-size-stat);
-  font-weight: 400;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-tight);
-}
-
-.about-number-item span {
-  margin-top: 6px;
-  color: rgb(var(--color-white));
-  font-size: var(--font-size-small);
-  line-height: var(--line-height-tight);
-  text-transform: uppercase;
-}
 
 .about-villa-section {
-  padding: 120px var(--container-gutter) 96px;
+  padding: 88px var(--container-gutter) 104px;
   background: var(--color-cream);
 }
 
@@ -2728,226 +2656,40 @@ form.contact-planning-form.aos-init.aos-animate {
   max-width: 1690px;
 }
 
-.about-villa-section .wrap {
+.about-villa-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.16fr) minmax(340px, 0.84fr);
-  gap: 68px;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 1fr);
+  gap: 62px 48px;
   align-items: center;
+  max-width: 1210px;
   color: var(--color-brown);
 }
 
-.about-villa-image img {
+.about-villa-media {
+  margin: 0;
+}
+
+.about-villa-media img {
   display: block;
   width: 100%;
-  aspect-ratio: 650 / 435;
+  aspect-ratio: 540 / 300;
   object-fit: cover;
 }
 
 .about-villa-content {
   max-width: 560px;
+  color: var(--color-black);
 }
 
-.about-villa-eyebrow {
-  margin: 0 0 20px;
-  color: var(--color-brown);
+.about-villa-content--secondary {
+  justify-self: start;
 }
 
-.about-villa-content h2 {
+.about-villa-content p {
   margin: 0;
-  color: var(--color-brown);
-  font-size: var(--font-size-h2);
-}
-
-.about-villa-content > p:not(.about-villa-eyebrow) {
-  margin-top: 26px;
-}
-
-.about-villa-button {
-  min-width: 150px;
-  margin-top: 28px;
-}
-
-.about-experience-section {
-  overflow: hidden;
-  padding: 80px 0;
-  color: var(--color-brown);
-  background: var(--color-cream);
-  text-align: center;
-}
-
-.about-experience-eyebrow {
-  margin: 0 0 18px;
-  color: var(--color-brown);
-}
-
-.about-experience-section h2 {
-  max-width: 620px;
-  margin: 0 auto;
-  color: var(--color-brown);
-  font-size: var(--font-size-h2);
-}
-
-.about-experience-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(180px, 1fr));
-  gap: 20px;
-  width: 100%;
-  margin: 48px auto 0;
-  align-items: start;
-}
-
-.experience-card-content {
-  margin: 0;
-  padding: 12px 12px 28px;
-  background: rgb(var(--color-white));
-  box-shadow: 0 18px 30px rgb(var(--color-black) / 0.14);
-  transform: rotate(-3deg);
-  transition: all 0.4s;
-}
-
-.about-experience-card {
-  margin: 0;
-}
-
-.about-experience-card .experience-card-content:hover {
-  transform: rotate(0deg) !important;
-}
-.about-experience-card:nth-child(2n) .experience-card-content {
-  transform: rotate(3deg);
-}
-
-.about-experience-card:nth-child(3n) .experience-card-content {
-  transform: rotate(-2deg);
-}
-
-.about-experience-card img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 278 / 205;
-  object-fit: cover;
-}
-
-.about-experience-card figcaption {
-  margin-top: 14px;
-  color: var(--color-brown-dark);
-  font-size: var(--font-size-small);
-  line-height: var(--line-height-body);
-}
-
-.about-living-section {
-  padding: 80px 0;
-  color: rgb(var(--color-white));
-  background: var(--color-brown);
-}
-
-.about-living-eyebrow {
-  margin: 0 0 20px;
-  color: rgb(var(--color-white) / var(--opacity-high));
-}
-
-.about-living-section h2 {
-  margin: 0;
-  color: rgb(var(--color-white));
-  font-size: var(--font-size-h2);
-}
-
-.about-living-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(160px, 1fr));
-  gap: 22px;
-  margin-top: 52px;
-}
-
-.about-living-item {
-  padding-top: 26px;
-  border-top: 1px solid rgb(var(--color-white) / 0.24);
-}
-
-.about-living-item h3 {
-  margin: 0;
-  color: rgb(var(--color-white));
-  font-size: var(--font-size-global-h2);
-}
-
-.about-living-item p {
-  max-width: 280px;
-  margin-top: 14px;
-  color: rgb(var(--color-white) / var(--opacity-high));
-  font-size: var(--font-size-small);
-}
-
-.about-location-section {
-  padding: 80px 0;
-  color: var(--color-brown);
-  background: var(--color-cream);
-}
-
-.about-location-section .wrap {
-  display: grid;
-  justify-items: center;
-  text-align: center;
-}
-.about-location-eyebrow {
-  margin: 0 0 20px;
-  color: var(--color-brown);
-}
-
-.about-location-section h2 {
-  max-width: 720px;
-  margin: 0;
-  color: var(--color-brown);
-  font-size: var(--font-size-h2);
-}
-
-.about-location-section p:not(.about-location-eyebrow) {
-  max-width: 910px;
-  margin-top: 28px;
+  color: inherit;
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
-}
-
-.about-location-button {
-  min-width: 150px;
-  margin-top: 30px;
-}
-
-.about-story-section {
-  position: relative;
-  display: grid;
-  place-items: center;
-  min-height: 444px;
-  overflow: hidden;
-  color: rgb(var(--color-white));
-  background-image:
-    linear-gradient(
-      rgb(var(--color-black) / 0.42),
-      rgb(var(--color-black) / 0.42)
-    ),
-    var(--about-story-image);
-  background-position: center;
-  background-size: cover;
-  text-align: center;
-}
-
-.about-story-content {
-  display: grid;
-  justify-items: center;
-  padding: 80px 0;
-}
-
-.about-story-eyebrow {
-  margin: 0 0 18px;
-  color: rgb(var(--color-white) / var(--opacity-high));
-}
-
-.about-story-section h2 {
-  margin: 0;
-  color: rgb(var(--color-white));
-  font-size: var(--font-size-h2);
-}
-
-.about-story-button {
-  margin-top: 30px;
 }
 
 .overview-hero {
@@ -5733,7 +5475,7 @@ form.contact-planning-form.aos-init.aos-animate {
   .amenities-content {
     width: 100%;
   }
-  .about-villa-section .wrap {
+  .about-villa-grid {
     gap: 42px;
   }
 
@@ -6084,59 +5826,17 @@ form.contact-planning-form.aos-init.aos-animate {
     min-width: 280px;
   }
 
-  .about-intro-section {
-    padding: 64px 24px 56px;
-  }
-
-  .about-intro-section h2 {
-    font-size: var(--font-size-h2-mobile);
-  }
-
-  .about-number-block {
-    grid-template-columns: repeat(2, minmax(120px, 1fr));
-    gap: 28px 0;
-    width: min(100%, 520px);
-  }
-
-  .about-number-item:nth-child(2n) {
-    border-right: 0;
-  }
-
   .about-villa-section {
     padding: 78px 32px 70px;
   }
 
-  .about-villa-section .wrap {
+  .about-villa-grid {
     grid-template-columns: 1fr;
     gap: 42px;
   }
 
   .about-villa-content {
     max-width: 100%;
-  }
-
-  .about-experience-section {
-    padding: 60px;
-  }
-
-  .about-experience-grid {
-    grid-template-columns: repeat(2, minmax(180px, 1fr));
-  }
-
-  .about-living-section {
-    padding: 64px 32px 58px;
-  }
-
-  .about-living-grid {
-    grid-template-columns: repeat(2, minmax(180px, 1fr));
-  }
-
-  .about-location-section {
-    padding: 70px 0;
-  }
-
-  .about-story-section {
-    min-height: 320px;
   }
 
   .overview-location-section {
@@ -7119,107 +6819,16 @@ form.contact-planning-form.aos-init.aos-animate {
     letter-spacing: 0.26em;
   }
 
-  .about-intro-section {
-    padding: 50px 0;
-  }
-
-  .about-intro-eyebrow {
-    margin-bottom: 18px;
-    font-size: var(--font-size-small);
-  }
-
-  .about-intro-description {
-    margin-top: 16px;
-  }
-
-  .about-number-block {
-    margin-top: 38px;
-  }
-
-  .about-number-item {
-    padding: 0 18px;
-  }
-
-  .about-number-icon {
-    width: 54px;
-    height: 36px;
-  }
-
   .about-villa-section {
     padding: 50px 0;
   }
 
-  .about-villa-section .wrap {
+  .about-villa-grid {
     gap: 32px;
   }
 
-  .about-villa-content h2 {
-    font-size: var(--font-size-h2-mobile);
-  }
-
-  .about-villa-content > p:not(.about-villa-eyebrow) {
-    margin-top: 16px;
-  }
-
-  .about-experience-section {
-    padding: 50px 0;
-  }
-
-  .about-experience-section h2 {
-    font-size: var(--font-size-h2-mobile);
-  }
-
-  .about-experience-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    margin-top: 38px;
-  }
-
-  .about-living-section {
-    padding: 50px 0;
-  }
-
-  .about-living-section h2 {
-    font-size: var(--font-size-h2-mobile);
-  }
-
-  .about-living-grid {
-    grid-template-columns: 1fr;
-    gap: 26px;
-    margin-top: 38px;
-  }
-
-  .about-living-item p {
-    max-width: none;
-    font-size: inherit;
-  }
-
-  .about-location-section {
-    padding: 50px 0;
-  }
-  .about-location-section p:not(.about-location-eyebrow) {
-    margin-top: 16px;
-  }
-
-  .about-location-section > p:not(.about-location-eyebrow) {
-    margin-top: 22px;
-    font-size: var(--font-size-small);
-  }
-
-  .about-story-section {
-    min-height: 300px;
-  }
-
-  .about-story-content {
-    padding: 50px 0;
-  }
-
-  .about-story-button {
-    margin-top: 16px;
-  }
-
-  .about-story-section h2 {
-    font-size: var(--font-size-h2-mobile);
+  .about-villa-media img {
+    aspect-ratio: 16 / 10;
   }
 
   .overview-location-section {
