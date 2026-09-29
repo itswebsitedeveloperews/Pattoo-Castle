@@ -1,4 +1,5 @@
 import AosInitializer from "./AosInitializer";
+import HomeGallerySection from "./HomeGallerySection";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 
@@ -98,6 +99,13 @@ function getHomePageContent(entry) {
     : [getContentfulImage(fields.homeIntroImages)].filter(
         (image) => image?.src,
       );
+  const galleryImages = Array.isArray(fields.galleryImages)
+    ? fields.galleryImages
+        .map((asset) => getContentfulImage(asset))
+        .filter((image) => image?.src)
+    : [getContentfulImage(fields.galleryImages)].filter(
+        (image) => image?.src,
+      );
 
   return {
     heroImage: getContentfulMedia(fields.heroImage),
@@ -105,6 +113,10 @@ function getHomePageContent(entry) {
     homeIntroImages,
     homeIntroHeading: fields.homeIntroHeading || "",
     homeIntroContent: fields.homeIntroContent || null,
+    galleryHeading: fields.galleryHeading || "",
+    galleryImages,
+    galleryButtonText: fields.galleryButtonText || "",
+    galleryButtonUrl: fields.galleryButtonUrl || "",
   };
 }
 
@@ -374,6 +386,11 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
       homePage.homeIntroHeading ||
       homePage.homeIntroContent,
   );
+  const hasGallerySection = Boolean(
+    homePage.galleryImages.length ||
+      homePage.galleryHeading ||
+      (homePage.galleryButtonText && homePage.galleryButtonUrl),
+  );
 
   return (
     <>
@@ -456,6 +473,15 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
               </div>
             </div>
           </section>
+        )}
+
+        {hasGallerySection && (
+          <HomeGallerySection
+            buttonText={homePage.galleryButtonText}
+            buttonUrl={homePage.galleryButtonUrl}
+            heading={homePage.galleryHeading}
+            images={homePage.galleryImages}
+          />
         )}
       </main>
       <SiteFooter footer={footer} />
