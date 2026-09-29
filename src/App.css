@@ -727,15 +727,20 @@ form.contact-planning-form.aos-init.aos-animate {
 
 .home-intro-inner {
   display: grid;
-  grid-template-columns: minmax(360px, 0.95fr) minmax(360px, 1.05fr);
-  gap: clamp(56px, 7vw, 128px);
+  width: 100%;
+  grid-template-columns: minmax(420px, 560px) minmax(420px, 620px);
+  gap: clamp(56px, 5.5vw, 96px);
   align-items: center;
-  max-width: var(--container-width-medium);
+  justify-content: center;
+  max-width: 1360px;
+  margin: 0 auto;
 }
 
 .home-intro-media {
   position: relative;
+  width: 100%;
   min-height: 460px;
+  justify-self: end;
 }
 
 .home-intro-image {
@@ -771,6 +776,7 @@ form.contact-planning-form.aos-init.aos-animate {
 
 .home-intro-content {
   max-width: 620px;
+  justify-self: start;
 }
 
 .home-intro-content h2 {
