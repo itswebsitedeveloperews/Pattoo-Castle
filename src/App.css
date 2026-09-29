@@ -718,6 +718,145 @@ form.contact-planning-form.aos-init.aos-animate {
   text-shadow: var(--shadow-hero-text);
 }
 
+.home-intro-section {
+  padding: 104px 0 96px;
+  border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18);
+  background: var(--color-cream);
+  color: var(--color-brown-dark);
+}
+
+.home-intro-inner {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.95fr) minmax(360px, 1.05fr);
+  gap: clamp(56px, 7vw, 128px);
+  align-items: center;
+  max-width: var(--container-width-medium);
+}
+
+.home-intro-media {
+  position: relative;
+  min-height: 460px;
+}
+
+.home-intro-image {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  box-shadow: 0 18px 42px rgb(var(--color-black) / 0.1);
+}
+
+.home-intro-image--primary {
+  width: min(70%, 430px);
+  aspect-ratio: 0.78;
+  margin-left: 8%;
+}
+
+.home-intro-image--secondary {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(66%, 420px);
+  aspect-ratio: 1.48;
+}
+
+.home-intro-media--single {
+  min-height: 0;
+}
+
+.home-intro-media--single .home-intro-image {
+  width: min(78%, 520px);
+  margin: 0 auto;
+  aspect-ratio: 0.95;
+}
+
+.home-intro-content {
+  max-width: 620px;
+}
+
+.home-intro-content h2 {
+  margin: 0 0 28px;
+  color: var(--color-brown);
+  font-family: var(--font-display);
+  font-size: clamp(38px, 3.4vw, 58px);
+  font-weight: 400;
+  line-height: 1.02;
+}
+
+.home-intro-rich-text {
+  display: grid;
+  gap: 18px;
+  color: var(--color-brown-dark);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.home-intro-rich-text > * {
+  margin: 0;
+}
+
+.home-intro-rich-text a {
+  color: inherit;
+  text-decoration-color: rgb(var(--color-brown-rgb) / 0.42);
+  text-underline-offset: 0.18em;
+}
+
+@media only screen and (max-width: 1279px) {
+  .home-intro-section {
+    padding: 84px 0;
+  }
+
+  .home-intro-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .home-intro-media {
+    width: min(720px, 100%);
+    min-height: 430px;
+    margin: 0 auto;
+  }
+
+  .home-intro-content {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .home-intro-section {
+    padding: 64px 0;
+  }
+
+  .home-intro-inner {
+    gap: 34px;
+  }
+
+  .home-intro-media {
+    display: grid;
+    gap: 16px;
+    min-height: 0;
+  }
+
+  .home-intro-image--primary,
+  .home-intro-media--single .home-intro-image {
+    width: 100%;
+    margin: 0;
+    aspect-ratio: 0.9;
+  }
+
+  .home-intro-image--secondary {
+    position: static;
+    width: 82%;
+    justify-self: end;
+    aspect-ratio: 1.35;
+  }
+
+  .home-intro-content h2 {
+    margin-bottom: 22px;
+    font-size: 36px;
+  }
+}
+
 .header-actions .enquire-link,
 .header-actions .header-call-link,
 .mobile-nav .enquire-link,

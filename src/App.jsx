@@ -91,10 +91,20 @@ export function richTextToReact(value, keyPrefix = "rich-text") {
 
 function getHomePageContent(entry) {
   const fields = entry?.fields || {};
+  const homeIntroImages = Array.isArray(fields.homeIntroImages)
+    ? fields.homeIntroImages
+        .map((asset) => getContentfulImage(asset))
+        .filter((image) => image?.src)
+    : [getContentfulImage(fields.homeIntroImages)].filter(
+        (image) => image?.src,
+      );
 
   return {
     heroImage: getContentfulMedia(fields.heroImage),
     heroHeading: fields.heroHeading || "",
+    homeIntroImages,
+    homeIntroHeading: fields.homeIntroHeading || "",
+    homeIntroContent: fields.homeIntroContent || null,
   };
 }
 
@@ -359,6 +369,11 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
   const heroImageStyle = homePage.heroImage?.src && !isHeroVideo
     ? { "--hero-image": `url(${homePage.heroImage.src})` }
     : undefined;
+  const hasHomeIntroSection = Boolean(
+    homePage.homeIntroImages.length ||
+      homePage.homeIntroHeading ||
+      homePage.homeIntroContent,
+  );
 
   return (
     <>
@@ -387,6 +402,61 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
             </div>
           </div>
         </section>
+
+        {hasHomeIntroSection && (
+          <section
+            className="home-intro-section"
+            aria-labelledby={
+              homePage.homeIntroHeading ? "home-intro-title" : undefined
+            }
+          >
+            <div className="home-intro-inner container">
+              {homePage.homeIntroImages.length > 0 && (
+                <div
+                  className={`home-intro-media${
+                    homePage.homeIntroImages.length === 1
+                      ? " home-intro-media--single"
+                      : ""
+                  }`}
+                  data-aos="fade-up"
+                >
+                  <img
+                    className="home-intro-image home-intro-image--primary"
+                    src={homePage.homeIntroImages[0].src}
+                    alt={
+                      homePage.homeIntroImages[0].alt ||
+                      "Pattoo Castle stone villa exterior"
+                    }
+                  />
+                  {homePage.homeIntroImages[1]?.src && (
+                    <img
+                      className="home-intro-image home-intro-image--secondary"
+                      src={homePage.homeIntroImages[1].src}
+                      alt={
+                        homePage.homeIntroImages[1].alt ||
+                        "Aerial view of Pattoo Castle by the sea"
+                      }
+                    />
+                  )}
+                </div>
+              )}
+
+              <div className="home-intro-content" data-aos="fade-up">
+                {homePage.homeIntroHeading && (
+                  <h2 id="home-intro-title">{homePage.homeIntroHeading}</h2>
+                )}
+                {homePage.homeIntroContent && (
+                  <div className="home-intro-rich-text">
+                    {richTextToReact(
+                      homePage.homeIntroContent,
+                      "home-intro-content",
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
       </main>
       <SiteFooter footer={footer} />
     </>
