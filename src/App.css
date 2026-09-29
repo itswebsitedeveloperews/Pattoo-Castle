@@ -415,7 +415,7 @@ form.contact-planning-form.aos-init.aos-animate {
 .header-megamenu-events .mega-menu-links {
     grid-template-columns: 1fr;
 }
-.primary-nav a.enquire-link:hover {
+.enquire-link:hover {
   color: var(--color-brown);
 }
 
@@ -495,25 +495,25 @@ form.contact-planning-form.aos-init.aos-animate {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .social-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 58px;
-  height: 58px;
+  width: 48px;
+  height: 48px;
   border: 1px solid rgb(var(--color-white) / var(--opacity-high));
-  border-radius: 50%;
+  border-radius: 3px;
   color: rgb(var(--color-white));
   text-decoration: none;
   transition: all 180ms ease;
 }
 .social-link img {
   object-fit: contain;
-  width: 100%;
-  height: 100%;
+  width: 22px;
+  height: 22px;
   display: block;
   max-width: 100%;
 }
@@ -772,7 +772,10 @@ form.contact-planning-form.aos-init.aos-animate {
   background: transparent;
   color: rgb(var(--color-white)) !important;
 }
-.primary-nav .enquire-link {
+.header-actions .enquire-link,
+.header-actions .header-call-link,
+.mobile-nav .enquire-link,
+.mobile-nav .header-call-link {
     background: var(--color-cream);
     border-color: rgb(var(--color-white));
     color: var(--color-brown-dark);
@@ -780,9 +783,13 @@ form.contact-planning-form.aos-init.aos-animate {
     min-width: 168px;
     min-height: 48px;
     padding: 0 12px;
+    gap: 8px;
 }
 
-.primary-nav .enquire-link:hover {
+.header-actions .enquire-link:hover,
+.header-actions .header-call-link:hover,
+.mobile-nav .enquire-link:hover,
+.mobile-nav .header-call-link:hover {
     background: none;
     color: rgb(var(--color-white)) !important;
 }
@@ -5440,7 +5447,7 @@ form.contact-planning-form.aos-init.aos-animate {
 
 .footer-bottom > div {
   display: flex;
-  gap: 54px;
+  gap: 40px;
   align-items: center;
 }
 

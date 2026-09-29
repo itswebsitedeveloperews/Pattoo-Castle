@@ -463,6 +463,8 @@ export function getHeaderContent(entry) {
     menuItems,
     buttonText: fields.buttonText || "",
     buttonUrl: fields.buttonUrl || "",
+    buttonText1: fields.buttonText1 || fields.button1Text || "",
+    buttonUrl1: fields.buttonUrl1 || fields.button1Url || "",
     socialLinks,
   };
 }

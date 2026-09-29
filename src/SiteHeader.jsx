@@ -31,8 +31,12 @@ export default function SiteHeader({ header }) {
   const mobileMenuRef = useRef(null);
   const [openMobileSubmenuIndex, setOpenMobileSubmenuIndex] = useState(null);
   const hasHeaderButton = Boolean(header.buttonText && header.buttonUrl);
+  const hasHeaderButton1 = Boolean(header.buttonText1 && header.buttonUrl1);
+  const hasHeaderActions = Boolean(
+    header.socialLinks.length || hasHeaderButton1 || hasHeaderButton,
+  );
   const hasMobileMenu = Boolean(
-    header.menuItems.length || hasHeaderButton || header.socialLinks.length,
+    header.menuItems.length || hasHeaderActions,
   );
   const toggleMobileSubmenu = (index) => {
     setOpenMobileSubmenuIndex((currentIndex) =>
@@ -86,6 +90,54 @@ export default function SiteHeader({ header }) {
                 variant="desktop"
               />
             ))}
+          </nav>
+        )}
+
+        {hasHeaderActions && (
+          <div className="header-actions">
+            {header.socialLinks.map((item, index) => (
+              <a
+                className="social-link"
+                href={item.url || "#"}
+                key={`${item.url}-${index}`}
+                aria-label={item.label || getSocialLinkLabel(index)}
+              >
+                {item.icon?.src && (
+                  <img
+                    src={item.icon.src}
+                    alt={
+                      item.icon.alt || item.label || getSocialLinkLabel(index)
+                    }
+                  />
+                )}
+              </a>
+            ))}
+
+            {hasHeaderButton1 && (
+              <HeaderLink
+                className="button button--light header-call-link"
+                href={header.buttonUrl1}
+              >
+                <svg
+                  aria-hidden="true"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.62 10.79C8.06 13.62 10.38 15.93 13.21 17.38L15.41 15.18C15.68 14.91 16.08 14.82 16.43 14.94C17.55 15.31 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.69 6.45 9.06 7.57C9.17 7.92 9.09 8.31 8.81 8.59L6.62 10.79Z"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                {header.buttonText1}
+              </HeaderLink>
+            )}
+
             {hasHeaderButton && (
               <HeaderLink
                 className="button button--light enquire-link"
@@ -93,43 +145,25 @@ export default function SiteHeader({ header }) {
               >
                 {header.buttonText}
                 <svg
-                        aria-hidden="true"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6 18L18 6M18 6H9M18 6V15"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                  aria-hidden="true"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 18L18 6M18 6H9M18 6V15"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </HeaderLink>
             )}
-          </nav>
+          </div>
         )}
-
-        <div className="header-actions">
-          {header.socialLinks.map((item, index) => (
-            <a
-              className="social-link"
-              href={item.url || "#"}
-              key={`${item.url}-${index}`}
-              aria-label={item.label || getSocialLinkLabel(index)}
-            >
-              {item.icon?.src && (
-                <img
-                  src={item.icon.src}
-                  alt={item.icon.alt || item.label || getSocialLinkLabel(index)}
-                />
-              )}
-            </a>
-          ))}
-        </div>
 
         {hasMobileMenu && (
           <details
@@ -170,6 +204,30 @@ export default function SiteHeader({ header }) {
                       variant="mobile"
                     />
                   ))}
+                  {hasHeaderButton1 && (
+                    <HeaderLink
+                      className="button button--light header-call-link"
+                      href={header.buttonUrl1}
+                    >
+                      <svg
+                        aria-hidden="true"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.62 10.79C8.06 13.62 10.38 15.93 13.21 17.38L15.41 15.18C15.68 14.91 16.08 14.82 16.43 14.94C17.55 15.31 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.69 6.45 9.06 7.57C9.17 7.92 9.09 8.31 8.81 8.59L6.62 10.79Z"
+                          stroke="currentColor"
+                          strokeWidth="1.6"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      {header.buttonText1}
+                    </HeaderLink>
+                  )}
                   {hasHeaderButton && (
                     <HeaderLink
                       className="button button--light enquire-link"
