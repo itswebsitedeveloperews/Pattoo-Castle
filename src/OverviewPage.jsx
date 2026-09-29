@@ -22,8 +22,6 @@ function getOverviewContent(entry) {
           return {
             image: getContentfulImage(imageAsset),
             title: itemFields.title || "",
-            content: richTextToPlainText(itemFields.content),
-            buttonText: itemFields.buttonText || "",
             buttonUrl: itemFields.buttonUrl || "",
           };
         })
@@ -31,23 +29,8 @@ function getOverviewContent(entry) {
           (item) =>
             item.image?.src ||
             item.title ||
-            item.content ||
-            (item.buttonText && item.buttonUrl),
+            item.buttonUrl,
         )
-    : [];
-  const caribbeanLivingFacilities = Array.isArray(
-    fields.caribbeanLivingFacilities,
-  )
-    ? fields.caribbeanLivingFacilities
-        .map((item) => {
-          const itemFields = item?.fields || {};
-
-          return {
-            title: itemFields.title || "",
-            content: richTextToPlainText(itemFields.content),
-          };
-        })
-        .filter((item) => item.title || item.content)
     : [];
 
   return {
@@ -57,19 +40,7 @@ function getOverviewContent(entry) {
     bannerContent: richTextToPlainText(fields.bannerContent),
     buttonText: fields.buttonText || "",
     buttonUrl: fields.buttonUrl || "",
-    introSubHeading: fields.introSubHeading || "",
-    introHeading: fields.introHeading || "",
-    introDescription: richTextToPlainText(fields.introDescription),
     overviewBlocks,
-    villaImage: getContentfulImage(fields.villaImage),
-    villaSubHeading: fields.villaSubHeading || "",
-    villaHeading: fields.villaHeading || "",
-    villaContent: richTextToPlainText(fields.villaContent),
-    villaButtonText: fields.villaButtonText || "",
-    villaButtonUrl: fields.villaButtonUrl || "",
-    caribbeanLivingSubHeading: fields.caribbeanLivingSubHeading || "",
-    caribbeanLivingHeading: fields.caribbeanLivingHeading || "",
-    caribbeanLivingFacilities,
   };
 }
 
@@ -82,27 +53,7 @@ export default function OverviewPage({
   const header = getHeaderContent(headerEntry);
   const overview = getOverviewContent(overviewEntry);
   const hasButton = Boolean(overview.buttonText && overview.buttonUrl);
-  const hasIntroSection = Boolean(
-    overview.introSubHeading ||
-    overview.introHeading ||
-    overview.introDescription,
-  );
   const hasOverviewBlocks = overview.overviewBlocks.length > 0;
-  const hasVillaButton = Boolean(
-    overview.villaButtonText && overview.villaButtonUrl,
-  );
-  const hasVillaSection = Boolean(
-    overview.villaImage?.src ||
-    overview.villaSubHeading ||
-    overview.villaHeading ||
-    overview.villaContent ||
-    hasVillaButton,
-  );
-  const hasCaribbeanLivingSection = Boolean(
-    overview.caribbeanLivingSubHeading ||
-    overview.caribbeanLivingHeading ||
-    overview.caribbeanLivingFacilities.length,
-  );
 
   return (
     <>
@@ -153,41 +104,6 @@ export default function OverviewPage({
           </div>
         </section>
 
-        {hasIntroSection && (
-          <section
-            className="section overview-intro-section"
-            aria-labelledby={
-              overview.introHeading ? "overview-intro-title" : undefined
-            }
-          >
-            <div className="wrap">
-              {overview.introSubHeading && (
-                <p
-                  className="eyebrow overview-intro-eyebrow"
-                  data-aos="fade-up"
-                  data-aos-delay="50"
-                >
-                  {overview.introSubHeading}
-                </p>
-              )}
-              {overview.introHeading && (
-                <h2
-                  id="overview-intro-title"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  {overview.introHeading}
-                </h2>
-              )}
-              {overview.introDescription && (
-                <p data-aos="fade-up" data-aos-delay="150">
-                  {overview.introDescription}
-                </p>
-              )}
-            </div>
-          </section>
-        )}
-
         {hasOverviewBlocks && (
           <section
             className="section overview-blocks-section"
@@ -195,16 +111,23 @@ export default function OverviewPage({
           >
             <div className="wrap overview-blocks-grid">
               {overview.overviewBlocks.map((item, index) => {
-                const hasBlockButton = Boolean(
-                  item.buttonText && item.buttonUrl,
-                );
+                const BlockElement = item.buttonUrl ? "a" : "article";
+                const blockProps = item.buttonUrl
+                  ? {
+                      href: item.buttonUrl,
+                      "aria-label": item.title
+                        ? `Open ${item.title}`
+                        : `Open overview item ${index + 1}`,
+                    }
+                  : {};
 
                 return (
-                  <article
+                  <BlockElement
                     className="overview-block-card"
                     key={`${item.title}-${index}`}
                     data-aos="fade-up"
                     data-aos-delay={String(index * 100)}
+                    {...blockProps}
                   >
                     {item.image?.src && (
                       <img
@@ -214,114 +137,10 @@ export default function OverviewPage({
                     )}
                     <div className="overview-block-content">
                       {item.title && <h2>{item.title}</h2>}
-                      {item.content && <p>{item.content}</p>}
-                      {hasBlockButton && (
-                        <a
-                          className="button button--brown overview-block-button"
-                          href={item.buttonUrl}
-                        >
-                          {item.buttonText}
-                        </a>
-                      )}
                     </div>
-                  </article>
+                  </BlockElement>
                 );
               })}
-            </div>
-          </section>
-        )}
-
-        {hasVillaSection && (
-          <section
-            className="section overview-villa-section"
-            aria-labelledby={
-              overview.villaHeading ? "overview-villa-title" : undefined
-            }
-          >
-            <div className="wrap">
-              {overview.villaImage?.src && (
-                <div
-                  className="overview-villa-image"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  <img
-                    src={overview.villaImage.src}
-                    alt={overview.villaImage.alt || "Pattoo Castle villa overview"}
-                  />
-                </div>
-              )}
-
-              <div
-                className="overview-villa-content"
-                data-aos="fade-up"
-                data-aos-delay="200"
-              >
-                {overview.villaSubHeading && (
-                  <p className="eyebrow overview-villa-eyebrow">
-                    {overview.villaSubHeading}
-                  </p>
-                )}
-
-                {overview.villaHeading && (
-                  <h2 id="overview-villa-title">{overview.villaHeading}</h2>
-                )}
-
-                {overview.villaContent && <p>{overview.villaContent}</p>}
-
-                {hasVillaButton && (
-                  <a
-                    className="button button--brown overview-villa-button"
-                    href={overview.villaButtonUrl}
-                  >
-                    {overview.villaButtonText}
-                  </a>
-                )}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {hasCaribbeanLivingSection && (
-          <section
-            className="section overview-living-section"
-            aria-labelledby={
-              overview.caribbeanLivingHeading
-                ? "overview-living-title"
-                : undefined
-            }
-          >
-            <div className="wrap">
-              {overview.caribbeanLivingSubHeading && (
-                <p
-                  className="eyebrow overview-living-eyebrow"
-                  data-aos="fade-up"
-                >
-                  {overview.caribbeanLivingSubHeading}
-                </p>
-              )}
-
-              {overview.caribbeanLivingHeading && (
-                <h2 id="overview-living-title" data-aos="fade-up">
-                  {overview.caribbeanLivingHeading}
-                </h2>
-              )}
-
-              {overview.caribbeanLivingFacilities.length > 0 && (
-                <div className="overview-living-grid">
-                  {overview.caribbeanLivingFacilities.map((item, index) => (
-                    <article
-                      className="overview-living-item"
-                      key={`${item.title}-${index}`}
-                      data-aos="fade-up"
-                      data-aos-delay={String(index * 100)}
-                    >
-                      {item.title && <h3>{item.title}</h3>}
-                      {item.content && <p>{item.content}</p>}
-                    </article>
-                  ))}
-                </div>
-              )}
             </div>
           </section>
         )}

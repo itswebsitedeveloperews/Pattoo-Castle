@@ -5414,88 +5414,48 @@ form.contact-planning-form.aos-init.aos-animate {
   min-width: 62vw;
 }
 
-.accommodation-living-section,
-.overview-living-section {
+.accommodation-living-section {
   padding: 80px 0;
   color: rgb(var(--color-white));
   background: var(--color-brown);
 }
 
-.accommodation-living-eyebrow,
-.overview-living-eyebrow {
+.accommodation-living-eyebrow {
   margin: 0 0 10px;
   color: rgb(var(--color-white) / var(--opacity-high));
 }
 
-.accommodation-living-section h2,
-.overview-living-section h2 {
+.accommodation-living-section h2 {
   margin: 0;
   color: rgb(var(--color-white));
   font-size: var(--font-size-h2);
 }
 
-.accommodation-living-grid,
-.overview-living-grid {
+.accommodation-living-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(160px, 1fr));
   gap: 22px;
   margin-top: 50px;
 }
 
-.accommodation-living-item,
-.overview-living-item {
+.accommodation-living-item {
   padding-top: 24px;
   border-top: 1px solid rgb(var(--color-white) / 0.34);
 }
 
-.accommodation-living-item h3,
-.overview-living-item h3 {
+.accommodation-living-item h3 {
   margin: 0;
   color: rgb(var(--color-white));
 
   font-size: var(--font-size-global-h2);
 }
 
-.accommodation-living-item p,
-.overview-living-item p {
+.accommodation-living-item p {
   max-width: 280px;
   margin-top: 12px;
   color: rgb(var(--color-white) / var(--opacity-high));
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
-}
-
-.overview-living-item p {
-  max-width: 100%;
-}
-
-.overview-intro-section {
-  padding: 80px 0;
-  color: rgb(var(--color-white));
-  background: var(--color-brown);
-}
-
-.overview-intro-section .wrap {
-  text-align: center;
-  display: grid;
-  justify-items: center;
-}
-.overview-intro-eyebrow {
-  margin: 0 0 16px;
-  color: rgb(var(--color-white) / var(--opacity-high));
-}
-
-.overview-intro-section h2 {
-  max-width: 640px;
-  margin: 0;
-  color: rgb(var(--color-white));
-  font-size: var(--font-size-h2);
-}
-
-.overview-intro-section p:not(.overview-intro-eyebrow) {
-  max-width: 840px;
-  margin-top: 20px;
-  color: rgb(var(--color-white) / var(--opacity-high));
 }
 
 .overview-blocks-section {
@@ -5512,9 +5472,21 @@ form.contact-planning-form.aos-init.aos-animate {
 }
 
 .overview-block-card {
+  display: block;
   background: #fffaf3;
   box-shadow: 0 18px 40px rgb(var(--color-black) / 0.1);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
   width: calc(33.333% - 16px);
+}
+
+.overview-block-card[href]:hover,
+.overview-block-card[href]:focus-visible {
+  box-shadow: 0 22px 48px rgb(var(--color-black) / 0.16);
+  transform: translateY(-4px);
 }
 
 .overview-block-card img {
@@ -5535,52 +5507,9 @@ form.contact-planning-form.aos-init.aos-animate {
   font-size: var(--font-size-global-h2);
 }
 
-.overview-block-content p {
-  margin-top: 14px;
-  color: var(--color-brown-dark);
-}
-
-.overview-block-button {
-  justify-self: start;
-  margin-top: 20px;
-}
-
-.overview-villa-section {
-  padding: 80px 0;
-  color: var(--color-brown);
-  background: var(--color-cream);
-}
-.overview-villa-section.experience-section {
-  background: #f6eee5;
-}
-
-.overview-villa-section .wrap {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(340px, 1fr);
-  align-items: center;
-  gap: 64px;
-}
-.overview-villa-image img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 585 / 405;
-  object-fit: cover;
-}
-
-.overview-villa-eyebrow {
-  margin: 0 0 10px;
-  color: var(--color-brown);
-}
-
 .outdoors-section .eyebrow,
 .food-beverage-section .eyebrow {
   margin: 0 0 24px;
-}
-.overview-villa-content h2 {
-  color: var(--color-brown);
-  font-size: var(--font-size-h2);
-  margin: 0;
-  max-width: 540px;
 }
 
 .food-beverage-section h2 {
@@ -5591,15 +5520,10 @@ form.contact-planning-form.aos-init.aos-animate {
   padding-bottom: 0 !important;
 }
 
-.overview-villa-content p:not(.overview-villa-eyebrow),
-.location-map-content p:not(.overview-villa-eyebrow) {
+.location-map-content p {
   margin-top: 16px;
   color: var(--color-brown-dark);
   line-height: var(--line-height-body);
-}
-
-.overview-villa-button {
-  margin-top: 20px;
 }
 
 .site-footer {
@@ -5899,10 +5823,6 @@ form.contact-planning-form.aos-init.aos-animate {
     min-width: 280px;
   }
 
-  .overview-villa-content h2 {
-    max-width: 100%;
-  }
-
   .amenities-list {
     display: none;
   }
@@ -5928,21 +5848,9 @@ form.contact-planning-form.aos-init.aos-animate {
   .accommodation-memories-content {
     max-width: 100%;
   }
-  .accommodation-living-grid,
-  .overview-living-grid {
+  .accommodation-living-grid {
     grid-template-columns: repeat(2, minmax(180px, 1fr));
     margin-top: 30px;
-  }
-  .overview-villa-section {
-    padding: 60px 0;
-  }
-
-  .overview-villa-section .wrap {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-  .overview-villa-content {
-    max-width: 100%;
   }
 
   .intro-section {
@@ -6625,13 +6533,8 @@ form.contact-planning-form.aos-init.aos-animate {
     max-width: 100%;
   }
 
-  .accommodation-living-section,
-  .overview-living-section {
+  .accommodation-living-section {
     padding: 64px 32px 58px;
-  }
-
-  .overview-intro-section {
-    padding: 60px 0;
   }
 
   .overview-blocks-section {
@@ -7077,10 +6980,6 @@ form.contact-planning-form.aos-init.aos-animate {
 
   .reserve-stay-card p {
     font-size: var(--font-size-nav);
-  }
-
-  .overview-villa-eyebrow {
-    font-size: var(--font-size-small);
   }
 
   .page-hero .site-header {
@@ -7940,56 +7839,25 @@ form.contact-planning-form.aos-init.aos-animate {
     min-width: 100vw;
   }
 
-  .accommodation-living-section,
-  .overview-living-section {
+  .accommodation-living-section {
     padding: 52px 18px 46px;
   }
 
-  .accommodation-living-section h2,
-  .overview-living-section h2 {
+  .accommodation-living-section h2 {
     font-size: var(--font-size-h2-mobile);
   }
 
-  .accommodation-living-item p,
-  .overview-living-item p {
+  .accommodation-living-item p {
     max-width: none;
     font-size: inherit;
-  }
-
-  .overview-intro-section {
-    padding: 50px 0;
-  }
-
-  .overview-intro-eyebrow {
-    font-size: var(--font-size-small);
-  }
-
-  .overview-intro-section > p:not(.overview-intro-eyebrow) {
-    margin-top: 16px;
-    font-size: var(--font-size-nav);
   }
 
   .overview-blocks-section {
     padding: 50px 0 20px;
   }
-  .overview-block-content p {
-    font-size: var(--font-size-nav);
-  }
 
   .overview-block-content {
     padding: 22px 18px 34px;
-  }
-
-  .overview-villa-section {
-    padding: 50px 0;
-  }
-
-  .overview-villa-content h2 {
-    font-size: var(--font-size-h2-mobile);
-  }
-
-  .overview-villa-content > p:not(.overview-villa-eyebrow) {
-    font-size: var(--font-size-nav);
   }
 
   .site-footer {
@@ -8027,8 +7895,7 @@ form.contact-planning-form.aos-init.aos-animate {
   .accommodation-rooms-grid {
     grid-template-columns: 1fr;
   }
-  .accommodation-living-grid,
-  .overview-living-grid {
+  .accommodation-living-grid {
     grid-template-columns: 1fr;
     gap: 24px;
     margin-top: 38px;
@@ -8295,9 +8162,6 @@ form.contact-planning-form.aos-init.aos-animate {
     gap: 24px;
   }
 
-  .overview-villa-section .wrap {
-    gap: 32px;
-  }
   .accommodation-intro-item p {
     font-size: inherit;
   }
