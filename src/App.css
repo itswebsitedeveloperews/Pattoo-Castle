@@ -68,7 +68,7 @@ body:not(.home) .site-header {
   width: calc(80% - 10px);
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
   gap: 24px;
 }
 
