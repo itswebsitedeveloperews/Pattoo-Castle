@@ -2,7 +2,6 @@ import {
   getContentfulAssetSrc,
   getFooterContent,
   getHeaderContent,
-  richTextToPlainText,
 } from "./App";
 import styles from "./TermsConditionPage.module.css";
 import SiteFooter from "./SiteFooter";
@@ -91,13 +90,7 @@ function getTermsConditionContent(entry) {
   const fields = entry?.fields || {};
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    termsContent:
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    termsContent:
       fields.termsConditionContent ||
       fields.termsAndConditionContent ||
       fields.termsConditionsContent ||
@@ -113,9 +106,6 @@ export default function TermsConditionPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const termsCondition = getTermsConditionContent(termsConditionEntry);
-  const hasButton = Boolean(
-    termsCondition.buttonText && termsCondition.buttonUrl,
-  );
 
   return (
     <main>
@@ -135,24 +125,8 @@ export default function TermsConditionPage({
         <SiteHeader header={header} />
 
         <div className="page-hero-content">
-          {termsCondition.bannerSubHeading && (
-            <p className="page-hero-eyebrow">
-              {termsCondition.bannerSubHeading}
-            </p>
-          )}
           {termsCondition.bannerHeading && (
             <h1 id="terms-condition-title">{termsCondition.bannerHeading}</h1>
-          )}
-          {termsCondition.bannerContent && (
-            <p>{termsCondition.bannerContent}</p>
-          )}
-          {hasButton && (
-            <a
-              className="button button--light page-hero-button"
-              href={termsCondition.buttonUrl}
-            >
-              {termsCondition.buttonText}
-            </a>
           )}
         </div>
       </section>

@@ -87,13 +87,7 @@ function getOutdoorsContent(entry) {
 
   return {
     title: fields.title || "",
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || fields.title || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    outdoorsImage: getContentfulImage(fields.outdoorsImage),
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || fields.title || "",    outdoorsImage: getContentfulImage(fields.outdoorsImage),
     outdoorsSubHeading: fields.outdoorsSubHeading || "",
     outdoorsHeading: fields.outdoorsHeading || "",
     outdoorsContent: outdoorsListItems.length
@@ -120,7 +114,6 @@ export default function OutdoorsPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const outdoors = getOutdoorsContent(outdoorsEntry);
-  const hasButton = Boolean(outdoors.buttonText && outdoors.buttonUrl);
   const hasOutdoorsSection = Boolean(
     outdoors.outdoorsImage?.src ||
     outdoors.outdoorsSubHeading ||
@@ -161,34 +154,10 @@ export default function OutdoorsPage({
           }
         >
           <div className="page-hero-content accommodation-hero-content">
-            {outdoors.bannerSubHeading && (
-              <p
-                className="eyebrow page-hero-eyebrow accommodation-hero-eyebrow"
-                data-aos="fade-up"
-                data-aos-delay="20"
-              >
-                {outdoors.bannerSubHeading}
-              </p>
-            )}
             {outdoors.bannerHeading && (
               <h1 id="outdoors-title" data-aos="fade-up" data-aos-delay="60">
                 {outdoors.bannerHeading}
               </h1>
-            )}
-            {outdoors.bannerContent && (
-              <p data-aos="fade-up" data-aos-delay="100">
-                {outdoors.bannerContent}
-              </p>
-            )}
-            {hasButton && (
-              <a
-                className="button button--light page-hero-button accommodation-hero-button"
-                href={outdoors.buttonUrl}
-                data-aos="fade-up"
-                data-aos-delay="150"
-              >
-                {outdoors.buttonText}
-              </a>
             )}
           </div>
         </section>

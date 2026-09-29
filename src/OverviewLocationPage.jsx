@@ -31,9 +31,7 @@ function getOverviewLocationContent(entry) {
   const fields = entry?.fields || {};
 
   return {
-    title: fields.title || "",
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
+    title: fields.title || "",    bannerImage: getContentfulAssetSrc(fields.bannerImage),
     location: parseMapIframe(fields.location),
     directionsButton: fields.directionsButton || "",
     directionsButtonLink: fields.directionsButtonLink || "",
@@ -89,15 +87,6 @@ export default function OverviewLocationPage({
           aria-labelledby={page.title ? "overview-location-title" : undefined}
         >
           <div className="page-hero-content overview-location-hero-content">
-            {page.bannerSubHeading && (
-              <p
-                className="eyebrow page-hero-eyebrow"
-                data-aos="fade-up"
-                data-aos-delay="20"
-              >
-                {page.bannerSubHeading}
-              </p>
-            )}
             {page.title && (
               <h1
                 id="overview-location-title"

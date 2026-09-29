@@ -86,13 +86,7 @@ function getContactContent(entry) {
     : [];
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    connectWithUs,
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    connectWithUs,
     pattooCastleExperience,
     contactSubTitle: fields.contactSubTitle || "",
     contactTitle: fields.contactTitle || "",
@@ -122,7 +116,6 @@ export default function ContactPage({
   const contact = getContactContent(contactEntry);
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
-  const hasButton = Boolean(contact.buttonText && contact.buttonUrl);
   const hasConnectSection = contact.connectWithUs.length > 0;
   const hasExperienceSection = contact.pattooCastleExperience.length > 0;
   const hasContactFormSection = Boolean(
@@ -166,34 +159,10 @@ export default function ContactPage({
         >
           <div className="wrap">
             <div className="page-hero-content contact-hero-content">
-              {contact.bannerSubHeading && (
-                <p
-                  className="eyebrow page-hero-eyebrow contact-hero-eyebrow"
-                  data-aos="fade-up"
-                  data-aos-delay="20"
-                >
-                  {contact.bannerSubHeading}
-                </p>
-              )}
               {contact.bannerHeading && (
                 <h1 id="contact-title" data-aos="fade-up" data-aos-delay="50">
                   {contact.bannerHeading}
                 </h1>
-              )}
-              {contact.bannerContent && (
-                <p data-aos="fade-up" data-aos-delay="100">
-                  {contact.bannerContent}
-                </p>
-              )}
-              {hasButton && (
-                <a
-                  className="button button--light page-hero-button contact-hero-button"
-                  href={contact.buttonUrl}
-                  data-aos="fade-up"
-                  data-aos-delay="150"
-                >
-                  {contact.buttonText}
-                </a>
               )}
             </div>
           </div>

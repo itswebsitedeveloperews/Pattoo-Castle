@@ -13,9 +13,7 @@ function getGettingHereContent(entry) {
   const fields = entry?.fields || {};
 
   return {
-    bannerSubHeading: fields.bannerSubHeading || "",
     title: fields.title || "",
-    bannerContent: richTextToReact(fields.bannerContent, "getting-here-banner"),
     bannerImage: getContentfulAssetSrc(fields.bannerImage),
     gettingHereSubHeading: fields.gettingHereSubHeading || "",
     gettingHereHeading: fields.gettingHereHeading || "",
@@ -41,7 +39,6 @@ export default function GettingHerePage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const page = getGettingHereContent(gettingHereEntry);
-  const hasBannerContent = Boolean(page.bannerContent);
   const hasGettingHereSection = Boolean(
     page.gettingHereSubHeading ||
     page.gettingHereHeading ||
@@ -67,37 +64,17 @@ export default function GettingHerePage({
               ? { "--getting-here-banner-image": `url(${page.bannerImage})` }
               : undefined
           }
-          aria-labelledby={
-            page.bannerHeading ? "getting-here-title" : undefined
-          }
+          aria-labelledby={page.title ? "getting-here-title" : undefined}
         >
           <div className="page-hero-content getting-here-hero-content">
-            {page.bannerSubHeading && (
-              <p
-                className="eyebrow page-hero-eyebrow"
-                data-aos="fade-up"
-                data-aos-delay="20"
-              >
-                {page.bannerSubHeading}
-              </p>
-            )}
             {page.title && (
               <h1
-                id="overview-location-title"
+                id="getting-here-title"
                 data-aos="fade-up"
                 data-aos-delay="50"
               >
                 {page.title}
               </h1>
-            )}
-            {hasBannerContent && (
-              <div
-                className="getting-here-banner-content"
-                data-aos="fade-up"
-                data-aos-delay="100"
-              >
-                {page.bannerContent}
-              </div>
             )}
           </div>
         </section>

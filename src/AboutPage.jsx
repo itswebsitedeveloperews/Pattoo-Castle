@@ -67,13 +67,7 @@ function getAboutContent(entry) {
   };
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    introSubHeading: fields.introSubHeading || "",
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    introSubHeading: fields.introSubHeading || "",
     introHeading: fields.introHeading || "",
     introDescription: richTextToPlainText(fields.introDescription),
     numberBlock,
@@ -106,7 +100,6 @@ export default function AboutPage({
   const about = getAboutContent(aboutEntry);
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
-  const hasButton = Boolean(about.buttonText && about.buttonUrl);
   const hasIntroSection = Boolean(
     about.introSubHeading ||
     about.introHeading ||
@@ -165,34 +158,10 @@ export default function AboutPage({
           aria-labelledby={about.bannerHeading ? "about-title" : undefined}
         >
           <div className="page-hero-content about-hero-content">
-            {about.bannerSubHeading && (
-              <p
-                className="eyebrow page-hero-eyebrow about-hero-eyebrow"
-                data-aos="fade-up"
-                data-aos-delay="20"
-              >
-                {about.bannerSubHeading}
-              </p>
-            )}
             {about.bannerHeading && (
               <h1 id="about-title" data-aos="fade-up" data-aos-delay="50">
                 {about.bannerHeading}
               </h1>
-            )}
-            {about.bannerContent && (
-              <p data-aos="fade-up" data-aos-delay="100">
-                {about.bannerContent}
-              </p>
-            )}
-            {hasButton && (
-              <a
-                className="button button--light page-hero-button about-hero-button"
-                href={about.buttonUrl}
-                data-aos="fade-up"
-                data-aos-delay="150"
-              >
-                {about.buttonText}
-              </a>
             )}
           </div>
         </section>

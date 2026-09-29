@@ -127,13 +127,7 @@ function getVillaInclusionContent(entry) {
     : [];
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    bedroomsImages,
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    bedroomsImages,
     bedroomsHeading: fields.bedroomsEnsuiteBathroomsHeading || "",
     bedroomsContent: fields.bedroomsEnsuiteBathroomsContent || null,
     additionalChargeImages,
@@ -172,9 +166,6 @@ export default function VillaInclusionPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const villaInclusion = getVillaInclusionContent(villaInclusionEntry);
-  const hasButton = Boolean(
-    villaInclusion.buttonText && villaInclusion.buttonUrl,
-  );
   const hasBedroomsSection = Boolean(
     villaInclusion.bedroomsImages.length ||
     villaInclusion.bedroomsHeading ||
@@ -223,15 +214,6 @@ export default function VillaInclusionPage({
           }
         >
           <div className="page-hero-content accommodation-hero-content">
-            {villaInclusion.bannerSubHeading && (
-              <p
-                className="eyebrow page-hero-eyebrow accommodation-hero-eyebrow"
-                data-aos="fade-up"
-                data-aos-delay="20"
-              >
-                {villaInclusion.bannerSubHeading}
-              </p>
-            )}
             {villaInclusion.bannerHeading && (
               <h1
                 id="villa-inclusion-title"
@@ -240,21 +222,6 @@ export default function VillaInclusionPage({
               >
                 {villaInclusion.bannerHeading}
               </h1>
-            )}
-            {villaInclusion.bannerContent && (
-              <p data-aos="fade-up" data-aos-delay="100">
-                {villaInclusion.bannerContent}
-              </p>
-            )}
-            {hasButton && (
-              <a
-                className="button button--light page-hero-button accommodation-hero-button"
-                href={villaInclusion.buttonUrl}
-                data-aos="fade-up"
-                data-aos-delay="150"
-              >
-                {villaInclusion.buttonText}
-              </a>
             )}
           </div>
         </section>

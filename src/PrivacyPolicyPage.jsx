@@ -2,7 +2,6 @@ import {
   getContentfulAssetSrc,
   getFooterContent,
   getHeaderContent,
-  richTextToPlainText,
 } from "./App";
 import styles from "./PrivacyPolicyPage.module.css";
 import AosInitializer from "./AosInitializer";
@@ -92,13 +91,7 @@ function getPrivacyPolicyContent(entry) {
   const fields = entry?.fields || {};
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    policyContent: fields.privacyPolicyContent || null,
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    policyContent: fields.privacyPolicyContent || null,
   };
 }
 
@@ -110,9 +103,6 @@ export default function PrivacyPolicyPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const privacyPolicy = getPrivacyPolicyContent(privacyPolicyEntry);
-  const hasButton = Boolean(
-    privacyPolicy.buttonText && privacyPolicy.buttonUrl,
-  );
 
   return (
     <main>
@@ -133,15 +123,6 @@ export default function PrivacyPolicyPage({
         }
       >
         <div className="page-hero-content">
-          {privacyPolicy.bannerSubHeading && (
-            <p
-              className="eyebrow page-hero-eyebrow"
-              data-aos="fade-up"
-              data-aos-delay="20"
-            >
-              {privacyPolicy.bannerSubHeading}
-            </p>
-          )}
           {privacyPolicy.bannerHeading && (
             <h1
               id="privacy-policy-title"
@@ -150,21 +131,6 @@ export default function PrivacyPolicyPage({
             >
               {privacyPolicy.bannerHeading}
             </h1>
-          )}
-          {privacyPolicy.bannerContent && (
-            <p data-aos="fade-up" data-aos-delay="100">
-              {privacyPolicy.bannerContent}
-            </p>
-          )}
-          {hasButton && (
-            <a
-              className="button button--light page-hero-button"
-              href={privacyPolicy.buttonUrl}
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              {privacyPolicy.buttonText}
-            </a>
           )}
         </div>
       </section>

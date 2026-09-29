@@ -2,7 +2,6 @@ import {
   getContentfulAssetSrc,
   getFooterContent,
   getHeaderContent,
-  richTextToPlainText,
 } from "./App";
 import AosInitializer from "./AosInitializer";
 import SiteFooter from "./SiteFooter";
@@ -98,13 +97,7 @@ function getLegalContent(entry) {
   const fields = entry?.fields || {};
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || fields.title || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    content:
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || fields.title || "",    content:
       fields.termsConditionContent ||
       fields.termsAndConditionContent ||
       fields.termsConditionsContent ||
@@ -124,7 +117,6 @@ export default function LegalPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const legal = getLegalContent(legalEntry);
-  const hasButton = Boolean(legal.buttonText && legal.buttonUrl);
   const titleId = `${pageId}-title`;
 
   return (
@@ -144,34 +136,10 @@ export default function LegalPage({
           aria-labelledby={legal.bannerHeading ? titleId : undefined}
         >
           <div className="page-hero-content">
-            {legal.bannerSubHeading && (
-              <p
-                className="eyebrow page-hero-eyebrow"
-                data-aos="fade-up"
-                data-aos-delay="20"
-              >
-                {legal.bannerSubHeading}
-              </p>
-            )}
             {legal.bannerHeading && (
               <h1 id={titleId} data-aos="fade-up" data-aos-delay="50">
                 {legal.bannerHeading}
               </h1>
-            )}
-            {legal.bannerContent && (
-              <p data-aos="fade-up" data-aos-delay="100">
-                {legal.bannerContent}
-              </p>
-            )}
-            {hasButton && (
-              <a
-                className="button button--light page-hero-button"
-                href={legal.buttonUrl}
-                data-aos="fade-up"
-                data-aos-delay="100"
-              >
-                {legal.buttonText}
-              </a>
             )}
           </div>
         </section>

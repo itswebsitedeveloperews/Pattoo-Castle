@@ -115,13 +115,7 @@ function getEventContent(entry) {
     : [];
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    introSubHeading: fields.introSubHeading || "",
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    introSubHeading: fields.introSubHeading || "",
     introHeading: fields.introHeading || "",
     introDescription: richTextToPlainText(fields.introDescription),
     numberBlock,
@@ -159,7 +153,6 @@ export default function EventsPage({
   const event = getEventContent(eventEntry);
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
-  const hasButton = Boolean(event.buttonText && event.buttonUrl);
   const hasIntroSection = Boolean(
     event.introSubHeading ||
     event.introHeading ||
@@ -204,34 +197,10 @@ export default function EventsPage({
         >
           <div className="wrap">
             <div className="page-hero-content events-hero-content">
-              {event.bannerSubHeading && (
-                <p
-                  className="eyebrow page-hero-eyebrow events-hero-eyebrow"
-                  data-aos="fade-up"
-                  data-aos-delay="20"
-                >
-                  {event.bannerSubHeading}
-                </p>
-              )}
               {event.bannerHeading && (
                 <h1 id="events-title" data-aos="fade-up" data-aos-delay="60">
                   {event.bannerHeading}
                 </h1>
-              )}
-              {event.bannerContent && (
-                <p data-aos="fade-up" data-aos-delay="100">
-                  {event.bannerContent}
-                </p>
-              )}
-              {hasButton && (
-                <a
-                  className="button button--light page-hero-button events-hero-button"
-                  href={event.buttonUrl}
-                  data-aos="fade-up"
-                  data-aos-delay="150"
-                >
-                  {event.buttonText}
-                </a>
               )}
             </div>
           </div>

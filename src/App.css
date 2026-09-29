@@ -2043,7 +2043,7 @@ form.contact-planning-form.aos-init.aos-animate {
   position: relative;
   display: grid;
   grid-template-rows: 1fr;
-  min-height: 610px;
+  min-height: 411px;
   overflow: hidden;
   color: rgb(var(--color-white));
   background-image:
@@ -5498,7 +5498,7 @@ form.contact-planning-form.aos-init.aos-animate {
 
 .overview-block-content {
   align-content: start;
-  padding: 30px 30px 50px;
+  padding: 30px;
   display: grid;
 }
 .overview-block-content h2 {
@@ -7857,7 +7857,7 @@ form.contact-planning-form.aos-init.aos-animate {
   }
 
   .overview-block-content {
-    padding: 22px 18px 34px;
+    padding: 22px 18px;
   }
 
   .site-footer {

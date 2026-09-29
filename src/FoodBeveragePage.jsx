@@ -36,13 +36,7 @@ function getFoodBeverageContent(entry) {
     : [];
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || fields.title || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    diningSubHeading: fields.diningSubHeading || "",
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || fields.title || "",    diningSubHeading: fields.diningSubHeading || "",
     diningHeading: fields.diningHeading || "",
     diningContent: fields.diningContent,
     diningImage: getContentfulImage(fields.diningImage),
@@ -62,7 +56,6 @@ export default function FoodBeveragePage({
   const foodBeverage = getFoodBeverageContent(foodBeverageEntry);
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
-  const hasButton = Boolean(foodBeverage.buttonText && foodBeverage.buttonUrl);
   const hasDiningSection = Boolean(
     foodBeverage.diningSubHeading ||
     foodBeverage.diningHeading ||
@@ -97,15 +90,6 @@ export default function FoodBeveragePage({
           }
         >
           <div className="page-hero-content accommodation-hero-content">
-            {foodBeverage.bannerSubHeading && (
-              <p
-                className="eyebrow page-hero-eyebrow accommodation-hero-eyebrow"
-                data-aos="fade-up"
-                data-aos-delay="20"
-              >
-                {foodBeverage.bannerSubHeading}
-              </p>
-            )}
             {foodBeverage.bannerHeading && (
               <h1
                 id="food-beverage-title"
@@ -114,21 +98,6 @@ export default function FoodBeveragePage({
               >
                 {foodBeverage.bannerHeading}
               </h1>
-            )}
-            {foodBeverage.bannerContent && (
-              <p data-aos="fade-up" data-aos-delay="100">
-                {foodBeverage.bannerContent}
-              </p>
-            )}
-            {hasButton && (
-              <a
-                className="button button--light page-hero-button accommodation-hero-button"
-                href={foodBeverage.buttonUrl}
-                data-aos="fade-up"
-                data-aos-delay="150"
-              >
-                {foodBeverage.buttonText}
-              </a>
             )}
           </div>
         </section>

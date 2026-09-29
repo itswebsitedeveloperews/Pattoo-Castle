@@ -91,13 +91,7 @@ function getStaffContent(entry) {
 
   return {
     title: fields.title || "",
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || fields.title || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    dedicatedImage: getFirstContentfulImage(fields.dedicatedImage),
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || fields.title || "",    dedicatedImage: getFirstContentfulImage(fields.dedicatedImage),
     dedicatedSubHeading: fields.dedicatedSubHeading || "",
     dedicatedHeading: fields.dedicatedHeading || "",
     dedicatedContent: richTextToPlainText(fields.dedicatedContent),
@@ -124,7 +118,6 @@ export default function StaffPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const staff = getStaffContent(staffEntry);
-  const hasButton = Boolean(staff.buttonText && staff.buttonUrl);
   const hasDedicatedSection = Boolean(
     staff.dedicatedImage?.src ||
     staff.dedicatedSubHeading ||
@@ -163,34 +156,10 @@ export default function StaffPage({
           aria-labelledby={staff.bannerHeading ? "staff-title" : undefined}
         >
           <div className="page-hero-content accommodation-hero-content">
-            {staff.bannerSubHeading && (
-              <p
-                className="eyebrow page-hero-eyebrow accommodation-hero-eyebrow"
-                data-aos="fade-up"
-                data-aos-delay="20"
-              >
-                {staff.bannerSubHeading}
-              </p>
-            )}
             {staff.bannerHeading && (
               <h1 id="staff-title" data-aos="fade-up" data-aos-delay="60">
                 {staff.bannerHeading}
               </h1>
-            )}
-            {staff.bannerContent && (
-              <p data-aos="fade-up" data-aos-delay="100">
-                {staff.bannerContent}
-              </p>
-            )}
-            {hasButton && (
-              <a
-                className="button button--light page-hero-button accommodation-hero-button"
-                href={staff.buttonUrl}
-                data-aos="fade-up"
-                data-aos-delay="150"
-              >
-                {staff.buttonText}
-              </a>
             )}
           </div>
         </section>

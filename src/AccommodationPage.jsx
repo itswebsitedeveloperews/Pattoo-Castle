@@ -57,13 +57,7 @@ function getAccommodationContent(entry) {
     : [];
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    introSubHeading: fields.introSubHeading || "",
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    introSubHeading: fields.introSubHeading || "",
     introHeading: fields.introHeading || "",
     introDescription: richTextToPlainText(fields.introDescription),
     introBox,
@@ -93,9 +87,6 @@ export default function AccommodationPage({
   const accommodation = getAccommodationContent(accommodationEntry);
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
-  const hasButton = Boolean(
-    accommodation.buttonText && accommodation.buttonUrl,
-  );
   const hasIntroSection = Boolean(
     accommodation.introSubHeading ||
     accommodation.introHeading ||
@@ -147,15 +138,6 @@ export default function AccommodationPage({
           }
         >
           <div className="page-hero-content accommodation-hero-content">
-            {accommodation.bannerSubHeading && (
-              <p
-                className="eyebrow page-hero-eyebrow accommodation-hero-eyebrow"
-                data-aos="fade-up"
-                data-aos-delay="20"
-              >
-                {accommodation.bannerSubHeading}
-              </p>
-            )}
             {accommodation.bannerHeading && (
               <h1
                 id="accommodation-title"
@@ -164,21 +146,6 @@ export default function AccommodationPage({
               >
                 {accommodation.bannerHeading}
               </h1>
-            )}
-            {accommodation.bannerContent && (
-              <p data-aos="fade-up" data-aos-delay="100">
-                {accommodation.bannerContent}
-              </p>
-            )}
-            {hasButton && (
-              <a
-                className="button button--light page-hero-button accommodation-hero-button"
-                href={accommodation.buttonUrl}
-                data-aos="fade-up"
-                data-aos-delay="150"
-              >
-                {accommodation.buttonText}
-              </a>
             )}
           </div>
         </section>

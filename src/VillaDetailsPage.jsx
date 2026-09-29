@@ -86,13 +86,7 @@ function getVillaDetailsContent(entry) {
 
   return {
     title: fields.title || "",
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || fields.title || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    bedroomSubHeading: fields.bedroomSubHeading || "",
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || fields.title || "",    bedroomSubHeading: fields.bedroomSubHeading || "",
     bedroomHeading: fields.bedroomHeading || "",
     bedroomContent: richTextToPlainText(fields.bedroomContent),
     bedroomBlocks,
@@ -119,7 +113,6 @@ export default function VillaDetailsPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const villaDetails = getVillaDetailsContent(villaDetailsEntry);
-  const hasButton = Boolean(villaDetails.buttonText && villaDetails.buttonUrl);
   const hasBedroomSection = Boolean(
     villaDetails.bedroomSubHeading ||
     villaDetails.bedroomHeading ||
@@ -159,15 +152,6 @@ export default function VillaDetailsPage({
           }
         >
           <div className="page-hero-content accommodation-hero-content">
-            {villaDetails.bannerSubHeading && (
-              <p
-                className="eyebrow page-hero-eyebrow accommodation-hero-eyebrow"
-                data-aos="fade-up"
-                data-aos-delay="20"
-              >
-                {villaDetails.bannerSubHeading}
-              </p>
-            )}
             {villaDetails.bannerHeading && (
               <h1
                 id="villa-details-title"
@@ -176,21 +160,6 @@ export default function VillaDetailsPage({
               >
                 {villaDetails.bannerHeading}
               </h1>
-            )}
-            {villaDetails.bannerContent && (
-              <p data-aos="fade-up" data-aos-delay="100">
-                {villaDetails.bannerContent}
-              </p>
-            )}
-            {hasButton && (
-              <a
-                className="button button--light page-hero-button accommodation-hero-button"
-                href={villaDetails.buttonUrl}
-                data-aos="fade-up"
-                data-aos-delay="150"
-              >
-                {villaDetails.buttonText}
-              </a>
             )}
           </div>
         </section>

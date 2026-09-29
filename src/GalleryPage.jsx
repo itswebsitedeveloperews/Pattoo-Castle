@@ -43,13 +43,7 @@ function getGalleryContent(entry) {
   };
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    introSubHeading: fields.introSubHeading || "",
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    introSubHeading: fields.introSubHeading || "",
     introHeading: fields.introHeading || "",
     introDescription: richTextToPlainText(fields.introDescription),
     galleryItems,
@@ -70,7 +64,6 @@ export default function GalleryPage({
   const footer = getFooterContent(footerEntry);
   const gallery = getGalleryContent(galleryEntry);
   const header = getHeaderContent(headerEntry);
-  const hasButton = Boolean(gallery.buttonText && gallery.buttonUrl);
   const hasIntroSection = Boolean(
     gallery.introSubHeading || gallery.introHeading || gallery.introDescription,
   );
@@ -102,34 +95,10 @@ export default function GalleryPage({
         >
           <div className="wrap">
             <div className="page-hero-content gallery-hero-content">
-              {gallery.bannerSubHeading && (
-                <p
-                  className="eyebrow page-hero-eyebrow gallery-hero-eyebrow"
-                  data-aos="fade-up"
-                  data-aos-delay="20"
-                >
-                  {gallery.bannerSubHeading}
-                </p>
-              )}
               {gallery.bannerHeading && (
                 <h1 id="gallery-title" data-aos="fade-up" data-aos-delay="50">
                   {gallery.bannerHeading}
                 </h1>
-              )}
-              {gallery.bannerContent && (
-                <p data-aos="fade-up" data-aos-delay="100">
-                  {gallery.bannerContent}
-                </p>
-              )}
-              {hasButton && (
-                <a
-                  className="button button--light page-hero-button gallery-hero-button"
-                  href={gallery.buttonUrl}
-                  data-aos="fade-up"
-                  data-aos-delay="150"
-                >
-                  {gallery.buttonText}
-                </a>
               )}
             </div>
           </div>
@@ -170,7 +139,7 @@ export default function GalleryPage({
                 data-aos="fade-up"
                 data-aos-delay="50"
               >
-                <span aria-hidden="true">“</span>
+                <span aria-hidden="true">â€œ</span>
                 {gallery.pattooCastleHeading && (
                   <h2>{gallery.pattooCastleHeading}</h2>
                 )}

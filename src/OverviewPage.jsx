@@ -3,7 +3,6 @@ import {
   getContentfulImage,
   getFooterContent,
   getHeaderContent,
-  richTextToPlainText,
 } from "./App";
 import AosInitializer from "./AosInitializer";
 import SiteFooter from "./SiteFooter";
@@ -35,11 +34,7 @@ function getOverviewContent(entry) {
 
   return {
     bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
     bannerHeading: fields.bannerHeading || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
     overviewBlocks,
   };
 }
@@ -52,7 +47,6 @@ export default function OverviewPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const overview = getOverviewContent(overviewEntry);
-  const hasButton = Boolean(overview.buttonText && overview.buttonUrl);
   const hasOverviewBlocks = overview.overviewBlocks.length > 0;
 
   return (
@@ -72,34 +66,10 @@ export default function OverviewPage({
           }
         >
           <div className="page-hero-content overview-hero-content">
-            {overview.bannerSubHeading && (
-              <p
-                className="eyebrow page-hero-eyebrow overview-hero-eyebrow"
-                data-aos="fade-up"
-                data-aos-delay="20"
-              >
-                {overview.bannerSubHeading}
-              </p>
-            )}
             {overview.bannerHeading && (
               <h1 id="overview-title" data-aos="fade-up" data-aos-delay="50">
                 {overview.bannerHeading}
               </h1>
-            )}
-            {overview.bannerContent && (
-              <p data-aos="fade-up" data-aos-delay="100">
-                {overview.bannerContent}
-              </p>
-            )}
-            {hasButton && (
-              <a
-                className="button button--light page-hero-button overview-hero-button"
-                href={overview.buttonUrl}
-                data-aos="fade-up"
-                data-aos-delay="150"
-              >
-                {overview.buttonText}
-              </a>
             )}
           </div>
         </section>

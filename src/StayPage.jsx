@@ -140,13 +140,7 @@ function getStayContent(entry) {
     : [];
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    stayInformation,
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    stayInformation,
     roomSubHeading: fields.roomSubHeading || "",
     roomHeading: fields.roomHeading || "",
     roomContent: richTextToPlainText(fields.roomContent),
@@ -180,7 +174,6 @@ export default function StayPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const stay = getStayContent(stayEntry);
-  const hasButton = Boolean(stay.buttonText && stay.buttonUrl);
   const hasVillaSection = Boolean(
     stay.villaSubHeading ||
     stay.villaHeading ||
@@ -220,34 +213,10 @@ export default function StayPage({
         >
           <div className="wrap">
             <div className="page-hero-content stay-hero-content">
-              {stay.bannerSubHeading && (
-                <p
-                  className="eyebrow page-hero-eyebrow stay-hero-eyebrow"
-                  data-aos="fade-up"
-                  data-aos-delay="20"
-                >
-                  {stay.bannerSubHeading}
-                </p>
-              )}
               {stay.bannerHeading && (
                 <h1 id="stay-title" data-aos="fade-up" data-aos-delay="50">
                   {stay.bannerHeading}
                 </h1>
-              )}
-              {stay.bannerContent && (
-                <p data-aos="fade-up" data-aos-delay="100">
-                  {stay.bannerContent}
-                </p>
-              )}
-              {hasButton && (
-                <a
-                  className="button button--light page-hero-button stay-hero-button"
-                  href={stay.buttonUrl}
-                  data-aos="fade-up"
-                  data-aos-delay="150"
-                >
-                  {stay.buttonText}
-                </a>
               )}
             </div>
           </div>
@@ -477,7 +446,7 @@ export default function StayPage({
                   data-aos="fade-up"
                   data-aos-delay="200"
                 >
-                  <span aria-hidden="true">“</span>
+                  <span aria-hidden="true">â€œ</span>
                   {stay.review && <blockquote>{stay.review}</blockquote>}
                   {stay.reviewAuthor && <p>{stay.reviewAuthor}</p>}
                 </div>

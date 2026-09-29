@@ -151,13 +151,7 @@ function getLocationContent(entry) {
   const jamaicaRightCards = getImageBoxItems(fields.jamaicaRightCards);
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),
-    bannerSubHeading: fields.bannerSubHeading || "",
-    bannerHeading: fields.bannerHeading || "",
-    bannerContent: richTextToPlainText(fields.bannerContent),
-    buttonText: fields.buttonText || "",
-    buttonUrl: fields.buttonUrl || "",
-    exploreSubHeading: fields.exploreSubHeading || "",
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    exploreSubHeading: fields.exploreSubHeading || "",
     exploreHeading: fields.exploreHeading || "",
     exploreCards,
     adventureImage: getContentfulImage(fields.adventureImage),
@@ -207,7 +201,6 @@ export default function LocationPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const location = getLocationContent(locationEntry);
-  const hasButton = Boolean(location.buttonText && location.buttonUrl);
   const hasLocationButton = Boolean(
     location.locationButtonText && location.locationButtonUrl,
   );
@@ -287,34 +280,10 @@ export default function LocationPage({
           }
         >
           <div className="page-hero-content location-hero-content">
-            {location.bannerSubHeading && (
-              <p
-                className="eyebrow page-hero-eyebrow location-hero-eyebrow"
-                data-aos="fade-up"
-                data-aos-delay="20"
-              >
-                {location.bannerSubHeading}
-              </p>
-            )}
             {location.bannerHeading && (
               <h1 id="location-title" data-aos="fade-up" data-aos-delay="50">
                 {location.bannerHeading}
               </h1>
-            )}
-            {location.bannerContent && (
-              <p data-aos="fade-up" data-aos-delay="100">
-                {location.bannerContent}
-              </p>
-            )}
-            {hasButton && (
-              <a
-                className="button button--light page-hero-button location-hero-button"
-                href={location.buttonUrl}
-                data-aos="fade-up"
-                data-aos-delay="150"
-              >
-                {location.buttonText}
-              </a>
             )}
           </div>
         </section>

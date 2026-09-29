@@ -2,7 +2,6 @@ import {
   getContentfulAssetSrc,
   getFooterContent,
   getHeaderContent,
-  richTextToPlainText,
 } from "./App";
 import EventUploadField from "./EventUploadField";
 import AosInitializer from "./AosInitializer";
@@ -18,9 +17,6 @@ function getEventDetailsContent(entry) {
     slug: fields.eventSlug || "",
     bannerImage: getContentfulAssetSrc(fields.eventBannerImage),
     heading: fields.eventHeading || "",
-    content: richTextToPlainText(fields.eventContent),
-    buttonText: fields.eventButtonText || "",
-    buttonUrl: fields.eventButtonUrl || fields.eventButtonURL || "",
   };
 }
 
@@ -32,7 +28,6 @@ export default function EventDetailsPage({
   const eventDetails = getEventDetailsContent(eventDetailsEntry);
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
-  const hasButton = Boolean(eventDetails.buttonText && eventDetails.buttonUrl);
   const inquiryTitle = eventDetails.heading
     ? `${eventDetails.heading} Inquiry`
     : "Event Inquiry";
@@ -72,21 +67,6 @@ export default function EventDetailsPage({
                 >
                   {eventDetails.heading}
                 </h1>
-              )}
-              {eventDetails.content && (
-                <p data-aos="fade-up" data-aos-delay="100">
-                  {eventDetails.content}
-                </p>
-              )}
-              {hasButton && (
-                <a
-                  className="button button--light page-hero-button event-detail-hero-button"
-                  href={eventDetails.buttonUrl}
-                  data-aos="fade-up"
-                  data-aos-delay="150"
-                >
-                  {eventDetails.buttonText}
-                </a>
               )}
             </div>
           </div>
