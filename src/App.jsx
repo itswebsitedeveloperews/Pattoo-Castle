@@ -376,19 +376,27 @@ export function getFooterContent(entry) {
         })
         .filter((item) => item.name || item.url)
     : [];
+  const footerBarItems = Array.isArray(fields.footerBarMenu)
+    ? fields.footerBarMenu
+        .map((item) => {
+          const itemFields = item?.fields || {};
+
+          return {
+            name: itemFields.menuName || "",
+            url: itemFields.menuUrl || "",
+          };
+        })
+        .filter((item) => item.name || item.url)
+    : [];
 
   return {
-    logo: getContentfulImage(fields.footerLogo),
     location: fields.location || "",
     phone: fields.phone || "",
     email: fields.email || "",
     socialLinks,
     menuItems,
     copyright: fields.footerCopyright || "",
-    designBy: richTextToPlainText(fields.designBy),
-    designByRichText: fields.designBy || null,
-    footerBarMenu: fields.footerBarMenu || "",
-    footerBarUrl: fields.footerBarUrl || "",
+    footerBarItems,
   };
 }
 

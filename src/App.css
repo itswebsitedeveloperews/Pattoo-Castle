@@ -5312,7 +5312,7 @@ form.contact-planning-form.aos-init.aos-animate {
 }
 
 .site-footer {
-  padding: 48px 0 42px;
+  padding: 80px 0 42px;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -5321,18 +5321,6 @@ form.contact-planning-form.aos-init.aos-animate {
   width: 100%;
   max-width: var(--container-width-medium);
   margin: 0 auto;
-}
-
-.footer-brand {
-  display: block;
-  width: 230px;
-  margin: 0 auto 80px;
-}
-
-.footer-brand img {
-  display: block;
-  width: 100%;
-  height: auto;
 }
 
 .footer-contact-grid {

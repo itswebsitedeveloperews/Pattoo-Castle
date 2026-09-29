@@ -1,41 +1,3 @@
-function richTextToReact(value, keyPrefix = "rich-text") {
-  if (!value) {
-    return null;
-  }
-
-  if (typeof value === "string") {
-    return value;
-  }
-
-  if (Array.isArray(value)) {
-    return value.map((item, index) => (
-      <span key={`${keyPrefix}-${index}`}>
-        {richTextToReact(item, `${keyPrefix}-${index}`)}
-      </span>
-    ));
-  }
-
-  if (typeof value !== "object") {
-    return null;
-  }
-
-  if (typeof value.value === "string") {
-    return value.value;
-  }
-
-  const children = richTextToReact(value.content, `${keyPrefix}-content`);
-
-  if (value.nodeType === "hyperlink") {
-    return (
-      <a href={value.data?.uri || "#"} key={keyPrefix}>
-        {children}
-      </a>
-    );
-  }
-
-  return children;
-}
-
 function getPhoneHref(phone) {
   const value = phone.replace(/[^\d+]/g, "");
 
@@ -54,12 +16,10 @@ export default function SiteFooter({ footer }) {
       footer.socialLinks.length,
   );
   const hasFooter = Boolean(
-    footer.logo?.src ||
-      hasContact ||
+    hasContact ||
       footer.menuItems.length ||
       footer.copyright ||
-      footer.designBy ||
-      footer.footerBarMenu,
+      footer.footerBarItems.length,
   );
 
   if (!hasFooter) {
@@ -69,15 +29,6 @@ export default function SiteFooter({ footer }) {
   return (
     <footer className="site-footer">
       <div className="site-footer-inner container">
-        {footer.logo?.src && (
-          <a className="footer-brand" href="/" aria-label="Pattoo Castle home">
-            <img
-              src={footer.logo.src}
-              alt={footer.logo.alt || "Pattoo Castle"}
-            />
-          </a>
-        )}
-
         {hasContact && (
           <div className="footer-contact-grid">
             {footer.location && (
@@ -136,19 +87,16 @@ export default function SiteFooter({ footer }) {
           </nav>
         )}
 
-        {(footer.copyright || footer.designBy || footer.footerBarMenu) && (
+        {(footer.copyright || footer.footerBarItems.length > 0) && (
           <div className="footer-bottom">
             {footer.copyright && <p>{footer.copyright}</p>}
-            {(footer.designBy || footer.footerBarMenu) && (
+            {footer.footerBarItems.length > 0 && (
               <div>
-                {footer.designBy && (
-                  <span>{richTextToReact(footer.designByRichText)}</span>
-                )}
-                {footer.footerBarMenu && (
-                  <a href={footer.footerBarUrl || "#"}>
-                    {footer.footerBarMenu}
+                {footer.footerBarItems.map((item, index) => (
+                  <a href={item.url || "#"} key={`${item.name}-${index}`}>
+                    {item.name}
                   </a>
-                )}
+                ))}
               </div>
             )}
           </div>
