@@ -762,7 +762,7 @@ form.contact-planning-form.aos-init.aos-animate {
 .home-intro-image--secondary {
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: -50px;
   width: min(66%, 420px);
   aspect-ratio: 1.48;
 }
@@ -2687,6 +2687,7 @@ form.contact-planning-form.aos-init.aos-animate {
 .about-villa-content {
   max-width: 560px;
   color: var(--color-black);
+  white-space: pre-line;
 }
 
 .about-villa-content--secondary {
