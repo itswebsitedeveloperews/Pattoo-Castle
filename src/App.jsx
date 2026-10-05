@@ -48,18 +48,25 @@ export function richTextToPlainText(value) {
   return "";
 }
 
-export function richTextToReact(value, keyPrefix = "rich-text") {
+export function richTextToReact(value, keyPrefix = "rich-text", preserveLineBreaks = false) {
   if (!value) {
     return null;
   }
 
   if (typeof value === "string") {
-    return value;
+    return preserveLineBreaks
+      ? value.split(/\r\n|\r|\n/).map((line, index) => (
+          <span key={`${keyPrefix}-line-${index}`}>
+            {index > 0 && <br />}
+            {line}
+          </span>
+        ))
+      : value;
   }
 
   if (Array.isArray(value)) {
     return value.map((item, index) =>
-      richTextToReact(item, `${keyPrefix}-${index}`),
+      richTextToReact(item, `${keyPrefix}-${index}`, preserveLineBreaks),
     );
   }
 
@@ -68,10 +75,10 @@ export function richTextToReact(value, keyPrefix = "rich-text") {
   }
 
   if (typeof value.value === "string") {
-    return value.value;
+    return richTextToReact(value.value, keyPrefix, preserveLineBreaks);
   }
 
-  const children = richTextToReact(value.content, `${keyPrefix}-content`);
+  const children = richTextToReact(value.content, `${keyPrefix}-content`, preserveLineBreaks);
 
   switch (value.nodeType) {
     case "document":

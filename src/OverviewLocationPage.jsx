@@ -2,6 +2,7 @@ import {
   getContentfulAssetSrc,
   getFooterContent,
   getHeaderContent,
+  richTextToPlainText,
   richTextToReact,
 } from "./App";
 import AosInitializer from "./AosInitializer";
@@ -9,11 +10,16 @@ import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 
 function parseMapIframe(value) {
-  if (!value || typeof value !== "string") {
+  const markup = richTextToPlainText(value)
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+  if (!markup) {
     return null;
   }
 
-  const src = value.match(/\ssrc=["']([^"']+)["']/i)?.[1] || value;
+  const src = markup.match(/\ssrc=["']([^"']+)["']/i)?.[1] || markup;
 
   if (!/^https?:\/\//i.test(src)) {
     return null;
@@ -22,7 +28,7 @@ function parseMapIframe(value) {
   return {
     src,
     title:
-      value.match(/\stitle=["']([^"']+)["']/i)?.[1] ||
+      markup.match(/\stitle=["']([^"']+)["']/i)?.[1] ||
       "Pattoo Castle location map",
   };
 }
@@ -31,20 +37,16 @@ function getOverviewLocationContent(entry) {
   const fields = entry?.fields || {};
 
   return {
-    title: fields.title || "",    bannerImage: getContentfulAssetSrc(fields.bannerImage),
+    title: fields.bannerHeading || fields.title || "",
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),
     location: parseMapIframe(fields.location),
     directionsButton: fields.directionsButton || "",
     directionsButtonLink: fields.directionsButtonLink || "",
     locationContent: richTextToReact(
       fields.locationContent,
       "overview-location-content",
+      true,
     ),
-    ctaImage: getContentfulAssetSrc(fields.ctaImage),
-    ctaSubHeading: fields.ctaSubHeading || "",
-    ctaHeading: fields.ctaHeading || "",
-    ctaContent: richTextToReact(fields.ctaContent, "overview-location-cta"),
-    ctaButtonText: fields.ctaButtonText || "",
-    ctaButtonUrl: fields.ctaButtonUrl || "",
   };
 }
 
@@ -61,13 +63,6 @@ export default function OverviewLocationPage({
   );
   const hasDetailsSection = Boolean(
     page.location || page.locationContent || hasDirectionsButton,
-  );
-
-  const hasCtaSection = Boolean(
-    page.ctaSubHeading ||
-    page.ctaHeading ||
-    page.ctaContent ||
-    (page.ctaButtonText && page.ctaButtonUrl),
   );
 
   return (
@@ -147,55 +142,6 @@ export default function OverviewLocationPage({
           </section>
         )}
 
-        {hasCtaSection && (
-          <section
-            className="section stay-cta-section"
-            style={
-              page.ctaImage
-                ? {
-                    "--stay-cta-image": `url(${page.ctaImage})`,
-                  }
-                : undefined
-            }
-            aria-labelledby={page.ctaHeading ? "stay-cta-title" : undefined}
-          >
-            <div className="wrap stay-cta-content">
-              {page.ctaSubHeading && (
-                <p
-                  className="eyebrow stay-cta-eyebrow"
-                  data-aos="fade-up"
-                  data-aos-delay="20"
-                >
-                  {page.ctaSubHeading}
-                </p>
-              )}
-              {page.ctaHeading && (
-                <h2 id="stay-cta-title" data-aos="fade-up" data-aos-delay="50">
-                  {page.ctaHeading}
-                </h2>
-              )}
-              {page.ctaContent && (
-                <div
-                  className="stay-cta-text"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  {page.ctaContent}
-                </div>
-              )}
-              {page.ctaButtonText && page.ctaButtonUrl && (
-                <a
-                  className="button button--light stay-cta-button"
-                  href={page.ctaButtonUrl}
-                  data-aos="fade-up"
-                  data-aos-delay="150"
-                >
-                  {page.ctaButtonText}
-                </a>
-              )}
-            </div>
-          </section>
-        )}
       </main>
       <SiteFooter footer={footer} />
     </>

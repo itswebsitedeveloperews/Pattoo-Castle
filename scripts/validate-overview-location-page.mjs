@@ -38,12 +38,6 @@ for (const expected of [
   "fields.directionsButton",
   "fields.directionsButtonLink",
   "fields.locationContent",
-  "fields.ctaImage",
-  "fields.ctaSubHeading",
-  "fields.ctaHeading",
-  "fields.ctaContent",
-  "fields.ctaButtonText",
-  "fields.ctaButtonUrl",
 ]) {
   if (!page.includes(expected)) {
     failures.push(`Overview location page must consume ${expected}.`);
@@ -62,16 +56,8 @@ if (!page.includes("locationContent: richTextToReact")) {
   failures.push("Overview location content must render rich text.");
 }
 
-if (!page.includes("hasCtaSection")) {
-  failures.push("Overview location page must gate the CTA section.");
-}
-
-if (!page.includes("className=\"section stay-cta-section\"")) {
-  failures.push("Overview location page must render the stay CTA section style.");
-}
-
-if (!page.includes("ctaContent: richTextToReact")) {
-  failures.push("Overview location CTA content must render rich text.");
+if (page.includes("fields.cta") || page.includes("hasCtaSection")) {
+  failures.push("Overview location page must not consume the removed CTA fields.");
 }
 
 for (const expected of [

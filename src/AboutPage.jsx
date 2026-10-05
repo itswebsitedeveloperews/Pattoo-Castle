@@ -85,7 +85,7 @@ export default function AboutPage({
                   data-aos="fade-up"
                   data-aos-delay="150"
                 >
-                  {richTextToReact(about.villaContent, "about-villa-content")}
+                  {richTextToReact(about.villaContent, "about-villa-content", true)}
                 </div>
               )}
 
@@ -98,6 +98,7 @@ export default function AboutPage({
                   {richTextToReact(
                     about.villaContent2,
                     "about-villa-content-2",
+                    true,
                   )}
                 </div>
               )}

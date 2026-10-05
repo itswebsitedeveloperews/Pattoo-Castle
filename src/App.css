@@ -2687,7 +2687,6 @@ form.contact-planning-form.aos-init.aos-animate {
 .about-villa-content {
   max-width: 560px;
   color: var(--color-black);
-  white-space: pre-line;
 }
 
 .about-villa-content--secondary {
@@ -2824,14 +2823,16 @@ form.contact-planning-form.aos-init.aos-animate {
 
 .overview-location-grid {
   display: grid;
-  grid-template-columns: minmax(280px, 0.72fr) minmax(420px, 1fr);
-  gap: 72px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 1120px;
+  gap: 40px;
   align-items: center;
 }
 
 .overview-location-copy {
   display: grid;
   justify-items: start;
+  order: 1;
 }
 
 .overview-location-rich-text {
@@ -2853,13 +2854,18 @@ form.contact-planning-form.aos-init.aos-animate {
 
 .overview-location-button {
   margin-top: 30px;
+  background: transparent;
+  color: var(--color-brown);
+  border: 1px solid var(--color-brown);
+  border-radius: 999px;
 }
 
 .overview-location-map-frame {
   min-width: 0;
   overflow: hidden;
-  background: #fffaf3;
-  box-shadow: 0 18px 42px rgb(var(--color-black) / 0.12);
+  padding: 8px;
+  border: 1px solid var(--color-brown);
+  background: transparent;
 }
 
 .overview-location-map-frame iframe {
@@ -5867,7 +5873,7 @@ form.contact-planning-form.aos-init.aos-animate {
 
   .overview-location-grid {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 44px;
   }
 
