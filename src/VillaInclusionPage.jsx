@@ -3,7 +3,6 @@ import {
   getContentfulImage,
   getFooterContent,
   getHeaderContent,
-  richTextToPlainText,
 } from "./App";
 import AosInitializer from "./AosInitializer";
 import SiteFooter from "./SiteFooter";
@@ -106,26 +105,6 @@ function getVillaInclusionContent(entry) {
         .map((asset) => getContentfulImage(asset))
         .filter(Boolean)
     : [];
-  const whatsIncludedIcons = Array.isArray(fields.whatsIncludedIcons)
-    ? fields.whatsIncludedIcons
-        .map((item) => {
-          const itemFields = item?.fields || {};
-          const images = Array.isArray(itemFields.images)
-            ? itemFields.images
-            : [itemFields.images];
-          const icon = images
-            .map((asset) => getContentfulImage(asset))
-            .find(Boolean);
-
-          return {
-            icon,
-            title: itemFields.title || "",
-            content: richTextToPlainText(itemFields.content),
-          };
-        })
-        .filter((item) => item.icon?.src || item.title || item.content)
-    : [];
-
   return {
     bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    bedroomsImages,
     bedroomsHeading: fields.bedroomsEnsuiteBathroomsHeading || "",
@@ -133,28 +112,6 @@ function getVillaInclusionContent(entry) {
     additionalChargeImages,
     additionalChargeHeading: fields.additionalChargeAmenitiesHeading || "",
     additionalChargeContent: fields.additionalChargeAmenitiesContent || null,
-    readyForStayImage: getContentfulAssetSrc(
-      fields.readyForYourStayBannerImage,
-    ),
-    readyForStaySubHeading: fields.readyForYourStayBannerSubHeading || "",
-    readyForStayHeading: fields.readyForYourStayBannerHeading || "",
-    readyForStayContent: richTextToPlainText(
-      fields.readyForYourStayBannerContent,
-    ),
-    whatsIncludedSubHeading: fields.whatsIncludedSubHeading || "",
-    whatsIncludedHeading: fields.whatsIncludedHeading || "",
-    whatsIncludedIcons,
-    experienceImage: getContentfulAssetSrc(fields.experiencePattooCastleImage),
-    experienceSubHeading: fields.experiencePattooCastleSubHeading || "",
-    experienceHeading: fields.experiencePattooCastleHeading || "",
-    experienceContent: richTextToPlainText(
-      fields.experiencePattooCastleContent,
-    ),
-    experienceButtonText: fields.experiencePattooCastleButtonText || "",
-    experienceButtonUrl:
-      fields.experiencePattooCastleButtonUrl ||
-      fields.experiencePattooCastleButtonURL ||
-      "",
   };
 }
 
@@ -176,25 +133,6 @@ export default function VillaInclusionPage({
     villaInclusion.additionalChargeHeading ||
     villaInclusion.additionalChargeContent,
   );
-  const hasReadyForStaySection = Boolean(
-    villaInclusion.readyForStayImage ||
-    villaInclusion.readyForStaySubHeading ||
-    villaInclusion.readyForStayHeading ||
-    villaInclusion.readyForStayContent,
-  );
-  const hasWhatsIncludedSection = Boolean(
-    villaInclusion.whatsIncludedSubHeading ||
-    villaInclusion.whatsIncludedHeading ||
-    villaInclusion.whatsIncludedIcons.length,
-  );
-  const hasExperienceSection = Boolean(
-    villaInclusion.experienceImage ||
-    villaInclusion.experienceSubHeading ||
-    villaInclusion.experienceHeading ||
-    villaInclusion.experienceContent ||
-    (villaInclusion.experienceButtonText && villaInclusion.experienceButtonUrl),
-  );
-
   return (
     <>
       <AosInitializer />
@@ -286,163 +224,6 @@ export default function VillaInclusionPage({
           </section>
         )}
 
-        {hasReadyForStaySection && (
-          <section
-            className="section stay-cta-section"
-            style={
-              villaInclusion.readyForStayImage
-                ? {
-                    "--stay-cta-image": `url(${villaInclusion.readyForStayImage})`,
-                  }
-                : undefined
-            }
-            aria-labelledby={
-              villaInclusion.readyForStayHeading
-                ? "villa-inclusion-ready-for-stay-title"
-                : undefined
-            }
-          >
-            <div className="wrap stay-cta-content">
-              {villaInclusion.readyForStaySubHeading && (
-                <p
-                  className="eyebrow stay-cta-eyebrow"
-                  data-aos="fade-up"
-                  data-aos-delay="20"
-                >
-                  {villaInclusion.readyForStaySubHeading}
-                </p>
-              )}
-              {villaInclusion.readyForStayHeading && (
-                <h2
-                  id="getting-here-cta-title"
-                  data-aos="fade-up"
-                  data-aos-delay="50"
-                >
-                  {villaInclusion.readyForStayHeading}
-                </h2>
-              )}
-              {villaInclusion.readyForStayContent && (
-                <div
-                  className="stay-cta-text"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  {villaInclusion.readyForStayContent}
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {hasWhatsIncludedSection && (
-          <section
-            className={`section ${styles.whatsIncludedSection}`}
-            aria-labelledby={
-              villaInclusion.whatsIncludedHeading
-                ? "villa-inclusion-whats-included-title"
-                : undefined
-            }
-          >
-            <div className={`wrap ${styles.whatsIncludedInner}`}>
-              <div className={styles.whatsIncludedHeader}>
-                {villaInclusion.whatsIncludedSubHeading && (
-                  <p className={`eyebrow ${styles.whatsIncludedEyebrow}`}>
-                    {villaInclusion.whatsIncludedSubHeading}
-                  </p>
-                )}
-                {villaInclusion.whatsIncludedHeading && (
-                  <h2 id="villa-inclusion-whats-included-title">
-                    {villaInclusion.whatsIncludedHeading}
-                  </h2>
-                )}
-              </div>
-
-              {villaInclusion.whatsIncludedIcons.length > 0 && (
-                <div className="location-highlights-grid whats-included-grid">
-                  {villaInclusion.whatsIncludedIcons.map((item, index) => (
-                    <article
-                      className="location-highlight-card"
-                      key={`${item.title}-${index}`}
-                      data-aos="fade-up"
-                      data-aos-delay={String(index * 100)}
-                    >
-                      {item.icon?.src && (
-                        <img
-                          src={item.icon.src}
-                          alt={
-                            item.icon.alt ||
-                            (item.title ? `${item.title} icon` : "")
-                          }
-                        />
-                      )}
-                      {item.title && <h3>{item.title}</h3>}
-                      {item.content && <p>{item.content}</p>}
-                    </article>
-                  ))}
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {hasExperienceSection && (
-          <section
-            className="section stay-cta-section"
-            style={
-              villaInclusion.experienceImage
-                ? {
-                    "--stay-cta-image": `url(${villaInclusion.experienceImage})`,
-                  }
-                : undefined
-            }
-            aria-labelledby={
-              villaInclusion.readyForStayHeading
-                ? "villa-inclusion-ready-for-stay-title"
-                : undefined
-            }
-          >
-            <div className="wrap stay-cta-content">
-              {villaInclusion.experienceSubHeading && (
-                <p
-                  className="eyebrow stay-cta-eyebrow"
-                  data-aos="fade-up"
-                  data-aos-delay="20"
-                >
-                  {villaInclusion.experienceSubHeading}
-                </p>
-              )}
-              {villaInclusion.experienceHeading && (
-                <h2
-                  id="getting-here-cta-title"
-                  data-aos="fade-up"
-                  data-aos-delay="50"
-                >
-                  {villaInclusion.experienceHeading}
-                </h2>
-              )}
-              {villaInclusion.experienceContent && (
-                <div
-                  className="stay-cta-text"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  {villaInclusion.experienceContent}
-                </div>
-              )}
-              {villaInclusion.experienceButtonUrl &&
-                villaInclusion.experienceButtonText && (
-                  <a
-                    className="button button--light stay-cta-button"
-                    href={villaInclusion.experienceButtonUrl}
-                    data-aos="fade-up"
-                    data-aos-delay="150"
-                  >
-                    {villaInclusion.experienceButtonText}
-                  </a>
-                )}
-            </div>
-          </section>
-        )}
       </main>
       <SiteFooter footer={footer} />
     </>
