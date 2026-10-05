@@ -27,20 +27,9 @@ const sitemap = readRequired("src/app/sitemap.js");
 const css = readRequired("src/App.css");
 
 for (const expected of [
-  "fields.bannerSubHeading",
   "fields.bannerHeading",
-  "fields.bannerContent",
   "fields.bannerImage",
-  "fields.gettingHereSubHeading",
-  "fields.gettingHereHeading",
   "fields.gettingHereContent",
-  "fields.gettingHereImage",
-  "fields.ctaImage",
-  "fields.ctaSubHeading",
-  "fields.ctaHeading",
-  "fields.ctaContent",
-  "fields.ctaButtonText",
-  "fields.ctaButtonUrl",
 ]) {
   if (!page.includes(expected)) {
     failures.push(`Getting Here page must consume ${expected}.`);
@@ -51,16 +40,8 @@ if (!page.includes("getGettingHereContent")) {
   failures.push("Getting Here page must normalize its Contentful fields.");
 }
 
-if (!page.includes("richTextToReact")) {
-  failures.push("Getting Here page must render Contentful rich text semantically.");
-}
-
-if (!page.includes("hasGettingHereSection")) {
-  failures.push("Getting Here page must gate its middle content section.");
-}
-
-if (!page.includes("getting-here-detail-section")) {
-  failures.push("Getting Here page must render its middle content section.");
+if (/fields\.(gettingHereSubHeading|gettingHereHeading|gettingHereImage|cta)|getting-here-detail-section|stay-cta-section/.test(page)) {
+  failures.push("Getting Here page must not consume or render the removed detail and CTA fields.");
 }
 
 for (const forbidden of ["hasVillaSection", "overview.", "hasVillaButton"]) {
