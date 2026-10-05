@@ -4953,6 +4953,79 @@ form.contact-planning-form.aos-init.aos-animate {
 
 
 
+.accommodation-blocks-section {
+  padding: 64px 0;
+  background: var(--color-cream);
+}
+
+.accommodation-blocks-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.accommodation-image-box {
+  display: block;
+  flex: 0 0 calc((100% - 32px) / 3);
+  min-width: 0;
+  color: var(--color-brown);
+  background: var(--color-cream);
+  text-decoration: none;
+  box-shadow: 0 12px 24px rgb(var(--color-black) / 0.1);
+}
+
+.accommodation-image-box img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.48;
+  object-fit: cover;
+}
+
+.accommodation-image-box h2 {
+  margin: 0;
+  padding: 20px 12px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+a.accommodation-image-box:hover h2 {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+a.accommodation-image-box:focus-visible {
+  outline: 2px solid var(--color-brown);
+  outline-offset: 4px;
+}
+
+@media (max-width: 1023px) {
+  .accommodation-image-box {
+    flex-basis: calc((100% - 16px) / 2);
+  }
+}
+
+@media (max-width: 599px) {
+  .accommodation-blocks-section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .accommodation-image-box {
+    flex-basis: 100%;
+  }
+
+  .accommodation-image-box h2 {
+    font-size: 22px;
+  }
+}
+
 .accommodation-rooms-section {
   padding: 80px 0;
   color: var(--color-brown);
