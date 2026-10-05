@@ -4940,98 +4940,18 @@ form.contact-planning-form.aos-init.aos-animate {
   margin-top: 28px;
 }
 
-.accommodation-intro-section {
-  padding: 80px 0;
-  color: rgb(var(--color-white));
-  background: var(--color-brown);
-}
 
-.accommodation-intro-section .wrap {
-  max-width: 1200px;
-}
 
-.accommodation-intro-header {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 1fr);
-  gap: 32px;
-  align-items: start;
-  margin: 0 auto;
-}
 
-.accommodation-intro-eyebrow {
-  margin: 0 0 16px;
-  color: rgb(var(--color-white) / var(--opacity-high));
-}
 
-.accommodation-intro-header h2 {
-  max-width: 460px;
-  margin: 0;
-  color: rgb(var(--color-white));
 
-  font-size: var(--font-size-h2);
-}
 
-.accommodation-intro-description {
-  max-width: 680px;
-  margin: 6px 0 0;
-  color: rgb(var(--color-white) / var(--opacity-high));
-}
 
-.accommodation-intro-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(150px, 1fr));
-  margin-top: 48px;
-  border-top: 1px solid rgb(var(--color-white) / 0.18);
-}
 
-.accommodation-intro-item {
-  display: grid;
-  justify-items: center;
-  align-content: start;
-  grid-template-rows: auto auto minmax(0, auto) auto;
-  min-height: 220px;
-  padding: 48px 24px 0;
-  text-align: center;
-  border-right: 1px solid rgb(var(--color-white) / 0.18);
-}
 
-.accommodation-intro-item:last-child {
-  border-right: 0;
-}
 
-.accommodation-intro-icon {
-  display: block;
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  margin-bottom: 20px;
-}
 
-.accommodation-intro-item strong {
-  color: rgb(var(--color-white));
-  font-family: var(--font-display);
-  font-size: var(--font-size-h2);
-  font-weight: 400;
-}
 
-.accommodation-intro-item span {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  margin-top: 10px;
-  color: rgb(var(--color-white));
-  font-family: var(--font-display);
-  font-size: var(--font-size-large);
-  line-height: var(--line-height-heading);
-}
-
-.accommodation-intro-item p {
-  margin-top: 0;
-  color: rgb(var(--color-white) / var(--opacity-high));
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-  margin-top: 10px;
-}
 
 .accommodation-rooms-section {
   padding: 80px 0;
@@ -5068,9 +4988,6 @@ form.contact-planning-form.aos-init.aos-animate {
   color: var(--color-brown-dark);
 }
 
-.accommodation-rooms-button {
-  margin-top: 20px;
-}
 
 .accommodation-rooms-grid {
   display: grid;
@@ -5105,103 +5022,20 @@ form.contact-planning-form.aos-init.aos-animate {
   line-height: var(--line-height-body);
 }
 
-.accommodation-memories-section {
-  color: var(--color-brown);
-  background: var(--color-dark-cream);
-  overflow: hidden;
-}
 
-.accommodation-memories-section .wrap {
-  display: grid;
-  grid-template-columns: minmax(320px, 0.62fr) minmax(0, 1.08fr);
-  gap: 42px;
-  align-items: center;
-}
-.accommodation-memories-image {
-  height: 100%;
-}
 
-.accommodation-memories-content {
-  max-width: 560px;
-  padding: 50px 0;
-}
 
-.accommodation-memories-eyebrow {
-  margin: 0 0 16px;
-  color: var(--color-brown);
-}
 
-.accommodation-memories-content h2 {
-  margin: 0;
-  color: var(--color-brown);
 
-  font-size: var(--font-size-h2);
-}
 
-.accommodation-memories-content > p:not(.accommodation-memories-eyebrow) {
-  margin-top: 10px;
-  color: var(--color-brown-dark);
-}
 
-.accommodation-memories-button {
-  justify-self: stretch;
-  width: 100%;
-  max-width: 450px;
-  margin-top: 20px;
-}
 
-.accommodation-memories-image img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 820 / 395;
-  object-fit: cover;
-  height: 100%;
-  min-width: 62vw;
-}
 
-.accommodation-living-section {
-  padding: 80px 0;
-  color: rgb(var(--color-white));
-  background: var(--color-brown);
-}
 
-.accommodation-living-eyebrow {
-  margin: 0 0 10px;
-  color: rgb(var(--color-white) / var(--opacity-high));
-}
 
-.accommodation-living-section h2 {
-  margin: 0;
-  color: rgb(var(--color-white));
-  font-size: var(--font-size-h2);
-}
 
-.accommodation-living-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(160px, 1fr));
-  gap: 22px;
-  margin-top: 50px;
-}
 
-.accommodation-living-item {
-  padding-top: 24px;
-  border-top: 1px solid rgb(var(--color-white) / 0.34);
-}
 
-.accommodation-living-item h3 {
-  margin: 0;
-  color: rgb(var(--color-white));
-
-  font-size: var(--font-size-global-h2);
-}
-
-.accommodation-living-item p {
-  max-width: 280px;
-  margin-top: 12px;
-  color: rgb(var(--color-white) / var(--opacity-high));
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-}
 
 .overview-blocks-section {
   padding: 100px 0;
@@ -5587,16 +5421,6 @@ form.contact-planning-form.aos-init.aos-animate {
   }
   .amenities-section {
     gap: 18px;
-  }
-  .accommodation-memories-section .wrap {
-    gap: 24px;
-  }
-  .accommodation-memories-content {
-    max-width: 100%;
-  }
-  .accommodation-living-grid {
-    grid-template-columns: repeat(2, minmax(180px, 1fr));
-    margin-top: 30px;
   }
 
   .intro-section {
@@ -6179,40 +6003,12 @@ form.contact-planning-form.aos-init.aos-animate {
     padding: 60px 0;
   }
 
-  .accommodation-intro-section {
-    padding: 60px 0;
-  }
 
-  .accommodation-intro-header {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
 
-  .accommodation-intro-grid {
-    margin-top: 30px;
-  }
-  .accommodation-intro-item {
-    padding: 30px;
-  }
 
-  .accommodation-intro-description {
-    max-width: 640px;
-    margin-top: 0;
-  }
 
-  .accommodation-intro-grid {
-    grid-template-columns: repeat(2, minmax(180px, 1fr));
-    gap: 0;
-  }
 
-  .accommodation-intro-item:nth-child(2n) {
-    border-right: 0;
-    border-top: 0;
-  }
 
-  .accommodation-intro-item:nth-child(n + 3) {
-    border-top: 1px solid rgb(var(--color-white) / 0.18);
-  }
 
   .accommodation-rooms-section {
     padding: 70px 0;
@@ -6226,13 +6022,7 @@ form.contact-planning-form.aos-init.aos-animate {
     margin-left: auto;
   }
 
-  .accommodation-memories-content {
-    max-width: 100%;
-  }
 
-  .accommodation-living-section {
-    padding: 64px 32px 58px;
-  }
 
   .overview-blocks-section {
     padding: 60px 0;
@@ -6412,8 +6202,7 @@ form.contact-planning-form.aos-init.aos-animate {
     width: 100%;
   }
 
-  .accommodation-intro-header h2,
-  .accommodation-intro-description,
+
   .accommodation-rooms-header h2,
   .accommodation-rooms-header > p:not(.accommodation-rooms-eyebrow),
   .contact-experience-card > p:not(.contact-experience-eyebrow) {
@@ -7353,39 +7142,12 @@ form.contact-planning-form.aos-init.aos-animate {
     margin-top: 18px;
   }
 
-  .accommodation-intro-section {
-    padding: 50px 0;
-  }
 
-  .accommodation-intro-eyebrow {
-    font-size: var(--font-size-small);
-  }
 
-  .accommodation-intro-header h2 {
-    font-size: var(--font-size-h2-mobile);
-  }
 
-  /* .accommodation-intro-grid {
-    grid-template-columns: 1fr;
-  } */
 
-  .accommodation-intro-item,
-  .accommodation-intro-item:nth-child(2n) {
-    /* min-height: auto;
-    border-right: 0;
-    border-top: 1px solid rgb(var(--color-white) / 0.18); */
-    padding: 30px 12px;
-  }
 
-  .accommodation-intro-item:first-child {
-    border-top: 0;
-  }
 
-  .accommodation-intro-icon {
-    margin-bottom: 18px;
-    width: 38px;
-    height: 38px;
-  }
 
   .accommodation-rooms-section {
     padding: 50px 0;
@@ -7407,40 +7169,12 @@ form.contact-planning-form.aos-init.aos-animate {
     margin: 0;
   }
 
-  .accommodation-memories-section .wrap {
-    gap: 32px;
-    display: flex;
-    flex-direction: column-reverse;
-  }
-  .accommodation-memories-button {
-    margin-top: 16px;
-  }
 
-  .accommodation-memories-eyebrow {
-    font-size: var(--font-size-small);
-  }
 
-  .accommodation-memories-content {
-    padding: 0 0 50px;
-  }
 
-  .accommodation-memories-image img {
-    aspect-ratio: 4 / 3;
-    min-width: 100vw;
-  }
 
-  .accommodation-living-section {
-    padding: 52px 18px 46px;
-  }
 
-  .accommodation-living-section h2 {
-    font-size: var(--font-size-h2-mobile);
-  }
 
-  .accommodation-living-item p {
-    max-width: none;
-    font-size: inherit;
-  }
 
   .overview-blocks-section {
     padding: 50px 0 20px;
@@ -7485,11 +7219,6 @@ form.contact-planning-form.aos-init.aos-animate {
   .accommodation-rooms-grid {
     grid-template-columns: 1fr;
   }
-  .accommodation-living-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    margin-top: 38px;
-  }
   .overview-blocks-grid {
     grid-template-columns: 1fr;
   }
@@ -7498,18 +7227,8 @@ form.contact-planning-form.aos-init.aos-animate {
     width: 100%;
   }
 
-  .accommodation-intro-item {
-    min-height: auto;
-    border-top: 1px solid rgb(var(--color-white) / 0.18);
-  }
 
-  .accommodation-intro-header * {
-    text-align: center;
-  }
 
-  .accommodation-intro-header {
-    gap: 16px;
-  }
 
   .contact-connect-card {
     padding-right: 10px;
@@ -7752,9 +7471,6 @@ form.contact-planning-form.aos-init.aos-animate {
     gap: 24px;
   }
 
-  .accommodation-intro-item p {
-    font-size: inherit;
-  }
   .events-memories-eyebrow {
     margin: 0 0 8px;
   }
