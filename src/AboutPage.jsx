@@ -4,6 +4,7 @@ import {
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
+  richTextToReact,
 } from "./App";
 import AosInitializer from "./AosInitializer";
 import SiteFooter from "./SiteFooter";
@@ -16,9 +17,11 @@ function getAboutContent(entry) {
     bannerImage: getContentfulAssetSrc(fields.bannerImage),
     bannerHeading: fields.bannerHeading || "",
     villaImage: getContentfulImage(fields.villaImage),
-    villaContent: richTextToPlainText(fields.villaContent),
+    villaContent: fields.villaContent || null,
+    villaContentText: richTextToPlainText(fields.villaContent),
     villaImage2: getContentfulImage(fields.villaImage2),
-    villaContent2: richTextToPlainText(fields.villaContent2),
+    villaContent2: fields.villaContent2 || null,
+    villaContent2Text: richTextToPlainText(fields.villaContent2),
   };
 }
 
@@ -32,9 +35,9 @@ export default function AboutPage({
   const header = getHeaderContent(headerEntry);
   const hasVillaSection = Boolean(
     about.villaImage?.src ||
-    about.villaContent ||
+    about.villaContentText ||
     about.villaImage2?.src ||
-    about.villaContent2,
+    about.villaContent2Text,
   );
 
   return (
@@ -76,23 +79,26 @@ export default function AboutPage({
                 </figure>
               )}
 
-              {about.villaContent && (
+              {about.villaContentText && (
                 <div
                   className="about-villa-content"
                   data-aos="fade-up"
                   data-aos-delay="150"
                 >
-                  <p>{about.villaContent}</p>
+                  {richTextToReact(about.villaContent, "about-villa-content")}
                 </div>
               )}
 
-              {about.villaContent2 && (
+              {about.villaContent2Text && (
                 <div
                   className="about-villa-content about-villa-content--secondary"
                   data-aos="fade-up"
                   data-aos-delay="100"
                 >
-                  <p>{about.villaContent2}</p>
+                  {richTextToReact(
+                    about.villaContent2,
+                    "about-villa-content-2",
+                  )}
                 </div>
               )}
 
