@@ -2669,7 +2669,7 @@ form.contact-planning-form.aos-init.aos-animate {
   grid-template-columns: minmax(0, 1fr) minmax(340px, 1fr);
   gap: 62px 48px;
   align-items: center;
-  max-width: 1210px;
+  max-width: 1340px;
   color: var(--color-brown);
 }
 
