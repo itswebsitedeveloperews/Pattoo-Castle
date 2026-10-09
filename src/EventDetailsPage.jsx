@@ -1,7 +1,8 @@
 import {
-  getContentfulAssetSrc,
+  getContentfulImage,
   getFooterContent,
   getHeaderContent,
+  richTextToReact,
 } from "./App";
 import EventUploadField from "./EventUploadField";
 import AosInitializer from "./AosInitializer";
@@ -9,14 +10,23 @@ import MinTodayDateInput from "./MinTodayDateInput";
 import NetlifyForm from "./NetlifyForm";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
+import styles from "./EventDetailsPage.module.css";
+import EventBannerSlider from "./EventBannerSlider";
 
 function getEventDetailsContent(entry) {
   const fields = entry?.fields || {};
+  const bannerAssets = Array.isArray(fields.eventBannerImages)
+    ? fields.eventBannerImages
+    : [fields.eventBannerImage].filter(Boolean);
 
   return {
     slug: fields.eventSlug || "",
-    bannerImage: getContentfulAssetSrc(fields.eventBannerImage),
+    bannerImages: bannerAssets.map((asset) => getContentfulImage(asset))
+      .filter((image) => image?.src),
     heading: fields.eventHeading || "",
+    image: getContentfulImage(fields.eventImage),
+    title: fields.eventTitle || "",
+    content: fields.eventContent || null,
   };
 }
 
@@ -38,19 +48,13 @@ export default function EventDetailsPage({
       <SiteHeader header={header} />
       <main>
         <section
-          className="section page-hero event-detail-hero"
-          style={
-            eventDetails.bannerImage
-              ? {
-                  "--event-detail-banner-image": `url(${eventDetails.bannerImage})`,
-                }
-              : undefined
-          }
+          className={`section page-hero event-detail-hero ${styles.banner}`}
           aria-labelledby={
             eventDetails.heading ? "event-detail-title" : undefined
           }
         >
-          <div className="wrap">
+          <EventBannerSlider images={eventDetails.bannerImages} />
+          <div className={`wrap ${styles.bannerContent}`}>
             <div className="page-hero-content event-detail-hero-content">
               <p
                 className="eyebrow page-hero-eyebrow event-detail-hero-eyebrow"
@@ -71,6 +75,38 @@ export default function EventDetailsPage({
             </div>
           </div>
         </section>
+
+        {(eventDetails.image?.src || eventDetails.title || eventDetails.content) && (
+          <section
+            className={`section ${styles.detailsSection}`}
+            aria-labelledby={eventDetails.title ? "event-content-title" : undefined}
+            aria-label={eventDetails.title ? undefined : "Event details"}
+          >
+            <div className={`wrap ${styles.inner}${
+              !eventDetails.image?.src || !(eventDetails.title || eventDetails.content)
+                ? ` ${styles.singleColumn}` : ""
+            }`}>
+              {eventDetails.image?.src && (
+                <img
+                  className={styles.image}
+                  src={eventDetails.image.src}
+                  alt={eventDetails.image.alt || eventDetails.title || eventDetails.heading || "Pattoo Castle event"}
+                  loading="lazy"
+                />
+              )}
+              {(eventDetails.title || eventDetails.content) && (
+                <div className={styles.copy}>
+                  {eventDetails.title && <h2 id="event-content-title">{eventDetails.title}</h2>}
+                  {eventDetails.content && (
+                    <div className={styles.content}>
+                      {richTextToReact(eventDetails.content, "event-details-content", true)}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </section>
+        )}
 
         <section
           className="section event-inquiry-section"
