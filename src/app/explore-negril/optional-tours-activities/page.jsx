@@ -1,4 +1,4 @@
-import LocationPage from '../../../LocationPage'
+import OptionalToursActivitiesPage from '../../../OptionalToursActivitiesPage'
 import {
   getFooterEntry,
   getHeaderEntry,
@@ -28,7 +28,7 @@ export default async function OptionalToursActivitiesRoute() {
     withTimeout(getHeaderEntry(), 'Contentful header'),
   ])
 
-  let locationEntry =
+  const locationEntry =
     locationResult.status === 'fulfilled' ? locationResult.value : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
@@ -51,10 +51,10 @@ export default async function OptionalToursActivitiesRoute() {
   }
 
   return (
-    <LocationPage
+    <OptionalToursActivitiesPage
       footerEntry={footerEntry}
       headerEntry={headerEntry}
-      locationEntry={locationEntry}
+      optionalToursActivitiesEntry={locationEntry}
     />
   )
 }
