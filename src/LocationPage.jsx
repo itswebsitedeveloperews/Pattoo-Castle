@@ -130,6 +130,27 @@ function getImageBoxItems(items) {
     : [];
 }
 
+function parseLocationIframe(value) {
+  const markup = richTextToPlainText(value)
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;|&#34;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&amp;/gi, "&")
+    .trim();
+  const src = markup.match(/<iframe\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/i)?.[1]
+    || markup;
+
+  try {
+    const url = new URL(src);
+    return url.protocol === "https:" || url.protocol === "http:"
+      ? url.href
+      : "";
+  } catch {
+    return "";
+  }
+}
+
 function getLocationContent(entry) {
   const fields = entry?.fields || {};
   const exploreCards = getImageBoxItems(fields.exploreCards);
@@ -159,6 +180,10 @@ function getLocationContent(entry) {
     exploreNegrilBlocks: getImageBoxItems(fields.exploreNegrilBlocks).filter(
       (item) => item.image?.src || item.title,
     ),
+    locationIframe: parseLocationIframe(fields.locationIframe),
+    locationContent: fields.locationContent || null,
+    negrilHistoryHeading: fields.negrilHistoryHeading || "",
+    negrilHistoryContent: fields.negrilHistoryContent || null,
   };
 }
 
@@ -489,6 +514,54 @@ export default function LocationPage({
                   </article>
                 );
               })}
+            </div>
+          </section>
+        )}
+        {(location.locationIframe || richTextToPlainText(location.locationContent).trim()) && (
+          <section
+            className={`section ${styles.mapSection}`}
+            aria-label="Pattoo Castle location"
+          >
+            <div className={`wrap ${styles.mapLayout}${
+              !location.locationIframe || !richTextToPlainText(location.locationContent).trim()
+                ? ` ${styles.singleColumn}` : ""
+            }`}>
+              {location.locationIframe && (
+                <div className={`map-part ${styles.mapPart}`}>
+                  <iframe
+                    src={location.locationIframe}
+                    title="Pattoo Castle location map"
+                    width="600"
+                    height="450"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              {location.locationContent && (
+                <div className={styles.locationContent}>
+                  {renderRichText(location.locationContent, "location-content")}
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {(location.negrilHistoryHeading || richTextToPlainText(location.negrilHistoryContent).trim()) && (
+          <section
+            className={`section ${styles.historySection}`}
+            aria-label={location.negrilHistoryHeading ? undefined : "Negril history"}
+            aria-labelledby={location.negrilHistoryHeading ? "negril-history-title" : undefined}
+          >
+            <div className="wrap">
+              {location.negrilHistoryHeading && (
+                <h2 id="negril-history-title">{location.negrilHistoryHeading}</h2>
+              )}
+              {location.negrilHistoryContent && (
+                <div className={styles.historyContent}>
+                  {renderRichText(location.negrilHistoryContent, "negril-history-content")}
+                </div>
+              )}
             </div>
           </section>
         )}

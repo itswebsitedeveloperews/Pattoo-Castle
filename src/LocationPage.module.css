@@ -1,3 +1,45 @@
+.mapSection,
+.historySection {
+  padding: 72px 0;
+  color: var(--color-brown);
+  background: var(--color-cream);
+}
+
+.mapLayout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 36px;
+}
+
+.singleColumn { grid-template-columns: minmax(0, 1fr); }
+.mapPart { min-width: 0; padding: 8px; background: white; }
+.mapPart iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2.2;
+  border: 0;
+}
+
+.locationContent,
+.historyContent {
+  min-width: 0;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  overflow-wrap: anywhere;
+}
+
+.locationContent p,
+.historyContent p { margin: 0 0 16px; }
+.locationContent > :first-child,
+.historyContent > :first-child { margin-top: 0; }
+.locationContent > :last-child,
+.historyContent > :last-child { margin-bottom: 0; }
+.historySection { text-align: center; }
+.mapSection + .historySection { padding-top: 0; }
+.historySection h2 { margin: 0 0 32px; font-size: var(--font-size-h2); }
+
 .exploreNegrilSection {
   padding: 80px 0;
   color: var(--color-brown);
@@ -44,6 +86,11 @@
 .cardLink:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 
 @media (max-width: 767px) {
+  .mapSection,
+  .historySection { padding: 48px 0; }
+  .mapLayout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .mapPart iframe { aspect-ratio: 4 / 3; }
+  .historySection h2 { margin-bottom: 24px; }
   .exploreNegrilSection { padding: 48px 0; }
   .exploreNegrilGrid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .cardTitle { padding: 20px 16px; }
