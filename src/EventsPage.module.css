@@ -20,6 +20,11 @@
 .blockContent a { text-decoration: underline; text-underline-offset: 3px; }
 .blockContent a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 .blockButton { margin-top: auto; }
+.blockImageLink { display: block; }
+.blockTitleLink { color: inherit; text-decoration: none; }
+.blockTitleLink:hover { text-decoration: underline; text-underline-offset: 4px; }
+.blockImageLink:focus-visible,
+.blockTitleLink:focus-visible { outline: 2px solid var(--color-brown); outline-offset: 4px; }
 
 @media (max-width: 1024px) {
   .blocksGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

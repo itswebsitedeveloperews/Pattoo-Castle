@@ -75,15 +75,34 @@ export default function EventsPage({
               {event.blocks.map((block, index) => (
                 <article className={styles.block} key={`${block.id || "event-block"}-${index}`}>
                   {block.image?.src && (
-                    <img
-                      className={styles.blockImage}
-                      src={block.image.src}
-                      alt={block.image.alt || block.title || "Pattoo Castle event"}
-                      loading="lazy"
-                    />
+                    block.buttonUrl ? (
+                      <a className={styles.blockImageLink} href={block.buttonUrl}>
+                        <img
+                          className={styles.blockImage}
+                          src={block.image.src}
+                          alt={block.image.alt || block.title || "Pattoo Castle event"}
+                          loading="lazy"
+                        />
+                      </a>
+                    ) : (
+                      <img
+                        className={styles.blockImage}
+                        src={block.image.src}
+                        alt={block.image.alt || block.title || "Pattoo Castle event"}
+                        loading="lazy"
+                      />
+                    )
                   )}
                   <div className={styles.blockBody}>
-                    {block.title && <h2>{block.title}</h2>}
+                    {block.title && (
+                      <h2>
+                        {block.buttonUrl ? (
+                          <a className={styles.blockTitleLink} href={block.buttonUrl}>
+                            {block.title}
+                          </a>
+                        ) : block.title}
+                      </h2>
+                    )}
                     {block.content && (
                       <div className={styles.blockContent}>
                         {richTextToReact(block.content, `event-block-${index}`, true)}
