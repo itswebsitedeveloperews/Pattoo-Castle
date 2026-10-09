@@ -1,0 +1,15 @@
+.bannerVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.videoBanner::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: rgb(0 0 0 / 50%);
+  pointer-events: none;
+}

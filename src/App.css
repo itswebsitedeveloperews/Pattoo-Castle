@@ -3571,83 +3571,10 @@ form.contact-planning-form.aos-init.aos-animate {
   font-size: var(--font-size-h2);
 }
 
-.gallery-intro-section {
-  display: grid;
-  justify-items: center;
-  padding: 50px 0;
-  color: rgb(var(--color-white));
-  background: var(--color-brown);
-  text-align: center;
-}
-
-.gallery-intro-eyebrow {
-  margin: 0 0 18px;
-  color: rgb(var(--color-white) / var(--opacity-high));
-}
-
-.gallery-intro-section h2 {
-  max-width: 680px;
-  margin: 0;
-  color: rgb(var(--color-white));
-  font-size: var(--font-size-h2);
-}
-
-.gallery-intro-section p:not(.gallery-intro-eyebrow) {
-  max-width: 600px;
-  color: rgb(var(--color-white) / var(--opacity-high));
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-  margin: 0 auto;
-}
-
 .gallery-grid-section {
   padding: 42px 0;
   color: var(--color-brown);
   background: var(--color-cream);
-}
-
-.gallery-filter-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 18px 28px;
-  margin-bottom: 24px;
-}
-
-.gallery-filter-button {
-  color: var(--color-brown-dark);
-  font-family: var(--font-body);
-  font-size: var(--font-size-medium);
-  cursor: pointer;
-  background: none;
-  border: 0;
-  padding: 0 0 8px;
-  position: relative;
-}
-
-.gallery-filter-button::after {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 1px;
-  background: currentColor;
-  content: "";
-  opacity: 0;
-  transform: scaleX(0.65);
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease;
-}
-
-.gallery-filter-button:hover::after,
-.gallery-filter-button.is-active::after {
-  opacity: 1;
-  transform: scaleX(1);
-}
-
-.gallery-filter-button.is-active {
-  color: var(--color-brown);
 }
 
 .gallery-filter-grid {
@@ -3772,56 +3699,6 @@ form.contact-planning-form.aos-init.aos-animate {
 
 .gallery-lightbox-control--next {
   right: 24px;
-}
-
-.gallery-pattoo-section {
-  padding: 40px 0;
-  color: rgb(var(--color-white));
-  background: var(--color-cream);
-}
-
-.gallery-pattoo-quote {
-  display: grid;
-  justify-items: center;
-  padding: 36px 24px 32px;
-  background: var(--color-brown);
-  text-align: center;
-  margin-bottom: 4px;
-}
-
-.gallery-pattoo-quote span {
-  display: block;
-  height: 28px;
-  color: rgb(var(--color-white) / 0.5);
-  font-family: var(--font-display);
-  font-size: 48px;
-  line-height: 0.8;
-}
-
-.gallery-pattoo-quote h2 {
-  max-width: 840px;
-  margin: 0;
-  color: rgb(var(--color-white));
-  font-family: var(--font-body);
-  font-size: var(--font-size-40);
-}
-
-.gallery-pattoo-quote p {
-  margin: 22px 0 0;
-  color: rgb(var(--color-white) / var(--opacity-high));
-}
-
-.gallery-pattoo-images {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4px;
-}
-
-.gallery-pattoo-images img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 610 / 330;
-  object-fit: cover;
 }
 
 .accommodation-hero {
@@ -5119,10 +4996,6 @@ a.accommodation-image-box:focus-visible {
     grid-column: auto;
   }
 
-  .gallery-pattoo-section {
-    padding: 38px 32px 50px;
-  }
-
   .stay-info-section {
     padding: 60px 0;
   }
@@ -5896,22 +5769,8 @@ a.accommodation-image-box:focus-visible {
     border-top: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
   }
 
-  .gallery-intro-section {
-    padding: 40px 0;
-  }
-
-  .gallery-intro-eyebrow {
-    margin-bottom: 18px;
-    font-size: var(--font-size-small);
-  }
-
   .gallery-grid-section {
     padding: 32px 0;
-  }
-
-  .gallery-filter-list {
-    gap: 12px 18px;
-    margin-bottom: 24px;
   }
 
   .gallery-filter-grid {
@@ -5966,26 +5825,6 @@ a.accommodation-image-box:focus-visible {
 
   .gallery-lightbox-control--next {
     right: 16px;
-  }
-
-  .gallery-pattoo-section {
-    padding: 32px 18px 42px;
-  }
-
-  .gallery-pattoo-quote {
-    padding: 30px 18px 28px;
-  }
-
-  .gallery-pattoo-quote h2 {
-    font-size: 24px;
-  }
-
-  .gallery-pattoo-images {
-    grid-template-columns: 1fr;
-  }
-
-  .gallery-pattoo-images img {
-    aspect-ratio: 4 / 3;
   }
 
   .stay-info-section {
@@ -6362,7 +6201,6 @@ a.accommodation-image-box:focus-visible {
   .amenities-content {
     gap: 24px;
   }
-  .gallery-intro-section p:not(.gallery-intro-eyebrow),
   .event-inquiry-field input,
   .event-inquiry-field select,
   .event-inquiry-field textarea {

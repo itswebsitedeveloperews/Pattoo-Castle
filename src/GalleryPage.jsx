@@ -1,18 +1,14 @@
 import {
   getContentfulAssetSrc,
-  getAssetSrc,
   getContentfulImage,
-  getFirstContentfulImage,
   getFooterContent,
   getHeaderContent,
-  richTextToPlainText,
 } from "./App";
 import GalleryFilterGrid from "./GalleryFilterGrid";
-import ReserveStaySection from "./ReserveStaySection";
-import logo from "./assets/patto-logo.svg";
 import AosInitializer from "./AosInitializer";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
+import styles from "./GalleryPage.module.css";
 
 function getGalleryContent(entry) {
   const fields = entry?.fields || {};
@@ -28,31 +24,12 @@ function getGalleryContent(entry) {
         })
         .filter((item) => item.image?.src)
     : [];
-  const pattooCastleImages = Array.isArray(fields.pattooCastleImages)
-    ? fields.pattooCastleImages
-        .map((asset) => getContentfulImage(asset))
-        .filter((image) => image?.src)
-    : [];
-  const reserveYourStayDateFields = fields.reserveYourStayDate?.fields || {};
-  const reserveYourStayDate = {
-    logo: getFirstContentfulImage(reserveYourStayDateFields.images),
-    title: reserveYourStayDateFields.title || "",
-    content: richTextToPlainText(reserveYourStayDateFields.content),
-    buttonText: reserveYourStayDateFields.buttonText || "",
-    buttonUrl: reserveYourStayDateFields.buttonUrl || "",
-  };
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    introSubHeading: fields.introSubHeading || "",
-    introHeading: fields.introHeading || "",
-    introDescription: richTextToPlainText(fields.introDescription),
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),
+    bannerIsVideo: Boolean(fields.bannerImage?.fields?.file?.contentType?.startsWith("video/")),
+    bannerHeading: fields.bannerHeading || "",
     galleryItems,
-    pattooCastleHeading: fields.pattooCastleHeading || "",
-    pattooCastleSubHeading: fields.pattooCastleSubHeading || "",
-    pattooCastleImages,
-    reserveYourStayImage: getContentfulImage(fields.reserveYourStayImage),
-    reserveYourStayVideo: getContentfulAssetSrc(fields.reserveYourStayVideo),
-    reserveYourStayDate,
   };
 }
 
@@ -64,20 +41,6 @@ export default function GalleryPage({
   const footer = getFooterContent(footerEntry);
   const gallery = getGalleryContent(galleryEntry);
   const header = getHeaderContent(headerEntry);
-  const hasIntroSection = Boolean(
-    gallery.introSubHeading || gallery.introHeading || gallery.introDescription,
-  );
-  const hasReserveButton = Boolean(
-    gallery.reserveYourStayDate.buttonText &&
-    gallery.reserveYourStayDate.buttonUrl,
-  );
-  const hasReserveSection = Boolean(
-    gallery.reserveYourStayImage ||
-    gallery.reserveYourStayVideo ||
-    gallery.reserveYourStayDate.title ||
-    gallery.reserveYourStayDate.content ||
-    hasReserveButton,
-  );
 
   return (
     <>
@@ -85,14 +48,25 @@ export default function GalleryPage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className="section page-hero gallery-hero"
+          className={`section page-hero gallery-hero${gallery.bannerIsVideo ? ` ${styles.videoBanner}` : ""}`}
           style={
-            gallery.bannerImage
+            gallery.bannerImage && !gallery.bannerIsVideo
               ? { "--gallery-banner-image": `url(${gallery.bannerImage})` }
               : undefined
           }
           aria-labelledby={gallery.bannerHeading ? "gallery-title" : undefined}
         >
+          {gallery.bannerIsVideo && gallery.bannerImage && (
+            <video
+              className={styles.bannerVideo}
+              src={gallery.bannerImage}
+              autoPlay
+              loop
+              muted
+              playsInline
+              aria-hidden="true"
+            />
+          )}
           <div className="wrap">
             <div className="page-hero-content gallery-hero-content">
               {gallery.bannerHeading && (
@@ -104,80 +78,8 @@ export default function GalleryPage({
           </div>
         </section>
 
-        {hasIntroSection && (
-          <section
-            className="section gallery-intro-section"
-            aria-labelledby={
-              gallery.introHeading ? "gallery-intro-title" : undefined
-            }
-          >
-            <div className="wrap" data-aos="fade-up">
-              {gallery.introSubHeading && (
-                <p className="eyebrow gallery-intro-eyebrow">
-                  {gallery.introSubHeading}
-                </p>
-              )}
-              {gallery.introHeading && (
-                <h2 id="gallery-intro-title">{gallery.introHeading}</h2>
-              )}
-              {gallery.introDescription && <p>{gallery.introDescription}</p>}
-            </div>
-          </section>
-        )}
-
         {gallery.galleryItems.length > 0 && (
           <GalleryFilterGrid items={gallery.galleryItems} />
-        )}
-
-        {(gallery.pattooCastleHeading ||
-          gallery.pattooCastleSubHeading ||
-          gallery.pattooCastleImages.length > 0) && (
-          <section className="section gallery-pattoo-section">
-            <div className="wrap">
-              <div
-                className="gallery-pattoo-quote"
-                data-aos="fade-up"
-                data-aos-delay="50"
-              >
-                <span aria-hidden="true">â€œ</span>
-                {gallery.pattooCastleHeading && (
-                  <h2>{gallery.pattooCastleHeading}</h2>
-                )}
-                {gallery.pattooCastleSubHeading && (
-                  <p className="eyebrow">{gallery.pattooCastleSubHeading}</p>
-                )}
-              </div>
-
-              {gallery.pattooCastleImages.length > 0 && (
-                <div className="gallery-pattoo-images">
-                  {gallery.pattooCastleImages
-                    .slice(0, 2)
-                    .map((image, index) => (
-                      <img
-                        src={image.src}
-                        alt={image.alt || `Pattoo Castle gallery highlight ${index + 1}`}
-                        key={`${image.src}-${index}`}
-                        data-aos="fade-up"
-                        data-aos-delay={String(index * 100)}
-                      />
-                    ))}
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {hasReserveSection && (
-          <ReserveStaySection
-            backgroundImage={gallery.reserveYourStayImage?.src}
-            buttonText={gallery.reserveYourStayDate.buttonText}
-            buttonUrl={gallery.reserveYourStayDate.buttonUrl}
-            content={gallery.reserveYourStayDate.content}
-            logoAlt={gallery.reserveYourStayDate.logo?.alt}
-            logoSrc={gallery.reserveYourStayDate.logo?.src || getAssetSrc(logo)}
-            title={gallery.reserveYourStayDate.title}
-            videoSrc={gallery.reserveYourStayVideo}
-          />
         )}
       </main>
       <SiteFooter footer={footer} />

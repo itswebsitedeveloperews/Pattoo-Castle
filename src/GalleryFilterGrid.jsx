@@ -1,30 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function GalleryFilterGrid({ items = [] }) {
-  const [activeFilter, setActiveFilter] = useState("All");
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const filters = useMemo(() => {
-    const uniqueTypes = [];
-
-    for (const item of items) {
-      const type = item.type?.trim();
-
-      if (type && !uniqueTypes.includes(type)) {
-        uniqueTypes.push(type);
-      }
-    }
-
-    return ["All", ...uniqueTypes];
-  }, [items]);
-  const visibleItems =
-    activeFilter === "All"
-      ? items
-      : items.filter((item) => item.type?.trim() === activeFilter);
   const selectedImage =
-    selectedIndex === null ? null : visibleItems[selectedIndex] || null;
-  const hasMultipleImages = visibleItems.length > 1;
+    selectedIndex === null ? null : items[selectedIndex] || null;
+  const hasMultipleImages = items.length > 1;
 
   const openLightbox = (index) => {
     setSelectedIndex(index);
@@ -38,15 +20,15 @@ export default function GalleryFilterGrid({ items = [] }) {
     setSelectedIndex((currentIndex) =>
       currentIndex === null
         ? null
-        : (currentIndex - 1 + visibleItems.length) % visibleItems.length,
+        : (currentIndex - 1 + items.length) % items.length,
     );
-  }, [visibleItems.length]);
+  }, [items.length]);
 
   const showNextImage = useCallback(() => {
     setSelectedIndex((currentIndex) =>
-      currentIndex === null ? null : (currentIndex + 1) % visibleItems.length,
+      currentIndex === null ? null : (currentIndex + 1) % items.length,
     );
-  }, [visibleItems.length]);
+  }, [items.length]);
 
   useEffect(() => {
     if (!selectedImage) {
@@ -84,40 +66,13 @@ export default function GalleryFilterGrid({ items = [] }) {
       aria-label="Gallery images"
     >
       <div className="wrap">
-        {filters.length > 1 && (
-          <div
-            className="gallery-filter-list"
-            role="list"
-            aria-label="Gallery filters"
-            data-aos="fade-up"
-          >
-            {filters.map((filter) => (
-              <button
-                className={
-                  filter === activeFilter
-                    ? "gallery-filter-button is-active"
-                    : "gallery-filter-button"
-                }
-                key={filter}
-                onClick={() => {
-                  setActiveFilter(filter);
-                  closeLightbox();
-                }}
-                type="button"
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
-        )}
-
         <div
           className={`gallery-filter-grid gallery-filter-grid--count-${Math.min(
-            visibleItems.length,
+            items.length,
             3,
           )}`}
         >
-          {visibleItems.map((item, index) => (
+          {items.map((item, index) => (
             <figure
               className="gallery-filter-card"
               key={`${item.image?.src}-${item.type}-${index}`}
