@@ -4,28 +4,6 @@
   background: var(--color-cream);
 }
 
-.bedroomHeader {
-  max-width: 760px;
-  margin: 0 auto 40px;
-  text-align: center;
-}
-
-.bedroomEyebrow {
-  margin: 0 0 12px;
-  color: var(--color-brown-dark);
-}
-
-.bedroomHeader h2 {
-  margin: 0;
-  color: var(--color-brown);
-  font-size: var(--font-size-h2);
-}
-
-.bedroomIntro {
-  margin: 12px 0 0;
-  color: var(--color-brown-dark);
-}
-
 .bedroomGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -84,188 +62,15 @@
 .bedroomCard li:first-child::before {
   margin-left: 0;
 }
-.thoughtfulAmenitiesSection {
-  --thoughtful-amenities-overlay-opacity: 0.58;
-
-  display: grid;
-  min-height: 360px;
-  padding: 70px var(--container-gutter) 60px;
-  color: rgb(var(--color-white));
-  background:
-    linear-gradient(
-      rgb(var(--color-black) / var(--thoughtful-amenities-overlay-opacity)),
-      rgb(var(--color-black) / var(--thoughtful-amenities-overlay-opacity))
-    ),
-    var(--thoughtful-amenities-image, none);
-  background-color: var(--color-brown);
-  background-position: center;
-  background-size: cover;
-  place-items: center;
-}
-
-.thoughtfulAmenitiesInner {
-  width: min(100%, 1690px);
-  margin: 0 auto;
-}
-
-.thoughtfulAmenitiesHeader {
-  margin: 0 auto 42px;
-  text-align: center;
-}
-
-.thoughtfulAmenitiesEyebrow {
-  margin: 0 0 24px;
-  color: rgb(var(--color-white));
-}
-
-.thoughtfulAmenitiesHeader h2 {
-  margin: 0;
-  color: rgb(var(--color-white));
-  font-size: var(--font-size-h2);
-}
-
-.thoughtfulAmenitiesGrid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: start;
-}
-
-.thoughtfulAmenitiesItem {
-  min-width: 0;
-  min-height: 112px;
-  padding: 24px 16px;
-  border-right: 1px solid rgb(var(--color-white) / 0.25);
-  text-align: center;
-  width: 14.28%;
-}
-
-.thoughtfulAmenitiesItem:last-child {
-  border-right: none;
-}
-
-.thoughtfulAmenitiesItem img {
-  display: block;
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 14px;
-  object-fit: contain;
-}
-
-.thoughtfulAmenitiesItem h3 {
-  color: rgb(var(--color-white));
-  font-size: var(--font-size-global-h4);
-  margin: 0 auto;
-  text-align: center;
-  max-width: 140px;
-}
-
-.experienceSection {
-  padding: 78px var(--container-gutter) 30px;
-  color: var(--color-brown);
-  background: var(--color-cream);
-}
-
-.experienceInner {
-  display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1fr);
-  gap: clamp(48px, 5vw, 76px);
-  width: min(100%, 1690px);
-  margin: 0 auto;
-  align-items: center;
-}
-
-.experienceImage {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1.68;
-  object-fit: cover;
-}
-
-.experienceContent {
-  max-width: 760px;
-}
-
-.experienceEyebrow {
-  margin: 0 0 18px;
-  color: var(--color-brown-dark);
-  font-size: var(--font-size-small);
-  letter-spacing: var(--letter-spacing-wide);
-  line-height: var(--line-height-body);
-  text-transform: uppercase;
-}
-
-.experienceContent h2 {
-  margin: 0;
-  color: var(--color-brown);
-  font-family: var(--font-display);
-  font-size: clamp(34px, 3.1vw, 48px);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-heading);
-}
-
-.experienceContent p:not(.experienceEyebrow) {
-  margin: 22px 0 0;
-  color: var(--color-brown-dark);
-}
-
-.experienceButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 156px;
-  min-height: 42px;
-  margin-top: 34px;
-  padding: 11px 30px;
-  color: var(--color-brown);
-  border: 1px solid currentColor;
-  border-radius: 999px;
-  font-size: var(--font-size-small);
-  letter-spacing: var(--letter-spacing-wide);
-  line-height: 1;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition:
-    background-color 180ms ease,
-    color 180ms ease;
-}
-
-.experienceButton:hover,
-.experienceButton:focus-visible {
-  color: rgb(var(--color-white));
-  background: var(--color-brown);
-}
 
 @media (max-width: 1024px) {
-  .bedroomSection,
-  .thoughtfulAmenitiesSection,
-  .experienceSection {
+  .bedroomSection {
     padding: 50px 30px;
   }
 
   .bedroomGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 38px 20px;
-  }
-
-  .thoughtfulAmenitiesGrid {
-    gap: 28px 0;
-  }
-  .thoughtfulAmenitiesItem {
-    width: 25%;
-  }
-  .thoughtfulAmenitiesItem:nth-child(4) {
-    border-right: 0;
-  }
-
-  .experienceInner {
-    grid-template-columns: 1fr;
-    gap: 34px;
-  }
-
-  .experienceContent {
-    max-width: none;
   }
 }
 
@@ -274,68 +79,8 @@
     padding: 58px 18px 68px;
   }
 
-  .bedroomHeader {
-    margin-bottom: 34px;
-  }
-
-  .bedroomHeader h2 {
-    font-size: var(--font-size-global-h3);
-  }
-
   .bedroomGrid {
     grid-template-columns: 1fr;
     gap: 34px;
-  }
-
-  .thoughtfulAmenitiesSection {
-    min-height: auto;
-    padding: 58px 18px;
-  }
-
-  .thoughtfulAmenitiesHeader {
-    margin-bottom: 34px;
-  }
-
-  .thoughtfulAmenitiesHeader h2 {
-    font-size: var(--font-size-global-h3);
-  }
-
-  .thoughtfulAmenitiesItem {
-    min-height: unset;
-    padding: 16px;
-    width: 50%;
-  }
-
-  .thoughtfulAmenitiesItem:nth-child(even) {
-    border-right: 0;
-  }
-
-  .experienceSection {
-    padding: 60px 0;
-  }
-
-  .thoughtfulAmenitiesItem img {
-    width: 36px;
-    height: 36px;
-  }
-
-  .experienceInner {
-    gap: 28px;
-  }
-
-  .experienceImage {
-    aspect-ratio: 1.35;
-  }
-
-  .experienceContent h2 {
-    font-size: var(--font-size-global-h3);
-  }
-
-  .experienceContent p:not(.experienceEyebrow) {
-    font-size: var(--font-size-nav);
-  }
-
-  .experienceButton {
-    margin-top: 28px;
   }
 }

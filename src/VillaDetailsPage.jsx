@@ -1,6 +1,5 @@
 import {
   getContentfulAssetSrc,
-  getContentfulImage,
   getFirstContentfulImage,
   getFooterContent,
   getHeaderContent,
@@ -54,54 +53,18 @@ function getBedroomBlock(item) {
   };
 }
 
-function getAmenityIcon(item) {
-  const fields = item?.fields || {};
-
-  return {
-    icon: getContentfulImage(fields.galleryImage),
-    title: fields.galleryImageType || "",
-  };
-}
-
 function getVillaDetailsContent(entry) {
   const fields = entry?.fields || {};
   const bedroomBlocks = Array.isArray(fields.bedroomBlocks)
-    ? fields.bedroomBlocks
-        .map(getBedroomBlock)
-        .filter(
-          (item) =>
-            item.image?.src ||
-            item.title ||
-            item.content ||
-            item.contentItems.length,
-        )
-    : [];
-  const thoughtfulAmenitiesIcons = Array.isArray(
-    fields.thoughtfulAmenitiesIconBox,
-  )
-    ? fields.thoughtfulAmenitiesIconBox
-        .map(getAmenityIcon)
-        .filter((item) => item.icon?.src || item.title)
+    ? fields.bedroomBlocks.map(getBedroomBlock).filter(
+        (item) => item.image?.src || item.title || item.content || item.contentItems.length,
+      )
     : [];
 
   return {
-    title: fields.title || "",
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || fields.title || "",    bedroomSubHeading: fields.bedroomSubHeading || "",
-    bedroomHeading: fields.bedroomHeading || "",
-    bedroomContent: richTextToPlainText(fields.bedroomContent),
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),
+    bannerHeading: fields.bannerHeading || fields.title || "",
     bedroomBlocks,
-    thoughtfulAmenitiesImage: getContentfulAssetSrc(
-      fields.thoughtfulAmenitiesImage,
-    ),
-    thoughtfulAmenitiesSubHeading: fields.thoughtfulAmenitiesSubHeading || "",
-    thoughtfulAmenitiesHeading: fields.thoughtfulAmenitiesHeading || "",
-    thoughtfulAmenitiesIcons,
-    experienceImage: getContentfulImage(fields.experienceImage),
-    experienceSubHeading: fields.experienceSubHeading || "",
-    experienceHeading: fields.experienceHeading || "",
-    experienceContent: richTextToPlainText(fields.experienceContent),
-    experienceButtonText: fields.experienceButtonText || "",
-    experienceButtonUrl: fields.experienceButtonUrl || "",
   };
 }
 
@@ -113,25 +76,7 @@ export default function VillaDetailsPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const villaDetails = getVillaDetailsContent(villaDetailsEntry);
-  const hasBedroomSection = Boolean(
-    villaDetails.bedroomSubHeading ||
-    villaDetails.bedroomHeading ||
-    villaDetails.bedroomContent ||
-    villaDetails.bedroomBlocks.length,
-  );
-  const hasThoughtfulAmenitiesSection = Boolean(
-    villaDetails.thoughtfulAmenitiesImage ||
-    villaDetails.thoughtfulAmenitiesSubHeading ||
-    villaDetails.thoughtfulAmenitiesHeading ||
-    villaDetails.thoughtfulAmenitiesIcons.length,
-  );
-  const hasExperienceSection = Boolean(
-    villaDetails.experienceImage?.src ||
-    villaDetails.experienceSubHeading ||
-    villaDetails.experienceHeading ||
-    villaDetails.experienceContent ||
-    (villaDetails.experienceButtonText && villaDetails.experienceButtonUrl),
-  );
+  const hasBedroomSection = villaDetails.bedroomBlocks.length > 0;
 
   return (
     <>
@@ -167,31 +112,9 @@ export default function VillaDetailsPage({
         {hasBedroomSection && (
           <section
             className={`section ${styles.bedroomSection}`}
-            aria-labelledby={
-              villaDetails.bedroomHeading
-                ? "villa-details-bedrooms-title"
-                : undefined
-            }
+            aria-label="Villa bedrooms"
           >
             <div className="wrap">
-              <div className={styles.bedroomHeader}>
-                {villaDetails.bedroomSubHeading && (
-                  <p className={`eyebrow  ${styles.bedroomEyebrow}`}>
-                    {villaDetails.bedroomSubHeading}
-                  </p>
-                )}
-                {villaDetails.bedroomHeading && (
-                  <h2 id="villa-details-bedrooms-title">
-                    {villaDetails.bedroomHeading}
-                  </h2>
-                )}
-                {villaDetails.bedroomContent && (
-                  <p className={styles.bedroomIntro}>
-                    {villaDetails.bedroomContent}
-                  </p>
-                )}
-              </div>
-
               {villaDetails.bedroomBlocks.length > 0 && (
                 <div className={styles.bedroomGrid}>
                   {villaDetails.bedroomBlocks.map((item, index) => (
@@ -228,124 +151,6 @@ export default function VillaDetailsPage({
                   ))}
                 </div>
               )}
-            </div>
-          </section>
-        )}
-
-        {hasThoughtfulAmenitiesSection && (
-          <section
-            className={`section  ${styles.thoughtfulAmenitiesSection}`}
-            style={
-              villaDetails.thoughtfulAmenitiesImage
-                ? {
-                    "--thoughtful-amenities-image": `url(${villaDetails.thoughtfulAmenitiesImage})`,
-                  }
-                : undefined
-            }
-            aria-labelledby={
-              villaDetails.thoughtfulAmenitiesHeading
-                ? "villa-details-thoughtful-amenities-title"
-                : undefined
-            }
-          >
-            <div className={`wrap  ${styles.thoughtfulAmenitiesInner}`}>
-              <div className={styles.thoughtfulAmenitiesHeader}>
-                {villaDetails.thoughtfulAmenitiesSubHeading && (
-                  <p
-                    className={`eyebrow  ${styles.thoughtfulAmenitiesEyebrow}`}
-                  >
-                    {villaDetails.thoughtfulAmenitiesSubHeading}
-                  </p>
-                )}
-                {villaDetails.thoughtfulAmenitiesHeading && (
-                  <h2 id="villa-details-thoughtful-amenities-title">
-                    {villaDetails.thoughtfulAmenitiesHeading}
-                  </h2>
-                )}
-              </div>
-
-              {villaDetails.thoughtfulAmenitiesIcons.length > 0 && (
-                <div className={styles.thoughtfulAmenitiesGrid}>
-                  {villaDetails.thoughtfulAmenitiesIcons.map((item, index) => (
-                    <article
-                      className={styles.thoughtfulAmenitiesItem}
-                      data-aos="fade-up"
-                      data-aos-delay={String(index * 45)}
-                      key={`${item.title}-${index}`}
-                    >
-                      {item.icon?.src && (
-                        <img
-                          src={item.icon.src}
-                          alt={
-                            item.icon.alt ||
-                            (item.title ? `${item.title} icon` : "")
-                          }
-                        />
-                      )}
-                      {item.title && <h3>{item.title}</h3>}
-                    </article>
-                  ))}
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {hasExperienceSection && (
-          <section
-            className="section overview-villa-section experience-section"
-            aria-labelledby={
-              villaDetails.experienceHeading
-                ? "villa-details-experience-title"
-                : undefined
-            }
-          >
-            <div className="wrap">
-              {villaDetails.experienceImage?.src && (
-                <div
-                  className="overview-villa-image"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  <img
-                    className={styles.experienceImage}
-                    src={villaDetails.experienceImage.src}
-                    alt={
-                      villaDetails.experienceImage.alt ||
-                      "Pattoo Castle private escape"
-                    }
-                  />
-                </div>
-              )}
-
-              <div
-                className="overview-villa-content"
-                data-aos="fade-up"
-                data-aos-delay="200"
-              >
-                {villaDetails.experienceSubHeading && (
-                  <p className="eyebrow overview-villa-eyebrow">
-                    {villaDetails.experienceSubHeading}
-                  </p>
-                )}
-                {villaDetails.experienceHeading && (
-                  <h2 id="villa-details-experience-title">
-                    {villaDetails.experienceHeading}
-                  </h2>
-                )}
-                {villaDetails.experienceContent && (
-                  <p>{villaDetails.experienceContent}</p>
-                )}
-                {villaDetails.experienceButtonText &&
-                  villaDetails.experienceButtonUrl && (
-                    <a
-                      className="button button--brown overview-villa-button"
-                      href={villaDetails.experienceButtonUrl}
-                    >
-                      {villaDetails.experienceButtonText}
-                    </a>
-                  )}
-              </div>
             </div>
           </section>
         )}
