@@ -5159,17 +5159,8 @@ a.accommodation-image-box:focus-visible {
   font-size: var(--font-size-global-h2);
 }
 
-.outdoors-section .eyebrow,
-.food-beverage-section .eyebrow {
+.outdoors-section .eyebrow {
   margin: 0 0 24px;
-}
-
-.food-beverage-section h2 {
-  max-width: 100%;
-}
-
-.food-beverage-section {
-  padding-bottom: 0 !important;
 }
 
 .location-map-content p {
@@ -7563,8 +7554,7 @@ a.accommodation-image-box:focus-visible {
   .location-jamaica-rich-text p {
     margin-bottom: 16px;
   }
-  .outdoors-section .eyebrow,
-  .food-beverage-section .eyebrow {
+  .outdoors-section .eyebrow {
     margin: 0 0 10px;
   }
   .location-adventure-explore-card p,
