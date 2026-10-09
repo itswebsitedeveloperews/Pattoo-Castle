@@ -9,6 +9,7 @@ import {
 import AosInitializer from "./AosInitializer";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
+import styles from "./LocationPage.module.css";
 
 function renderTextNode(node, key) {
   const textWithLineBreaks = (node.value || "")
@@ -190,6 +191,9 @@ function getLocationContent(entry) {
     experienceButtonUrl: fields.experienceButtonUrl || "",
     exploreNearbyHeading: fields.exploreNearbyHeading || "",
     exploreNearbyBox,
+    exploreNegrilBlocks: getImageBoxItems(fields.exploreNegrilBlocks).filter(
+      (item) => item.image?.src || item.title,
+    ),
   };
 }
 
@@ -800,6 +804,49 @@ export default function LocationPage({
                   ))}
                 </div>
               )}
+            </div>
+          </section>
+        )}
+        {location.exploreNegrilBlocks.length > 0 && (
+          <section
+            className={`section ${styles.exploreNegrilSection}`}
+            aria-label="Explore Negril"
+          >
+            <div className={`wrap ${styles.exploreNegrilGrid}`}>
+              {location.exploreNegrilBlocks.map((item, index) => {
+                const cardContent = (
+                  <>
+                    {item.image?.src && (
+                      <img
+                        className={styles.cardImage}
+                        src={item.image.src}
+                        alt={item.image.alt || item.title || "Explore Negril"}
+                        loading="lazy"
+                      />
+                    )}
+                    {item.title && (
+                      <h2 className={styles.cardTitle}>{item.title}</h2>
+                    )}
+                  </>
+                );
+
+                return (
+                  <article
+                    className={styles.exploreNegrilCard}
+                    key={`${item.image?.src || item.title}-${index}`}
+                  >
+                    {item.buttonUrl ? (
+                      <a
+                        className={styles.cardLink}
+                        href={item.buttonUrl}
+                        aria-label={item.title || item.buttonText || "Explore Negril"}
+                      >
+                        {cardContent}
+                      </a>
+                    ) : cardContent}
+                  </article>
+                );
+              })}
             </div>
           </section>
         )}
