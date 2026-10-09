@@ -56,7 +56,6 @@ function getContactContent(entry) {
 
     return {
       icon: getContentfulImage(iconAsset),
-      iconLabel: getContentfulImage(iconAsset)?.alt || "",
       count: itemFields.count || "",
       title: itemFields.title || "",
       content: richTextToPlainText(itemFields.content),
@@ -71,7 +70,6 @@ function getContactContent(entry) {
         .filter(
           (item) =>
             item.icon?.src ||
-            item.iconLabel ||
             item.count ||
             item.title ||
             item.content ||
@@ -79,32 +77,12 @@ function getContactContent(entry) {
             item.buttonUrl,
         )
     : [];
-  const pattooCastleExperience = Array.isArray(fields.thePattooCastleExperience)
-    ? fields.thePattooCastleExperience
-        .map(mapImageBox)
-        .filter((item) => item.count || item.title || item.content)
-    : [];
-
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    connectWithUs,
-    pattooCastleExperience,
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),
+    bannerHeading: fields.bannerHeading || "",
+    connectWithUs,
     contactSubTitle: fields.contactSubTitle || "",
     contactTitle: fields.contactTitle || "",
-    contactContent: richTextToPlainText(fields.contactContent),
-    findUsImage: getContentfulImage(fields.findUsImage),
-    findUsSubHeading: fields.findUsSubHeading || "",
-    findUsHeading: fields.findUsHeading || "",
-    findUsContent: richTextToPlainText(fields.findUsContent),
-    findUsButtonText: fields.findUsButtonText || "",
-    findUsButtonUrl: fields.findUsButtonUrl || "",
-    pattooCastleHeading: fields.pattooCastleHeading || "",
-    pattooCastleSubHeading: fields.pattooCastleSubHeading || "",
-    ctaImage: getContentfulAssetSrc(fields.ctaImage),
-    ctaSubHeading: fields.ctaSubHeading || "",
-    ctaHeading: fields.ctaHeading || "",
-    ctaContent: richTextToPlainText(fields.ctaContent),
-    ctaButtonText: fields.ctaButtonText || "",
-    ctaButtonUrl: fields.ctaButtonUrl || "",
   };
 }
 
@@ -117,32 +95,9 @@ export default function ContactPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const hasConnectSection = contact.connectWithUs.length > 0;
-  const hasExperienceSection = contact.pattooCastleExperience.length > 0;
   const hasContactFormSection = Boolean(
-    contact.contactSubTitle || contact.contactTitle || contact.contactContent,
+    contact.contactSubTitle || contact.contactTitle,
   );
-  const hasFindUsButton = Boolean(
-    contact.findUsButtonText && contact.findUsButtonUrl,
-  );
-  const hasFindUsSection = Boolean(
-    contact.findUsImage?.src ||
-    contact.findUsSubHeading ||
-    contact.findUsHeading ||
-    contact.findUsContent ||
-    hasFindUsButton,
-  );
-  const hasPattooCastleQuoteSection = Boolean(
-    contact.pattooCastleHeading || contact.pattooCastleSubHeading,
-  );
-  const hasCtaButton = Boolean(contact.ctaButtonText && contact.ctaButtonUrl);
-  const hasCtaSection = Boolean(
-    contact.ctaImage ||
-    contact.ctaSubHeading ||
-    contact.ctaHeading ||
-    contact.ctaContent ||
-    hasCtaButton,
-  );
-
   return (
     <>
       <AosInitializer />
@@ -188,10 +143,6 @@ export default function ContactPage({
                         alt={item.icon.alt || item.title || "Contact icon"}
                       />
                     )}
-                    {item.iconLabel && (
-                      <p className="contact-connect-label">{item.iconLabel}</p>
-                    )}
-                    {item.title && <div className="title">{item.title}</div>}
                     {item.contentLines.map((line, lineIndex) => (
                       <p key={`${item.title}-content-${lineIndex}`}>{line}</p>
                     ))}
@@ -227,16 +178,10 @@ export default function ContactPage({
                 data-aos="fade-up"
                 data-aos-delay="100"
               >
-                {contact.contactSubTitle && (
-                  <p className="eyebrow contact-planning-eyebrow">
-                    {contact.contactSubTitle}
-                  </p>
-                )}
-                <span className="contact-planning-divider" aria-hidden="true" />
                 {contact.contactTitle && (
                   <h2 id="contact-planning-title">{contact.contactTitle}</h2>
                 )}
-                {contact.contactContent && <p>{contact.contactContent}</p>}
+                {contact.contactSubTitle && <p>{contact.contactSubTitle}</p>}
               </div>
 
               <NetlifyForm
@@ -245,21 +190,22 @@ export default function ContactPage({
                 data-aos="fade-up"
                 data-aos-delay="200"
               >
+                <div className="contact-fields-panel">
                 <div className="contact-form-field contact-form-field--quarter">
                   <label htmlFor="contact-company">Company</label>
-                  <input id="contact-company" name="company" type="text" />
+                  <input id="contact-company" name="company" placeholder="Enter company name" type="text" />
                 </div>
 
                 <div className="contact-form-field contact-form-field--quarter">
-                  <label htmlFor="contact-title">Title</label>
-                  <input id="contact-title" name="title" type="text" />
+                  <label htmlFor="contact-person-title">Title</label>
+                  <input id="contact-person-title" name="title" placeholder="Enter title" type="text" />
                 </div>
 
                 <div className="contact-form-field contact-form-field--quarter">
                   <label htmlFor="contact-first-name">First Name *</label>
                   <input
                     id="contact-first-name"
-                    name="firstName"
+                    name="firstName" placeholder="Enter first name"
                     required
                     type="text"
                   />
@@ -269,7 +215,7 @@ export default function ContactPage({
                   <label htmlFor="contact-last-name">Last Name *</label>
                   <input
                     id="contact-last-name"
-                    name="lastName"
+                    name="lastName" placeholder="Enter last name"
                     required
                     type="text"
                   />
@@ -277,27 +223,27 @@ export default function ContactPage({
 
                 <div className="contact-form-field contact-form-field--full">
                   <label htmlFor="contact-address">Address</label>
-                  <input id="contact-address" name="address" type="text" />
+                  <input id="contact-address" name="address" placeholder="Enter address" type="text" />
                 </div>
 
                 <div className="contact-form-field contact-form-field--seven">
                   <label htmlFor="contact-address-line-2">Address Line 2</label>
                   <input
                     id="contact-address-line-2"
-                    name="addressLine2"
+                    name="addressLine2" placeholder="Enter address line 2"
                     type="text"
                   />
                 </div>
 
                 <div className="contact-form-field contact-form-field--five">
                   <label htmlFor="contact-city">City</label>
-                  <input id="contact-city" name="city" type="text" />
+                  <input id="contact-city" name="city" placeholder="Enter city" type="text" />
                 </div>
 
                 <div className="contact-form-field contact-form-field--quarter">
                   <label htmlFor="contact-state">State</label>
                   <select id="contact-state" name="state" defaultValue="">
-                    <option value="" aria-label="Select state" />
+                    <option value="">Select state</option>
                     <option value="jamaica">Jamaica</option>
                     <option value="alabama">Alabama</option>
                     <option value="california">California</option>
@@ -311,7 +257,7 @@ export default function ContactPage({
                   <label htmlFor="contact-postal-code">Postal Code</label>
                   <input
                     id="contact-postal-code"
-                    name="postalCode"
+                    name="postalCode" placeholder="Enter postal code"
                     type="text"
                   />
                 </div>
@@ -320,7 +266,7 @@ export default function ContactPage({
                   <label htmlFor="contact-email">Email Address *</label>
                   <input
                     id="contact-email"
-                    name="email"
+                    name="email" placeholder="Enter email address"
                     required
                     type="email"
                   />
@@ -328,177 +274,27 @@ export default function ContactPage({
 
                 <div className="contact-form-field contact-form-field--quarter">
                   <label htmlFor="contact-phone">Phone *</label>
-                  <input id="contact-phone" name="phone" required type="tel" />
+                  <input id="contact-phone" name="phone" placeholder="Enter phone number" required type="tel" />
                 </div>
 
                 <div className="contact-form-field contact-form-field--full">
                   <label htmlFor="contact-comments">Comments *</label>
                   <textarea
                     id="contact-comments"
-                    name="comments"
+                    name="comments" placeholder="Enter comments"
                     required
-                    rows="6"
+                    rows="2"
                   />
+                </div>
+
                 </div>
 
                 <div className="contact-form-submit-row">
                   <button className="contact-form-submit" type="submit">
-                    <span aria-hidden="true">{"\u2723"}</span>
-                    <strong>Send Inquiry</strong>
+                    Send Here
                   </button>
                 </div>
               </NetlifyForm>
-            </div>
-          </section>
-        )}
-
-        {hasExperienceSection && (
-          <section
-            className="section contact-experience-section"
-            aria-label="The Pattoo Castle experience"
-          >
-            <div className="wrap">
-              <div className="contact-experience-grid">
-                {contact.pattooCastleExperience.map((item, index) => (
-                  <article
-                    className="contact-experience-card"
-                    key={`${item.title}-${index}`}
-                    data-aos="fade-up"
-                    data-aos-delay={String(index * 100)}
-                  >
-                    {item.count && (
-                      <p className="eyebrow contact-experience-eyebrow">
-                        {item.count}
-                      </p>
-                    )}
-                    {item.title && <h2>{item.title}</h2>}
-                    {item.content && <p>{item.content}</p>}
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {hasFindUsSection && (
-          <section
-            className="section contact-find-section"
-            aria-labelledby={
-              contact.findUsHeading ? "contact-find-title" : undefined
-            }
-          >
-            <div className="wrap">
-              {contact.findUsImage?.src && (
-                <figure
-                  className="contact-find-image"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  <img
-                    src={contact.findUsImage.src}
-                    alt={contact.findUsImage.alt || "Pattoo Castle location and contact"}
-                  />
-                </figure>
-              )}
-
-              <div
-                className="contact-find-content"
-                data-aos="fade-up"
-                data-aos-delay="200"
-              >
-                {contact.findUsSubHeading && (
-                  <p className="eyebrow contact-find-eyebrow">
-                    {contact.findUsSubHeading}
-                  </p>
-                )}
-                {contact.findUsHeading && (
-                  <h2 id="contact-find-title">{contact.findUsHeading}</h2>
-                )}
-                {contact.findUsContent && <p>{contact.findUsContent}</p>}
-                {hasFindUsButton && (
-                  <a
-                    className="button button--brown contact-find-button"
-                    href={contact.findUsButtonUrl}
-                  >
-                    {contact.findUsButtonText}
-                  </a>
-                )}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {hasPattooCastleQuoteSection && (
-          <section
-            className="section contact-quote-section"
-            aria-label="Guest experience"
-          >
-            <div className="wrap">
-              <div
-                className="contact-quote-mark"
-                aria-hidden="true"
-                data-aos="fade-up"
-              >
-                &ldquo;
-              </div>
-              {contact.pattooCastleHeading && (
-                <blockquote>{contact.pattooCastleHeading}</blockquote>
-              )}
-              {contact.pattooCastleSubHeading && (
-                <p className="eyebrow">{contact.pattooCastleSubHeading}</p>
-              )}
-            </div>
-          </section>
-        )}
-
-        {hasCtaSection && (
-          <section
-            className="section contact-cta-section"
-            style={
-              contact.ctaImage
-                ? { "--contact-cta-image": `url(${contact.ctaImage})` }
-                : undefined
-            }
-            aria-labelledby={
-              contact.ctaHeading ? "contact-cta-title" : undefined
-            }
-          >
-            <div className="wrap">
-              <div className="contact-cta-content">
-                {contact.ctaSubHeading && (
-                  <p
-                    className="eyebrow contact-cta-eyebrow"
-                    data-aos="fade-up"
-                    data-aos-delay="50"
-                  >
-                    {contact.ctaSubHeading}
-                  </p>
-                )}
-                {contact.ctaHeading && (
-                  <h2
-                    id="contact-cta-title"
-                    data-aos="fade-up"
-                    data-aos-delay="100"
-                  >
-                    {contact.ctaHeading}
-                  </h2>
-                )}
-                {contact.ctaContent && (
-                  <p data-aos="fade-up" data-aos-delay="150">
-                    {contact.ctaContent}
-                  </p>
-                )}
-                {hasCtaButton && (
-                  <a
-                    className="button button--light contact-cta-button"
-                    href={contact.ctaButtonUrl}
-                    data-aos="fade-up"
-                    data-aos-delay="200"
-                  >
-                    {contact.ctaButtonText}
-                  </a>
-                )}
-              </div>
             </div>
           </section>
         )}
