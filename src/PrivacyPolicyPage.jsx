@@ -110,7 +110,7 @@ export default function PrivacyPolicyPage({
       <SiteHeader header={header} />
 
       <section
-        className={`page-hero ${styles.privacyPolicyHero}`}
+        className={`section pt-0 pb-0 page-hero ${styles.privacyPolicyHero}`}
         style={
           privacyPolicy.bannerImage
             ? {
@@ -136,7 +136,7 @@ export default function PrivacyPolicyPage({
       </section>
 
       {privacyPolicy.policyContent && (
-        <section className={styles.contentSection}>
+        <section className={`section ${styles.contentSection}`}>
           <div className={styles.contentInner} data-aos="fade-up">
             {renderRichText(privacyPolicy.policyContent)}
           </div>

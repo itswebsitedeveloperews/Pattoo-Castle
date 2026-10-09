@@ -227,7 +227,7 @@ export default function LocationPage({
       <SiteHeader header={header} />
       <main>
         <section
-          className="section page-hero location-hero"
+          className="pt-0 pb-0 section page-hero location-hero"
           style={
             location.bannerImage
               ? { "--location-banner-image": `url(${location.bannerImage})` }
@@ -549,7 +549,7 @@ export default function LocationPage({
 
         {(location.negrilHistoryHeading || richTextToPlainText(location.negrilHistoryContent).trim()) && (
           <section
-            className={`section ${styles.historySection}`}
+            className={`section ${styles.historySection}${(location.locationIframe || richTextToPlainText(location.locationContent).trim()) ? " pt-0" : ""}`}
             aria-label={location.negrilHistoryHeading ? undefined : "Negril history"}
             aria-labelledby={location.negrilHistoryHeading ? "negril-history-title" : undefined}
           >

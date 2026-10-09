@@ -45,7 +45,7 @@ export default function OptionalToursActivitiesPage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className="section page-hero location-hero"
+          className="pt-0 pb-0 section page-hero location-hero"
           style={
             bannerImage
               ? { "--location-banner-image": `url(${bannerImage})` }

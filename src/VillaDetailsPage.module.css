@@ -9,7 +9,7 @@
 .bedroomSlider :global(.slick-dots li button::before) { content: ""; inset: 6px 4px; width: 6px; height: 6px; border-radius: 50%; background: white; opacity: .55; box-shadow: 0 1px 3px #0005; }
 .bedroomSlider :global(.slick-dots li.slick-active button::before) { opacity: 1; }
 .bedroomSlider :global(.slick-dots button:focus-visible) { outline: 2px solid white; outline-offset: 1px; }
-.bedroomCard h2 { margin: 12px 0 5px; font-size: 22px; line-height: 1.2; }
+.bedroomCard h2 { margin: 12px 0 5px; }
 .bedroomContent { color: var(--color-brown-dark); font-size: 14px; line-height: 1.6; }
 .bedroomContent > p { margin: 0 0 6px; }
 .bedroomContent li > p { margin: 0; }

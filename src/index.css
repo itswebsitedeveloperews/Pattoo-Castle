@@ -82,19 +82,25 @@
   --shadow-hero-text: 0 2px 18px rgb(var(--color-black) / 0.26);
   --shadow-soft-text: 0 1px 10px rgb(var(--color-black) / 0.2);
   --font-size-small: 14px;
-  --font-size-body: 16px;
+  --font-size-body: 18px;
   --font-size-medium: 18px;
   --font-size-large: 20px;
   --font-size-button-small: 14px;
   --font-size-mobile-button-small: 12px;
   --font-size-high: 96px;
   --font-size-h1: 64px;
-  --font-size-global-h1: 76px;
+  --font-size-global-h1: var(--font-size-h1);
   --font-size-h1-mobile: 42px;
   --font-size-h2: 48px;
-  --font-size-global-h2: 32px;
-  --font-size-global-h4: 24px;
-  --font-size-global-h3: 21px;
+  --font-size-h3: 32px;
+  --font-size-h4: 24px;
+  --font-size-h5: 20px;
+  --font-size-h6: 16px;
+  --font-size-global-h2: var(--font-size-h2);
+  --font-size-global-h3: var(--font-size-h3);
+  --font-size-global-h4: var(--font-size-h4);
+  --font-size-global-h5: var(--font-size-h5);
+  --font-size-global-h6: var(--font-size-h6);
   --font-size-h2-mobile: 28px;
   --font-size-event-heading: 60px;
   --font-size-stat: 52px;
@@ -103,6 +109,7 @@
   --line-height-body: 1.5;
   --line-height-tight: 1;
   --line-height-heading: 1.25;
+  --font-weight-heading: 400;
   --letter-spacing-none: 0;
   --letter-spacing-small: 2px;
   --letter-spacing-heading: 2%;
@@ -112,8 +119,9 @@
   --button-border-radius: 999px;
   --button-bg-light: rgb(var(--color-white) / var(--opacity-low));
   --button-bg-transparent: transparent;
-  --container-width-medium: 1400px;
-  --container-width: 1680px;
+  --container-width-medium: 1440px;
+  --container-width: 1820px;
+  --container-padding: 50px;
   --container-gutter: max(64px, calc((100vw - var(--container-width)) / 2));
   font-family: var(--font-body);
   font-synthesis: none;
@@ -137,7 +145,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
-  font-size: var(--font-size-medium);
+  font-size: var(--font-size-body);
   line-height: 1.25;
   color: var(--color-heading);
 }
@@ -157,9 +165,16 @@ h2,
 h3,
 h4,
 h5,
-h6 {
-  font-weight: 400;
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: var(--font-weight-heading);
   font-family: var(--font-display);
+  line-height: var(--line-height-heading);
 }
 
 h1,
@@ -167,7 +182,6 @@ h2 {
   margin: 0 0 14px;
   color: var(--color-heading);
 
-  line-height: var(--line-height-heading);
 }
 
 h1 {
@@ -176,6 +190,47 @@ h1 {
 
 h2 {
   font-size: var(--font-size-global-h2);
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+}
+
+h4 {
+  font-size: var(--font-size-h4);
+}
+
+h5 {
+  font-size: var(--font-size-h5);
+}
+
+h6 {
+  font-size: var(--font-size-h6);
+}
+
+/* Heading utilities can be used independently of the semantic heading level. */
+.h1 {
+  font-size: var(--font-size-h1) !important;
+}
+
+.h2 {
+  font-size: var(--font-size-h2) !important;
+}
+
+.h3 {
+  font-size: var(--font-size-h3) !important;
+}
+
+.h4 {
+  font-size: var(--font-size-h4) !important;
+}
+
+.h5 {
+  font-size: var(--font-size-h5) !important;
+}
+
+.h6 {
+  font-size: var(--font-size-h6) !important;
 }
 
 p {
@@ -213,7 +268,7 @@ code {
     --font-size-h1: 46px;
     --font-size-h2: 42px;
     --font-size-40: 36px;
-    --font-size-global-h2: 28px;
+    --font-size-h3: 28px;
   }
 }
 
@@ -221,13 +276,13 @@ code {
   :root {
     --font-size-h1: 40px;
     --font-size-h2: 28px;
-    --font-size-global-h2: 22px;
     --font-size-40: 28px;
     --font-size-large: 16px;
     --font-size-medium: 14px;
-    --font-size-body: 12px;
+    --font-size-body: 16px;
     --font-size-small: 12px;
-    --font-size-global-h3: 18px;
-    --font-size-global-h4: 20px;
+    --font-size-h3: 24px;
+    --font-size-h4: 20px;
+    --font-size-h5: 18px;
   }
 }

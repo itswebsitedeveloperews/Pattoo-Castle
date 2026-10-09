@@ -110,7 +110,7 @@ export default function TermsConditionPage({
   return (
     <main>
       <section
-        className={`page-hero ${styles.termsConditionHero}`}
+        className={`section pt-0 pb-0 page-hero ${styles.termsConditionHero}`}
         style={
           termsCondition.bannerImage
             ? {
@@ -132,7 +132,7 @@ export default function TermsConditionPage({
       </section>
 
       {termsCondition.termsContent && (
-        <section className={styles.contentSection}>
+        <section className={`section ${styles.contentSection}`}>
           <div className={styles.contentInner}>
             {renderRichText(termsCondition.termsContent)}
           </div>

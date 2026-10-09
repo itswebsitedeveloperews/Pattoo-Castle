@@ -7,7 +7,7 @@
 .bedroomsInner,
 .additionalChargeInner {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(340px, 1fr);
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
   gap: clamp(36px, 4vw, 64px);
   margin: 0 auto;
   align-items: center;
@@ -20,7 +20,7 @@
 }
 
 .additionalChargeInner {
-  grid-template-columns: minmax(340px, 0.95fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
 }
 
 .imageSlider {
@@ -88,7 +88,6 @@
 .additionalChargeContent h2 {
   margin: 0 0 18px;
   color: var(--color-brown);
-  font-size: var(--font-size-h2);
   max-width: 810px;
 }
 
@@ -227,11 +226,6 @@
 
   .sliderButtonNext {
     right: 14px;
-  }
-
-  .bedroomsContent h2,
-  .additionalChargeContent h2 {
-    font-size: var(--font-size-global-h3);
   }
 
   .richText p,

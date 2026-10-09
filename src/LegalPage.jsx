@@ -125,7 +125,7 @@ export default function LegalPage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className={`page-hero ${styles.legalHero}`}
+          className={`section pt-0 pb-0 page-hero ${styles.legalHero}`}
           style={
             legal.bannerImage
               ? {
@@ -145,7 +145,7 @@ export default function LegalPage({
         </section>
 
         {legal.content && (
-          <section className={styles.contentSection}>
+          <section className={`section ${styles.contentSection}`}>
             <div className={styles.contentInner} data-aos="fade-up">
               {renderRichText(legal.content)}
             </div>

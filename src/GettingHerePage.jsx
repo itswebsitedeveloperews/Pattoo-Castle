@@ -33,7 +33,7 @@ export default function GettingHerePage({
       <SiteHeader header={header} />
       <main>
         <section
-          className="section page-hero getting-here-hero"
+          className="pt-0 pb-0 section page-hero getting-here-hero"
           style={
             page.bannerImage
               ? { "--getting-here-banner-image": `url(${page.bannerImage})` }

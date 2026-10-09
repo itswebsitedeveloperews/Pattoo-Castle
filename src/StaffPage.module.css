@@ -57,7 +57,6 @@
 .teamHeader h2 {
   margin: 0;
   color: var(--color-brown);
-  font-size: var(--font-size-h2);
 }
 
 .teamHeader p:not(.teamEyebrow) {
@@ -88,7 +87,6 @@
 .teamCard h3 {
   margin: 18px 0 6px;
   color: var(--color-brown);
-  font-size: var(--font-size-global-h4);
 }
 
 .teamCard p {
@@ -125,10 +123,6 @@
 
   .teamSection {
     padding: 58px 14px 68px;
-  }
-
-  .teamHeader h2 {
-    font-size: var(--font-size-global-h3);
   }
 
   .teamHeader p:not(.teamEyebrow) {

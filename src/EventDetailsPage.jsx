@@ -48,7 +48,7 @@ export default function EventDetailsPage({
       <SiteHeader header={header} />
       <main>
         <section
-          className={`section page-hero event-detail-hero ${styles.banner}`}
+          className={`pt-0 pb-0 section page-hero event-detail-hero ${styles.banner}`}
           aria-labelledby={
             eventDetails.heading ? "event-detail-title" : undefined
           }
@@ -432,7 +432,7 @@ export default function EventDetailsPage({
               </fieldset>
               <div className="text-center">
                 <button
-                  className="button event-inquiry-submit"
+                  className="btn btn--solid event-inquiry-submit"
                   type="submit"
                   data-aos="fade-up"
                   data-aos-delay="200"

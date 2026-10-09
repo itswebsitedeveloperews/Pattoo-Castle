@@ -433,7 +433,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className="hero"
+          className="section pb-0 hero"
           style={heroImageStyle}
           aria-label="Pattoo Castle in Negril, Jamaica"
         >
@@ -448,7 +448,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
               src={homePage.heroImage.src}
             />
           )}
-          <div className="hero-content container" data-aos="fade-in">
+          <div className="hero-content container-wide" data-aos="fade-in">
             <div className="hero-heading-wrap">
               {homePage.heroHeading && <h1>{homePage.heroHeading}</h1>}
             </div>
@@ -457,7 +457,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
 
         {hasHomeIntroSection && (
           <section
-            className="home-intro-section"
+            className="section home-intro-section"
             aria-labelledby={
               homePage.homeIntroHeading ? "home-intro-title" : undefined
             }
@@ -520,7 +520,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
         )}
 
         {hasMapSection && (
-          <section className="home-map-section" aria-label="Pattoo Castle map">
+          <section className="section home-map-section" aria-label="Pattoo Castle map">
             <div className="home-map-inner container">
               {homePage.mapEmbedSrc && (
                 <div className="home-map-frame" data-aos="fade-up">
@@ -536,7 +536,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
 
               {homePage.mapButtonText && homePage.mapButtonUrl && (
                 <a
-                  className="button button--light home-map-button"
+                  className="btn btn--light home-map-button"
                   href={homePage.mapButtonUrl}
                 >
                   {homePage.mapButtonText}

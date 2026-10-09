@@ -51,7 +51,7 @@ export default function EventsPage({
       <SiteHeader header={header} />
       <main>
         <section
-          className="section page-hero events-hero"
+          className="pt-0 pb-0 section page-hero events-hero"
           style={
             event.bannerImage
               ? { "--events-banner-image": `url(${event.bannerImage})` }
@@ -109,7 +109,7 @@ export default function EventsPage({
                       </div>
                     )}
                     {block.buttonText && block.buttonUrl && (
-                      <a className={`button button--brown ${styles.blockButton}`} href={block.buttonUrl}>
+                      <a className={`btn btn--brown ${styles.blockButton}`} href={block.buttonUrl}>
                         {block.buttonText}
                       </a>
                     )}

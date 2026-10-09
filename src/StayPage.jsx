@@ -51,7 +51,7 @@ export default function StayPage({
       <SiteHeader header={header} />
       <main>
         <section
-          className="section page-hero stay-hero"
+          className="pt-0 pb-0 section page-hero stay-hero"
           style={
             stay.bannerImage
               ? {

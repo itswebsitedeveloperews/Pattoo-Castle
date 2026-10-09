@@ -22,25 +22,13 @@
 .contentInner h2 {
   margin: 44px 0 16px;
   color: var(--color-brown);
-  font-family: var(--font-display);
-  font-size: var(--font-size-global-h2);
-  font-weight: 500;
   letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-heading);
-}
-
-.contentInner h1 {
-  font-size: var(--font-size-h2);
 }
 
 .contentInner h3 {
   margin: 34px 0 14px;
   color: var(--color-brown);
-  font-family: var(--font-display);
-  font-size: var(--font-size-global-h3);
-  font-weight: 500;
   letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-heading);
 }
 
 .contentInner h4,
@@ -48,22 +36,10 @@
 .contentInner h6 {
   margin: 28px 0 12px;
   color: var(--color-brown);
-  font-family: var(--font-body);
-  font-weight: 700;
   letter-spacing: var(--letter-spacing-none);
-  line-height: var(--line-height-heading);
-}
-
-.contentInner h4 {
-  font-size: 22px;
-}
-
-.contentInner h5 {
-  font-size: 18px;
 }
 
 .contentInner h6 {
-  font-size: var(--font-size-body);
   letter-spacing: var(--letter-spacing-small);
   text-transform: uppercase;
 }
@@ -104,21 +80,10 @@
   .contentInner h1,
   .contentInner h2 {
     margin-top: 36px;
-    font-size: var(--font-size-global-h3);
   }
 
   .contentInner h3 {
     margin-top: 28px;
-    font-size: 20px;
-  }
-
-  .contentInner h4 {
-    font-size: 18px;
-  }
-
-  .contentInner h5,
-  .contentInner h6 {
-    font-size: var(--font-size-body);
   }
 
   .contentInner p,

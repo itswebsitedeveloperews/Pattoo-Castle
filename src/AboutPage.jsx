@@ -46,7 +46,7 @@ export default function AboutPage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className="section page-hero about-hero"
+          className="pt-0 pb-0 section page-hero about-hero"
           style={
             about.bannerImage
               ? { "--about-banner-image": `url(${about.bannerImage})` }

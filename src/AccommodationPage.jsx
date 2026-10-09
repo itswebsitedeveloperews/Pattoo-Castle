@@ -41,7 +41,7 @@ export default function AccommodationPage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className="page-hero accommodation-hero"
+          className="section pt-0 pb-0 page-hero accommodation-hero"
           style={
             accommodation.bannerImage
               ? {

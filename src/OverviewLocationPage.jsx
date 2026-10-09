@@ -71,7 +71,7 @@ export default function OverviewLocationPage({
       <SiteHeader header={header} />
       <main>
         <section
-          className="section page-hero overview-location-hero"
+          className="pt-0 pb-0 section page-hero overview-location-hero"
           style={
             page.bannerImage
               ? {
@@ -113,7 +113,7 @@ export default function OverviewLocationPage({
 
                 {hasDirectionsButton && (
                   <a
-                    className="button button--brown overview-location-button"
+                    className="btn btn--brown overview-location-button"
                     href={page.directionsButtonLink}
                     target="_blank"
                     rel="noreferrer"

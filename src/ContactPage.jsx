@@ -122,7 +122,7 @@ export default function ContactPage({
       <SiteHeader header={header} />
       <main>
         <section
-          className="section page-hero contact-hero"
+          className="pt-0 pb-0 section page-hero contact-hero"
           style={
             contact.bannerImage
               ? { "--contact-banner-image": `url(${contact.bannerImage})` }
@@ -308,7 +308,7 @@ export default function ContactPage({
                 </div>
 
                 <div className="contact-form-submit-row">
-                  <button className="contact-form-submit" type="submit">
+                  <button className="btn btn--solid contact-form-submit" type="submit">
                     Send Here
                   </button>
                 </div>

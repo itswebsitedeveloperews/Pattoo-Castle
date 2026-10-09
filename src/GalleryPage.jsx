@@ -41,7 +41,7 @@ export default function GalleryPage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className={`section page-hero gallery-hero${gallery.bannerIsVideo ? ` ${styles.videoBanner}` : ""}`}
+          className={`pt-0 pb-0 section page-hero gallery-hero${gallery.bannerIsVideo ? ` ${styles.videoBanner}` : ""}`}
           style={
             gallery.bannerImage && !gallery.bannerIsVideo
               ? { "--gallery-banner-image": `url(${gallery.bannerImage})` }

@@ -86,7 +86,7 @@ export default function StayInquiryForm() {
             <label><span className={styles.srOnly}>Enter the verification code shown</span><input name="verification" aria-label="Enter the verification code shown" required pattern={code} autoComplete="off" title="Enter the code shown beside this field" /></label>
             <span aria-label={`Verification code: ${code}`}>{code}</span>
           </div>
-          <button className={styles.send} type="submit" disabled={!month || !code}>Send</button>
+          <button className={`btn btn--solid ${styles.send}`} type="submit" disabled={!month || !code}>Send</button>
           {dateError && <p role="alert">{dateError}</p>}
         </div>
       </NetlifyForm>

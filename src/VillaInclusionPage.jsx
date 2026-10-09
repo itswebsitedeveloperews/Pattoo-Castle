@@ -139,7 +139,7 @@ export default function VillaInclusionPage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className="section page-hero accommodation-hero villa-inclusion-hero"
+          className="pt-0 pb-0 section page-hero accommodation-hero villa-inclusion-hero"
           style={
             villaInclusion.bannerImage
               ? {
@@ -196,7 +196,7 @@ export default function VillaInclusionPage({
 
         {hasAdditionalChargeSection && (
           <section
-            className={`section ${styles.additionalChargeSection}`}
+            className={`pt-0 section ${styles.additionalChargeSection}`}
             aria-labelledby={
               villaInclusion.additionalChargeHeading
                 ? "villa-inclusion-additional-charge-title"

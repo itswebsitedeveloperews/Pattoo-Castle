@@ -55,7 +55,7 @@ export default function OverviewPage({
       <SiteHeader header={header} />
       <main>
         <section
-          className="section page-hero overview-hero"
+          className="pt-0 pb-0 section page-hero overview-hero"
           style={
             overview.bannerImage
               ? { "--overview-banner-image": `url(${overview.bannerImage})` }

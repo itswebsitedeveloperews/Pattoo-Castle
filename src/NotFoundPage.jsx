@@ -17,7 +17,7 @@ export default function NotFoundPage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className="section page-hero not-found-hero"
+          className="pt-0 pb-0 section page-hero not-found-hero"
           style={{ "--hero-image": `url(${heroImage.src})` }}
           aria-labelledby="not-found-title"
         >
@@ -34,11 +34,11 @@ export default function NotFoundPage({
               incorrect.
             </p>
             <div className="not-found-actions">
-              <a className="button button--light page-hero-button" href="/">
+              <a className="btn btn--light page-hero-button" href="/">
                 Return Home
               </a>
               <a
-                className="button button--light page-hero-button"
+                className="btn btn--light page-hero-button"
                 href="/contact/"
               >
                 Contact Us

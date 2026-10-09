@@ -55,7 +55,7 @@ export default function ReserveStaySection({
 
         {hasButton && (
           <a
-            className="button button--brown reserve-stay-button"
+            className="btn btn--brown reserve-stay-button"
             href={buttonUrl}
           >
             {buttonText}
