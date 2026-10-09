@@ -75,7 +75,7 @@ export default function GalleryFilterGrid({ items = [] }) {
           {items.map((item, index) => (
             <figure
               className="gallery-filter-card"
-              key={`${item.image?.src}-${item.type}-${index}`}
+              key={`${item.image?.src}-${index}`}
               data-aos="fade-up"
               data-aos-delay={String(index * 50)}
             >

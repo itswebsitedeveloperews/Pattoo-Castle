@@ -12,16 +12,9 @@ import styles from "./GalleryPage.module.css";
 
 function getGalleryContent(entry) {
   const fields = entry?.fields || {};
-  const galleryItems = Array.isArray(fields.gallery)
-    ? fields.gallery
-        .map((item) => {
-          const itemFields = item?.fields || {};
-
-          return {
-            image: getContentfulImage(itemFields.galleryImage),
-            type: itemFields.galleryImageType || "",
-          };
-        })
+  const galleryItems = Array.isArray(fields.galleryImages)
+    ? fields.galleryImages
+        .map((asset) => ({ image: getContentfulImage(asset) }))
         .filter((item) => item.image?.src)
     : [];
 
