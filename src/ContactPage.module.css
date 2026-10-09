@@ -1,0 +1,29 @@
+.locationSection {
+  padding: 80px 0;
+  color: white;
+  background: var(--color-brown);
+}
+.locationInner { max-width: 1200px; text-align: center; }
+.mapFrame { padding: 8px; border: 1px solid rgb(255 255 255 / 60%); }
+.mapFrame iframe { display: block; width: 100%; height: auto; aspect-ratio: 2.5; border: 0; }
+.directionsButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 48px;
+  margin-top: 28px;
+  padding: 12px 36px;
+  border: 1px solid rgb(255 255 255 / 75%);
+  border-radius: 999px;
+  color: inherit;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.directionsButton:hover { background: rgb(255 255 255 / 10%); }
+.directionsButton:focus-visible { outline: 2px solid white; outline-offset: 4px; }
+@media (max-width: 600px) {
+  .locationSection { padding: 48px 0; }
+  .mapFrame iframe { aspect-ratio: 4 / 3; }
+}

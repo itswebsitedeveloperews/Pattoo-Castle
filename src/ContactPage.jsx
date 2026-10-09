@@ -9,6 +9,21 @@ import AosInitializer from "./AosInitializer";
 import NetlifyForm from "./NetlifyForm";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
+import styles from "./ContactPage.module.css";
+
+function getLocationIframeSrc(value) {
+  const markup = richTextToPlainText(value)
+    .replace(/&lt;/gi, "<").replace(/&gt;/gi, ">")
+    .replace(/&quot;|&#34;/gi, '"').replace(/&#39;|&apos;/gi, "'")
+    .replace(/&amp;/gi, "&").trim();
+  const src = markup.match(/<iframe\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/i)?.[1] || markup;
+  try {
+    const url = new URL(src);
+    return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+  } catch {
+    return "";
+  }
+}
 
 function getFirstContentfulAsset(assets) {
   return Array.isArray(assets) ? assets[0] : assets;
@@ -83,6 +98,9 @@ function getContactContent(entry) {
     connectWithUs,
     contactSubTitle: fields.contactSubTitle || "",
     contactTitle: fields.contactTitle || "",
+    locationIframe: getLocationIframeSrc(fields.locationIframe),
+    locationButtonText: fields.locationButtonText || "",
+    locationButtonUrl: fields.locationButtonUrl || "",
   };
 }
 
@@ -295,6 +313,29 @@ export default function ContactPage({
                   </button>
                 </div>
               </NetlifyForm>
+            </div>
+          </section>
+        )}
+        {(contact.locationIframe || (contact.locationButtonText && contact.locationButtonUrl)) && (
+          <section className={`section ${styles.locationSection}`} aria-label="Find Pattoo Castle">
+            <div className={`wrap ${styles.locationInner}`}>
+              {contact.locationIframe && (
+                <div className={styles.mapFrame}>
+                  <iframe
+                    src={contact.locationIframe}
+                    title="Pattoo Castle location map"
+                    width="1200"
+                    height="480"
+                    loading="lazy"
+                    allowFullScreen
+                  />
+                </div>
+              )}
+              {contact.locationButtonText && contact.locationButtonUrl && (
+                <a className={styles.directionsButton} href={contact.locationButtonUrl}>
+                  {contact.locationButtonText}
+                </a>
+              )}
             </div>
           </section>
         )}
