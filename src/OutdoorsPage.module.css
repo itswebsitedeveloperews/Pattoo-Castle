@@ -39,12 +39,13 @@
 .patiosContent { margin-top: 72px; }
 .patiosContent:first-child { margin-top: 0; }
 .patiosContent h2 { margin-bottom: 36px; }
-.carousel { position: relative; touch-action: pan-y; }
-.imageGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+.carousel { position: relative; min-width: 0; touch-action: pan-y; }
+.slickSlider { margin: 0 -10px; }
+.slickSlider :global(.slick-list) {
+  padding-bottom: 28px;
+  margin-bottom: -28px;
 }
+.slideSlot { padding: 0 10px; }
 .slide {
   min-width: 0;
   margin: 0;
@@ -89,10 +90,12 @@
   .outdoorSection { padding: 48px 0 56px; }
   .patiosContent { margin-top: 48px; }
   .patiosContent h2 { margin-bottom: 24px; }
-  .imageGrid { grid-template-columns: minmax(0, 1fr); }
-  .slide:nth-child(n + 2) { display: none; }
   .poolBody ul,
   .poolBody ol { flex-direction: column; gap: 8px; }
   .previous { left: 12px; }
   .next { right: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slickSlider :global(.slick-track) { transition-duration: 0.01ms !important; }
 }
