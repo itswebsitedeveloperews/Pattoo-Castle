@@ -1,86 +1,18 @@
-.bedroomSection {
-  padding: 80px 0;
-  color: var(--color-brown);
-  background: var(--color-cream);
-}
-
-.bedroomGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 30px 22px;
-}
-
-.bedroomCard {
-  min-width: 0;
-  text-align: center;
-}
-
-.bedroomCard img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1.56;
-  object-fit: cover;
-}
-
-.bedroomCard h3 {
-  margin: 18px 0 10px;
-  font-size: var(--font-size-global-h4);
-  padding: 0 12px;
-}
-
-.bedroomCard p,
-.bedroomCard li {
-  color: var(--color-brown-dark);
-  line-height: 1.33;
-}
-
-.bedroomCard p {
-  margin: 0;
-}
-
-.bedroomCard ul {
-  display: block;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-align: center;
-  padding: 0 10px;
-}
-
-.bedroomCard li {
-  display: inline-block;
-  margin-bottom: 8px;
-}
-
-.bedroomCard li::before {
-  display: inline;
-  margin-left: 14px;
-  margin-right: 10px;
-  content: "•";
-  font-family: "Inter", sans-serif;
-}
-.bedroomCard li:first-child::before {
-  margin-left: 0;
-}
-
-@media (max-width: 1024px) {
-  .bedroomSection {
-    padding: 50px 30px;
-  }
-
-  .bedroomGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 38px 20px;
-  }
-}
-
-@media (max-width: 767px) {
-  .bedroomSection {
-    padding: 58px 18px 68px;
-  }
-
-  .bedroomGrid {
-    grid-template-columns: 1fr;
-    gap: 34px;
-  }
-}
+.bedroomSection { padding: 64px 0; color: var(--color-brown); background: var(--color-cream); }
+.bedroomGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
+.bedroomCard { min-width: 0; text-align: left; }
+.bedroomSlider { position: relative; min-width: 0; }
+.bedroomSlider img { display: block; width: 100%; aspect-ratio: 2.1; object-fit: cover; }
+.bedroomSlider :global(.slick-dots) { bottom: 8px; display: flex !important; justify-content: center; flex-wrap: wrap; gap: 2px; padding: 0 12px; }
+.bedroomSlider :global(.slick-dots li) { width: 14px; height: 18px; margin: 0; }
+.bedroomSlider :global(.slick-dots li button) { width: 14px; height: 18px; padding: 3px; }
+.bedroomSlider :global(.slick-dots li button::before) { content: ""; inset: 6px 4px; width: 6px; height: 6px; border-radius: 50%; background: white; opacity: .55; box-shadow: 0 1px 3px #0005; }
+.bedroomSlider :global(.slick-dots li.slick-active button::before) { opacity: 1; }
+.bedroomSlider :global(.slick-dots button:focus-visible) { outline: 2px solid white; outline-offset: 1px; }
+.bedroomCard h2 { margin: 12px 0 5px; font-size: 22px; line-height: 1.2; }
+.bedroomCard p, .bedroomCard > ul { margin: 0; color: var(--color-brown-dark); font-size: 14px; line-height: 1.6; }
+.bedroomCard p { white-space: pre-line; }
+.bedroomCard > ul { padding-left: 16px; }
+.bedroomCard > ul > li { padding-left: 2px; }
+@media (max-width: 1024px) { .bedroomSection { padding: 48px 24px; } }
+@media (max-width: 767px) { .bedroomSection { padding: 36px 18px 48px; } .bedroomGrid { grid-template-columns: 1fr; gap: 28px; } }

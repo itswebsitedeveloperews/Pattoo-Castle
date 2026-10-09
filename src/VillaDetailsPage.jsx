@@ -1,11 +1,12 @@
 import {
   getContentfulAssetSrc,
-  getFirstContentfulImage,
+  getContentfulImage,
   getFooterContent,
   getHeaderContent,
   richTextToPlainText,
 } from "./App";
 import AosInitializer from "./AosInitializer";
+import BedroomImageSlider from "./BedroomImageSlider";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 import styles from "./VillaDetailsPage.module.css";
@@ -41,12 +42,12 @@ function getRichTextListItems(value) {
 
 function getBedroomBlock(item) {
   const fields = item?.fields || {};
-  const image = getFirstContentfulImage(fields.images);
+  const images = (Array.isArray(fields.images) ? fields.images : []).map(getContentfulImage).filter((image) => image?.src);
   const contentItems = getRichTextListItems(fields.content);
   const plainContent = richTextToPlainText(fields.content);
 
   return {
-    image,
+    images,
     title: fields.title || "",
     contentItems,
     content: contentItems.length ? "" : plainContent,
@@ -57,7 +58,7 @@ function getVillaDetailsContent(entry) {
   const fields = entry?.fields || {};
   const bedroomBlocks = Array.isArray(fields.bedroomBlocks)
     ? fields.bedroomBlocks.map(getBedroomBlock).filter(
-        (item) => item.image?.src || item.title || item.content || item.contentItems.length,
+        (item) => item.images.length || item.title || item.content || item.contentItems.length,
       )
     : [];
 
@@ -121,21 +122,11 @@ export default function VillaDetailsPage({
                     <article
                       className={styles.bedroomCard}
                       data-aos="fade-up"
-                      data-aos-delay={String((index % 3) * 80)}
+                      data-aos-delay={String((index % 2) * 80)}
                       key={`${item.title}-${index}`}
                     >
-                      {item.image?.src && (
-                        <img
-                          src={item.image.src}
-                          alt={
-                            item.image.alt ||
-                            (item.title
-                              ? `${item.title} bedroom`
-                              : `Pattoo Castle bedroom ${index + 1}`)
-                          }
-                        />
-                      )}
-                      {item.title && <h3>{item.title}</h3>}
+                      <BedroomImageSlider images={item.images} title={item.title || `Bedroom ${index + 1}`} />
+                      {item.title && <h2>{item.title}</h2>}
                       {item.contentItems.length > 0 ? (
                         <ul>
                           {item.contentItems.map((contentItem, itemIndex) => (
