@@ -10,9 +10,11 @@
 .bedroomSlider :global(.slick-dots li.slick-active button::before) { opacity: 1; }
 .bedroomSlider :global(.slick-dots button:focus-visible) { outline: 2px solid white; outline-offset: 1px; }
 .bedroomCard h2 { margin: 12px 0 5px; font-size: 22px; line-height: 1.2; }
-.bedroomCard p, .bedroomCard > ul { margin: 0; color: var(--color-brown-dark); font-size: 14px; line-height: 1.6; }
+.bedroomContent { color: var(--color-brown-dark); font-size: 14px; line-height: 1.6; }
+.bedroomContent > p { margin: 0 0 6px; }
+.bedroomContent li > p { margin: 0; }
 .bedroomCard p { white-space: pre-line; }
-.bedroomCard > ul { padding-left: 16px; }
-.bedroomCard > ul > li { padding-left: 2px; }
+.bedroomContent ul, .bedroomContent ol { margin: 0 0 6px; padding-left: 18px; }
+.bedroomContent li { padding-left: 2px; }
 @media (max-width: 1024px) { .bedroomSection { padding: 48px 24px; } }
 @media (max-width: 767px) { .bedroomSection { padding: 36px 18px 48px; } .bedroomGrid { grid-template-columns: 1fr; gap: 28px; } }

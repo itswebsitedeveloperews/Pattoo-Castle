@@ -3,7 +3,6 @@ import {
   getContentfulImage,
   getFooterContent,
   getHeaderContent,
-  richTextToPlainText,
 } from "./App";
 import AosInitializer from "./AosInitializer";
 import BedroomImageSlider from "./BedroomImageSlider";
@@ -11,46 +10,95 @@ import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 import styles from "./VillaDetailsPage.module.css";
 
-function getRichTextListItems(value) {
-  if (!value || typeof value === "string") {
-    return [];
+function renderRichTextNode(node, key) {
+  if (!node) {
+    return null;
   }
 
-  const items = [];
+  if (node.nodeType === "text") {
+    let value = node.value || "";
 
-  function walk(node) {
-    if (!node || typeof node !== "object") {
-      return;
-    }
-
-    if (node.nodeType === "list-item") {
-      const text = richTextToPlainText(node).trim();
-
-      if (text) {
-        items.push(text);
+    (node.marks || []).forEach((mark, markIndex) => {
+      if (mark.type === "bold") {
+        value = <strong key={`${key}-bold-${markIndex}`}>{value}</strong>;
       }
 
-      return;
-    }
+      if (mark.type === "italic") {
+        value = <em key={`${key}-italic-${markIndex}`}>{value}</em>;
+      }
 
-    (node.content || []).forEach(walk);
+      if (mark.type === "underline") {
+        value = <u key={`${key}-underline-${markIndex}`}>{value}</u>;
+      }
+    });
+
+    return value;
   }
 
-  walk(value);
-  return items;
+  const children = (node.content || []).map((child, childIndex) =>
+    renderRichTextNode(child, `${key}-${childIndex}`),
+  );
+
+  switch (node.nodeType) {
+    case "paragraph":
+      return <p key={key}>{children}</p>;
+    case "heading-1":
+      return <h1 key={key}>{children}</h1>;
+    case "heading-2":
+      return <h2 key={key}>{children}</h2>;
+    case "heading-3":
+      return <h3 key={key}>{children}</h3>;
+    case "heading-4":
+      return <h4 key={key}>{children}</h4>;
+    case "heading-5":
+      return <h5 key={key}>{children}</h5>;
+    case "heading-6":
+      return <h6 key={key}>{children}</h6>;
+    case "unordered-list":
+      return <ul key={key}>{children}</ul>;
+    case "ordered-list":
+      return <ol key={key}>{children}</ol>;
+    case "list-item":
+      return <li key={key}>{children}</li>;
+    case "hyperlink":
+      return (
+        <a href={node.data?.uri || "#"} key={key}>
+          {children}
+        </a>
+      );
+    default:
+      return children;
+  }
+}
+
+function renderRichText(value) {
+  if (!value) {
+    return null;
+  }
+
+  if (typeof value === "string") {
+    return value
+      .split(/\r?\n/)
+      .map((item) => item.trim())
+      .filter(Boolean)
+      .map((item, index) => (
+        <p key={`bedroom-text-${index}`}>{item}</p>
+      ));
+  }
+
+  return (value.content || []).map((node, index) =>
+    renderRichTextNode(node, `bedroom-content-${index}`),
+  );
 }
 
 function getBedroomBlock(item) {
   const fields = item?.fields || {};
   const images = (Array.isArray(fields.images) ? fields.images : []).map(getContentfulImage).filter((image) => image?.src);
-  const contentItems = getRichTextListItems(fields.content);
-  const plainContent = richTextToPlainText(fields.content);
 
   return {
     images,
     title: fields.title || "",
-    contentItems,
-    content: contentItems.length ? "" : plainContent,
+    content: fields.content || null,
   };
 }
 
@@ -58,7 +106,7 @@ function getVillaDetailsContent(entry) {
   const fields = entry?.fields || {};
   const bedroomBlocks = Array.isArray(fields.bedroomBlocks)
     ? fields.bedroomBlocks.map(getBedroomBlock).filter(
-        (item) => item.images.length || item.title || item.content || item.contentItems.length,
+        (item) => item.images.length || item.title || item.content,
       )
     : [];
 
@@ -127,17 +175,7 @@ export default function VillaDetailsPage({
                     >
                       <BedroomImageSlider images={item.images} title={item.title || `Bedroom ${index + 1}`} />
                       {item.title && <h2>{item.title}</h2>}
-                      {item.contentItems.length > 0 ? (
-                        <ul>
-                          {item.contentItems.map((contentItem, itemIndex) => (
-                            <li key={`${contentItem}-${itemIndex}`}>
-                              {contentItem}
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        item.content && <p>{item.content}</p>
-                      )}
+                      <div className={styles.bedroomContent}>{renderRichText(item.content)}</div>
                     </article>
                   ))}
                 </div>
