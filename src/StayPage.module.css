@@ -1,0 +1,31 @@
+.findUsSection,
+.informationSection { padding: 64px 0; color: var(--color-brown); background: var(--color-cream); text-align: center; }
+.findUsInner { max-width: 1100px; }
+.findUsInner h2,
+.informationBlock h2 { margin: 0 0 24px; font-size: var(--font-size-global-h3); }
+.findUsGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin: 0; padding: 0; list-style: none; }
+.findUsCard { min-width: 0; background: white; box-shadow: 0 12px 24px rgb(0 0 0 / 10%); }
+.findUsCard a,
+.findUsCard span { display: flex; align-items: center; justify-content: center; height: 100%; min-height: 100px; padding: 24px 16px; color: inherit; font-family: var(--font-display); font-size: var(--font-size-global-h4); text-decoration: none; overflow-wrap: anywhere; }
+.findUsCard a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.findUsCard a:focus-visible { outline: 2px solid var(--color-brown); outline-offset: 4px; }
+.informationGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1200px; gap: 40px; }
+.informationBlock { min-width: 0; }
+.informationBlock:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.informationContent { font-size: var(--font-size-body); line-height: var(--line-height-body); overflow-wrap: anywhere; }
+.informationContent p { margin: 0 0 12px; }
+.informationContent > :last-child { margin-bottom: 0; }
+.informationContent ul,
+.informationContent ol { margin: 0; padding: 0; list-style-position: inside; }
+.informationContent li p { display: inline; }
+.informationContent a { text-decoration: underline; text-underline-offset: 3px; }
+.informationContent a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+@media (max-width: 900px) { .findUsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) {
+  .findUsSection,
+  .informationSection { padding: 48px 0; }
+  .informationGrid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .findUsGrid { gap: 16px; }
+  .findUsCard a,
+  .findUsCard span { min-height: 80px; }
+}

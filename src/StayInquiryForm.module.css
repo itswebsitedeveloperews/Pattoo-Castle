@@ -10,10 +10,6 @@
 .day.selected { background: #513b25; color: white; }
 .day.inRange { background: #eee2d2; }
 .day:disabled, .monthHeader button:disabled { opacity: 0.3; cursor: default; }
-.hint { margin: 12px; font-size: 14px; }
-.dateFields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
-.dateFields label { min-width: 0; font-size: 13px; }
-.dateFields input { display: block; width: 100%; min-width: 0; padding: 6px 2px; border: 1px solid #e5d4bf; background: transparent; color: inherit; font: inherit; }
 .formPanel { padding: 36px 28px; }
 .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .field { position: relative; display: block; min-width: 0; }

@@ -14,6 +14,7 @@ export default function StayInquiryForm() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [code, setCode] = useState("");
+  const [dateError, setDateError] = useState("");
 
   useEffect(() => {
     const now = new Date();
@@ -23,6 +24,7 @@ export default function StayInquiryForm() {
   }, []);
 
   function selectDate(value) {
+    setDateError("");
     if (!checkIn || checkOut || value <= checkIn) {
       setCheckIn(value);
       setCheckOut("");
@@ -41,7 +43,14 @@ export default function StayInquiryForm() {
         className={`wrap ${styles.layout}`}
         id="stay-inquiry-form"
         formName="stay-inquiry"
-        onReset={() => { setCheckIn(""); setCheckOut(""); }}
+        onReset={() => { setCheckIn(""); setCheckOut(""); setDateError(""); }}
+        onSubmitCapture={(event) => {
+          if (!checkIn || !checkOut || checkIn < today || checkOut <= checkIn) {
+            event.preventDefault();
+            event.stopPropagation();
+            setDateError("Select check-in and check-out dates on the calendar.");
+          }
+        }}
       >
         <div className={styles.calendarPanel}>
           <div className={styles.monthHeader}>
@@ -61,11 +70,9 @@ export default function StayInquiryForm() {
               return <button type="button" key={index} disabled={value < today} aria-label={date.toLocaleDateString("en-US", {weekday:"long", month:"long", day:"numeric", year:"numeric"})} aria-pressed={selected || Boolean(inRange)} aria-current={value === today ? "date" : undefined} className={`${styles.day}${selected ? ` ${styles.selected}` : inRange ? ` ${styles.inRange}` : ""}`} onClick={() => selectDate(value)}>{day}</button>;
             })}
           </div>
-          <p className={styles.hint} aria-live="polite">{checkOut ? "Your stay dates are selected." : checkIn ? "Select your check-out date." : "Select check-in, then check-out."}</p>
-          <div className={styles.dateFields}>
-            <label>Check-in<input type="date" name="checkIn" value={checkIn} min={today} required onChange={event => { setCheckIn(event.target.value); setCheckOut(""); }} /></label>
-            <label>Check-out<input type="date" name="checkOut" value={checkOut} min={checkIn ? dateValue(new Date(Number(checkIn.slice(0,4)), Number(checkIn.slice(5,7))-1, Number(checkIn.slice(8))+1)) : today} required onChange={event => setCheckOut(event.target.value)} /></label>
-          </div>
+          <p className={styles.srOnly} aria-live="polite">{checkOut ? `Stay dates: ${checkIn} to ${checkOut}.` : checkIn ? "Select your check-out date." : "Select check-in, then check-out."}</p>
+          <input type="hidden" name="checkIn" value={checkIn} />
+          <input type="hidden" name="checkOut" value={checkOut} />
         </div>
         <div className={styles.formPanel}>
           <div className={styles.fields}>
@@ -80,6 +87,7 @@ export default function StayInquiryForm() {
             <span aria-label={`Verification code: ${code}`}>{code}</span>
           </div>
           <button className={styles.send} type="submit" disabled={!month || !code}>Send</button>
+          {dateError && <p role="alert">{dateError}</p>}
         </div>
       </NetlifyForm>
     </section>
