@@ -5159,10 +5159,6 @@ a.accommodation-image-box:focus-visible {
   font-size: var(--font-size-global-h2);
 }
 
-.outdoors-section .eyebrow {
-  margin: 0 0 24px;
-}
-
 .location-map-content p {
   margin-top: 16px;
   color: var(--color-brown-dark);
@@ -7553,9 +7549,6 @@ a.accommodation-image-box:focus-visible {
   }
   .location-jamaica-rich-text p {
     margin-bottom: 16px;
-  }
-  .outdoors-section .eyebrow {
-    margin: 0 0 10px;
   }
   .location-adventure-explore-card p,
   .location-explore-card p {

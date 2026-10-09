@@ -1,6 +1,5 @@
 import {
   getContentfulAssetSrc,
-  getContentfulImage,
   getFirstContentfulImage,
   getFooterContent,
   getHeaderContent,
@@ -10,15 +9,6 @@ import AosInitializer from "./AosInitializer";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 import styles from "./StaffPage.module.css";
-
-function getDedicatedIcon(item) {
-  const fields = item?.fields || {};
-
-  return {
-    icon: getContentfulImage(fields.galleryImage),
-    title: fields.galleryImageType || "",
-  };
-}
 
 function getTeamMember(item) {
   const fields = item?.fields || {};
@@ -31,58 +21,8 @@ function getTeamMember(item) {
   };
 }
 
-function getRichTextListItems(value) {
-  if (!value || typeof value === "string") {
-    return [];
-  }
-
-  const items = [];
-
-  function walk(node) {
-    if (!node) {
-      return;
-    }
-
-    if (node.nodeType === "list-item") {
-      const text = richTextToPlainText(node).trim();
-      if (text) {
-        items.push(text);
-      }
-      return;
-    }
-
-    if (Array.isArray(node.content)) {
-      node.content.forEach(walk);
-    }
-  }
-
-  walk(value);
-  return items;
-}
-
-function getRichTextParagraphText(value) {
-  if (!value) {
-    return "";
-  }
-
-  if (typeof value === "string") {
-    return value;
-  }
-
-  return (value.content || [])
-    .filter((node) => node.nodeType === "paragraph")
-    .map((node) => richTextToPlainText(node).trim())
-    .filter(Boolean)
-    .join(" ");
-}
-
 function getStaffContent(entry) {
   const fields = entry?.fields || {};
-  const dedicatedIcons = Array.isArray(fields.dedicatedIconBox)
-    ? fields.dedicatedIconBox
-        .map(getDedicatedIcon)
-        .filter((item) => item.icon?.src || item.title)
-    : [];
   const teamDetails = Array.isArray(fields.teamDetails)
     ? fields.teamDetails
         .map(getTeamMember)
@@ -90,23 +30,20 @@ function getStaffContent(entry) {
     : [];
 
   return {
-    title: fields.title || "",
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || fields.title || "",    dedicatedImage: getFirstContentfulImage(fields.dedicatedImage),
-    dedicatedSubHeading: fields.dedicatedSubHeading || "",
-    dedicatedHeading: fields.dedicatedHeading || "",
-    dedicatedContent: richTextToPlainText(fields.dedicatedContent),
-    dedicatedIcons,
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),
+    bannerHeading: fields.bannerHeading || fields.title || "",
+    staffBlocks: Array.isArray(fields.staffBlocks)
+      ? fields.staffBlocks
+          .map((item) => ({
+            id: item?.sys?.id,
+            title: item?.fields?.galleryImageType || "",
+          }))
+          .filter((item) => item.title.trim())
+      : [],
     teamSubHeading: fields.teamSubHeading || "",
     teamHeading: fields.teamHeading || "",
     teamContent: richTextToPlainText(fields.teamContent),
     teamDetails,
-    staffServiceImage: getContentfulImage(fields.staffServiceImage),
-    staffServiceSubHeading: fields.staffServiceSubHeading || "",
-    staffServiceHeading: fields.staffServiceHeading || "",
-    staffServiceContent:
-      getRichTextParagraphText(fields.staffServiceContent) ||
-      richTextToPlainText(fields.staffServiceContent),
-    staffServiceListItems: getRichTextListItems(fields.staffServiceContent),
   };
 }
 
@@ -118,25 +55,11 @@ export default function StaffPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const staff = getStaffContent(staffEntry);
-  const hasDedicatedSection = Boolean(
-    staff.dedicatedImage?.src ||
-    staff.dedicatedSubHeading ||
-    staff.dedicatedHeading ||
-    staff.dedicatedContent ||
-    staff.dedicatedIcons.length,
-  );
   const hasTeamSection = Boolean(
     staff.teamSubHeading ||
     staff.teamHeading ||
     staff.teamContent ||
     staff.teamDetails.length,
-  );
-  const hasStaffServiceSection = Boolean(
-    staff.staffServiceImage?.src ||
-    staff.staffServiceSubHeading ||
-    staff.staffServiceHeading ||
-    staff.staffServiceContent ||
-    staff.staffServiceListItems.length,
   );
 
   return (
@@ -164,68 +87,21 @@ export default function StaffPage({
           </div>
         </section>
 
-        {hasDedicatedSection && (
+        {staff.staffBlocks.length > 0 && (
           <section
-            className="section overview-villa-section outdoors-section"
-            aria-labelledby={
-              staff.dedicatedHeading ? "staff-dedicated-title" : undefined
-            }
+            className={`section ${styles.staffBlocksSection}`}
+            aria-label="Staff services"
           >
-            <div className="wrap">
-              <div
-                className="overview-villa-content"
-                data-aos="fade-up"
-                data-aos-delay="100"
-              >
-                {staff.dedicatedSubHeading && (
-                  <p className={`eyebrow ${styles.dedicatedEyebrow}`}>
-                    {staff.dedicatedSubHeading}
-                  </p>
-                )}
-                {staff.dedicatedHeading && (
-                  <h2 id="staff-dedicated-title">{staff.dedicatedHeading}</h2>
-                )}
-                {staff.dedicatedContent && <p>{staff.dedicatedContent}</p>}
-
-                {staff.dedicatedIcons.length > 0 && (
-                  <div className={styles.dedicatedIconGrid}>
-                    {staff.dedicatedIcons.map((item, index) => (
-                      <article
-                        className={styles.dedicatedIconItem}
-                        data-aos="fade-up"
-                        data-aos-delay={String(index * 70)}
-                        key={`${item.title}-${index}`}
-                      >
-                        {item.icon?.src && (
-                          <img
-                            src={item.icon.src}
-                            alt={
-                              item.icon.alt ||
-                              (item.title ? `${item.title} icon` : "")
-                            }
-                          />
-                        )}
-                        {item.title && <h3>{item.title}</h3>}
-                      </article>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {staff.dedicatedImage?.src && (
-                <div
-                  className="overview-villa-image"
-                  data-aos="fade-up"
-                  data-aos-delay="200"
+            <ul className={`wrap ${styles.staffBlocksGrid}`}>
+              {staff.staffBlocks.map((block, index) => (
+                <li
+                  className={styles.staffBlock}
+                  key={`${block.id || "staff-block"}-${index}`}
                 >
-                  <img
-                    className={styles.dedicatedImage}
-                    src={staff.dedicatedImage.src}
-                    alt={staff.dedicatedImage.alt || "Pattoo Castle staff"}
-                  />
-                </div>
-              )}
-            </div>
+                  <p>{block.title}</p>
+                </li>
+              ))}
+            </ul>
           </section>
         )}
 
@@ -274,60 +150,6 @@ export default function StaffPage({
                   ))}
                 </div>
               )}
-            </div>
-          </section>
-        )}
-
-        {hasStaffServiceSection && (
-          <section
-            className="section overview-villa-section staff-service-section"
-            aria-labelledby={
-              staff.staffServiceHeading ? "staff-service-title" : undefined
-            }
-          >
-            <div className="wrap">
-              {staff.staffServiceImage?.src && (
-                <div
-                  className="overview-villa-image"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  <img
-                    className={styles.staffServiceImage}
-                    src={staff.staffServiceImage.src}
-                    alt={
-                      staff.staffServiceImage.alt ||
-                      "Pattoo Castle staff service setting"
-                    }
-                  />
-                </div>
-              )}
-
-              <div
-                className="overview-villa-content"
-                data-aos="fade-up"
-                data-aos-delay="200"
-              >
-                {staff.staffServiceSubHeading && (
-                  <p className="eyebrow overview-villa-eyebrow">
-                    {staff.staffServiceSubHeading}
-                  </p>
-                )}
-                {staff.staffServiceHeading && (
-                  <h2 id="staff-service-title">{staff.staffServiceHeading}</h2>
-                )}
-                {staff.staffServiceContent && (
-                  <p>{staff.staffServiceContent}</p>
-                )}
-
-                {staff.staffServiceListItems.length > 0 && (
-                  <ul className={styles.staffServiceList}>
-                    {staff.staffServiceListItems.map((item, index) => (
-                      <li key={`${item}-${index}`}>{item}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
             </div>
           </section>
         )}
