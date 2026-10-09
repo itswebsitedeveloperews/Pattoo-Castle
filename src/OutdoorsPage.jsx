@@ -3,106 +3,28 @@ import {
   getContentfulImage,
   getFooterContent,
   getHeaderContent,
-  richTextToPlainText,
+  richTextToReact,
 } from "./App";
 import AosInitializer from "./AosInitializer";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
+import OutdoorsCarousel from "./OutdoorsCarousel";
 import styles from "./OutdoorsPage.module.css";
-
-function getRichTextListItems(value) {
-  if (!value || typeof value === "string") {
-    return [];
-  }
-
-  const items = [];
-
-  function walk(node) {
-    if (!node || typeof node !== "object") {
-      return;
-    }
-
-    if (node.nodeType === "list-item") {
-      const text = richTextToPlainText(node).trim();
-
-      if (text) {
-        items.push(text);
-      }
-
-      return;
-    }
-
-    (node.content || []).forEach(walk);
-  }
-
-  walk(value);
-  return items;
-}
-
-function getRichTextParagraphs(value) {
-  if (!value) {
-    return [];
-  }
-
-  if (typeof value === "string") {
-    return value
-      .split(/\r?\n\s*\r?\n/)
-      .map((paragraph) => paragraph.trim())
-      .filter(Boolean);
-  }
-
-  return (value.content || [])
-    .filter((node) => node?.nodeType === "paragraph")
-    .map((node) => richTextToPlainText(node).trim())
-    .filter(Boolean);
-}
-
-function getOutdoorsIcon(item) {
-  const fields = item?.fields || {};
-
-  return {
-    icon: getContentfulImage(fields.galleryImage),
-    title: fields.galleryImageType || "",
-  };
-}
 
 function getOutdoorsContent(entry) {
   const fields = entry?.fields || {};
-  const outdoorsIcons = Array.isArray(fields.outdoorsIconBox)
-    ? fields.outdoorsIconBox
-        .map(getOutdoorsIcon)
-        .filter((item) => item.icon?.src || item.title)
-    : [];
-  const outdoorsListItems = getRichTextListItems(fields.outdoorsContent);
-  const balconiesImages = Array.isArray(fields.balconiesImages)
-    ? fields.balconiesImages
-        .map((asset) => getContentfulImage(asset))
-        .filter((image) => image?.src)
-    : [];
-  const exploreSpacesImages = Array.isArray(fields.exploreSpacesImages)
-    ? fields.exploreSpacesImages
-        .map((asset) => getContentfulImage(asset))
-        .filter((image) => image?.src)
-    : [];
 
   return {
-    title: fields.title || "",
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || fields.title || "",    outdoorsImage: getContentfulImage(fields.outdoorsImage),
-    outdoorsSubHeading: fields.outdoorsSubHeading || "",
-    outdoorsHeading: fields.outdoorsHeading || "",
-    outdoorsContent: outdoorsListItems.length
-      ? ""
-      : richTextToPlainText(fields.outdoorsContent),
-    outdoorsListItems,
-    outdoorsIcons,
-    balconiesSubHeading: fields.balconiesSubHeading || "",
-    balconiesHeading: fields.balconiesHeading || "",
-    balconiesParagraphs: getRichTextParagraphs(fields.balconiesContent),
-    balconiesImages,
-    exploreSpacesSubHeading: fields.exploreSpacesSubHeading || "",
-    exploreSpacesHeading: fields.exploreSpacesHeading || "",
-    exploreSpacesContent: richTextToPlainText(fields.exploreSpacesContent),
-    exploreSpacesImages,
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),
+    bannerHeading: fields.bannerHeading || fields.title || "",
+    outdoorHeading: fields.outdoorHeading || "",
+    outdoorContent: fields.outdoorContent || null,
+    patiosAndBalconiesHeading: fields.patiosAndBalconiesHeading || "",
+    patiosAndBalconiesImages: Array.isArray(fields.patiosAndBalconiesImages)
+      ? fields.patiosAndBalconiesImages
+          .map((asset) => getContentfulImage(asset))
+          .filter((image) => image?.src)
+      : [],
   };
 }
 
@@ -114,26 +36,6 @@ export default function OutdoorsPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const outdoors = getOutdoorsContent(outdoorsEntry);
-  const hasOutdoorsSection = Boolean(
-    outdoors.outdoorsImage?.src ||
-    outdoors.outdoorsSubHeading ||
-    outdoors.outdoorsHeading ||
-    outdoors.outdoorsContent ||
-    outdoors.outdoorsListItems.length ||
-    outdoors.outdoorsIcons.length,
-  );
-  const hasBalconiesSection = Boolean(
-    outdoors.balconiesSubHeading ||
-    outdoors.balconiesHeading ||
-    outdoors.balconiesParagraphs.length ||
-    outdoors.balconiesImages.length,
-  );
-  const hasExploreSpacesSection = Boolean(
-    outdoors.exploreSpacesSubHeading ||
-    outdoors.exploreSpacesHeading ||
-    outdoors.exploreSpacesContent ||
-    outdoors.exploreSpacesImages.length,
-  );
 
   return (
     <>
@@ -161,185 +63,37 @@ export default function OutdoorsPage({
             )}
           </div>
         </section>
-
-        {hasOutdoorsSection && (
-          <section
-            className="section overview-villa-section outdoors-section"
-            aria-labelledby={
-              outdoors.outdoorsHeading ? "outdoors-section-title" : undefined
-            }
-          >
+        {(outdoors.outdoorHeading ||
+          outdoors.outdoorContent ||
+          outdoors.patiosAndBalconiesHeading ||
+          outdoors.patiosAndBalconiesImages.length > 0) && (
+          <section className={`section ${styles.outdoorSection}`}>
             <div className="wrap">
-              {outdoors.outdoorsImage?.src && (
-                <div
-                  className="overview-villa-image"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  <img
-                    className={styles.outdoorsImage}
-                    src={outdoors.outdoorsImage.src}
-                    alt={
-                      outdoors.outdoorsImage.alt || "Pattoo Castle outdoor pool"
-                    }
+              {(outdoors.outdoorHeading || outdoors.outdoorContent) && (
+                <div className={styles.poolContent}>
+                  {outdoors.outdoorHeading && (
+                    <h2>{outdoors.outdoorHeading}</h2>
+                  )}
+                  {outdoors.outdoorContent && (
+                    <div className={styles.poolBody}>
+                      {richTextToReact(
+                        outdoors.outdoorContent,
+                        "outdoor-content",
+                        true,
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+              {(outdoors.patiosAndBalconiesHeading ||
+                outdoors.patiosAndBalconiesImages.length > 0) && (
+                <div className={styles.patiosContent}>
+                  {outdoors.patiosAndBalconiesHeading && (
+                    <h2>{outdoors.patiosAndBalconiesHeading}</h2>
+                  )}
+                  <OutdoorsCarousel
+                    images={outdoors.patiosAndBalconiesImages}
                   />
-                </div>
-              )}
-
-              <div
-                className="overview-villa-content"
-                data-aos="fade-up"
-                data-aos-delay="200"
-              >
-                {outdoors.outdoorsSubHeading && (
-                  <p className="eyebrow overview-villa-eyebrow">
-                    {outdoors.outdoorsSubHeading}
-                  </p>
-                )}
-                {outdoors.outdoorsHeading && (
-                  <h2 id="outdoors-section-title">
-                    {outdoors.outdoorsHeading}
-                  </h2>
-                )}
-                {outdoors.outdoorsListItems.length > 0 ? (
-                  <ul className={styles.outdoorsList}>
-                    {outdoors.outdoorsListItems.map((item, index) => (
-                      <li key={`${item}-${index}`}>{item}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  outdoors.outdoorsContent && <p>{outdoors.outdoorsContent}</p>
-                )}
-
-                {outdoors.outdoorsIcons.length > 0 && (
-                  <div className={styles.outdoorsIconGrid}>
-                    {outdoors.outdoorsIcons.map((item, index) => (
-                      <article
-                        className={styles.outdoorsIconItem}
-                        data-aos="fade-up"
-                        data-aos-delay={String(index * 65)}
-                        key={`${item.title}-${index}`}
-                      >
-                        {item.icon?.src && (
-                          <img
-                            src={item.icon.src}
-                            alt={
-                              item.icon.alt ||
-                              (item.title ? `${item.title} icon` : "")
-                            }
-                          />
-                        )}
-                        {item.title && <h3>{item.title}</h3>}
-                      </article>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {hasBalconiesSection && (
-          <section
-            className={`section ${styles.balconiesSection}`}
-            aria-labelledby={
-              outdoors.balconiesHeading ? "balconies-title" : undefined
-            }
-          >
-            <div className={`wrap ${styles.balconiesInner}`}>
-              <div
-                className={styles.balconiesContent}
-                data-aos="fade-up"
-                data-aos-delay="100"
-              >
-                {outdoors.balconiesSubHeading && (
-                  <p className={`eyebrow  ${styles.balconiesEyebrow}`}>
-                    {outdoors.balconiesSubHeading}
-                  </p>
-                )}
-                {outdoors.balconiesHeading && (
-                  <h2 id="balconies-title">{outdoors.balconiesHeading}</h2>
-                )}
-                {outdoors.balconiesParagraphs.length > 0 && (
-                  <div className={styles.balconiesBody}>
-                    {outdoors.balconiesParagraphs.map((paragraph, index) => (
-                      <p key={`balconies-paragraph-${index}`}>{paragraph}</p>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {outdoors.balconiesImages.length > 0 && (
-                <div
-                  className={styles.balconiesImageGrid}
-                  data-aos="fade-up"
-                  data-aos-delay="200"
-                >
-                  {outdoors.balconiesImages.slice(0, 3).map((image, index) => (
-                    <img
-                      className={
-                        index === 0
-                          ? styles.balconiesImageLarge
-                          : styles.balconiesImageSmall
-                      }
-                      data-aos="fade-up"
-                      data-aos-delay={String(index * 80)}
-                      src={image.src}
-                      alt={
-                        image.alt ||
-                        `Pattoo Castle patio or balcony ${index + 1}`
-                      }
-                      key={`${image.src}-${index}`}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {hasExploreSpacesSection && (
-          <section
-            className="section events-memories-section"
-            aria-labelledby={
-              outdoors.exploreSpacesHeading ? "explore-spaces-title" : undefined
-            }
-          >
-            <div className="wrap">
-              <div className="events-memories-header" data-aos="fade-up">
-                {outdoors.exploreSpacesSubHeading && (
-                  <p className="eyebrow events-memories-eyebrow">
-                    {outdoors.exploreSpacesSubHeading}
-                  </p>
-                )}
-                {outdoors.exploreSpacesHeading && (
-                  <h2>{outdoors.exploreSpacesHeading}</h2>
-                )}
-                {outdoors.exploreSpacesContent && (
-                  <p>{outdoors.exploreSpacesContent}</p>
-                )}
-              </div>
-
-              {outdoors.exploreSpacesImages.length > 0 && (
-                <div className="events-memories-grid">
-                  {outdoors.exploreSpacesImages
-                    .slice(0, 5)
-                    .map((image, index) => (
-                      <figure
-                        className="events-memories-image"
-                        data-aos="fade-up"
-                        data-aos-delay={String(index * 70)}
-                        key={`${image.src}-${index}`}
-                      >
-                        <img
-                          src={image.src}
-                          alt={
-                            image.alt ||
-                            `Pattoo Castle outdoor space ${index + 1}`
-                          }
-                        />
-                      </figure>
-                    ))}
                 </div>
               )}
             </div>
