@@ -3710,52 +3710,6 @@ form.contact-planning-form.aos-init.aos-animate {
   --page-hero-overlay-opacity: 0.46;
 }
 
-.stay-info-section {
-  padding: 80px 0;
-  color: var(--color-brown);
-  background: var(--color-cream);
-}
-
-.stay-info-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  width: min(100%, var(--container-width));
-  margin: 0 auto;
-}
-
-.stay-info-card {
-  display: grid;
-  justify-items: center;
-  align-content: start;
-  min-height: 150px;
-  padding: 24px;
-  text-align: center;
-  border-left: 1px solid rgb(var(--color-brown-rgb) / 0.18);
-}
-
-.stay-info-card:first-child {
-  border-left: 0;
-}
-
-.stay-info-card img {
-  width: 48px;
-  height: 48px;
-  margin-bottom: 16px;
-  object-fit: contain;
-}
-
-.stay-info-card h2,
-.stay-info-card h3 {
-  margin: 0;
-  color: var(--color-brown);
-  font-size: var(--font-size-global-h4);
-}
-
-.stay-info-card p {
-  margin: 12px 0 0;
-  color: var(--color-brown);
-}
-
 .stay-inquiry-section {
   padding: 20px 0 80px;
   color: var(--color-brown);
@@ -3863,184 +3817,6 @@ form.contact-planning-form.aos-init.aos-animate {
   cursor: pointer;
 }
 
-.stay-villa-section {
-  padding: 80px 0;
-  color: rgb(var(--color-white));
-  background: var(--color-brown);
-}
-
-.stay-villa-section .wrap {
-  display: grid;
-  grid-template-columns: minmax(280px, 510px) minmax(0, 1fr);
-  gap: 52px;
-  align-items: center;
-}
-
-.stay-villa-eyebrow {
-  margin: 0 0 16px;
-  color: rgb(var(--color-white) / var(--opacity-high));
-}
-
-.stay-villa-copy h2 {
-  margin: 0;
-  color: rgb(var(--color-white));
-  font-size: var(--font-size-h2);
-}
-
-.stay-villa-copy > p:not(.stay-villa-eyebrow) {
-  margin: 18px 0 0;
-  color: rgb(var(--color-white) / var(--opacity-high));
-}
-
-.stay-villa-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-
-.stay-villa-card {
-  display: grid;
-  gap: 18px;
-  align-content: start;
-  width: calc(33.333% - 16px);
-}
-
-.stay-villa-card img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 304 / 235;
-  object-fit: cover;
-}
-
-.stay-villa-card h3 {
-  margin: 0;
-  color: rgb(var(--color-white));
-
-  font-size: var(--font-size-global-h3);
-}
-
-.stay-experience-section {
-  padding: 80px 0;
-  color: var(--color-brown);
-  background: var(--color-cream);
-}
-.stay-experience-section .wrap {
-  display: grid;
-  grid-template-columns: minmax(260px, 500px) minmax(320px, 500px) minmax(
-      280px,
-      600px
-    );
-  gap: 56px;
-  align-items: center;
-}
-.stay-experience-copy {
-  max-width: 496px;
-}
-
-.stay-experience-eyebrow {
-  margin: 0 0 16px;
-  color: var(--color-brown);
-}
-
-.stay-experience-copy h2 {
-  margin: 0;
-  color: var(--color-brown);
-  font-size: var(--font-size-h2);
-}
-
-.stay-experience-content {
-  margin: 18px 0 0;
-  color: var(--color-brown-dark);
-}
-
-.stay-experience-content p {
-  margin: 0 0 14px;
-}
-
-.stay-experience-content p:last-child {
-  margin-bottom: 0;
-}
-
-.stay-experience-content ul,
-.stay-experience-content ol {
-  display: grid;
-  gap: 12px;
-  margin: 16px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.stay-experience-content li {
-  position: relative;
-  padding-left: 22px;
-}
-
-.stay-experience-content li::before {
-  content: "✓";
-  position: absolute;
-  top: 1px;
-  left: 0;
-  color: var(--color-brown);
-}
-
-.stay-experience-content ol {
-  counter-reset: stay-experience-list;
-}
-
-.stay-experience-content ol li {
-  counter-increment: stay-experience-list;
-}
-
-.stay-experience-content ol li::before {
-  content: counter(stay-experience-list) ".";
-}
-
-.stay-experience-content a {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
-}
-
-.stay-experience-image {
-  display: block;
-  width: 100%;
-  aspect-ratio: 410 / 405;
-  object-fit: cover;
-}
-
-.stay-experience-review {
-  display: grid;
-  align-content: center;
-  max-width: 570px;
-}
-
-.stay-experience-review > span {
-  display: block;
-  margin-bottom: 20px;
-  color: rgb(var(--color-brown-rgb) / 0.28);
-  font-family: var(--font-display);
-  font-size: var(--font-size-h2);
-  line-height: var(--line-height-tight);
-}
-
-.stay-experience-review blockquote {
-  margin: 0;
-  color: var(--color-brown);
-  font-size: var(--font-size-global-h4);
-  font-weight: 700;
-  line-height: var(--line-height-heading);
-}
-
-.stay-experience-review p {
-  margin: 28px 0 0;
-  color: var(--color-brown);
-  font-size: var(--font-size-button-small);
-  font-weight: 700;
-  letter-spacing: var(--letter-spacing-small);
-  line-height: var(--line-height-tight);
-  text-transform: uppercase;
-}
-
 .stay-cta-section {
   position: relative;
   display: grid;
@@ -4086,10 +3862,6 @@ form.contact-planning-form.aos-init.aos-animate {
 
 .stay-cta-text p {
   margin: 0;
-}
-
-.stay-cta-button {
-  margin-top: 28px;
 }
 
 
@@ -4996,29 +4768,8 @@ a.accommodation-image-box:focus-visible {
     grid-column: auto;
   }
 
-  .stay-info-section {
-    padding: 60px 0;
-  }
-
   .whats-included-grid .location-highlight-card:first-child {
     border-top: 0;
-  }
-  .stay-info-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0;
-  }
-
-  .stay-info-card {
-    min-height: 150px;
-    border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18);
-  }
-
-  .stay-info-card:nth-child(-n + 2) {
-    border-top: 0;
-  }
-
-  .stay-info-card:nth-child(2n + 1) {
-    border-left: 0;
   }
 
   .stay-inquiry-section {
@@ -5036,35 +4787,6 @@ a.accommodation-image-box:focus-visible {
   .stay-inquiry-field--half,
   .stay-inquiry-field--full {
     grid-column: 1 / -1;
-  }
-
-  .stay-villa-section {
-    padding: 60px 0;
-  }
-  .stay-villa-section .wrap {
-    grid-template-columns: 1fr;
-    gap: 38px;
-  }
-  .stay-villa-copy {
-    max-width: 680px;
-  }
-
-  .stay-experience-section {
-    padding: 60px 0;
-  }
-
-  .stay-experience-section .wrap {
-    grid-template-columns: 1fr 1fr;
-    gap: 34px;
-  }
-
-  .stay-experience-copy {
-    grid-column: 1 / -1;
-    max-width: 100%;
-  }
-
-  .stay-experience-image {
-    aspect-ratio: 4 / 3;
   }
 
   .stay-cta-section {
@@ -5157,31 +4879,6 @@ a.accommodation-image-box:focus-visible {
     grid-column: 1 / -1;
   }
 
-  .stay-info-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .stay-info-card {
-    border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18);
-  }
-
-  .stay-info-card:nth-child(-n + 2) {
-    border-top: 0;
-  }
-
-  .stay-info-card:nth-child(2n + 1) {
-    border-left: 0;
-  }
-
-  .stay-villa-copy {
-    max-width: 720px;
-  }
-
-  .stay-experience-copy {
-    grid-column: 1 / -1;
-    max-width: 100%;
-  }
-
   .stay-inquiry-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -5189,10 +4886,6 @@ a.accommodation-image-box:focus-visible {
   .stay-inquiry-field--half,
   .stay-inquiry-field--full {
     grid-column: 1 / -1;
-  }
-
-  .stay-experience-image {
-    aspect-ratio: 4 / 3;
   }
 
   .event-section {
@@ -5827,34 +5520,6 @@ a.accommodation-image-box:focus-visible {
     right: 16px;
   }
 
-  .stay-info-section {
-    padding: 30px 0;
-  }
-  .stay-info-card img {
-    width: 36px;
-    height: 36px;
-  }
-
-  .stay-info-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .stay-info-card,
-  .stay-info-card:nth-child(-n + 2) {
-    min-height: auto;
-    padding: 24px 18px;
-    border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18);
-    border-left: 0;
-  }
-
-  .stay-info-card:first-child {
-    border-top: 0;
-  }
-
-  .stay-info-card h2 {
-    font-size: var(--font-size-global-h3);
-  }
-
   .stay-inquiry-form .stay-inquiry-form-content {
     padding: 20px 16px 22px;
   }
@@ -5873,36 +5538,6 @@ a.accommodation-image-box:focus-visible {
     width: min(100%, 240px);
   }
 
-  .stay-villa-section {
-    padding: 50px 0;
-  }
-
-  .stay-villa-section .wrap {
-    gap: 30px;
-  }
-
-  .stay-villa-grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .stay-villa-card {
-    gap: 14px;
-    width: 100%;
-  }
-
-  .stay-experience-section {
-    padding: 50px 0;
-  }
-
-  .stay-experience-section .wrap {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .stay-experience-image {
-    aspect-ratio: 1 / 1;
-  }
-
   .stay-cta-section {
     padding: 50px 0;
   }
@@ -5915,15 +5550,8 @@ a.accommodation-image-box:focus-visible {
     font-size: var(--font-size-nav);
     margin-top: 8px;
   }
-  .stay-cta-eyebrow,
-  .stay-experience-eyebrow {
+  .stay-cta-eyebrow {
     margin-bottom: 5px;
-  }
-  .stay-experience-content {
-    margin-top: 8px;
-  }
-  .stay-cta-button {
-    margin-top: 18px;
   }
 
 
@@ -6083,29 +5711,8 @@ a.accommodation-image-box:focus-visible {
     width: 100%;
   }
 
-  .stay-info-section {
-    padding: 34px 18px 22px;
-  }
-
-  .stay-info-grid {
-    grid-template-columns: 1fr;
-  }
-
   .event-inquiry-field span {
     font-size: var(--font-size-medium);
-  }
-
-  .stay-info-card,
-  .stay-info-card:nth-child(-n + 2),
-  .stay-info-card:nth-child(2n + 1) {
-    min-height: auto;
-    padding: 24px 18px;
-    border-left: 0;
-    border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18);
-  }
-
-  .stay-info-card:first-child {
-    border-top: 0;
   }
 
   .stay-inquiry-section {
@@ -6141,29 +5748,6 @@ a.accommodation-image-box:focus-visible {
     width: 100%;
   }
 
-  .stay-villa-section,
-  .stay-experience-section {
-    gap: 30px;
-  }
-
-  .stay-villa-grid,
-  .stay-experience-section {
-    grid-template-columns: 1fr;
-  }
-
-  .stay-villa-card img,
-  .stay-experience-image {
-    aspect-ratio: 4 / 3;
-  }
-
-  .stay-experience-copy {
-    grid-column: auto;
-  }
-
-  .stay-experience-review {
-    max-width: none;
-  }
-
   .stay-cta-section {
     min-height: 240px;
     padding: 54px 18px;
@@ -6171,10 +5755,6 @@ a.accommodation-image-box:focus-visible {
 
   .stay-inquiry-heading h2 {
     font-size: var(--font-size-global-h3);
-  }
-
-  .stay-villa-grid {
-    gap: 28px;
   }
 
   .stay-inquiry-form .stay-inquiry-form-content {
