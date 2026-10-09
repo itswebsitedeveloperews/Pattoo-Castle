@@ -132,27 +132,14 @@ function getImageBoxItems(items) {
 
 function getLocationContent(entry) {
   const fields = entry?.fields || {};
-  const locationHighlights = Array.isArray(fields.locationHighlights)
-    ? fields.locationHighlights
-        .map((item) => {
-          const itemFields = item?.fields || {};
-
-          return {
-            icon: getFirstContentfulImage(itemFields.images),
-            title: itemFields.title || "",
-            content: richTextToPlainText(itemFields.content),
-          };
-        })
-        .filter((item) => item.icon?.src || item.title || item.content)
-    : [];
-  const exploreNearbyBox = getImageBoxItems(fields.exploreNearbyBox);
-  const theCoastCards = getImageBoxItems(fields.theCoastCards);
   const exploreCards = getImageBoxItems(fields.exploreCards);
   const adventureExploreCards = getImageBoxItems(fields.adventureExploreCards);
   const jamaicaRightCards = getImageBoxItems(fields.jamaicaRightCards);
 
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    exploreSubHeading: fields.exploreSubHeading || "",
+    bannerImage: getContentfulAssetSrc(fields.bannerImage),
+    bannerHeading: fields.bannerHeading || "",
+    exploreSubHeading: fields.exploreSubHeading || "",
     exploreHeading: fields.exploreHeading || "",
     exploreCards,
     adventureImage: getContentfulImage(fields.adventureImage),
@@ -169,28 +156,6 @@ function getLocationContent(entry) {
     jamaicaRightSubHeading: fields.jamaicaRightSubHeading || "",
     jamaicaRightHeading: fields.jamaicaRightHeading || "",
     jamaicaRightCards,
-    locationSubHeading: fields.locationSubHeading || "",
-    locationHeading: fields.locationHeading || "",
-    locationContent: fields.locationContent || null,
-    locationButtonText: fields.locationButtonText || "",
-    locationButtonUrl: fields.locationButtonUrl || "",
-    locationImage: getContentfulImage(fields.locationImage),
-    negrilHistoryImage: getContentfulImage(fields.negrilHistoryImage),
-    negrilHistoryHeading: fields.negrilHistoryHeading || "",
-    negrilHistoryContent: fields.negrilHistoryContent || null,
-    locationHighlightsHeading: fields.locationHighlightsHeading || "",
-    locationHighlights,
-    theCoastSubHeading: fields.theCoastSubHeading || "",
-    theCoastHeading: fields.theCoastHeading || "",
-    theCoastCards,
-    experienceImage: getFirstContentfulImage(fields.experienceImages),
-    experienceSubHeading: fields.experienceSubHeading || "",
-    experienceHeading: fields.experienceHeading || "",
-    experienceContent: richTextToPlainText(fields.experienceContent),
-    experienceButtonText: fields.experienceButtonText || "",
-    experienceButtonUrl: fields.experienceButtonUrl || "",
-    exploreNearbyHeading: fields.exploreNearbyHeading || "",
-    exploreNearbyBox,
     exploreNegrilBlocks: getImageBoxItems(fields.exploreNegrilBlocks).filter(
       (item) => item.image?.src || item.title,
     ),
@@ -205,16 +170,6 @@ export default function LocationPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const location = getLocationContent(locationEntry);
-  const hasLocationButton = Boolean(
-    location.locationButtonText && location.locationButtonUrl,
-  );
-  const hasLocationSection = Boolean(
-    location.locationSubHeading ||
-    location.locationHeading ||
-    location.locationContent ||
-    hasLocationButton ||
-    location.locationImage?.src,
-  );
   const hasExploreSection = Boolean(
     location.exploreSubHeading ||
     location.exploreHeading ||
@@ -239,32 +194,6 @@ export default function LocationPage({
     location.jamaicaRightSubHeading ||
     location.jamaicaRightHeading ||
     location.jamaicaRightCards.length,
-  );
-  const hasHighlightsSection = Boolean(
-    location.locationHighlightsHeading || location.locationHighlights.length,
-  );
-  const hasNegrilHistorySection = Boolean(
-    location.negrilHistoryImage?.src ||
-    location.negrilHistoryHeading ||
-    richTextToPlainText(location.negrilHistoryContent),
-  );
-  const hasTheCoastSection = Boolean(
-    location.theCoastSubHeading ||
-    location.theCoastHeading ||
-    location.theCoastCards.length,
-  );
-  const hasExperienceButton = Boolean(
-    location.experienceButtonText && location.experienceButtonUrl,
-  );
-  const hasExperienceSection = Boolean(
-    location.experienceImage?.src ||
-    location.experienceSubHeading ||
-    location.experienceHeading ||
-    location.experienceContent ||
-    hasExperienceButton,
-  );
-  const hasExploreNearbySection = Boolean(
-    location.exploreNearbyHeading || location.exploreNearbyBox.length,
   );
 
   return (
@@ -520,293 +449,6 @@ export default function LocationPage({
           </section>
         )}
 
-        {hasLocationSection && (
-          <section className="section location-map-section negril-location-section">
-            <div className="wrap">
-              <div
-                className="location-map-content"
-                data-aos="fade-up"
-                data-aos-delay="100"
-              >
-                {location.locationSubHeading && (
-                  <p className="eyebrow location-map-eyebrow">
-                    {location.locationSubHeading}
-                  </p>
-                )}
-                {location.locationHeading && (
-                  <h2>{location.locationHeading}</h2>
-                )}
-                {location.locationContent && (
-                  <div className="content">
-                    {renderRichText(
-                      location.locationContent,
-                      "location-map-content",
-                    )}
-                  </div>
-                )}
-                {hasLocationButton && (
-                  <a
-                    className="button button--brown location-map-button"
-                    href={location.locationButtonUrl}
-                  >
-                    {location.locationButtonText}
-                  </a>
-                )}
-              </div>
-
-              {location.locationImage?.src && (
-                <figure
-                  className="location-map-image"
-                  data-aos="fade-in"
-                  data-aos-delay="200"
-                >
-                  <img
-                    src={location.locationImage.src}
-                    alt={
-                      location.locationImage.alt ||
-                      "Pattoo Castle Negril location"
-                    }
-                  />
-                </figure>
-              )}
-            </div>
-          </section>
-        )}
-
-        {hasNegrilHistorySection && (
-          <section className="section location-history-section">
-            <div className="wrap location-history-grid">
-              {location.negrilHistoryImage?.src && (
-                <figure
-                  className="location-history-image"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  <img
-                    src={location.negrilHistoryImage.src}
-                    alt={
-                      location.negrilHistoryImage.alt ||
-                      "Negril history near Pattoo Castle"
-                    }
-                  />
-                </figure>
-              )}
-
-              <div
-                className="location-history-content"
-                data-aos="fade-up"
-                data-aos-delay="180"
-              >
-                {location.negrilHistoryHeading && (
-                  <h2>{location.negrilHistoryHeading}</h2>
-                )}
-                {location.negrilHistoryContent && (
-                  <div className="location-history-rich-text">
-                    {renderRichText(
-                      location.negrilHistoryContent,
-                      "location-history-content",
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {hasHighlightsSection && (
-          <section className="section stay-info-section glance-section quick-highlights">
-            <div className="wrap">
-              {location.locationHighlightsHeading && (
-                <h2 data-aos="fade-up">{location.locationHighlightsHeading}</h2>
-              )}
-
-              {location.locationHighlights.length > 0 && (
-                <div className="stay-info-grid">
-                  {location.locationHighlights.map((item, index) => (
-                    <article
-                      className="stay-info-card"
-                      key={index}
-                      data-aos="fade-up"
-                      data-aos-delay={String(index * 100)}
-                    >
-                      {item.icon?.src && (
-                        <img
-                          src={item.icon.src}
-                          alt={
-                            item.icon.alt ||
-                            (item.title ? `${item.title} icon` : "")
-                          }
-                        />
-                      )}
-                      {item.title && <h3>{item.title}</h3>}
-                      {item.content && <p>{item.content}</p>}
-                    </article>
-                  ))}
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {hasTheCoastSection && (
-          <section className="section location-coast-section">
-            <div className="wrap">
-              {(location.theCoastSubHeading || location.theCoastHeading) && (
-                <div
-                  className="location-coast-header"
-                  data-aos="fade-up"
-                  data-aos-delay="80"
-                >
-                  {location.theCoastSubHeading && (
-                    <p className="eyebrow location-coast-eyebrow">
-                      {location.theCoastSubHeading}
-                    </p>
-                  )}
-                  {location.theCoastHeading && (
-                    <h2>{location.theCoastHeading}</h2>
-                  )}
-                </div>
-              )}
-
-              {location.theCoastCards.length > 0 && (
-                <div className="location-coast-grid">
-                  {location.theCoastCards.map((item, index) => (
-                    <article
-                      className="location-coast-card"
-                      key={index}
-                      data-aos="fade-up"
-                      data-aos-delay={String(index * 100)}
-                    >
-                      {item.image?.src && (
-                        <img
-                          src={item.image.src}
-                          alt={item.image.alt || item.title || "Negril coast"}
-                        />
-                      )}
-                      {item.title && <h3>{item.title}</h3>}
-                      {item.content && <p>{item.content}</p>}
-                      {item.buttonText && item.buttonUrl && (
-                        <a href={item.buttonUrl}>
-                          {item.buttonText}{" "}
-                          <svg
-                            width="12"
-                            height="11"
-                            viewBox="0 0 12 11"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M6.60227 10.1818L5.72727 9.31813L9.32955 5.71585H0V4.46585H9.32955L5.72727 0.874945L6.60227 -5.53131e-05L11.6932 5.09085L6.60227 10.1818Z"
-                              fill="#3A291F"
-                            />
-                          </svg>
-                        </a>
-                      )}
-                    </article>
-                  ))}
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {hasExperienceSection && (
-          <section className="location-experience-section">
-            {location.experienceImage?.src && (
-              <figure
-                className="location-experience-image"
-                data-aos="fade-up"
-                data-aos-delay="100"
-              >
-                <img
-                  src={location.experienceImage.src}
-                  alt={
-                    location.experienceImage.alt ||
-                    "Negril experience near Pattoo Castle"
-                  }
-                />
-              </figure>
-            )}
-
-            <div
-              className="location-experience-content"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              {location.experienceSubHeading && (
-                <p className="eyebrow location-experience-eyebrow">
-                  {location.experienceSubHeading}
-                </p>
-              )}
-              {location.experienceHeading && (
-                <h2>{location.experienceHeading}</h2>
-              )}
-              {location.experienceContent && (
-                <p>{location.experienceContent}</p>
-              )}
-              {hasExperienceButton && (
-                <a
-                  className="button button--light location-experience-button"
-                  href={location.experienceButtonUrl}
-                >
-                  {location.experienceButtonText}
-                </a>
-              )}
-            </div>
-          </section>
-        )}
-
-        {hasExploreNearbySection && (
-          <section className="section location-nearby-section">
-            <div className="wrap">
-              {location.exploreNearbyHeading && (
-                <h2 data-aos="fade-up">{location.exploreNearbyHeading}</h2>
-              )}
-
-              {location.exploreNearbyBox.length > 0 && (
-                <div className="location-nearby-grid">
-                  {location.exploreNearbyBox.map((item, index) => (
-                    <article
-                      className="location-nearby-card"
-                      key={index}
-                      data-aos="fade-up"
-                      data-aos-delay={String(index * 100)}
-                    >
-                      {item.image?.src && (
-                        <img
-                          src={item.image.src}
-                          alt={
-                            item.image.alt ||
-                            `Negril nearby experience ${index + 1}`
-                          }
-                        />
-                      )}
-                      {item.title && <h3>{item.title}</h3>}
-                      {item.content && <p>{item.content}</p>}
-                      {item.buttonText && item.buttonUrl && (
-                        <a className="text-link" href={item.buttonUrl}>
-                          {item.buttonText}{" "}
-                          <svg
-                            width="12"
-                            height="11"
-                            viewBox="0 0 12 11"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M6.60227 10.1818L5.72727 9.31813L9.32955 5.71585H0V4.46585H9.32955L5.72727 0.874945L6.60227 -5.53131e-05L11.6932 5.09085L6.60227 10.1818Z"
-                              fill="#3A291F"
-                            />
-                          </svg>
-                        </a>
-                      )}
-                    </article>
-                  ))}
-                </div>
-              )}
-            </div>
-          </section>
-        )}
         {location.exploreNegrilBlocks.length > 0 && (
           <section
             className={`section ${styles.exploreNegrilSection}`}
