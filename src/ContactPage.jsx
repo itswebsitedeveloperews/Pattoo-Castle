@@ -334,7 +334,7 @@ export default function ContactPage({
                 </div>
               )}
               {contact.locationButtonText && contact.locationButtonUrl && (
-                <a className={styles.directionsButton} href={contact.locationButtonUrl}>
+                <a className={styles.directionsButton} href={contact.locationButtonUrl} target="_blank" rel="noopener noreferrer">
                   {contact.locationButtonText}
                 </a>
               )}
