@@ -86,7 +86,9 @@ export default function StayPage({
                 <ul className={styles.findUsGrid}>
                   {stay.findUsBlocks.map((block, index) => (
                     <li className={styles.findUsCard} key={`${block.id || "find-us"}-${index}`}>
-                      {block.url ? <a href={block.url}>{block.title}</a> : <span>{block.title}</span>}
+                      {block.url ? <a href={block.url} target="_blank" rel="noopener noreferrer">
+                        {block.title}
+                      </a> : <span>{block.title}</span>}
                     </li>
                   ))}
                 </ul>
