@@ -3645,7 +3645,7 @@ form
     justify-content: end;
   }
 
-  .right-header .button {
+  .right-header .button.header-call-link {
     display: none;
   }
 
@@ -3707,7 +3707,11 @@ form
     max-width: 100%;
   }
 }
-
+@media only screen and (max-width: 1200px) {
+  .right-header .button {
+    display: none;
+  }
+}
 @media only screen and (max-width: 1024px) {
   :root {
     --container-padding: 30px;

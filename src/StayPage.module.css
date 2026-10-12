@@ -57,6 +57,7 @@
 }
 .informationBlock {
   min-width: 0;
+  text-align: left;
 }
 .informationBlock:last-child:nth-child(odd) {
   grid-column: 1 / -1;
@@ -75,8 +76,8 @@
 .informationContent ul,
 .informationContent ol {
   margin: 0;
-  padding: 0;
-  list-style-position: inside;
+  padding-left: 20px;
+  list-style-position: outside;
 }
 .informationContent li p {
   display: inline;
