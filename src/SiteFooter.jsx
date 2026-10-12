@@ -1,9 +1,3 @@
-function getPhoneHref(phone) {
-  const value = phone.replace(/[^\d+]/g, "");
-
-  return value ? `tel:${value}` : "";
-}
-
 function getSocialLinkLabel(index) {
   return `Pattoo Castle social link ${index + 1}`;
 }
@@ -34,19 +28,31 @@ export default function SiteFooter({ footer }) {
             {footer.location && (
               <div className="footer-contact-item">
                 <strong>Location</strong>
-                <p>{footer.location}</p>
+                {footer.locationUrl ? (
+                  <a href={footer.locationUrl}>{footer.location}</a>
+                ) : (
+                  <p>{footer.location}</p>
+                )}
               </div>
             )}
             {footer.phone && (
               <div className="footer-contact-item">
                 <strong>Tel</strong>
-                <a href={getPhoneHref(footer.phone)}>{footer.phone}</a>
+                {footer.phoneUrl ? (
+                  <a href={footer.phoneUrl}>{footer.phone}</a>
+                ) : (
+                  <p>{footer.phone}</p>
+                )}
               </div>
             )}
             {footer.email && (
               <div className="footer-contact-item">
                 <strong>Email</strong>
-                <a href={`mailto:${footer.email}`}>{footer.email}</a>
+                {footer.emailUrl ? (
+                  <a href={footer.emailUrl}>{footer.email}</a>
+                ) : (
+                  <p>{footer.email}</p>
+                )}
               </div>
             )}
             {footer.socialLinks.length > 0 && (

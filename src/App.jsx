@@ -326,8 +326,11 @@ export function getFooterContent(entry) {
 
   return {
     location: fields.location || "",
+    locationUrl: (fields.locationUrl || "").trim(),
     phone: fields.phone || "",
+    phoneUrl: (fields.phoneUrl || "").trim(),
     email: fields.email || "",
+    emailUrl: (fields.emailUrl || "").trim(),
     socialLinks,
     menuItems,
     copyright: fields.footerCopyright || "",
