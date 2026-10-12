@@ -36,6 +36,7 @@ export default function StayInquiryForm() {
   const firstDay = month ? month.getDay() : 0;
   const days = month ? new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate() : 0;
   const previousDisabled = !month || dateValue(month).slice(0, 7) <= today.slice(0, 7);
+  const effectiveCheckOut = checkOut || checkIn;
 
   return (
     <section id="stay-inquiry" className={`section ${styles.section}`} aria-label="Stay inquiry">
@@ -45,10 +46,10 @@ export default function StayInquiryForm() {
         formName="stay-inquiry"
         onReset={() => { setCheckIn(""); setCheckOut(""); setDateError(""); }}
         onSubmitCapture={(event) => {
-          if (!checkIn || !checkOut || checkIn < today || checkOut <= checkIn) {
+          if (!checkIn || checkIn < today || effectiveCheckOut < checkIn) {
             event.preventDefault();
             event.stopPropagation();
-            setDateError("Select check-in and check-out dates on the calendar.");
+            setDateError("Select dates on the calendar.");
           }
         }}
       >
@@ -70,9 +71,9 @@ export default function StayInquiryForm() {
               return <button type="button" key={index} disabled={value < today} aria-label={date.toLocaleDateString("en-US", {weekday:"long", month:"long", day:"numeric", year:"numeric"})} aria-pressed={selected || Boolean(inRange)} aria-current={value === today ? "date" : undefined} className={`${styles.day}${selected ? ` ${styles.selected}` : inRange ? ` ${styles.inRange}` : ""}`} onClick={() => selectDate(value)}>{day}</button>;
             })}
           </div>
-          <p className={styles.srOnly} aria-live="polite">{checkOut ? `Stay dates: ${checkIn} to ${checkOut}.` : checkIn ? "Select your check-out date." : "Select check-in, then check-out."}</p>
+          <p className={styles.srOnly} aria-live="polite">{checkIn ? `Stay dates: ${checkIn} to ${effectiveCheckOut}.${checkOut ? "" : " You can optionally select a different check-out date."}` : "Select dates on the calendar."}</p>
           <input type="hidden" name="checkIn" value={checkIn} />
-          <input type="hidden" name="checkOut" value={checkOut} />
+          <input type="hidden" name="checkOut" value={effectiveCheckOut} />
         </div>
         <div className={styles.formPanel}>
           <div className={styles.fields}>
