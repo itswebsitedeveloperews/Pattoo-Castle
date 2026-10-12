@@ -2,6 +2,12 @@
 
 import { useRef, useState } from "react";
 
+const emailSubjects = {
+  "event-inquiry": "Pattoo Castle \u2013 New Event Inquiry",
+  "stay-inquiry": "Pattoo Castle \u2013 New Stay Inquiry",
+  contact: "New Contact Inquiry",
+};
+
 export default function NetlifyForm({
   children,
   className,
@@ -87,6 +93,14 @@ export default function NetlifyForm({
       {...props}
     >
       <input type="hidden" name="form-name" value={formName} />
+      {emailSubjects[formName] && (
+        <input
+          type="hidden"
+          name="subject"
+          value={emailSubjects[formName]}
+          data-remove-prefix="true"
+        />
+      )}
       {children}
       {status !== "idle" && (
         <p className="form-submit-status" aria-live="polite">

@@ -1,3 +1,19 @@
+.banner {
+  height: clamp(411px, 65vh, 800px);
+  background: var(--color-brown);
+}
+
+.bannerContent {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  align-self: center;
+}
+
+.bannerContent :global(.accommodation-hero-content) {
+  padding: 80px 40px;
+}
+
 .bedroomsSection {
   color: var(--color-brown);
   background: var(--color-cream);
