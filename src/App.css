@@ -1988,6 +1988,7 @@ body:not(.home) .site-header {
   background-color: #4e3626;
   background-position: center;
   background-size: cover;
+  z-index: 1;
 }
 
 .page-hero .site-header {
