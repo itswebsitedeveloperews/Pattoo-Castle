@@ -1,10 +1,10 @@
 import {
-  getContentfulAssetSrc,
   getContentfulImage,
   getFooterContent,
   getHeaderContent,
 } from "./App";
 import AosInitializer from "./AosInitializer";
+import EventBannerSlider from "./EventBannerSlider";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 import VillaInclusionImageSlider from "./VillaInclusionImageSlider";
@@ -93,6 +93,10 @@ function renderRichText(value) {
 
 function getVillaInclusionContent(entry) {
   const fields = entry?.fields || {};
+  const bannerAssets = fields.bannerImages || fields.bannerImage;
+  const bannerImages = (Array.isArray(bannerAssets) ? bannerAssets : [bannerAssets])
+    .map((asset) => getContentfulImage(asset))
+    .filter((image) => image?.src);
   const bedroomsImages = Array.isArray(fields.bedroomsEnsuiteBathroomsImages)
     ? fields.bedroomsEnsuiteBathroomsImages
         .map((asset) => getContentfulImage(asset))
@@ -106,7 +110,9 @@ function getVillaInclusionContent(entry) {
         .filter(Boolean)
     : [];
   return {
-    bannerImage: getContentfulAssetSrc(fields.bannerImage),    bannerHeading: fields.bannerHeading || "",    bedroomsImages,
+    bannerImages,
+    bannerHeading: fields.bannerHeading || "",
+    bedroomsImages,
     bedroomsHeading: fields.bedroomsEnsuiteBathroomsHeading || "",
     bedroomsContent: fields.bedroomsEnsuiteBathroomsContent || null,
     additionalChargeImages,
@@ -139,18 +145,13 @@ export default function VillaInclusionPage({
       <SiteHeader header={header} />
       <main className="site-main">
         <section
-          className="pt-0 pb-0 section page-hero accommodation-hero villa-inclusion-hero"
-          style={
-            villaInclusion.bannerImage
-              ? {
-                  "--accommodation-banner-image": `url(${villaInclusion.bannerImage})`,
-                }
-              : undefined
-          }
+          className={`pt-0 pb-0 section page-hero accommodation-hero villa-inclusion-hero ${styles.banner}`}
           aria-labelledby={
             villaInclusion.bannerHeading ? "villa-inclusion-title" : undefined
           }
         >
+          <EventBannerSlider images={villaInclusion.bannerImages} label="Villa Inclusion banner images" />
+          <div className={`container container-wide ${styles.bannerContent}`}>
           <div className="page-hero-content accommodation-hero-content">
             {villaInclusion.bannerHeading && (
               <h1
@@ -161,6 +162,7 @@ export default function VillaInclusionPage({
                 {villaInclusion.bannerHeading}
               </h1>
             )}
+          </div>
           </div>
         </section>
 

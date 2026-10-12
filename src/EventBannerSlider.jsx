@@ -4,13 +4,13 @@ import { useRef } from "react";
 import Slider from "react-slick";
 import styles from "./EventDetailsPage.module.css";
 
-export default function EventBannerSlider({ images = [] }) {
+export default function EventBannerSlider({ images = [], label = "Event banner images" }) {
   const sliderRef = useRef(null);
   if (!images.length) return null;
   const multiple = images.length > 1;
 
   return (
-    <div className={styles.bannerSlider} role="region" aria-roledescription="carousel" aria-label="Event banner images">
+    <div className={styles.bannerSlider} role="region" aria-roledescription="carousel" aria-label={label}>
       <Slider
         ref={sliderRef}
         className={styles.bannerTrack}
@@ -31,7 +31,7 @@ export default function EventBannerSlider({ images = [] }) {
             <img
               className={styles.bannerImage}
               src={image.src}
-              alt={image.alt || `Pattoo Castle event banner ${index + 1}`}
+              alt={image.alt || `${label} ${index + 1}`}
               loading={index === 0 ? "eager" : "lazy"}
               fetchPriority={index === 0 ? "high" : "auto"}
               draggable="false"
