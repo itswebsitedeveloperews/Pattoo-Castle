@@ -29,7 +29,9 @@ export default function SiteFooter({ footer }) {
               <div className="footer-contact-item">
                 <strong>Location</strong>
                 {footer.locationUrl ? (
-                  <a href={footer.locationUrl}>{footer.location}</a>
+                  <a href={footer.locationUrl} target="_blank" rel="noopener noreferrer">
+                    {footer.location}
+                  </a>
                 ) : (
                   <p>{footer.location}</p>
                 )}

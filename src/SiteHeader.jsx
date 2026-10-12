@@ -99,6 +99,8 @@ export default function SiteHeader({ header }) {
               <a
                 className="social-link"
                 href={item.url || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
                 key={`${item.url}-${index}`}
                 aria-label={item.label || getSocialLinkLabel(index)}
               >

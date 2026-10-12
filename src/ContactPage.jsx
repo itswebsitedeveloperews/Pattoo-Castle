@@ -169,6 +169,8 @@ export default function ContactPage({
                         <a
                           className="contact-connect-detail-link"
                           href={item.buttonUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
                         >
                           {item.buttonText}
                         </a>
