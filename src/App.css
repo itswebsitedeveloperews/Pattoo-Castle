@@ -4694,6 +4694,9 @@ body:not(.home) .site-header {
   .footer-bottom > div {
     gap: 6px;
   }
+  .footer-bottom {
+    flex-flow: column-reverse;
+}
   .footer-nav {
     gap: 14px 18px;
     padding: 26px 0;
