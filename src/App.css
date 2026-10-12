@@ -460,9 +460,9 @@ body:not(.home) .site-header {
 }
 
 .social-link:hover {
-    color: rgb(0 0 0);
-    background: var(--golden-sand);
-    border-color: var(--golden-sand);
+  color: rgb(0 0 0);
+  background: var(--golden-sand);
+  border-color: var(--golden-sand);
 }
 
 .button,
@@ -3654,11 +3654,6 @@ body:not(.home) .site-header {
 }
 
 @media only screen and (max-width: 1280px) {
-  .home-intro-inner {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-
   .home-intro-media {
     width: min(720px, 100%);
     min-height: 430px;
@@ -4139,6 +4134,10 @@ body:not(.home) .site-header {
   .contact-form-field--seven,
   .contact-form-field--five {
     grid-column: auto;
+  }
+  .home-intro-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 }
 

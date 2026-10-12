@@ -1,6 +1,5 @@
 .outdoorSection {
   color: var(--color-brown);
-  background: var(--color-cream);
   text-align: center;
 }
 
@@ -64,6 +63,7 @@
 }
 .slideSlot {
   padding: 0 10px;
+  display: block !important;
 }
 .slide {
   min-width: 0;
@@ -81,8 +81,8 @@
   top: 50%;
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   padding: 12px;
   border: 0;
   border-radius: 50%;
@@ -90,6 +90,9 @@
   background: white;
   cursor: pointer;
   transform: translateY(-50%);
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
 }
 .arrow svg {
   width: 20px;
@@ -102,8 +105,10 @@
   outline: 2px solid var(--color-brown);
   outline-offset: 4px;
 }
-.arrow:hover {
-  background: var(--color-cream);
+.arrow:hover,
+.arrow:focus-visible {
+  background: var(--color-brown);
+  color: rgb(var(--color-white));
 }
 .previous {
   left: 16px;
