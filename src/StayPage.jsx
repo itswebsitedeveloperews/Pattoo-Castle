@@ -11,6 +11,21 @@ import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 import styles from "./StayPage.module.css";
 
+const guestReviews = [
+  {
+    name: "J",
+    text: "Gary is an amazing host…he ensured we had a great stay and stayed in communication regarding updates. The views of the castle are breathtaking…",
+  },
+  {
+    name: "Lia",
+    text: "Just book the castle! Everything about this Airbnb is amazing. Gary made the booking a seamless process, had fast responses and answered all of our…",
+  },
+  {
+    name: "Paulina",
+    text: "To say this was an amazing experience is an absolute understatement!! Pattoo is incredible in itself but everyone we met and spent our time with on the property…",
+  },
+];
+
 function getImageBoxBlocks(items) {
   return Array.isArray(items)
     ? items.map((item) => ({
@@ -29,9 +44,11 @@ function getStayContent(entry) {
     bannerImage: getContentfulAssetSrc(fields.bannerImage),
     bannerHeading: fields.bannerHeading || "",
     findUsHeading: fields.findUsHeading || "",
-    findUsBlocks: getImageBoxBlocks(fields.findUsBlocks).filter(block => block.title),
+    findUsBlocks: getImageBoxBlocks(fields.findUsBlocks).filter(
+      (block) => block.title,
+    ),
     informationBlocks: getImageBoxBlocks(fields.informationBlocks).filter(
-      block => block.title || richTextToPlainText(block.content).trim(),
+      (block) => block.title || richTextToPlainText(block.content).trim(),
     ),
   };
 }
@@ -44,6 +61,9 @@ export default function StayPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const stay = getStayContent(stayEntry);
+  const airbnbUrl = stay.findUsBlocks.find((block) =>
+    /airbnb/i.test(block.title),
+  )?.url;
 
   return (
     <>
@@ -80,15 +100,28 @@ export default function StayPage({
             aria-labelledby={stay.findUsHeading ? "find-us-title" : undefined}
             aria-label={stay.findUsHeading ? undefined : "Find us on"}
           >
-            <div className={`container container-wide ${styles.findUsInner}`}>
-              {stay.findUsHeading && <h2 id="find-us-title">{stay.findUsHeading}</h2>}
+            <div className="container">
+              {stay.findUsHeading && (
+                <h2 id="find-us-title">{stay.findUsHeading}</h2>
+              )}
               {stay.findUsBlocks.length > 0 && (
                 <ul className={styles.findUsGrid}>
                   {stay.findUsBlocks.map((block, index) => (
-                    <li className={styles.findUsCard} key={`${block.id || "find-us"}-${index}`}>
-                      {block.url ? <a href={block.url} target="_blank" rel="noopener noreferrer">
-                        {block.title}
-                      </a> : <span>{block.title}</span>}
+                    <li
+                      className={styles.findUsCard}
+                      key={`${block.id || "find-us"}-${index}`}
+                    >
+                      {block.url ? (
+                        <a
+                          href={block.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {block.title}
+                        </a>
+                      ) : (
+                        <span>{block.title}</span>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -98,14 +131,26 @@ export default function StayPage({
         )}
 
         {stay.informationBlocks.length > 0 && (
-          <section className={`section ${styles.informationSection}`} aria-label="Stay information and policies">
-            <div className={`container container-wide ${styles.informationGrid}`}>
+          <section
+            className={`section pt-0 ${styles.informationSection}`}
+            aria-label="Stay information and policies"
+          >
+            <div
+              className={`container container-wide ${styles.informationGrid}`}
+            >
               {stay.informationBlocks.map((block, index) => (
-                <article className={styles.informationBlock} key={`${block.id || "information"}-${index}`}>
+                <article
+                  className={styles.informationBlock}
+                  key={`${block.id || "information"}-${index}`}
+                >
                   {block.title && <h2>{block.title}</h2>}
                   {block.content && (
                     <div className={styles.informationContent}>
-                      {richTextToReact(block.content, `stay-information-${index}`, true)}
+                      {richTextToReact(
+                        block.content,
+                        `stay-information-${index}`,
+                        true,
+                      )}
                     </div>
                   )}
                 </article>

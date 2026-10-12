@@ -2,42 +2,124 @@
   height: clamp(411px, 65vh, 800px);
   background: var(--color-brown);
 }
-.bannerContent { position: relative; z-index: 2; pointer-events: none; align-self: center; }
-.bannerContent :global(.event-detail-hero-content) { padding: 80px 40px; }
-.bannerSlider { position: absolute; inset: 0; }
+.bannerContent {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  align-self: center;
+}
+.bannerContent :global(.event-detail-hero-content) {
+  padding: 80px 40px;
+}
+.bannerSlider {
+  position: absolute;
+  inset: 0;
+}
 .bannerTrack,
 .bannerTrack :global(.slick-list),
 .bannerTrack :global(.slick-track),
 .bannerTrack :global(.slick-slide),
 .bannerTrack :global(.slick-slide > div),
-.bannerSlide { height: 100%; }
-.bannerImage { display: block; width: 100%; height: 100%; object-fit: cover; }
-.bannerSlide { position: relative; }
-.bannerSlide::after { content: ""; position: absolute; inset: 0; background: rgb(0 0 0 / 40%); pointer-events: none; }
+.bannerSlide {
+  height: 100%;
+}
+.bannerImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.bannerSlide {
+  position: relative;
+}
+.bannerSlide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 40%);
+  pointer-events: none;
+}
 .bannerArrow {
   position: absolute;
   z-index: 3;
   top: 50%;
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
-  padding: 12px;
-  border: 0;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid rgb(var(--color-white));
   border-radius: 50%;
   color: var(--color-brown);
   background: white;
   cursor: pointer;
   transform: translateY(-50%);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
 }
-.bannerArrow svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; }
-.bannerPrevious { left: 24px; }
-.bannerNext { right: 24px; }
-.bannerArrow:focus-visible { outline: 2px solid white; outline-offset: 4px; }
-.bannerTrack :global(.slick-dots) { bottom: 16px; z-index: 3; }
-.bannerTrack :global(.slick-dots li button::before) { color: white; opacity: 0.5; }
-.bannerTrack :global(.slick-dots li.slick-active button::before) { color: white; opacity: 1; }
-.bannerTrack :global(.slick-dots li button:focus-visible) { outline: 2px solid white; outline-offset: 2px; }
+.bannerArrow svg {
+  width: 9px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+.bannerPrevious {
+  left: 40px;
+}
+.bannerNext {
+  right: 40px;
+}
+.bannerArrow:hover,
+.bannerArrow:focus-visible {
+  background: var(--color-brown);
+  border-color: var(--color-brown);
+  color: rgb(var(--color-white));
+}
+.bannerArrow:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
+.bannerTrack :global(.slick-dots) {
+  bottom: 15px;
+  z-index: 3;
+  display: flex !important;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 12px;
+}
+.bannerTrack :global(.slick-dots li) {
+  height: 8px;
+  width: auto;
+  margin: 0;
+}
+.bannerTrack :global(.slick-dots li button) {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+}
+.bannerTrack :global(.slick-dots li button::before) {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 10px;
+  background: white;
+  opacity: 0.5;
+}
+.bannerTrack :global(.slick-dots li.slick-active button::before) {
+  opacity: 1;
+  width: 30px;
+}
+.bannerTrack :global(.slick-dots li.slick-active button) {
+  width: 30px;
+}
+.bannerTrack :global(.slick-dots button:focus-visible) {
+  outline: 2px solid white;
+  outline-offset: 1px;
+}
 
 .detailsSection {
   color: var(--color-brown);
@@ -47,29 +129,76 @@
 .inner {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  max-width: 1200px;
   gap: 40px;
   align-items: center;
 }
 
-.singleColumn { grid-template-columns: minmax(0, 1fr); }
-.image { display: block; width: 100%; aspect-ratio: 1.78; object-fit: cover; }
-.copy { min-width: 0; }
-.copy h2 { margin: 0 0 20px; }
-.content { font-size: var(--font-size-body); line-height: var(--line-height-body); overflow-wrap: anywhere; }
-.content p { margin: 0 0 16px; }
-.content > :last-child { margin-bottom: 0; }
+.singleColumn {
+  grid-template-columns: minmax(0, 1fr);
+}
+.image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.78;
+  object-fit: cover;
+}
+.copy {
+  min-width: 0;
+}
+.copy h2 {
+  margin: 0 0 20px;
+  color: var(--color-brown);
+}
+.content {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  overflow-wrap: anywhere;
+}
+.content p {
+  margin: 0 0 16px;
+}
+.content > :last-child {
+  margin-bottom: 0;
+}
 .content ul,
-.content ol { padding-left: 24px; }
-.content a { text-decoration: underline; text-underline-offset: 3px; }
-.content a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.content ol {
+  padding-left: 24px;
+}
+.content a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.content a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
 
-.weddingsPage .banner {
+.groupsDetails {
+  text-align: center;
+}
+
+.groupsDetails .inner {
+  max-width: 1400px;
+}
+
+.groupsDetails .content p {
+  margin-bottom: 20px;
+}
+
+.groupsDetails .content > :last-child {
+  margin-bottom: 0;
+}
+
+.groupsDetails .content a {
+  font-weight: 700;
+  color: inherit;
+}
+
+.banner.featuredBanner {
   height: clamp(440px, 42.1875vw, 810px);
 }
 
 .weddingsPage .inner {
-  max-width: 1400px;
   gap: 48px;
 }
 
@@ -96,6 +225,10 @@
   margin-bottom: 28px;
 }
 
+.weddingInquiry :global(.event-inquiry-card .legend:has(+ p)) {
+  margin-bottom: 4px;
+}
+
 .weddingInquiry :global(.event-inquiry-icon) {
   display: none;
 }
@@ -109,24 +242,38 @@
 }
 
 .weddingInquiry :global(.event-upload-field) {
-  border: 0;
   background: transparent;
 }
 
-.weddingInquiry :global(.event-inquiry-submit) {
-  width: min(100%, 320px);
+.weddingInquiry :global(.event-inquiry-submit),
+.groupsPage :global(.event-inquiry-submit) {
   margin-top: 20px;
 }
 
 @media (max-width: 767px) {
-  .bannerPrevious { left: 12px; }
-  .bannerNext { right: 12px; }
-  .inner { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-  .weddingsPage .inner { gap: 28px; }
-  .weddingInquiry :global(.event-inquiry-card) { padding: 24px 16px; }
-  .weddingInquiry :global(.event-inquiry-grid) { gap: 24px; }
+  .bannerPrevious {
+    left: 12px;
+  }
+  .bannerNext {
+    right: 12px;
+  }
+  .inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .weddingsPage .inner {
+    gap: 28px;
+  }
+  .weddingInquiry :global(.event-inquiry-card) {
+    padding: 24px 16px;
+  }
+  .weddingInquiry :global(.event-inquiry-grid) {
+    gap: 24px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bannerTrack :global(.slick-track) { transition-duration: 0.01ms !important; }
+  .bannerTrack :global(.slick-track) {
+    transition-duration: 0.01ms !important;
+  }
 }

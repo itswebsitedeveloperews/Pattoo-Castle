@@ -64,6 +64,7 @@
   margin: 15px auto 0;
   color: var(--color-brown-dark);
   line-height: var(--line-height-body);
+  color: var(--color-brown-dark);
 }
 
 .teamGrid {

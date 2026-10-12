@@ -77,17 +77,19 @@ export default function StayInquiryForm() {
         </div>
         <div className={styles.formPanel}>
           <div className={styles.fields}>
-            <label className={styles.field}><span>First Name *</span><input name="firstName" autoComplete="given-name" placeholder="Enter first name" required /></label>
-            <label className={styles.field}><span>Last Name *</span><input name="lastName" autoComplete="family-name" placeholder="Enter last name" required /></label>
-            <label className={styles.field}><span>Email Address *</span><input type="email" name="email" autoComplete="email" placeholder="Enter email address" required /></label>
-            <label className={styles.field}><span>Phone</span><input type="tel" name="phone" autoComplete="tel" placeholder="Enter phone number" /></label>
-            <label className={`${styles.field} ${styles.full}`}><span>Details</span><textarea name="details" placeholder="Enter details" rows={2} /></label>
+            <label className={`event-inquiry-field ${styles.field}`}><span>First Name *</span><input name="firstName" autoComplete="given-name" placeholder="Enter first name" required /></label>
+            <label className={`event-inquiry-field ${styles.field}`}><span>Last Name *</span><input name="lastName" autoComplete="family-name" placeholder="Enter last name" required /></label>
+            <label className={`event-inquiry-field ${styles.field}`}><span>Email Address *</span><input type="email" name="email" autoComplete="email" placeholder="Enter email address" required /></label>
+            <label className={`event-inquiry-field ${styles.field}`}><span>Phone</span><input type="tel" name="phone" autoComplete="tel" placeholder="Enter phone number" /></label>
+            <label className={`event-inquiry-field ${styles.field} ${styles.full}`}><span>Details</span><textarea name="details" placeholder="Enter details" rows={2} /></label>
           </div>
           <div className={styles.verification}>
             <label><span className={styles.srOnly}>Enter the verification code shown</span><input name="verification" aria-label="Enter the verification code shown" required pattern={code} autoComplete="off" title="Enter the code shown beside this field" /></label>
-            <span aria-label={`Verification code: ${code}`}>{code}</span>
+            <span className={styles.verificationCode} role="img" aria-label={`Verification code: ${code}`}>
+              {Array.from(code).map((character, index) => <span key={index} aria-hidden="true">{character}</span>)}
+            </span>
           </div>
-          <button className={`btn btn--solid ${styles.send}`} type="submit" disabled={!month || !code}>Send</button>
+          <button className="btn btn--solid" type="submit" disabled={!month || !code}>Send</button>
           {dateError && <p role="alert">{dateError}</p>}
         </div>
       </NetlifyForm>

@@ -13,10 +13,14 @@ import styles from "./ContactPage.module.css";
 
 function getLocationIframeSrc(value) {
   const markup = richTextToPlainText(value)
-    .replace(/&lt;/gi, "<").replace(/&gt;/gi, ">")
-    .replace(/&quot;|&#34;/gi, '"').replace(/&#39;|&apos;/gi, "'")
-    .replace(/&amp;/gi, "&").trim();
-  const src = markup.match(/<iframe\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/i)?.[1] || markup;
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;|&#34;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&amp;/gi, "&")
+    .trim();
+  const src =
+    markup.match(/<iframe\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/i)?.[1] || markup;
   try {
     const url = new URL(src);
     return ["http:", "https:"].includes(url.protocol) ? url.href : "";
@@ -143,10 +147,10 @@ export default function ContactPage({
 
         {hasConnectSection && (
           <section
-            className="section contact-connect-section"
+            className="section contact-connect-section pb-0"
             aria-label="Connect with us"
           >
-            <div className="container container-wide">
+            <div className="container">
               <div className="contact-connect-grid">
                 {contact.connectWithUs.map((item, index) => (
                   <article
@@ -169,8 +173,16 @@ export default function ContactPage({
                         <a
                           className="contact-connect-detail-link"
                           href={item.buttonUrl}
-                          target={/^(tel:|mailto:)/i.test(item.buttonUrl.trim()) ? "_self" : "_blank"}
-                          rel={/^(tel:|mailto:)/i.test(item.buttonUrl.trim()) ? undefined : "noopener noreferrer"}
+                          target={
+                            /^(tel:|mailto:)/i.test(item.buttonUrl.trim())
+                              ? "_self"
+                              : "_blank"
+                          }
+                          rel={
+                            /^(tel:|mailto:)/i.test(item.buttonUrl.trim())
+                              ? undefined
+                              : "noopener noreferrer"
+                          }
                         >
                           {item.buttonText}
                         </a>
@@ -211,106 +223,142 @@ export default function ContactPage({
                 data-aos-delay="200"
               >
                 <div className="contact-fields-panel">
-                <div className="contact-form-field contact-form-field--quarter">
-                  <label htmlFor="contact-company">Company</label>
-                  <input id="contact-company" name="company" placeholder="Enter company name" type="text" />
-                </div>
+                  <div className="contact-form-field contact-form-field--quarter">
+                    <label htmlFor="contact-company">Company</label>
+                    <input
+                      id="contact-company"
+                      name="company"
+                      placeholder="Enter company name"
+                      type="text"
+                    />
+                  </div>
 
-                <div className="contact-form-field contact-form-field--quarter">
-                  <label htmlFor="contact-person-title">Title</label>
-                  <input id="contact-person-title" name="title" placeholder="Enter title" type="text" />
-                </div>
+                  <div className="contact-form-field contact-form-field--quarter">
+                    <label htmlFor="contact-person-title">Title</label>
+                    <input
+                      id="contact-person-title"
+                      name="title"
+                      placeholder="Enter title"
+                      type="text"
+                    />
+                  </div>
 
-                <div className="contact-form-field contact-form-field--quarter">
-                  <label htmlFor="contact-first-name">First Name *</label>
-                  <input
-                    id="contact-first-name"
-                    name="firstName" placeholder="Enter first name"
-                    required
-                    type="text"
-                  />
-                </div>
+                  <div className="contact-form-field contact-form-field--quarter">
+                    <label htmlFor="contact-first-name">First Name *</label>
+                    <input
+                      id="contact-first-name"
+                      name="firstName"
+                      placeholder="Enter first name"
+                      required
+                      type="text"
+                    />
+                  </div>
 
-                <div className="contact-form-field contact-form-field--quarter">
-                  <label htmlFor="contact-last-name">Last Name *</label>
-                  <input
-                    id="contact-last-name"
-                    name="lastName" placeholder="Enter last name"
-                    required
-                    type="text"
-                  />
-                </div>
+                  <div className="contact-form-field contact-form-field--quarter">
+                    <label htmlFor="contact-last-name">Last Name *</label>
+                    <input
+                      id="contact-last-name"
+                      name="lastName"
+                      placeholder="Enter last name"
+                      required
+                      type="text"
+                    />
+                  </div>
 
-                <div className="contact-form-field contact-form-field--full">
-                  <label htmlFor="contact-address">Address</label>
-                  <input id="contact-address" name="address" placeholder="Enter address" type="text" />
-                </div>
+                  <div className="contact-form-field contact-form-field--full">
+                    <label htmlFor="contact-address">Address</label>
+                    <input
+                      id="contact-address"
+                      name="address"
+                      placeholder="Enter address"
+                      type="text"
+                    />
+                  </div>
 
-                <div className="contact-form-field contact-form-field--seven">
-                  <label htmlFor="contact-address-line-2">Address Line 2</label>
-                  <input
-                    id="contact-address-line-2"
-                    name="addressLine2" placeholder="Enter address line 2"
-                    type="text"
-                  />
-                </div>
+                  <div className="contact-form-field contact-form-field--seven">
+                    <label htmlFor="contact-address-line-2">
+                      Address Line 2
+                    </label>
+                    <input
+                      id="contact-address-line-2"
+                      name="addressLine2"
+                      placeholder="Enter address line 2"
+                      type="text"
+                    />
+                  </div>
 
-                <div className="contact-form-field contact-form-field--five">
-                  <label htmlFor="contact-city">City</label>
-                  <input id="contact-city" name="city" placeholder="Enter city" type="text" />
-                </div>
+                  <div className="contact-form-field contact-form-field--five">
+                    <label htmlFor="contact-city">City</label>
+                    <input
+                      id="contact-city"
+                      name="city"
+                      placeholder="Enter city"
+                      type="text"
+                    />
+                  </div>
 
-                <div className="contact-form-field contact-form-field--quarter">
-                  <label htmlFor="contact-state">State</label>
-                  <select id="contact-state" name="state" defaultValue="">
-                    <option value="">Select state</option>
-                    <option value="jamaica">Jamaica</option>
-                    <option value="alabama">Alabama</option>
-                    <option value="california">California</option>
-                    <option value="florida">Florida</option>
-                    <option value="new-york">New York</option>
-                    <option value="texas">Texas</option>
-                  </select>
-                </div>
+                  <div className="contact-form-field contact-form-field--quarter">
+                    <label htmlFor="contact-state">State</label>
+                    <select id="contact-state" name="state" defaultValue="">
+                      <option value="">Select state</option>
+                      <option value="jamaica">Jamaica</option>
+                      <option value="alabama">Alabama</option>
+                      <option value="california">California</option>
+                      <option value="florida">Florida</option>
+                      <option value="new-york">New York</option>
+                      <option value="texas">Texas</option>
+                    </select>
+                  </div>
 
-                <div className="contact-form-field contact-form-field--quarter">
-                  <label htmlFor="contact-postal-code">Postal Code</label>
-                  <input
-                    id="contact-postal-code"
-                    name="postalCode" placeholder="Enter postal code"
-                    type="text"
-                  />
-                </div>
+                  <div className="contact-form-field contact-form-field--quarter">
+                    <label htmlFor="contact-postal-code">Postal Code</label>
+                    <input
+                      id="contact-postal-code"
+                      name="postalCode"
+                      placeholder="Enter postal code"
+                      type="text"
+                    />
+                  </div>
 
-                <div className="contact-form-field contact-form-field--quarter">
-                  <label htmlFor="contact-email">Email Address *</label>
-                  <input
-                    id="contact-email"
-                    name="email" placeholder="Enter email address"
-                    required
-                    type="email"
-                  />
-                </div>
+                  <div className="contact-form-field contact-form-field--quarter">
+                    <label htmlFor="contact-email">Email Address *</label>
+                    <input
+                      id="contact-email"
+                      name="email"
+                      placeholder="Enter email address"
+                      required
+                      type="email"
+                    />
+                  </div>
 
-                <div className="contact-form-field contact-form-field--quarter">
-                  <label htmlFor="contact-phone">Phone *</label>
-                  <input id="contact-phone" name="phone" placeholder="Enter phone number" required type="tel" />
-                </div>
+                  <div className="contact-form-field contact-form-field--quarter">
+                    <label htmlFor="contact-phone">Phone *</label>
+                    <input
+                      id="contact-phone"
+                      name="phone"
+                      placeholder="Enter phone number"
+                      required
+                      type="tel"
+                    />
+                  </div>
 
-                <div className="contact-form-field contact-form-field--full">
-                  <label htmlFor="contact-comments">Comments *</label>
-                  <textarea
-                    id="contact-comments"
-                    name="comments" placeholder="Enter comments"
-                    required
-                    rows="2"
-                  />
-                </div>
-
+                  <div className="contact-form-field contact-form-field--full">
+                    <label htmlFor="contact-comments">Comments *</label>
+                    <textarea
+                      id="contact-comments"
+                      name="comments"
+                      placeholder="Enter comments"
+                      required
+                      rows="2"
+                    />
+                  </div>
                 </div>
 
                 <div className="contact-form-submit-row">
-                  <button className="btn btn--solid contact-form-submit" type="submit">
+                  <button
+                    className="btn btn--solid contact-form-submit"
+                    type="submit"
+                  >
                     Send Here
                   </button>
                 </div>
@@ -318,8 +366,12 @@ export default function ContactPage({
             </div>
           </section>
         )}
-        {(contact.locationIframe || (contact.locationButtonText && contact.locationButtonUrl)) && (
-          <section className={`section ${styles.locationSection}`} aria-label="Find Pattoo Castle">
+        {(contact.locationIframe ||
+          (contact.locationButtonText && contact.locationButtonUrl)) && (
+          <section
+            className={`section ${styles.locationSection}`}
+            aria-label="Find Pattoo Castle"
+          >
             <div className={`container container-wide ${styles.locationInner}`}>
               {contact.locationIframe && (
                 <div className={styles.mapFrame}>
@@ -334,7 +386,12 @@ export default function ContactPage({
                 </div>
               )}
               {contact.locationButtonText && contact.locationButtonUrl && (
-                <a className={styles.directionsButton} href={contact.locationButtonUrl} target="_blank" rel="noopener noreferrer">
+                <a
+                  className={styles.directionsButton}
+                  href={contact.locationButtonUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {contact.locationButtonText}
                 </a>
               )}

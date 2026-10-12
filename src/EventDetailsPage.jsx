@@ -21,7 +21,8 @@ function getEventDetailsContent(entry) {
 
   return {
     slug: fields.eventSlug || "",
-    bannerImages: bannerAssets.map((asset) => getContentfulImage(asset))
+    bannerImages: bannerAssets
+      .map((asset) => getContentfulImage(asset))
       .filter((image) => image?.src),
     heading: fields.eventHeading || "",
     image: getContentfulImage(fields.eventImage),
@@ -39,9 +40,14 @@ export default function EventDetailsPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const isWedding = eventDetails.slug === "weddings";
+  const isGroupEvent = eventDetails.slug === "groups-events";
+  const hasFeaturedBanner = isWedding || isGroupEvent;
   const bannerImages = isWedding
     ? [
-        { src: "/images/events/weddings-hero.webp", alt: "Bride and bridesmaids overlooking the sea at Pattoo Castle" },
+        {
+          src: "/images/events/weddings-hero.webp",
+          alt: "Bride and bridesmaids overlooking the sea at Pattoo Castle",
+        },
         ...eventDetails.bannerImages,
       ]
     : eventDetails.bannerImages;
@@ -53,9 +59,9 @@ export default function EventDetailsPage({
     <>
       <AosInitializer />
       <SiteHeader header={header} />
-      <main className={isWedding ? styles.weddingsPage : undefined}>
+      <main className={isWedding ? styles.weddingsPage : isGroupEvent ? styles.groupsPage : undefined}>
         <section
-          className={`pt-0 pb-0 section page-hero event-detail-hero ${styles.banner}`}
+          className={`pt-0 pb-0 section page-hero event-detail-hero ${styles.banner}${hasFeaturedBanner ? ` ${styles.featuredBanner}` : ""}`}
           aria-labelledby={
             eventDetails.heading ? "event-detail-title" : undefined
           }
@@ -63,13 +69,15 @@ export default function EventDetailsPage({
           <EventBannerSlider images={bannerImages} />
           <div className={`container container-wide ${styles.bannerContent}`}>
             <div className="page-hero-content event-detail-hero-content">
-              {!isWedding && <p
-                className="eyebrow page-hero-eyebrow event-detail-hero-eyebrow"
-                data-aos="fade-up"
-                data-aos-delay="20"
-              >
-                Event
-              </p>}
+              {!hasFeaturedBanner && (
+                <p
+                  className="eyebrow page-hero-eyebrow event-detail-hero-eyebrow"
+                  data-aos="fade-up"
+                  data-aos-delay="20"
+                >
+                  Event
+                </p>
+              )}
               {eventDetails.heading && (
                 <h1
                   id="event-detail-title"
@@ -83,30 +91,49 @@ export default function EventDetailsPage({
           </div>
         </section>
 
-        {(eventDetails.image?.src || eventDetails.title || eventDetails.content) && (
+        {(eventDetails.image?.src ||
+          eventDetails.title ||
+          eventDetails.content) && (
           <section
-            className={`section ${styles.detailsSection}`}
-            aria-labelledby={eventDetails.title ? "event-content-title" : undefined}
+            className={`section ${styles.detailsSection}${isGroupEvent ? ` ${styles.groupsDetails}` : ""}`}
+            aria-labelledby={
+              eventDetails.title ? "event-content-title" : undefined
+            }
             aria-label={eventDetails.title ? undefined : "Event details"}
           >
-            <div className={`container container-wide ${styles.inner}${
-              !eventDetails.image?.src || !(eventDetails.title || eventDetails.content)
-                ? ` ${styles.singleColumn}` : ""
-            }`}>
+            <div
+              className={`container container-wide ${styles.inner}${
+                !eventDetails.image?.src ||
+                !(eventDetails.title || eventDetails.content)
+                  ? ` ${styles.singleColumn}`
+                  : ""
+              }`}
+            >
               {eventDetails.image?.src && (
                 <img
                   className={styles.image}
                   src={eventDetails.image.src}
-                  alt={eventDetails.image.alt || eventDetails.title || eventDetails.heading || "Pattoo Castle event"}
+                  alt={
+                    eventDetails.image.alt ||
+                    eventDetails.title ||
+                    eventDetails.heading ||
+                    "Pattoo Castle event"
+                  }
                   loading="lazy"
                 />
               )}
               {(eventDetails.title || eventDetails.content) && (
                 <div className={styles.copy}>
-                  {eventDetails.title && <h2 id="event-content-title">{eventDetails.title}</h2>}
+                  {eventDetails.title && (
+                    <h2 id="event-content-title">{eventDetails.title}</h2>
+                  )}
                   {eventDetails.content && (
                     <div className={styles.content}>
-                      {richTextToReact(eventDetails.content, "event-details-content", true)}
+                      {richTextToReact(
+                        eventDetails.content,
+                        "event-details-content",
+                        true,
+                      )}
                     </div>
                   )}
                 </div>
@@ -116,19 +143,21 @@ export default function EventDetailsPage({
         )}
 
         <section
-          className={`section event-inquiry-section${isWedding ? ` ${styles.weddingInquiry}` : ""}`}
+          className={`section pt-0 event-inquiry-section${isWedding ? ` ${styles.weddingInquiry}` : ""}`}
           aria-labelledby={isWedding ? undefined : "event-inquiry-title"}
           aria-label={isWedding ? inquiryTitle : undefined}
         >
           <div className="container container-wide">
-            {!isWedding && <div
-              className="event-inquiry-header"
-              data-aos="fade-up"
-              data-aos-delay="50"
-            >
-              <h2 id="event-inquiry-title">{inquiryTitle}</h2>
-              <span aria-hidden="true" />
-            </div>}
+            {!isWedding && (
+              <div
+                className="event-inquiry-header"
+                data-aos="fade-up"
+                data-aos-delay="50"
+              >
+                <h2 id="event-inquiry-title">{inquiryTitle}</h2>
+                <span aria-hidden="true" />
+              </div>
+            )}
 
             <NetlifyForm
               className="event-inquiry-form"
@@ -320,7 +349,7 @@ export default function EventDetailsPage({
                     />
                   </label>
 
-                  <label className="event-inquiry-field">
+                  <label className="event-inquiry-field event-inquiry-field--full">
                     <span>Event Type *</span>
                     <input
                       type="text"

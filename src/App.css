@@ -540,6 +540,25 @@ body:not(.home) .site-header {
   background: var(--color-cream);
 }
 
+.btn[type="submit"] {
+  width: min(100%, 270px);
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 6px;
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-wide);
+  box-shadow: 0 4px 8px rgb(var(--color-black) / 0.16);
+}
+
+form
+  :is(input, select, textarea):not([type="hidden"]):is(
+    :user-invalid,
+    [aria-invalid="true"]
+  ) {
+  border-color: #c62828;
+  outline-color: #c62828;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -2216,6 +2235,15 @@ body:not(.home) .site-header {
 
 .gallery-hero {
   --page-hero-image: var(--gallery-banner-image);
+  height: clamp(440px, 42.1875vw, 810px);
+}
+
+.gallery-hero > .container {
+  align-self: center;
+}
+
+.gallery-hero .page-hero-content {
+  padding: 80px 40px;
 }
 
 .location-hero {
@@ -2762,7 +2790,7 @@ body:not(.home) .site-header {
 .event-inquiry-card {
   min-width: 0;
   margin: 0;
-  padding: 24px 24px 26px;
+  padding: 30px;
   border: 1px solid rgba(214, 194, 163, 0.72);
   border-radius: 8px;
   background: rgb(var(--color-white) / 0.34);
@@ -2873,7 +2901,7 @@ body:not(.home) .site-header {
 .event-inquiry-field textarea {
   width: 100%;
   min-height: 50px;
-  padding: 16px 18px;
+  padding: 15px 18px;
   border: 1px solid #e2d5c2;
   border-radius: 4px;
   color: var(--color-brown);
@@ -3525,7 +3553,8 @@ body:not(.home) .site-header {
   text-align: center;
 }
 .contact-planning-copy h2 {
-  margin: 0 0 24px;
+  margin: 0 0 14px;
+  color: var(--color-brown);
 }
 .contact-planning-copy p {
   margin: 0;
@@ -3588,16 +3617,36 @@ body:not(.home) .site-header {
   justify-content: center;
   margin-top: 32px;
 }
-.contact-form-submit {
-  width: min(100%, 350px);
-}
 .contact-planning-form .form-submit-status {
   text-align: center;
 }
-
+@media only screen and (max-width: 1744px) {
+  .primary-nav {
+    gap: 14px;
+  }
+  .navbar-logo {
+    width: calc(14% - 10px);
+  }
+  .right-header {
+    width: calc(85% - 10px);
+  }
+}
+@media only screen and (max-width: 1540px) {
+  .header-actions .social-link {
+    display: none;
+  }
+}
 @media only screen and (max-width: 1440px) {
   .brandimg {
     max-width: 170px;
+  }
+
+  .right-header {
+    justify-content: end;
+  }
+
+  .right-header .button {
+    display: none;
   }
 
   .navbar-logo {
@@ -3638,37 +3687,6 @@ body:not(.home) .site-header {
   }
   .section {
     padding: 70px 0;
-  }
-
-  .site-header {
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 18px;
-  }
-
-  .brand img {
-    max-width: 170px;
-  }
-
-  .primary-nav {
-    display: none;
-  }
-
-  .header-actions {
-    display: none;
-  }
-
-  .mobile-menu {
-    position: relative;
-    z-index: 20;
-    display: block;
-    margin-left: auto;
-    grid-column: 3;
-  }
-
-  .mobile-menu-panel {
-    width: 80vw;
-    max-width: 510px;
   }
 
   .explore-experience-content {
@@ -3763,7 +3781,13 @@ body:not(.home) .site-header {
     position: relative;
     z-index: 20;
     display: block;
+    margin-left: auto;
     grid-column: 3;
+  }
+
+  .mobile-menu-panel {
+    width: 80vw;
+    max-width: 510px;
   }
 
   .hero-content {
@@ -4696,7 +4720,7 @@ body:not(.home) .site-header {
   }
   .footer-bottom {
     flex-flow: column-reverse;
-}
+  }
   .footer-nav {
     gap: 14px 18px;
     padding: 26px 0;
@@ -4844,6 +4868,8 @@ body:not(.home) .site-header {
   .event-inquiry-field select,
   .event-inquiry-field textarea {
     font-size: inherit;
+    min-height: 44px;
+    padding: 12px 18px;
   }
   .social-link {
     width: 36px;
@@ -4865,7 +4891,7 @@ body:not(.home) .site-header {
     text-align: center;
   }
   .footer-bottom {
-    flex-flow: column-reverse;
+    flex-flow: column-reverse !important;
   }
   .contact-fields-panel {
     grid-template-columns: minmax(0, 1fr);
