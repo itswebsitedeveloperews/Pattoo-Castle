@@ -43,7 +43,11 @@ export default function GettingHerePage({
         >
           <div className="page-hero-content getting-here-hero-content">
             {page.title && (
-              <h1 id="getting-here-title" data-aos="fade-up" data-aos-delay="50">
+              <h1
+                id="getting-here-title"
+                data-aos="fade-up"
+                data-aos-delay="50"
+              >
                 {page.title}
               </h1>
             )}
@@ -54,7 +58,7 @@ export default function GettingHerePage({
             className="section getting-here-content-section"
             aria-label="Travel to Pattoo Castle"
           >
-            <div className="getting-here-content-text">
+            <div className="container  getting-here-content-text">
               {richTextToReact(page.content, "getting-here-content", true)}
             </div>
           </section>

@@ -173,7 +173,7 @@ export default function VillaInclusionPage({
                 : undefined
             }
           >
-            <div className={`wrap ${styles.bedroomsInner}`}>
+            <div className={`container container-wide ${styles.bedroomsInner}`}>
               <VillaInclusionImageSlider
                 images={villaInclusion.bedroomsImages}
               />
@@ -203,7 +203,7 @@ export default function VillaInclusionPage({
                 : undefined
             }
           >
-            <div className={`wrap ${styles.additionalChargeInner}`}>
+            <div className={`container container-wide ${styles.additionalChargeInner}`}>
               <div className={styles.additionalChargeContent}>
                 {villaInclusion.additionalChargeHeading && (
                   <h2 id="villa-inclusion-additional-charge-title">

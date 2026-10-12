@@ -1,5 +1,4 @@
 .blocksSection {
-  padding: 80px 0;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -31,6 +30,5 @@
 }
 
 @media (max-width: 600px) {
-  .blocksSection { padding: 48px 0; }
   .blocksGrid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
 }

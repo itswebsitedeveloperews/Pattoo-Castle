@@ -14,15 +14,17 @@ function getAccommodationContent(entry) {
     bannerImage: getContentfulAssetSrc(fields.bannerImage),
     bannerHeading: fields.bannerHeading || "",
     blocks: Array.isArray(fields.accommodationBlocks)
-      ? fields.accommodationBlocks.map((entry, index) => {
-          const block = entry?.fields || {};
-          return {
-            id: entry?.sys?.id || `accommodation-block-${index}`,
-            image: getFirstContentfulImage(block.images),
-            title: block.title || "",
-            url: block.buttonUrl || "",
-          };
-        }).filter((block) => block.image?.src || block.title)
+      ? fields.accommodationBlocks
+          .map((entry, index) => {
+            const block = entry?.fields || {};
+            return {
+              id: entry?.sys?.id || `accommodation-block-${index}`,
+              image: getFirstContentfulImage(block.images),
+              title: block.title || "",
+              url: block.buttonUrl || "",
+            };
+          })
+          .filter((block) => block.image?.src || block.title)
       : [],
   };
 }
@@ -67,15 +69,15 @@ export default function AccommodationPage({
         </section>
         {accommodation.blocks.length > 0 && (
           <section
-            className="section accommodation-blocks-section"
+            className="section overview-blocks-section"
             aria-label="Accommodation options"
           >
-            <div className="accommodation-blocks-grid">
+            <div className="container container-wide overview-blocks-grid">
               {accommodation.blocks.map((block) => {
                 const Element = block.url ? "a" : "article";
                 return (
                   <Element
-                    className="accommodation-image-box"
+                    className="overview-block-card"
                     key={block.id}
                     {...(block.url ? { href: block.url } : {})}
                   >
@@ -86,7 +88,11 @@ export default function AccommodationPage({
                         loading="lazy"
                       />
                     )}
-                    {block.title && <h2>{block.title}</h2>}
+                    <div className="overview-block-content">
+                      {block.title && (
+                        <h2 className="text-center h3">{block.title}</h2>
+                      )}
+                    </div>
                   </Element>
                 );
               })}

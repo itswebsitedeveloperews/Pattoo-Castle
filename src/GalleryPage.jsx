@@ -60,7 +60,7 @@ export default function GalleryPage({
               aria-hidden="true"
             />
           )}
-          <div className="wrap">
+          <div className="container container-wide">
             <div className="page-hero-content gallery-hero-content">
               {gallery.bannerHeading && (
                 <h1 id="gallery-title" data-aos="fade-up" data-aos-delay="50">

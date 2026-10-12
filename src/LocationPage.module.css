@@ -1,6 +1,5 @@
 .mapSection,
 .historySection {
-  padding: 72px 0;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -41,7 +40,6 @@
 .historySection h2 { margin: 0 0 32px; }
 
 .exploreNegrilSection {
-  padding: 80px 0;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -82,12 +80,9 @@
 .cardLink:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 
 @media (max-width: 767px) {
-  .mapSection,
-  .historySection { padding: 48px 0; }
   .mapLayout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .mapPart iframe { aspect-ratio: 4 / 3; }
   .historySection h2 { margin-bottom: 24px; }
-  .exploreNegrilSection { padding: 48px 0; }
   .exploreNegrilGrid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .cardTitle { padding: 20px 16px; }
 }

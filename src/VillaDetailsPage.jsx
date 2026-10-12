@@ -163,7 +163,7 @@ export default function VillaDetailsPage({
             className={`section ${styles.bedroomSection}`}
             aria-label="Villa bedrooms"
           >
-            <div className="wrap">
+            <div className="container container-wide">
               {villaDetails.bedroomBlocks.length > 0 && (
                 <div className={styles.bedroomGrid}>
                   {villaDetails.bedroomBlocks.map((item, index) => (

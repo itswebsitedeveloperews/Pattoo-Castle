@@ -1,5 +1,5 @@
 .findUsSection,
-.informationSection { padding: 64px 0; color: var(--color-brown); background: var(--color-cream); text-align: center; }
+.informationSection { color: var(--color-brown); background: var(--color-cream); text-align: center; }
 .findUsInner { max-width: 1100px; }
 .findUsInner h2,
 .informationBlock h2 { margin: 0 0 24px; }
@@ -22,8 +22,6 @@
 .informationContent a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 @media (max-width: 900px) { .findUsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 600px) {
-  .findUsSection,
-  .informationSection { padding: 48px 0; }
   .informationGrid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .findUsGrid { gap: 16px; }
   .findUsCard a,

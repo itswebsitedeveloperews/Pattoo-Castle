@@ -248,7 +248,7 @@ export default function LocationPage({
 
         {hasExploreSection && (
           <section className="section location-explore-section">
-            <div className="wrap">
+            <div className="container container-wide">
               {(location.exploreSubHeading || location.exploreHeading) && (
                 <div
                   className="location-explore-header"
@@ -312,7 +312,7 @@ export default function LocationPage({
               location.adventureHeading ? "location-adventure-title" : undefined
             }
           >
-            <div className="wrap stay-cta-content">
+            <div className="container container-wide stay-cta-content">
               {location.adventureSubHeading && (
                 <p
                   className="eyebrow stay-cta-eyebrow"
@@ -346,7 +346,7 @@ export default function LocationPage({
 
         {hasAdventureExploreSection && (
           <section className="section location-adventure-explore-section">
-            <div className="wrap">
+            <div className="container container-wide">
               {(location.adventureExploreSubHeading ||
                 location.adventureExploreHeading) && (
                 <div
@@ -396,7 +396,7 @@ export default function LocationPage({
 
         {hasJamaicaSection && (
           <section className="section location-jamaica-section">
-            <div className="wrap location-jamaica-grid">
+            <div className="container container-wide location-jamaica-grid">
               <div
                 className="location-jamaica-left"
                 data-aos="fade-up"
@@ -479,7 +479,7 @@ export default function LocationPage({
             className={`section ${styles.exploreNegrilSection}`}
             aria-label="Explore Negril"
           >
-            <div className={`wrap ${styles.exploreNegrilGrid}`}>
+            <div className={`container container-wide ${styles.exploreNegrilGrid}`}>
               {location.exploreNegrilBlocks.map((item, index) => {
                 const cardContent = (
                   <>
@@ -522,7 +522,7 @@ export default function LocationPage({
             className={`section ${styles.mapSection}`}
             aria-label="Pattoo Castle location"
           >
-            <div className={`wrap ${styles.mapLayout}${
+            <div className={`container container-wide ${styles.mapLayout}${
               !location.locationIframe || !richTextToPlainText(location.locationContent).trim()
                 ? ` ${styles.singleColumn}` : ""
             }`}>
@@ -553,7 +553,7 @@ export default function LocationPage({
             aria-label={location.negrilHistoryHeading ? undefined : "Negril history"}
             aria-labelledby={location.negrilHistoryHeading ? "negril-history-title" : undefined}
           >
-            <div className="wrap">
+            <div className="container container-wide">
               {location.negrilHistoryHeading && (
                 <h2 id="negril-history-title">{location.negrilHistoryHeading}</h2>
               )}

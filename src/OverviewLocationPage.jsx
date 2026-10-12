@@ -99,7 +99,7 @@ export default function OverviewLocationPage({
             className="section overview-location-section"
             aria-label="Pattoo Castle location details"
           >
-            <div className="wrap overview-location-grid">
+            <div className="container overview-location-grid">
               <div
                 className="overview-location-copy"
                 data-aos="fade-up"
@@ -141,7 +141,6 @@ export default function OverviewLocationPage({
             </div>
           </section>
         )}
-
       </main>
       <SiteFooter footer={footer} />
     </>

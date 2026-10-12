@@ -24,12 +24,7 @@ function getOverviewContent(entry) {
             buttonUrl: itemFields.buttonUrl || "",
           };
         })
-        .filter(
-          (item) =>
-            item.image?.src ||
-            item.title ||
-            item.buttonUrl,
-        )
+        .filter((item) => item.image?.src || item.title || item.buttonUrl)
     : [];
 
   return {
@@ -79,7 +74,7 @@ export default function OverviewPage({
             className="section overview-blocks-section"
             aria-label="Overview links"
           >
-            <div className="wrap overview-blocks-grid">
+            <div className="container container-wide overview-blocks-grid">
               {overview.overviewBlocks.map((item, index) => {
                 const BlockElement = item.buttonUrl ? "a" : "article";
                 const blockProps = item.buttonUrl
@@ -102,11 +97,16 @@ export default function OverviewPage({
                     {item.image?.src && (
                       <img
                         src={item.image.src}
-                        alt={item.image.alt || `Pattoo Castle overview ${index + 1}`}
+                        alt={
+                          item.image.alt ||
+                          `Pattoo Castle overview ${index + 1}`
+                        }
                       />
                     )}
                     <div className="overview-block-content">
-                      {item.title && <h2>{item.title}</h2>}
+                      {item.title && (
+                        <h2 className="text-center h3">{item.title}</h2>
+                      )}
                     </div>
                   </BlockElement>
                 );

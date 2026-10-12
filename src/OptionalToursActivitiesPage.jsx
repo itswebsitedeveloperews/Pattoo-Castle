@@ -66,7 +66,7 @@ export default function OptionalToursActivitiesPage({
             className={`section ${styles.activitiesSection}`}
             aria-label="Optional tours and activities"
           >
-            <div className={`wrap ${styles.activitiesGrid}`}>
+            <div className={`container container-wide ${styles.activitiesGrid}`}>
               {activities.map((activity, index) => (
                 <article
                   className={styles.activityCard}

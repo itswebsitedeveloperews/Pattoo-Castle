@@ -1,5 +1,4 @@
 .staffBlocksSection {
-  padding: 64px 0;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -34,7 +33,6 @@
 }
 
 .teamSection {
-  padding: 80px 0;
   color: var(--color-brown);
   background: #f6eee5;
 }
@@ -106,10 +104,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .teamSection {
-    padding: 50px 30px;
-  }
-
   .teamGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 34px 24px;
@@ -117,13 +111,6 @@
 }
 
 @media (max-width: 767px) {
-  .staffBlocksSection {
-    padding: 48px 0;
-  }
-
-  .teamSection {
-    padding: 58px 14px 68px;
-  }
 
   .teamHeader p:not(.teamEyebrow) {
     font-size: var(--font-size-nav);

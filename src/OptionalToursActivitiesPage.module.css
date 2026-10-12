@@ -1,5 +1,4 @@
 .activitiesSection {
-  padding: 80px 0;
   color: var(--color-brown);
   background: #f6eee5;
 }
@@ -44,6 +43,5 @@
 }
 
 @media (max-width: 600px) {
-  .activitiesSection { padding: 48px 0; }
   .activitiesGrid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
 }

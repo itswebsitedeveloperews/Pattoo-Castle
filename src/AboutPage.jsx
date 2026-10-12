@@ -65,7 +65,7 @@ export default function AboutPage({
 
         {hasVillaSection && (
           <section className="section about-villa-section">
-            <div className="wrap about-villa-grid">
+            <div className="container about-villa-grid">
               {about.villaImage?.src && (
                 <figure
                   className="about-villa-media"
@@ -85,7 +85,11 @@ export default function AboutPage({
                   data-aos="fade-up"
                   data-aos-delay="150"
                 >
-                  {richTextToReact(about.villaContent, "about-villa-content", true)}
+                  {richTextToReact(
+                    about.villaContent,
+                    "about-villa-content",
+                    true,
+                  )}
                 </div>
               )}
 
@@ -105,7 +109,7 @@ export default function AboutPage({
 
               {about.villaImage2?.src && (
                 <figure
-                  className="about-villa-media"
+                  className="about-villa-media about-villa-media--secondary"
                   data-aos="fade-up"
                   data-aos-delay="150"
                 >

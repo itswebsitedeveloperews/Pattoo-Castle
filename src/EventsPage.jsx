@@ -59,7 +59,7 @@ export default function EventsPage({
           }
           aria-labelledby={event.bannerHeading ? "events-title" : undefined}
         >
-          <div className="wrap">
+          <div className="container container-wide">
             <div className="page-hero-content events-hero-content">
               {event.bannerHeading && (
                 <h1 id="events-title" data-aos="fade-up" data-aos-delay="60">
@@ -71,7 +71,7 @@ export default function EventsPage({
         </section>
         {event.blocks.length > 0 && (
           <section className={`section ${styles.blocksSection}`} aria-label="Events at Pattoo Castle">
-            <div className={`wrap ${styles.blocksGrid}`}>
+            <div className={`container container-wide ${styles.blocksGrid}`}>
               {event.blocks.map((block, index) => (
                 <article className={styles.block} key={`${block.id || "event-block"}-${index}`}>
                   {block.image?.src && (

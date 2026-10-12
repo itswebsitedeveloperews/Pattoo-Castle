@@ -54,7 +54,7 @@ export default function EventDetailsPage({
           }
         >
           <EventBannerSlider images={eventDetails.bannerImages} />
-          <div className={`wrap ${styles.bannerContent}`}>
+          <div className={`container container-wide ${styles.bannerContent}`}>
             <div className="page-hero-content event-detail-hero-content">
               <p
                 className="eyebrow page-hero-eyebrow event-detail-hero-eyebrow"
@@ -82,7 +82,7 @@ export default function EventDetailsPage({
             aria-labelledby={eventDetails.title ? "event-content-title" : undefined}
             aria-label={eventDetails.title ? undefined : "Event details"}
           >
-            <div className={`wrap ${styles.inner}${
+            <div className={`container container-wide ${styles.inner}${
               !eventDetails.image?.src || !(eventDetails.title || eventDetails.content)
                 ? ` ${styles.singleColumn}` : ""
             }`}>
@@ -112,7 +112,7 @@ export default function EventDetailsPage({
           className="section event-inquiry-section"
           aria-labelledby="event-inquiry-title"
         >
-          <div className="wrap">
+          <div className="container container-wide">
             <div
               className="event-inquiry-header"
               data-aos="fade-up"

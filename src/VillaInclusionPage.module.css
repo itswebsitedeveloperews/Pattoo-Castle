@@ -1,5 +1,4 @@
 .bedroomsSection {
-  padding: 80px 0;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -7,14 +6,13 @@
 .bedroomsInner,
 .additionalChargeInner {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 01fr) minmax(0, 1fr);
   gap: clamp(36px, 4vw, 64px);
   margin: 0 auto;
   align-items: center;
 }
 
 .additionalChargeSection {
-  padding-bottom: 80px;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -70,6 +68,17 @@
   align-items: center;
   justify-content: center;
   transform: translateY(-50%);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.sliderButton:hover,
+.sliderButton:focus-visible {
+  background: var(--color-brown);
+  border-color: var(--color-brown);
+  color: rgb(var(--color-white));
 }
 
 /* .sliderButton span {
@@ -92,7 +101,7 @@
 }
 
 .richText {
-  color: var(--color-brown-dark);
+  color: var(--color-brown);
 }
 
 .richText > *:first-child {
@@ -115,8 +124,7 @@
   list-style: none;
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
-  column-gap: 10px;
-  row-gap: 13px;
+  gap: 15px 10px;
 }
 
 .bedroomsSection ul {
@@ -150,35 +158,7 @@
   text-underline-offset: 0.18em;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media (max-width: 1180px) {
-  .bedroomsSection,
-  .additionalChargeSection{
-    padding: 50px 30px;
-  }
-
-
   .bedroomsInner,
   .additionalChargeInner {
     grid-template-columns: 1fr;
@@ -188,24 +168,16 @@
   .additionalChargeContent {
     max-width: none;
   }
+
+  .additionalChargeInner > .imageSlider {
+    order: -1;
+  }
 }
 
 @media (max-width: 900px) {
-
-
-
-
 }
 
 @media (max-width: 767px) {
-  .bedroomsSection {
-    padding: 54px 18px 20px 18px;
-  }
-
-  .additionalChargeSection {
-    padding: 20px 18px;
-  }
-
   .bedroomsInner,
   .additionalChargeInner {
     gap: 30px;
@@ -237,32 +209,7 @@
   .richText ol {
     grid-template-columns: 1fr;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 @media (max-width: 420px) {
-  .bedroomsSection,
-  .additionalChargeSection {
-    padding-right: 14px;
-    padding-left: 14px;
-  }
-
-
-
-
-
-
 }

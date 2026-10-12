@@ -65,7 +65,7 @@ export default function GalleryFilterGrid({ items = [] }) {
       className="section gallery-grid-section"
       aria-label="Gallery images"
     >
-      <div className="wrap">
+      <div className="container container-wide">
         <div
           className={`gallery-filter-grid gallery-filter-grid--count-${Math.min(
             items.length,

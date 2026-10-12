@@ -71,7 +71,7 @@
   --color-black: 0 0 0;
   --opacity-high: 0.9;
   --opacity-low: 0.2;
-  --color-brown: #503523;
+  --color-brown: #4e3626;
   --color-brown-dark: #513624;
   --color-brown-darker: #2f1e14;
   --color-brown-rgb: 81 54 36;
@@ -83,7 +83,7 @@
   --shadow-soft-text: 0 1px 10px rgb(var(--color-black) / 0.2);
   --font-size-small: 14px;
   --font-size-body: 18px;
-  --font-size-medium: 18px;
+  --font-size-medium: 16px;
   --font-size-large: 20px;
   --font-size-button-small: 14px;
   --font-size-mobile-button-small: 12px;
@@ -114,7 +114,7 @@
   --letter-spacing-small: 2px;
   --letter-spacing-heading: 2%;
   --letter-spacing-wide: 19%;
-  --button-min-height: 48px;
+  --button-min-height: 52px;
   --button-padding-x: 28px;
   --button-border-radius: 999px;
   --button-bg-light: rgb(var(--color-white) / var(--opacity-low));
@@ -181,7 +181,6 @@ h1,
 h2 {
   margin: 0 0 14px;
   color: var(--color-heading);
-
 }
 
 h1 {
@@ -284,5 +283,6 @@ code {
     --font-size-h3: 24px;
     --font-size-h4: 20px;
     --font-size-h5: 18px;
+    --button-min-height: 46px;
   }
 }

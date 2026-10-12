@@ -40,7 +40,7 @@ export default function StayInquiryForm() {
   return (
     <section id="stay-inquiry" className={`section ${styles.section}`} aria-label="Stay inquiry">
       <NetlifyForm
-        className={`wrap ${styles.layout}`}
+        className={`container container-wide ${styles.layout}`}
         id="stay-inquiry-form"
         formName="stay-inquiry"
         onReset={() => { setCheckIn(""); setCheckOut(""); setDateError(""); }}

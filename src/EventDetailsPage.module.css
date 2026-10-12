@@ -40,7 +40,6 @@
 .bannerTrack :global(.slick-dots li button:focus-visible) { outline: 2px solid white; outline-offset: 2px; }
 
 .detailsSection {
-  padding: 72px 0;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -68,7 +67,6 @@
 @media (max-width: 767px) {
   .bannerPrevious { left: 12px; }
   .bannerNext { right: 12px; }
-  .detailsSection { padding: 48px 0; }
   .inner { grid-template-columns: minmax(0, 1fr); gap: 28px; }
 }
 

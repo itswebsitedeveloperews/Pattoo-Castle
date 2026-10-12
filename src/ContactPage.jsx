@@ -130,7 +130,7 @@ export default function ContactPage({
           }
           aria-labelledby={contact.bannerHeading ? "contact-title" : undefined}
         >
-          <div className="wrap">
+          <div className="container container-wide">
             <div className="page-hero-content contact-hero-content">
               {contact.bannerHeading && (
                 <h1 id="contact-title" data-aos="fade-up" data-aos-delay="50">
@@ -146,7 +146,7 @@ export default function ContactPage({
             className="section contact-connect-section"
             aria-label="Connect with us"
           >
-            <div className="wrap">
+            <div className="container container-wide">
               <div className="contact-connect-grid">
                 {contact.connectWithUs.map((item, index) => (
                   <article
@@ -190,7 +190,7 @@ export default function ContactPage({
               contact.contactTitle ? "contact-planning-title" : undefined
             }
           >
-            <div className="wrap">
+            <div className="container container-wide">
               <div
                 className="contact-planning-copy"
                 data-aos="fade-up"
@@ -318,7 +318,7 @@ export default function ContactPage({
         )}
         {(contact.locationIframe || (contact.locationButtonText && contact.locationButtonUrl)) && (
           <section className={`section ${styles.locationSection}`} aria-label="Find Pattoo Castle">
-            <div className={`wrap ${styles.locationInner}`}>
+            <div className={`container container-wide ${styles.locationInner}`}>
               {contact.locationIframe && (
                 <div className={styles.mapFrame}>
                   <iframe

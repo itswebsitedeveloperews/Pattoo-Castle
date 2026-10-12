@@ -68,7 +68,7 @@ export default function OutdoorsPage({
           outdoors.patiosAndBalconiesHeading ||
           outdoors.patiosAndBalconiesImages.length > 0) && (
           <section className={`section ${styles.outdoorSection}`}>
-            <div className="wrap">
+            <div className="container container-wide">
               {(outdoors.outdoorHeading || outdoors.outdoorContent) && (
                 <div className={styles.poolContent}>
                   {outdoors.outdoorHeading && (

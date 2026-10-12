@@ -4,7 +4,6 @@
 }
 
 .contentSection {
-  padding: 76px var(--container-gutter) 84px;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -74,9 +73,6 @@
 }
 
 @media (max-width: 767px) {
-  .contentSection {
-    padding: 52px 18px 58px;
-  }
 
   .contentInner h1,
   .contentInner h2 {
@@ -94,8 +90,4 @@
 }
 
 @media (max-width: 420px) {
-  .contentSection {
-    padding-right: 14px;
-    padding-left: 14px;
-  }
 }

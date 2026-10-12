@@ -1,5 +1,4 @@
 .outdoorSection {
-  padding: 80px 0;
   color: var(--color-brown);
   background: var(--color-cream);
   text-align: center;
@@ -86,7 +85,6 @@
 }
 
 @media (max-width: 767px) {
-  .outdoorSection { padding: 48px 0 56px; }
   .patiosContent { margin-top: 48px; }
   .patiosContent h2 { margin-bottom: 24px; }
   .poolBody ul,

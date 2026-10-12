@@ -1,4 +1,4 @@
-.bedroomSection { padding: 64px 0; color: var(--color-brown); background: var(--color-cream); }
+.bedroomSection { color: var(--color-brown); background: var(--color-cream); }
 .bedroomGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
 .bedroomCard { min-width: 0; text-align: left; }
 .bedroomSlider { position: relative; min-width: 0; }
@@ -16,5 +16,5 @@
 .bedroomCard p { white-space: pre-line; }
 .bedroomContent ul, .bedroomContent ol { margin: 0 0 6px; padding-left: 18px; }
 .bedroomContent li { padding-left: 2px; }
-@media (max-width: 1024px) { .bedroomSection { padding: 48px 24px; } }
-@media (max-width: 767px) { .bedroomSection { padding: 36px 18px 48px; } .bedroomGrid { grid-template-columns: 1fr; gap: 28px; } }
+@media (max-width: 1024px) { }
+@media (max-width: 767px) { .bedroomGrid { grid-template-columns: 1fr; gap: 28px; } }

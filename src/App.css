@@ -25,10 +25,7 @@ body.home-gallery-modal-is-open {
 }
 
 .section {
-  padding-top: 100px !important;
-  padding-bottom: 100px !important;
-  padding-left: 30px !important;
-  padding-right: 30px !important;
+  padding: 100px 0;
 }
 
 .pt-0 {
@@ -784,7 +781,6 @@ body:not(.home) .site-header {
 }
 
 .home-intro-section {
-  padding: 100px 0;
   border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18);
   background: var(--color-cream);
   color: var(--color-brown-dark);
@@ -873,65 +869,7 @@ body:not(.home) .site-header {
   text-underline-offset: 0.18em;
 }
 
-@media only screen and (max-width: 1279px) {
-  .home-intro-section {
-    padding: 84px 0;
-  }
-
-  .home-intro-inner {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-
-  .home-intro-media {
-    width: min(720px, 100%);
-    min-height: 430px;
-    margin: 0 auto;
-  }
-
-  .home-intro-content {
-    max-width: 760px;
-    margin: 0 auto;
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  .home-intro-section {
-    padding: 64px 0;
-  }
-
-  .home-intro-inner {
-    gap: 34px;
-  }
-
-  .home-intro-media {
-    display: grid;
-    gap: 16px;
-    min-height: 0;
-  }
-
-  .home-intro-image--primary,
-  .home-intro-media--single .home-intro-image {
-    width: 100%;
-    margin: 0;
-    aspect-ratio: 0.9;
-  }
-
-  .home-intro-image--secondary {
-    position: static;
-    width: 82%;
-    justify-self: end;
-    aspect-ratio: 1.35;
-  }
-
-  .home-intro-content h2 {
-    margin-bottom: 22px;
-  }
-}
-
 .home-gallery-section {
-  padding: 76px 0 88px;
-  /* border-top: 1px solid rgb(var(--color-brown-rgb) / 0.18); */
   background: var(--color-cream);
   color: var(--color-brown-dark);
 }
@@ -1078,49 +1016,7 @@ body:not(.home) .site-header {
   line-height: var(--line-height-tight);
 }
 
-@media only screen and (max-width: 767px) {
-  .home-gallery-section {
-    padding: 58px 0 66px;
-  }
-
-  .home-gallery-inner h2 {
-    margin-bottom: 24px;
-  }
-
-  .home-gallery-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .home-gallery-button {
-    width: min(100%, 220px);
-  }
-
-  .home-gallery-modal {
-    padding: 72px 18px;
-  }
-
-  .home-gallery-modal-close {
-    top: 18px;
-    right: 18px;
-  }
-
-  .home-gallery-modal-control {
-    width: 42px;
-    height: 42px;
-  }
-
-  .home-gallery-modal-control--previous {
-    left: 14px;
-  }
-
-  .home-gallery-modal-control--next {
-    right: 14px;
-  }
-}
-
 .home-map-section {
-  padding: 70px 0 78px;
   background: var(--color-brown);
   color: rgb(var(--color-white));
 }
@@ -1135,7 +1031,7 @@ body:not(.home) .site-header {
 .home-map-frame {
   width: min(100%, 1020px);
   padding: 7px;
-  border: 1px solid rgb(var(--color-white) / 0.58);
+  border: 1px solid rgb(var(--color-white) / 1);
 }
 
 .home-map-frame iframe {
@@ -1148,20 +1044,6 @@ body:not(.home) .site-header {
 .home-map-button {
   margin-top: 26px;
   min-width: 142px;
-}
-
-@media only screen and (max-width: 767px) {
-  .home-map-section {
-    padding: 52px 0 60px;
-  }
-
-  .home-map-frame {
-    padding: 5px;
-  }
-
-  .home-map-frame iframe {
-    height: 280px;
-  }
 }
 
 .header-actions .enquire-link,
@@ -1217,7 +1099,6 @@ body:not(.home) .site-header {
     var(--color-cream) 56% 100%
   );
   justify-items: center;
-  padding: 80px 0;
   display: grid;
 }
 .intro-panel {
@@ -1315,7 +1196,6 @@ body:not(.home) .site-header {
 .event-section {
   display: grid;
   justify-items: center;
-  padding: 50px 0 80px;
   background: var(--color-cream);
 }
 
@@ -1362,7 +1242,6 @@ body:not(.home) .site-header {
   --amenities-image-height: clamp(360px, 25.4vw, 550px);
   display: grid;
   gap: 82px;
-  padding: 48px 0 58px;
   overflow: hidden;
   color: rgb(var(--color-white));
   background: var(--color-brown);
@@ -1605,7 +1484,6 @@ body:not(.home) .site-header {
   display: grid;
   place-items: center;
   min-height: 900px;
-  padding: 104px 24px 78px;
   overflow: hidden;
   color: var(--color-brown);
   background: var(--color-cream);
@@ -1725,7 +1603,6 @@ body:not(.home) .site-header {
 .featured-quote-section {
   display: grid;
   justify-items: center;
-  padding: 96px 24px 118px;
   background: var(--color-cream);
   text-align: center;
 }
@@ -1754,7 +1631,6 @@ body:not(.home) .site-header {
 .gallery-preview-section {
   display: grid;
   justify-items: center;
-  padding: 100px 0;
   overflow: hidden;
   color: var(--color-brown);
   background: var(--color-cream);
@@ -2007,7 +1883,6 @@ body:not(.home) .site-header {
   display: grid;
   place-items: center;
   min-height: 560px;
-  padding: 100px 24px;
   overflow: hidden;
   color: var(--color-brown);
   background-color: var(--color-brown-darker);
@@ -2109,6 +1984,7 @@ body:not(.home) .site-header {
       rgb(var(--color-black) / var(--page-hero-overlay-opacity))
     ),
     var(--page-hero-image);
+  background-color: #4e3626;
   background-position: center;
   background-size: cover;
 }
@@ -2206,7 +2082,6 @@ body:not(.home) .site-header {
 }
 
 .contact-connect-section {
-  padding: 80px 0;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -2285,15 +2160,7 @@ body:not(.home) .site-header {
 }
 
 .about-villa-section {
-  padding: 88px var(--container-gutter) 104px;
   background: var(--color-cream);
-}
-
-.wrap {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1720px;
 }
 
 .about-villa-grid {
@@ -2301,7 +2168,6 @@ body:not(.home) .site-header {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 62px 48px;
   align-items: center;
-  max-width: 1340px;
   color: var(--color-brown);
 }
 
@@ -2351,12 +2217,12 @@ body:not(.home) .site-header {
 
 .overview-location-hero {
   --page-hero-image: var(--overview-location-banner-image);
-  --page-hero-overlay-opacity: 0.48;
+  --page-hero-overlay-opacity: 0.5;
 }
 
 .getting-here-hero {
   --page-hero-image: var(--getting-here-banner-image);
-  --page-hero-overlay-opacity: 0.48;
+  --page-hero-overlay-opacity: 0.5;
 }
 
 .overview-location-hero-content {
@@ -2379,18 +2245,13 @@ body:not(.home) .site-header {
 }
 
 .getting-here-content-section {
-  padding: 64px var(--container-gutter);
   background: var(--color-cream);
   color: var(--color-black);
   text-align: center;
 }
 
 .getting-here-content-text {
-  max-width: 1340px;
-  margin: 0 auto;
-  font-size: var(--font-size-medium);
   line-height: var(--line-height-body);
-  overflow-wrap: anywhere;
 }
 
 .getting-here-content-text > * {
@@ -2413,15 +2274,7 @@ body:not(.home) .site-header {
   text-underline-offset: 4px;
 }
 
-@media (max-width: 767px) {
-  .getting-here-content-section {
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-}
-
 .overview-location-section {
-  padding: 88px 0;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -2429,8 +2282,7 @@ body:not(.home) .site-header {
 .overview-location-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  max-width: 1340px;
-  gap: 40px;
+  gap: 48px;
   align-items: center;
 }
 
@@ -2464,8 +2316,8 @@ body:not(.home) .site-header {
 .overview-location-map-frame {
   min-width: 0;
   overflow: hidden;
-  padding: 8px;
-  border: 1px solid var(--color-brown);
+  padding: 10px;
+  border: 1px solid #4e3626;
   background: transparent;
 }
 
@@ -2477,7 +2329,6 @@ body:not(.home) .site-header {
 }
 
 .location-explore-section {
-  padding: 80px 0;
   color: var(--color-brown);
   background: var(--color-cream);
   text-align: center;
@@ -2573,7 +2424,6 @@ body:not(.home) .site-header {
   display: grid;
   place-items: center;
   min-height: 310px;
-  padding: 70px var(--container-gutter);
   color: rgb(var(--color-white));
   background:
     linear-gradient(
@@ -2612,7 +2462,6 @@ body:not(.home) .site-header {
 }
 
 .location-adventure-explore-section {
-  padding: 76px 0 84px;
   color: var(--color-brown);
   background: var(--color-cream);
   text-align: center;
@@ -2664,7 +2513,6 @@ body:not(.home) .site-header {
 }
 
 .location-jamaica-section {
-  padding: 80px 0;
   color: var(--color-brown);
   background: var(--color-dark-cream);
 }
@@ -2772,7 +2620,6 @@ body:not(.home) .site-header {
 }
 
 .location-highlights-section {
-  padding: 70px 0;
   color: var(--color-brown);
   background: var(--color-dark-cream);
   text-align: center;
@@ -2848,11 +2695,10 @@ body:not(.home) .site-header {
 }
 
 .event-inquiry-section {
-  padding: 80px 0 40px;
   color: var(--color-brown);
   background: var(--color-cream);
 }
-.event-inquiry-section .wrap {
+.event-inquiry-section .container-wide {
   display: grid;
   justify-items: center;
 }
@@ -3159,7 +3005,6 @@ body:not(.home) .site-header {
 }
 
 .gallery-grid-section {
-  padding: 42px 0;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -3298,12 +3143,11 @@ body:not(.home) .site-header {
 }
 
 .stay-inquiry-section {
-  padding: 20px 0 80px;
   color: var(--color-brown);
   background: var(--color-cream);
 }
 
-.stay-inquiry-section .wrap {
+.stay-inquiry-section .container-wide {
   display: grid;
   justify-items: center;
   gap: 28px;
@@ -3410,7 +3254,6 @@ body:not(.home) .site-header {
   min-height: 300px;
   place-items: center;
   overflow: hidden;
-  padding: 110px 0;
   color: rgb(var(--color-white));
   text-align: center;
   background:
@@ -3450,73 +3293,7 @@ body:not(.home) .site-header {
   margin: 0;
 }
 
-.accommodation-blocks-section {
-  padding: 64px 0;
-  background: var(--color-cream);
-}
-
-.accommodation-blocks-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  max-width: 1360px;
-  margin: 0 auto;
-}
-
-.accommodation-image-box {
-  display: block;
-  flex: 0 0 calc((100% - 32px) / 3);
-  min-width: 0;
-  color: var(--color-brown);
-  background: var(--color-cream);
-  text-decoration: none;
-  box-shadow: 0 12px 24px rgb(var(--color-black) / 0.1);
-}
-
-.accommodation-image-box img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1.48;
-  object-fit: cover;
-}
-
-.accommodation-image-box h2 {
-  margin: 0;
-  padding: 20px 12px;
-  text-align: center;
-  overflow-wrap: anywhere;
-}
-
-a.accommodation-image-box:hover h2 {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-a.accommodation-image-box:focus-visible {
-  outline: 2px solid var(--color-brown);
-  outline-offset: 4px;
-}
-
-@media (max-width: 1023px) {
-  .accommodation-image-box {
-    flex-basis: calc((100% - 16px) / 2);
-  }
-}
-
-@media (max-width: 599px) {
-  .accommodation-blocks-section {
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-
-  .accommodation-image-box {
-    flex-basis: 100%;
-  }
-}
-
 .accommodation-rooms-section {
-  padding: 80px 0;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -3581,7 +3358,6 @@ a.accommodation-image-box:focus-visible {
 }
 
 .overview-blocks-section {
-  padding: 100px 0;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -3589,7 +3365,7 @@ a.accommodation-image-box:focus-visible {
 .overview-blocks-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   gap: 24px;
 }
 
@@ -3610,12 +3386,11 @@ a.accommodation-image-box:focus-visible {
   box-shadow: 0 22px 48px rgb(var(--color-black) / 0.16);
   transform: translateY(-4px);
 }
-
 .overview-block-card img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 386 / 268;
+  aspect-ratio: 375 / 252;
   object-fit: cover;
+  width: 100%;
+  display: block;
 }
 
 .overview-block-content {
@@ -3629,10 +3404,10 @@ a.accommodation-image-box:focus-visible {
 }
 
 .site-footer {
-  padding: 80px 0 42px;
+  padding: 80px 0 30px;
   color: var(--color-brown);
   background: var(--color-cream);
-  border-top: 1px solid rgb(var(--color-brown-rgb) / 0.12);
+  border-top: 1px solid rgb(78, 54, 38, 0.12);
 }
 
 .site-footer-inner {
@@ -3665,7 +3440,7 @@ a.accommodation-image-box:focus-visible {
 .footer-contact-item span {
   margin: 0;
   color: var(--color-brown);
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-medium);
   line-height: var(--line-height-body);
   text-decoration: none;
 }
@@ -3706,7 +3481,7 @@ a.accommodation-image-box:focus-visible {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 48px;
+  gap: 32px 48px;
   padding: 38px 0;
   border-bottom: 1px solid rgb(var(--color-brown-rgb) / 0.12);
 }
@@ -3750,7 +3525,7 @@ a.accommodation-image-box:focus-visible {
 .footer-bottom a {
   margin: 0;
   color: var(--color-brown);
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-medium);
   line-height: var(--line-height-body);
   text-decoration: none;
 }
@@ -3759,6 +3534,92 @@ a.accommodation-image-box:focus-visible {
   display: flex;
   gap: 40px;
   align-items: center;
+}
+.contact-planning-section {
+  color: var(--color-brown);
+  background: var(--color-cream);
+}
+.contact-planning-section .container-wide {
+  max-width: 1440px;
+}
+.contact-planning-copy {
+  margin-bottom: 36px;
+  text-align: center;
+}
+.contact-planning-copy h2 {
+  margin: 0 0 24px;
+}
+.contact-planning-copy p {
+  margin: 0;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+.contact-planning-form {
+  display: block;
+}
+.contact-fields-panel {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px 24px;
+  padding: 32px;
+  border: 1px solid #e5d4bf;
+  background: #fffdf9;
+  box-shadow: 0 6px 16px rgb(67 43 24 / 10%);
+}
+.contact-form-field {
+  position: relative;
+  min-width: 0;
+}
+.contact-form-field--full {
+  grid-column: 1 / -1;
+}
+.contact-form-field--seven,
+.contact-form-field--five {
+  grid-column: span 2;
+}
+.contact-form-field label {
+  position: absolute;
+  top: -9px;
+  left: 16px;
+  padding: 0 4px;
+  background: #fffdf9;
+  color: var(--color-brown);
+  font-size: 13px;
+  line-height: 18px;
+}
+.contact-form-field input,
+.contact-form-field select,
+.contact-form-field textarea {
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  padding: 16px;
+  border: 1px solid #e5d4bf;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--color-brown);
+  font: inherit;
+  font-size: 14px;
+}
+.contact-form-field textarea {
+  resize: vertical;
+}
+.contact-form-field input:focus-visible,
+.contact-form-field select:focus-visible,
+.contact-form-field textarea:focus-visible {
+  outline: 2px solid var(--color-brown);
+  outline-offset: 3px;
+}
+.contact-form-submit-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+.contact-form-submit {
+  width: min(100%, 350px);
+}
+.contact-planning-form .form-submit-status {
+  text-align: center;
 }
 
 @media only screen and (max-width: 1440px) {
@@ -3791,7 +3652,26 @@ a.accommodation-image-box:focus-visible {
   }
 }
 
-@media only screen and (max-width: 1279px) {
+@media only screen and (max-width: 1280px) {
+  .home-intro-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .home-intro-media {
+    width: min(720px, 100%);
+    min-height: 430px;
+    margin: 0 auto;
+  }
+
+  .home-intro-content {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .section {
+    padding: 70px 0;
+  }
+
   .site-header {
     grid-template-columns: auto 1fr auto;
     align-items: center;
@@ -3814,6 +3694,7 @@ a.accommodation-image-box:focus-visible {
     position: relative;
     z-index: 20;
     display: block;
+    margin-left: auto;
     grid-column: 3;
   }
 
@@ -3979,7 +3860,6 @@ a.accommodation-image-box:focus-visible {
 
   .caribbean-living-section {
     min-height: 560px;
-    padding: 72px 24px 58px;
   }
 
   .caribbean-living-map {
@@ -4000,16 +3880,8 @@ a.accommodation-image-box:focus-visible {
     min-height: 360px;
   }
 
-  .featured-quote-section {
-    padding: 82px 24px 88px;
-  }
-
   .featured-quote-section blockquote {
     font-size: var(--font-size-global-h2);
-  }
-
-  .gallery-preview-section {
-    padding: 34px 0 48px;
   }
 
   .gallery-preview-images {
@@ -4022,7 +3894,6 @@ a.accommodation-image-box:focus-visible {
 
   .reserve-stay-section {
     min-height: 500px;
-    padding: 56px 24px;
   }
 
   .page-hero {
@@ -4043,9 +3914,6 @@ a.accommodation-image-box:focus-visible {
   .number-item .number-icon {
     max-height: 56px;
   }
-  .contact-connect-section {
-    padding: 60px 0;
-  }
 
   .contact-connect-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4054,10 +3922,6 @@ a.accommodation-image-box:focus-visible {
 
   .contact-connect-card:nth-child(2n + 1) {
     border-left: 0;
-  }
-
-  .about-villa-section {
-    padding: 78px 32px 70px;
   }
 
   .about-villa-grid {
@@ -4069,8 +3933,12 @@ a.accommodation-image-box:focus-visible {
     max-width: 100%;
   }
 
-  .overview-location-section {
-    padding: 64px 0;
+  .about-villa-media--secondary {
+    order: 1;
+  }
+
+  .about-villa-content--secondary {
+    order: 2;
   }
 
   .overview-location-grid {
@@ -4081,10 +3949,6 @@ a.accommodation-image-box:focus-visible {
 
   .overview-location-map-frame {
     width: 100%;
-  }
-
-  .location-explore-section {
-    padding: 60px 0;
   }
 
   .location-explore-header {
@@ -4109,11 +3973,6 @@ a.accommodation-image-box:focus-visible {
 
   .location-adventure-section {
     min-height: 270px;
-    padding: 58px 30px;
-  }
-
-  .location-adventure-explore-section {
-    padding: 60px 0 66px;
   }
 
   .location-adventure-explore-header {
@@ -4125,10 +3984,6 @@ a.accommodation-image-box:focus-visible {
     gap: 32px 22px;
   }
 
-  .location-jamaica-section {
-    padding: 60px 0;
-  }
-
   .location-jamaica-grid {
     grid-template-columns: 1fr;
     gap: 46px;
@@ -4136,10 +3991,6 @@ a.accommodation-image-box:focus-visible {
 
   .location-jamaica-left-body {
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
-  }
-
-  .location-highlights-section {
-    padding: 60px 0;
   }
 
   .location-highlights-grid {
@@ -4165,19 +4016,6 @@ a.accommodation-image-box:focus-visible {
     border-left: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
   }
 
-  .location-explore-section,
-  .location-adventure-explore-section,
-  .location-jamaica-section,
-  .location-highlights-section {
-    padding-top: 50px;
-    padding-bottom: 50px;
-  }
-
-  .location-adventure-section {
-    padding-top: 50px;
-    padding-bottom: 50px;
-  }
-
   .gallery-filter-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -4199,10 +4037,6 @@ a.accommodation-image-box:focus-visible {
     border-top: 0;
   }
 
-  .stay-inquiry-section {
-    padding: 0 0 60px;
-  }
-
   .event-inquiry-submit {
     margin-top: 0;
   }
@@ -4218,11 +4052,6 @@ a.accommodation-image-box:focus-visible {
 
   .stay-cta-section {
     min-height: 260px;
-    padding: 60px 0;
-  }
-
-  .accommodation-rooms-section {
-    padding: 70px 0;
   }
 
   .accommodation-rooms-grid {
@@ -4231,10 +4060,6 @@ a.accommodation-image-box:focus-visible {
     width: 100%;
     margin-right: auto;
     margin-left: auto;
-  }
-
-  .overview-blocks-section {
-    padding: 60px 0;
   }
 
   .overview-blocks-grid {
@@ -4248,14 +4073,6 @@ a.accommodation-image-box:focus-visible {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .footer-bottom,
-  .footer-bottom > div {
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-    text-align: center;
-  }
-
   .number-item-image {
     width: 44px;
     height: 44px;
@@ -4267,10 +4084,6 @@ a.accommodation-image-box:focus-visible {
   .number-item {
     padding: 0 20px;
     justify-content: center;
-  }
-
-  .event-inquiry-section {
-    padding: 60px 0 30px;
   }
 
   .event-inquiry-form {
@@ -4303,10 +4116,6 @@ a.accommodation-image-box:focus-visible {
     grid-column: 1 / -1;
   }
 
-  .event-section {
-    padding: 20px 0 80px;
-  }
-
   /* .gallery-preview-image-button {
     display: none;
   } */
@@ -4323,9 +4132,90 @@ a.accommodation-image-box:focus-visible {
   #stay-inquiry-form .event-inquiry-submit {
     margin-top: 24px;
   }
+  .contact-fields-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .contact-form-field--seven,
+  .contact-form-field--five {
+    grid-column: auto;
+  }
 }
 
 @media only screen and (max-width: 767px) {
+  .home-intro-inner {
+    gap: 34px;
+  }
+
+  .home-intro-media {
+    display: grid;
+    gap: 16px;
+    min-height: 0;
+    padding-bottom: 24px;
+  }
+
+  .home-intro-image--primary,
+  .home-intro-media--single .home-intro-image {
+    width: 84%;
+    margin: 0;
+    aspect-ratio: 0.9;
+  }
+
+  /* .home-intro-image--secondary {
+    position: static;
+    width: 82%;
+    justify-self: end;
+    aspect-ratio: 1.35;
+  } */
+
+  .home-intro-content h2 {
+    margin-bottom: 16px;
+  }
+  .home-gallery-inner h2 {
+    margin-bottom: 24px;
+  }
+
+  .home-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .home-gallery-item {
+    padding: 6px;
+  }
+
+  .home-gallery-button {
+    width: min(100%, 220px);
+  }
+
+  .home-gallery-modal {
+    padding: 72px 18px;
+  }
+
+  .home-gallery-modal-close {
+    top: 18px;
+    right: 18px;
+  }
+
+  .home-gallery-modal-control {
+    width: 42px;
+    height: 42px;
+  }
+
+  .home-gallery-modal-control--previous {
+    left: 14px;
+  }
+
+  .home-gallery-modal-control--next {
+    right: 14px;
+  }
+
+  .home-map-frame {
+    padding: 5px;
+  }
+
+  .home-map-frame iframe {
+    height: 280px;
+  }
   :root {
     --container-padding: 16px;
   }
@@ -4336,8 +4226,7 @@ a.accommodation-image-box:focus-visible {
     gap: 24px;
   }
   .section {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
+    padding: 50px 0;
   }
   .hero {
     min-height: 600px;
@@ -4380,7 +4269,6 @@ a.accommodation-image-box:focus-visible {
     max-width: 360px;
   }
   .intro-section {
-    padding: 44px 0 48px;
     background: linear-gradient(
       180deg,
       var(--color-brown) 0 78%,
@@ -4419,10 +4307,6 @@ a.accommodation-image-box:focus-visible {
     aspect-ratio: 4 / 3;
   }
 
-  .event-section {
-    padding: 0 0 34px;
-  }
-
   .event-section h2 strong {
     display: inline-block;
     padding-left: 8px;
@@ -4446,7 +4330,6 @@ a.accommodation-image-box:focus-visible {
   }
   .amenities-section {
     --amenities-image-height: clamp(230px, 62vw, 330px);
-    padding: 38px 0 44px;
   }
 
   .amenities-copy h3 {
@@ -4460,7 +4343,6 @@ a.accommodation-image-box:focus-visible {
 
   .caribbean-living-section {
     min-height: 520px;
-    padding: 60px 20px 48px;
   }
 
   .caribbean-living-map {
@@ -4509,10 +4391,6 @@ a.accommodation-image-box:focus-visible {
     height: 30px;
   }
 
-  .featured-quote-section {
-    padding: 60px 0;
-  }
-
   .featured-quote-section blockquote {
     margin-top: 6px;
     margin-bottom: 0;
@@ -4522,10 +4400,6 @@ a.accommodation-image-box:focus-visible {
 
   .featured-quote-section p {
     margin-top: 34px;
-  }
-
-  .gallery-preview-section {
-    padding: 28px 0 42px;
   }
 
   .gallery-preview-images {
@@ -4548,7 +4422,6 @@ a.accommodation-image-box:focus-visible {
 
   .reserve-stay-section {
     min-height: 480px;
-    padding: 44px 20px;
   }
 
   .reserve-stay-card {
@@ -4600,10 +4473,6 @@ a.accommodation-image-box:focus-visible {
     margin-top: 30px;
   }
 
-  .contact-connect-section {
-    padding: 40px 0;
-  }
-
   .contact-connect-card img {
     width: 36px;
     height: 36px;
@@ -4634,20 +4503,12 @@ a.accommodation-image-box:focus-visible {
     font-size: 19px;
   }
 
-  .about-villa-section {
-    padding: 50px 0;
-  }
-
   .about-villa-grid {
-    gap: 32px;
+    gap: 24px;
   }
 
   .about-villa-media img {
     aspect-ratio: 16 / 10;
-  }
-
-  .overview-location-section {
-    padding: 50px 0;
   }
 
   .overview-location-grid {
@@ -4657,10 +4518,6 @@ a.accommodation-image-box:focus-visible {
   .overview-location-button {
     width: 100%;
     margin-top: 22px;
-  }
-
-  .location-explore-section {
-    padding: 50px 0;
   }
 
   .location-explore-header {
@@ -4689,16 +4546,11 @@ a.accommodation-image-box:focus-visible {
 
   .location-adventure-section {
     min-height: 260px;
-    padding: 50px 16px;
   }
 
   .location-adventure-content > p:not(.location-adventure-eyebrow) {
     margin-top: 16px;
     font-size: var(--font-size-small);
-  }
-
-  .location-adventure-explore-section {
-    padding: 50px 0 54px;
   }
 
   .location-adventure-explore-header {
@@ -4718,10 +4570,6 @@ a.accommodation-image-box:focus-visible {
     margin-top: 16px;
   }
 
-  .location-jamaica-section {
-    padding: 50px 0;
-  }
-
   .location-jamaica-grid {
     gap: 38px;
   }
@@ -4736,10 +4584,6 @@ a.accommodation-image-box:focus-visible {
   .location-jamaica-image img,
   .location-jamaica-card img {
     aspect-ratio: 4 / 3;
-  }
-
-  .location-highlights-section {
-    padding: 50px 0;
   }
 
   .location-highlights-section h2,
@@ -4772,10 +4616,6 @@ a.accommodation-image-box:focus-visible {
   }
   .whats-included-grid .location-highlight-card:nth-child(n + 3) {
     border-top: 1px solid rgb(var(--color-brown-rgb, 82 53 35) / 0.22);
-  }
-
-  .gallery-grid-section {
-    padding: 32px 0;
   }
 
   .gallery-filter-grid {
@@ -4846,20 +4686,12 @@ a.accommodation-image-box:focus-visible {
     width: min(100%, 240px);
   }
 
-  .stay-cta-section {
-    padding: 50px 0;
-  }
-
   .stay-cta-text {
     font-size: var(--font-size-nav);
     margin-top: 8px;
   }
   .stay-cta-eyebrow {
     margin-bottom: 5px;
-  }
-
-  .accommodation-rooms-section {
-    padding: 50px 0;
   }
 
   .accommodation-rooms-header > p:not(.accommodation-rooms-eyebrow) {
@@ -4876,10 +4708,6 @@ a.accommodation-image-box:focus-visible {
 
   .accommodation-room-card p {
     margin: 0;
-  }
-
-  .overview-blocks-section {
-    padding: 50px 0 20px;
   }
 
   .overview-block-content {
@@ -4932,10 +4760,6 @@ a.accommodation-image-box:focus-visible {
   .contact-connect-card {
     padding-right: 10px;
     padding-left: 10px;
-  }
-
-  .event-inquiry-section {
-    padding: 50px 0 20px;
   }
 
   .event-inquiry-header {
@@ -4994,7 +4818,6 @@ a.accommodation-image-box:focus-visible {
 
   .stay-inquiry-section {
     gap: 22px;
-    padding: 0px 0 50px;
   }
 
   .stay-inquiry-form .stay-inquiry-form-content {
@@ -5027,7 +4850,6 @@ a.accommodation-image-box:focus-visible {
 
   .stay-cta-section {
     min-height: 240px;
-    padding: 54px 18px;
   }
 
   .stay-inquiry-form .stay-inquiry-form-content {
@@ -5070,106 +4892,13 @@ a.accommodation-image-box:focus-visible {
   .location-explore-card p {
     font-size: var(--font-size-medium);
   }
-}
-.contact-planning-section {
-  padding: 72px 0;
-  color: var(--color-brown);
-  background: var(--color-cream);
-}
-.contact-planning-section .wrap {
-  max-width: 1440px;
-}
-.contact-planning-copy {
-  margin-bottom: 36px;
-  text-align: center;
-}
-.contact-planning-copy h2 {
-  margin: 0 0 24px;
-}
-.contact-planning-copy p {
-  margin: 0;
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-}
-.contact-planning-form {
-  display: block;
-}
-.contact-fields-panel {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 28px 24px;
-  padding: 32px;
-  border: 1px solid #e5d4bf;
-  background: #fffdf9;
-  box-shadow: 0 6px 16px rgb(67 43 24 / 10%);
-}
-.contact-form-field {
-  position: relative;
-  min-width: 0;
-}
-.contact-form-field--full {
-  grid-column: 1 / -1;
-}
-.contact-form-field--seven,
-.contact-form-field--five {
-  grid-column: span 2;
-}
-.contact-form-field label {
-  position: absolute;
-  top: -9px;
-  left: 16px;
-  padding: 0 4px;
-  background: #fffdf9;
-  color: var(--color-brown);
-  font-size: 13px;
-  line-height: 18px;
-}
-.contact-form-field input,
-.contact-form-field select,
-.contact-form-field textarea {
-  display: block;
-  width: 100%;
-  min-height: 52px;
-  padding: 16px;
-  border: 1px solid #e5d4bf;
-  border-radius: 4px;
-  background: transparent;
-  color: var(--color-brown);
-  font: inherit;
-  font-size: 14px;
-}
-.contact-form-field textarea {
-  resize: vertical;
-}
-.contact-form-field input:focus-visible,
-.contact-form-field select:focus-visible,
-.contact-form-field textarea:focus-visible {
-  outline: 2px solid var(--color-brown);
-  outline-offset: 3px;
-}
-.contact-form-submit-row {
-  display: flex;
-  justify-content: center;
-  margin-top: 32px;
-}
-.contact-form-submit {
-  width: min(100%, 350px);
-}
-.contact-planning-form .form-submit-status {
-  text-align: center;
-}
-@media (max-width: 1024px) {
-  .contact-fields-panel {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .contact-form-field--seven,
-  .contact-form-field--five {
-    grid-column: auto;
-  }
-}
-@media (max-width: 600px) {
-  .contact-planning-section {
-    padding: 48px 0;
+
+  .footer-bottom,
+  .footer-bottom > div {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
   }
   .contact-fields-panel {
     grid-template-columns: minmax(0, 1fr);

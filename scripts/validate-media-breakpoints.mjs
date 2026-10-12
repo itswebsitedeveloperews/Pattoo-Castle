@@ -5,7 +5,7 @@ const cssFiles = [
   fileURLToPath(new URL("../src/App.css", import.meta.url)),
   fileURLToPath(new URL("../src/index.css", import.meta.url)),
 ];
-const allowedWidthBreakpoints = new Set(["1440px", "1279px", "1024px", "767px"]);
+const allowedWidthBreakpoints = new Set(["1440px", "1280px", "1279px", "1024px", "767px"]);
 const failures = [];
 
 for (const filePath of cssFiles) {

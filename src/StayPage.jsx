@@ -61,7 +61,7 @@ export default function StayPage({
           }
           aria-labelledby={stay.bannerHeading ? "stay-title" : undefined}
         >
-          <div className="wrap">
+          <div className="container container-wide">
             <div className="page-hero-content stay-hero-content">
               {stay.bannerHeading && (
                 <h1 id="stay-title" data-aos="fade-up" data-aos-delay="50">
@@ -80,7 +80,7 @@ export default function StayPage({
             aria-labelledby={stay.findUsHeading ? "find-us-title" : undefined}
             aria-label={stay.findUsHeading ? undefined : "Find us on"}
           >
-            <div className={`wrap ${styles.findUsInner}`}>
+            <div className={`container container-wide ${styles.findUsInner}`}>
               {stay.findUsHeading && <h2 id="find-us-title">{stay.findUsHeading}</h2>}
               {stay.findUsBlocks.length > 0 && (
                 <ul className={styles.findUsGrid}>
@@ -97,7 +97,7 @@ export default function StayPage({
 
         {stay.informationBlocks.length > 0 && (
           <section className={`section ${styles.informationSection}`} aria-label="Stay information and policies">
-            <div className={`wrap ${styles.informationGrid}`}>
+            <div className={`container container-wide ${styles.informationGrid}`}>
               {stay.informationBlocks.map((block, index) => (
                 <article className={styles.informationBlock} key={`${block.id || "information"}-${index}`}>
                   {block.title && <h2>{block.title}</h2>}

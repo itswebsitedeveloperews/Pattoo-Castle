@@ -92,7 +92,7 @@ export default function StaffPage({
             className={`section ${styles.staffBlocksSection}`}
             aria-label="Staff services"
           >
-            <ul className={`wrap ${styles.staffBlocksGrid}`}>
+            <ul className={`container container-wide ${styles.staffBlocksGrid}`}>
               {staff.staffBlocks.map((block, index) => (
                 <li
                   className={styles.staffBlock}
@@ -110,7 +110,7 @@ export default function StaffPage({
             className={`section ${styles.teamSection}`}
             aria-labelledby={staff.teamHeading ? "staff-team-title" : undefined}
           >
-            <div className={`wrap ${styles.teamInner}`}>
+            <div className={`container container-wide ${styles.teamInner}`}>
               <div className={styles.teamHeader}>
                 {staff.teamSubHeading && (
                   <p className={`eyebrow ${styles.teamEyebrow}`}>

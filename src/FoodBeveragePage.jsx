@@ -66,7 +66,7 @@ export default function FoodBeveragePage({
             aria-label="Food and beverage at Pattoo Castle"
           >
             <div
-              className={`wrap ${styles.inner}${
+              className={`container container-wide ${styles.inner}${
                 !foodBeverage.image?.src || !foodBeverage.content
                   ? ` ${styles.singleColumn}`
                   : ""

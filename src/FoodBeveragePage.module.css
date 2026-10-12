@@ -1,5 +1,4 @@
 .foodBeverageSection {
-  padding: 72px 0;
   color: var(--color-brown);
   background: var(--color-cream);
 }
@@ -35,6 +34,5 @@
 .singleColumn { grid-template-columns: minmax(0, 1fr); }
 
 @media (max-width: 767px) {
-  .foodBeverageSection { padding: 48px 0; }
   .inner { grid-template-columns: minmax(0, 1fr); gap: 28px; }
 }
