@@ -3699,9 +3699,6 @@ body:not(.home) .site-header {
     max-width: 510px;
   }
 
-  .hero h1 {
-    max-width: 574px;
-  }
   .explore-experience-content {
     min-height: 490px;
   }
@@ -3806,10 +3803,6 @@ body:not(.home) .site-header {
 
   .hero-heading-wrap {
     gap: 18px;
-  }
-
-  .hero h1 {
-    max-width: 560px;
   }
 
   .event-card-grid {
@@ -4265,9 +4258,6 @@ body:not(.home) .site-header {
     padding: 34px 0 62px;
   }
 
-  .hero h1 {
-    max-width: 360px;
-  }
   .intro-section {
     background: linear-gradient(
       180deg,
