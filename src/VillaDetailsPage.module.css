@@ -113,6 +113,9 @@
   display: inline-block;
 }
 @media (max-width: 1024px) {
+  .bedroomContent {
+font-size: var(--font-size-medium);
+  }
 }
 @media (max-width: 767px) {
   .bedroomGrid {
