@@ -81,9 +81,7 @@ function renderRichText(value) {
       .split(/\r?\n/)
       .map((item) => item.trim())
       .filter(Boolean)
-      .map((item, index) => (
-        <p key={`bedroom-text-${index}`}>{item}</p>
-      ));
+      .map((item, index) => <p key={`bedroom-text-${index}`}>{item}</p>);
   }
 
   return (value.content || []).map((node, index) =>
@@ -93,7 +91,9 @@ function renderRichText(value) {
 
 function getBedroomBlock(item) {
   const fields = item?.fields || {};
-  const images = (Array.isArray(fields.images) ? fields.images : []).map(getContentfulImage).filter((image) => image?.src);
+  const images = (Array.isArray(fields.images) ? fields.images : [])
+    .map(getContentfulImage)
+    .filter((image) => image?.src);
 
   return {
     images,
@@ -105,9 +105,9 @@ function getBedroomBlock(item) {
 function getVillaDetailsContent(entry) {
   const fields = entry?.fields || {};
   const bedroomBlocks = Array.isArray(fields.bedroomBlocks)
-    ? fields.bedroomBlocks.map(getBedroomBlock).filter(
-        (item) => item.images.length || item.title || item.content,
-      )
+    ? fields.bedroomBlocks
+        .map(getBedroomBlock)
+        .filter((item) => item.images.length || item.title || item.content)
     : [];
 
   return {
@@ -173,9 +173,14 @@ export default function VillaDetailsPage({
                       data-aos-delay={String((index % 2) * 80)}
                       key={`${item.title}-${index}`}
                     >
-                      <BedroomImageSlider images={item.images} title={item.title || `Bedroom ${index + 1}`} />
-                      {item.title && <h2>{item.title}</h2>}
-                      <div className={styles.bedroomContent}>{renderRichText(item.content)}</div>
+                      <BedroomImageSlider
+                        images={item.images}
+                        title={item.title || `Bedroom ${index + 1}`}
+                      />
+                      {item.title && <h2 className="h4">{item.title}</h2>}
+                      <div className={styles.bedroomContent}>
+                        {renderRichText(item.content)}
+                      </div>
                     </article>
                   ))}
                 </div>

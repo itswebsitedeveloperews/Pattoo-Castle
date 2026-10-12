@@ -128,10 +128,7 @@
 }
 
 .bedroomsSection ul {
-  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 10px;
-  row-gap: 13px;
 }
 
 .richText li {
@@ -208,6 +205,7 @@
   .richText ul,
   .richText ol {
     grid-template-columns: 1fr;
+    gap: 10px 0;
   }
 }
 
