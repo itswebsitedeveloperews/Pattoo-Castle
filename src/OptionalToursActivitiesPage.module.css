@@ -6,7 +6,7 @@
 .activitiesGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 32px 24px;
+  gap: 40px 28px;
 }
 
 .activityCard {
@@ -17,31 +17,53 @@
 .activityImage {
   display: block;
   width: 100%;
-  aspect-ratio: 1.72;
+  aspect-ratio: 1.74;
   object-fit: cover;
 }
 
 .activityCard h2 {
-  margin: 16px 0 12px;
+  margin: 20px 0 8px;
+  color: var(--color-brown);
 }
 
 .activityContent {
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
+  color: var(--color-brown-dark);
   overflow-wrap: anywhere;
 }
 
-.activityContent p { margin: 0 0 12px; }
-.activityContent > :last-child { margin-bottom: 0; }
+.activityContent p {
+  margin: 0 0 12px;
+}
+.activityContent > :last-child {
+  margin-bottom: 0;
+}
 .activityContent ul,
-.activityContent ol { padding-left: 24px; }
-.activityContent a { text-decoration: underline; text-underline-offset: 3px; }
-.activityContent a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.activityContent ol {
+  padding-left: 24px;
+}
+.activityContent a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.activityContent a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
 
 @media (max-width: 1024px) {
-  .activitiesGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .activitiesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 600px) {
-  .activitiesGrid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .activitiesGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  .activityCard h2 {
+    margin: 16px 0 6px;
+  }
 }

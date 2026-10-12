@@ -70,15 +70,14 @@ export default function EventsPage({
           </div>
         </section>
         {event.blocks.length > 0 && (
-          <section className={`section ${styles.blocksSection}`} aria-label="Events at Pattoo Castle">
-            <div className={`container container-wide ${styles.blocksGrid}`}>
+          <section className={`section overview-blocks-section ${styles.blocksSection}`} aria-label="Events at Pattoo Castle">
+            <div className="container container-wide overview-blocks-grid">
               {event.blocks.map((block, index) => (
-                <article className={styles.block} key={`${block.id || "event-block"}-${index}`}>
+                <article className={`overview-block-card ${styles.block}`} key={`${block.id || "event-block"}-${index}`} data-aos="fade-up" data-aos-delay={String(index * 100)}>
                   {block.image?.src && (
                     block.buttonUrl ? (
                       <a className={styles.blockImageLink} href={block.buttonUrl}>
                         <img
-                          className={styles.blockImage}
                           src={block.image.src}
                           alt={block.image.alt || block.title || "Pattoo Castle event"}
                           loading="lazy"
@@ -86,16 +85,15 @@ export default function EventsPage({
                       </a>
                     ) : (
                       <img
-                        className={styles.blockImage}
                         src={block.image.src}
                         alt={block.image.alt || block.title || "Pattoo Castle event"}
                         loading="lazy"
                       />
                     )
                   )}
-                  <div className={styles.blockBody}>
+                  <div className={`overview-block-content ${styles.blockBody}`}>
                     {block.title && (
-                      <h2>
+                      <h2 className="text-center h3">
                         {block.buttonUrl ? (
                           <a className={styles.blockTitleLink} href={block.buttonUrl}>
                             {block.title}

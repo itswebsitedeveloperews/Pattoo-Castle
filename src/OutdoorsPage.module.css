@@ -57,10 +57,9 @@
 .slickSlider {
   margin: 0 -10px;
 }
-.slickSlider :global(.slick-list) {
-  padding-bottom: 28px;
+/* .slickSlider :global(.slick-list) {
   margin-bottom: -28px;
-}
+} */
 .slideSlot {
   padding: 0 10px;
   display: block !important;

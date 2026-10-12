@@ -1,17 +1,19 @@
-.blocksSection {
-  color: var(--color-brown);
-  background: var(--color-cream);
+.blocksSection :global(.overview-block-card) {
+  width: calc(50% - 12px);
 }
 
-.blocksGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 40px 24px;
+.blocksSection :global(.overview-block-card) img {
+  aspect-ratio: 375 / 166;
+}
+
+.blocksSection :global(.overview-block-card):hover,
+.blocksSection :global(.overview-block-card):focus-within {
+  box-shadow: 0 22px 48px rgb(var(--color-black) / 0.16);
+  transform: translateY(-4px);
 }
 
 .block { display: flex; flex-direction: column; min-width: 0; text-align: center; }
-.blockImage { display: block; width: 100%; aspect-ratio: 1.72; object-fit: cover; }
-.blockBody { display: flex; flex: 1; flex-direction: column; align-items: center; gap: 16px; padding-top: 20px; }
+.blockBody { display: flex; flex: 1; flex-direction: column; align-items: center; gap: 16px; }
 .blockBody h2 { margin: 0; }
 .blockContent { width: 100%; font-size: var(--font-size-body); line-height: var(--line-height-body); overflow-wrap: anywhere; }
 .blockContent p { margin: 0 0 12px; }
@@ -25,10 +27,6 @@
 .blockImageLink:focus-visible,
 .blockTitleLink:focus-visible { outline: 2px solid var(--color-brown); outline-offset: 4px; }
 
-@media (max-width: 1024px) {
-  .blocksGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media (max-width: 600px) {
-  .blocksGrid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+@media (max-width: 767px) {
+  .blocksSection :global(.overview-block-card) { width: 100%; }
 }

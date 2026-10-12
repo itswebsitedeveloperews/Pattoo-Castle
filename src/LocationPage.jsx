@@ -476,42 +476,42 @@ export default function LocationPage({
 
         {location.exploreNegrilBlocks.length > 0 && (
           <section
-            className={`section ${styles.exploreNegrilSection}`}
+            className={`section overview-blocks-section ${styles.exploreNegrilSection}`}
             aria-label="Explore Negril"
           >
-            <div className={`container container-wide ${styles.exploreNegrilGrid}`}>
+            <div className="container container-wide overview-blocks-grid">
               {location.exploreNegrilBlocks.map((item, index) => {
-                const cardContent = (
-                  <>
+                const BlockElement = item.buttonUrl ? "a" : "article";
+                const blockProps = item.buttonUrl
+                  ? {
+                      href: item.buttonUrl,
+                      "aria-label": item.title
+                        ? `Open ${item.title}`
+                        : item.buttonText || `Open Negril item ${index + 1}`,
+                    }
+                  : {};
+
+                return (
+                  <BlockElement
+                    className="overview-block-card"
+                    key={`${item.image?.src || item.title}-${index}`}
+                    data-aos="fade-up"
+                    data-aos-delay={String(index * 100)}
+                    {...blockProps}
+                  >
                     {item.image?.src && (
                       <img
-                        className={styles.cardImage}
                         src={item.image.src}
                         alt={item.image.alt || item.title || "Explore Negril"}
                         loading="lazy"
                       />
                     )}
-                    {item.title && (
-                      <h2 className={styles.cardTitle}>{item.title}</h2>
-                    )}
-                  </>
-                );
-
-                return (
-                  <article
-                    className={styles.exploreNegrilCard}
-                    key={`${item.image?.src || item.title}-${index}`}
-                  >
-                    {item.buttonUrl ? (
-                      <a
-                        className={styles.cardLink}
-                        href={item.buttonUrl}
-                        aria-label={item.title || item.buttonText || "Explore Negril"}
-                      >
-                        {cardContent}
-                      </a>
-                    ) : cardContent}
-                  </article>
+                    <div className="overview-block-content">
+                      {item.title && (
+                        <h2 className="text-center h3">{item.title}</h2>
+                      )}
+                    </div>
+                  </BlockElement>
                 );
               })}
             </div>

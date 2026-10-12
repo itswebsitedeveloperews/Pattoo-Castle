@@ -8,11 +8,17 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
-  gap: 36px;
+  gap: 50px;
 }
 
-.singleColumn { grid-template-columns: minmax(0, 1fr); }
-.mapPart { min-width: 0; padding: 8px; background: white; }
+.singleColumn {
+  grid-template-columns: minmax(0, 1fr);
+}
+.mapPart {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--color-brown);
+}
 .mapPart iframe {
   display: block;
   width: 100%;
@@ -30,59 +36,62 @@
 }
 
 .locationContent p,
-.historyContent p { margin: 0 0 16px; }
+.historyContent p {
+  margin: 0 0 16px;
+}
 .locationContent > :first-child,
-.historyContent > :first-child { margin-top: 0; }
+.historyContent > :first-child {
+  margin-top: 0;
+}
 .locationContent > :last-child,
-.historyContent > :last-child { margin-bottom: 0; }
-.historySection { text-align: center; }
-.mapSection + .historySection { padding-top: 0; }
-.historySection h2 { margin: 0 0 32px; }
-
-.exploreNegrilSection {
-  color: var(--color-brown);
-  background: var(--color-cream);
+.historyContent > :last-child {
+  margin-bottom: 0;
 }
-
-.exploreNegrilGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-}
-
-.exploreNegrilCard {
-  min-width: 0;
-  background: var(--color-cream);
-  box-shadow: 0 12px 24px rgb(0 0 0 / 10%);
+.historySection {
   text-align: center;
 }
-
-.cardImage {
-  display: block;
-  width: 100%;
-  aspect-ratio: 2.25;
-  object-fit: cover;
+.mapSection + .historySection {
+  padding-top: 0;
+}
+.historySection h2 {
+  margin: 0 0 32px;
+  color: var(--color-brown);
 }
 
-.cardTitle {
-  margin: 0;
-  padding: 24px 16px;
+.exploreNegrilSection :global(.overview-block-card) {
+  width: calc(50% - 12px);
 }
 
-.cardLink {
-  display: block;
-  height: 100%;
-  color: inherit;
-  text-decoration: none;
+.exploreNegrilSection :global(.overview-block-card) img {
+  aspect-ratio: 375 / 166;
 }
-
-.cardLink:hover .cardTitle { text-decoration: underline; text-underline-offset: 4px; }
-.cardLink:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
-
+@media (max-width: 1340px) {
+  .mapPart iframe {
+    aspect-ratio: 1.2;
+  }
+}
+@media (max-width: 1024px) {
+  .mapPart iframe {
+    aspect-ratio: 2.2;
+  }
+  .mapLayout {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
 @media (max-width: 767px) {
-  .mapLayout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-  .mapPart iframe { aspect-ratio: 4 / 3; }
-  .historySection h2 { margin-bottom: 24px; }
-  .exploreNegrilGrid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
-  .cardTitle { padding: 20px 16px; }
+  .exploreNegrilSection :global(.overview-block-card) {
+    width: 100%;
+  }
+  .mapLayout {
+    gap: 28px;
+  }
+  .mapPart iframe {
+    aspect-ratio: 4 / 3;
+  }
+  .historySection h2 {
+    margin-bottom: 24px;
+  }
+  .mapPart {
+    padding: 6px;
+  }
 }
