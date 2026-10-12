@@ -21,7 +21,6 @@
   text-decoration: none;
 }
 .directionsButton:hover { background: rgb(255 255 255 / 10%); }
-.directionsButton:focus-visible { outline: 2px solid white; outline-offset: 4px; }
 @media (max-width: 600px) {
   .mapFrame iframe { aspect-ratio: 4 / 3; }
 }

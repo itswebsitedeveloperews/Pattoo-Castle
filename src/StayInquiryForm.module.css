@@ -21,7 +21,6 @@
 .verification input { width: 190px; max-width: 100%; padding: 14px; border: 1px solid #e5d4bf; border-radius: 4px; background: transparent; color: inherit; }
 .verification > span { letter-spacing: 4px; font-family: var(--font-display); }
 .send { width: min(100%, 310px); }
-.layout button:focus-visible, .layout input:focus-visible, .layout textarea:focus-visible { outline: 2px solid var(--color-brown); outline-offset: 3px; }
 .layout > :global(.form-submit-status) { grid-column: 1 / -1; }
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); } .calendarPanel { width: 100%; max-width: 440px; justify-self: center; } }
