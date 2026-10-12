@@ -2002,7 +2002,6 @@ body:not(.home) .site-header {
   display: grid;
   justify-items: center;
   align-content: center;
-  max-width: 606px;
   width: 100%;
   margin: 0 auto;
   padding: 240px 0 80px;
