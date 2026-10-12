@@ -3,13 +3,15 @@
   background: var(--color-cream);
 }
 .bedroomGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 35px 28px;
 }
 .bedroomCard {
   min-width: 0;
   text-align: left;
+  width: calc(50% - 14px);
 }
 .bedroomSlider {
   position: relative;
@@ -26,16 +28,18 @@
   display: flex !important;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 2px;
+  gap: 8px;
   padding: 0 12px;
 }
 .bedroomSlider :global(.slick-dots li) {
   height: 8px;
+  width: auto;
   margin: 0;
 }
 
-.bedroomSlider .slick-slide div {
+.bedroomSlider :global(.slick-slide) div {
   height: 100%;
+  display: block !important;
 }
 .bedroomSlider :global(.slick-dots li button) {
   width: 8px;
@@ -55,12 +59,15 @@
   opacity: 1;
   width: 30px;
 }
+.bedroomSlider :global(.slick-dots li.slick-active button) {
+  width: 30px;
+}
 .bedroomSlider :global(.slick-dots button:focus-visible) {
   outline: 2px solid white;
   outline-offset: 1px;
 }
 .bedroomCard h2 {
-  margin: 12px 0 5px;
+  margin: 20px 0 5px;
   color: var(--color-brown);
 }
 .bedroomContent {
@@ -109,7 +116,13 @@
 }
 @media (max-width: 767px) {
   .bedroomGrid {
-    grid-template-columns: 1fr;
-    gap: 28px;
+    flex-direction: column;
+  }
+  .bedroomCard {
+    width: 100%;
+  }
+  .bedroomContent ul,
+  .bedroomContent ol {
+    gap: 6px;
   }
 }
