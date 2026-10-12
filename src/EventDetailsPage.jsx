@@ -38,6 +38,13 @@ export default function EventDetailsPage({
   const eventDetails = getEventDetailsContent(eventDetailsEntry);
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
+  const isWedding = eventDetails.slug === "weddings";
+  const bannerImages = isWedding
+    ? [
+        { src: "/images/events/weddings-hero.webp", alt: "Bride and bridesmaids overlooking the sea at Pattoo Castle" },
+        ...eventDetails.bannerImages,
+      ]
+    : eventDetails.bannerImages;
   const inquiryTitle = eventDetails.heading
     ? `${eventDetails.heading} Inquiry`
     : "Event Inquiry";
@@ -46,23 +53,23 @@ export default function EventDetailsPage({
     <>
       <AosInitializer />
       <SiteHeader header={header} />
-      <main>
+      <main className={isWedding ? styles.weddingsPage : undefined}>
         <section
           className={`pt-0 pb-0 section page-hero event-detail-hero ${styles.banner}`}
           aria-labelledby={
             eventDetails.heading ? "event-detail-title" : undefined
           }
         >
-          <EventBannerSlider images={eventDetails.bannerImages} />
+          <EventBannerSlider images={bannerImages} />
           <div className={`container container-wide ${styles.bannerContent}`}>
             <div className="page-hero-content event-detail-hero-content">
-              <p
+              {!isWedding && <p
                 className="eyebrow page-hero-eyebrow event-detail-hero-eyebrow"
                 data-aos="fade-up"
                 data-aos-delay="20"
               >
                 Event
-              </p>
+              </p>}
               {eventDetails.heading && (
                 <h1
                   id="event-detail-title"
@@ -109,18 +116,19 @@ export default function EventDetailsPage({
         )}
 
         <section
-          className="section event-inquiry-section"
-          aria-labelledby="event-inquiry-title"
+          className={`section event-inquiry-section${isWedding ? ` ${styles.weddingInquiry}` : ""}`}
+          aria-labelledby={isWedding ? undefined : "event-inquiry-title"}
+          aria-label={isWedding ? inquiryTitle : undefined}
         >
           <div className="container container-wide">
-            <div
+            {!isWedding && <div
               className="event-inquiry-header"
               data-aos="fade-up"
               data-aos-delay="50"
             >
               <h2 id="event-inquiry-title">{inquiryTitle}</h2>
               <span aria-hidden="true" />
-            </div>
+            </div>}
 
             <NetlifyForm
               className="event-inquiry-form"

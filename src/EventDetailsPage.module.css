@@ -64,10 +64,67 @@
 .content a { text-decoration: underline; text-underline-offset: 3px; }
 .content a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 
+.weddingsPage .banner {
+  height: clamp(440px, 42.1875vw, 810px);
+}
+
+.weddingsPage .inner {
+  max-width: 1400px;
+  gap: 48px;
+}
+
+.weddingsPage .image {
+  aspect-ratio: 640 / 360;
+}
+
+.weddingInquiry {
+  padding-top: 0;
+}
+
+.weddingInquiry :global(.event-inquiry-form) {
+  width: min(100%, 1340px);
+  gap: 20px;
+}
+
+.weddingInquiry :global(.event-inquiry-card) {
+  padding: 28px 32px 32px;
+  border-radius: 0;
+}
+
+.weddingInquiry :global(.event-inquiry-card .legend) {
+  gap: 0;
+  margin-bottom: 28px;
+}
+
+.weddingInquiry :global(.event-inquiry-icon) {
+  display: none;
+}
+
+.weddingInquiry :global(.event-inquiry-grid) {
+  gap: 28px 24px;
+}
+
+.weddingInquiry :global(.event-inquiry-note) {
+  margin: 0 0 20px;
+}
+
+.weddingInquiry :global(.event-upload-field) {
+  border: 0;
+  background: transparent;
+}
+
+.weddingInquiry :global(.event-inquiry-submit) {
+  width: min(100%, 320px);
+  margin-top: 20px;
+}
+
 @media (max-width: 767px) {
   .bannerPrevious { left: 12px; }
   .bannerNext { right: 12px; }
   .inner { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .weddingsPage .inner { gap: 28px; }
+  .weddingInquiry :global(.event-inquiry-card) { padding: 24px 16px; }
+  .weddingInquiry :global(.event-inquiry-grid) { gap: 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
