@@ -60,7 +60,7 @@ if (!page.includes('className="section page-hero not-found-hero"')) {
   failures.push("404 page must use the existing page hero design language.");
 }
 
-if (!page.includes('href="/"') || !page.includes('href="/contact/"')) {
+if (!page.includes('href="/"') || !page.includes('href="/contact-us/"')) {
   failures.push("404 page must include Home and Contact actions.");
 }
 

@@ -89,7 +89,7 @@ const PAGE_METADATA = {
     description:
       "Plan your stay at Pattoo Castle with villa booking details, inquiry options, guest information, and luxury Negril experiences.",
   },
-  "/contact/": {
+  "/contact-us/": {
     title: "Contact",
     description:
       "Contact Pattoo Castle to plan a villa stay, event, celebration, or private getaway in Negril, Jamaica.",

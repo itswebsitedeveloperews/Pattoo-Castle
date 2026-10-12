@@ -20,7 +20,7 @@ const STATIC_PATHS = [
   "/explore-negril/optional-tours-activities/",
   "/events/",
   "/stay/",
-  "/contact/",
+  "/contact-us/",
   "/privacy-policy/",
   "/terms-condition/",
 ];

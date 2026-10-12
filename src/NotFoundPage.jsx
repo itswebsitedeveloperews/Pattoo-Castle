@@ -39,7 +39,7 @@ export default function NotFoundPage({
               </a>
               <a
                 className="btn btn--light page-hero-button"
-                href="/contact/"
+                href="/contact-us/"
               >
                 Contact Us
               </a>

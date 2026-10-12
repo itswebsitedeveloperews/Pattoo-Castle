@@ -189,7 +189,7 @@ export default function HeaderMenuLink({
 
           <div className="mega-menu-content">
             <p>{item.name}</p>
-            <h2>{item.megaMenuTitle || `Explore ${item.name}`}</h2>
+            <p className="h2">{item.megaMenuTitle || `Explore ${item.name}`}</p>
             <div className="mega-menu-links">
               {subMenuItems.map((subItem, index) => {
                 const subHref = subItem.url || "#";

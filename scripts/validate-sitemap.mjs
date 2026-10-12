@@ -15,7 +15,7 @@ const requiredRoutes = [
   "/explore-negril/about-negril/",
   "/events/",
   "/stay/",
-  "/contact/",
+  "/contact-us/",
   "/privacy-policy/",
   "/terms-condition/",
 ];

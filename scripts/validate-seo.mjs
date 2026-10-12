@@ -47,7 +47,7 @@ if (layout.includes("template: '%s | Pattoo Castle'") || layout.includes('templa
 for (const [path, pageTitle] of [
   ["/overview/about-pattoo-castle/", "About"],
   ["/accommodation/", "Accommodation"],
-  ["/contact/", "Contact"],
+  ["/contact-us/", "Contact"],
   ["/events/", "Events"],
   ["/gallery/", "Gallery"],
   ["/explore-negril/", "Explore Negril"],
@@ -81,7 +81,7 @@ const routeMetadata = [
     'createMetadata("/overview/about-pattoo-castle/")',
   ],
   ["src/app/accommodation/page.jsx", 'createMetadata("/accommodation/")'],
-  ["src/app/contact/page.jsx", 'createMetadata("/contact/")'],
+  ["src/app/contact-us/page.jsx", 'createMetadata("/contact-us/")'],
   ["src/app/events/page.jsx", 'createMetadata("/events/")'],
   ["src/app/gallery/page.jsx", 'createMetadata("/gallery/")'],
   ["src/app/explore-negril/page.jsx", 'createMetadata("/explore-negril/")'],
