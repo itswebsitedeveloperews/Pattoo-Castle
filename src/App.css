@@ -3602,15 +3602,10 @@ body:not(.home) .site-header {
   color: var(--color-brown);
   font: inherit;
   font-size: 14px;
+  outline: none;
 }
 .contact-form-field textarea {
   resize: vertical;
-}
-.contact-form-field input:focus-visible,
-.contact-form-field select:focus-visible,
-.contact-form-field textarea:focus-visible {
-  outline: 2px solid var(--color-brown);
-  outline-offset: 3px;
 }
 .contact-form-submit-row {
   display: flex;
