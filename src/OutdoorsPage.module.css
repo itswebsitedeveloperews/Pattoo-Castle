@@ -5,7 +5,7 @@
 }
 
 .poolContent {
-  max-width: 1100px;
+  max-width: 780px;
   margin: 0 auto;
 }
 
@@ -18,10 +18,15 @@
 .poolBody {
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
+  color: var(--color-brown-dark);
 }
 
-.poolBody p { margin: 0; }
-.poolBody > * + * { margin-top: 12px; }
+.poolBody p {
+  margin: 0;
+}
+.poolBody > * + * {
+  margin-top: 12px;
+}
 .poolBody ul,
 .poolBody ol {
   display: flex;
@@ -32,18 +37,34 @@
   padding: 0 24px;
   list-style-position: inside;
 }
-.poolBody li p { display: inline; }
+.poolBody li p {
+  display: inline;
+}
 
-.patiosContent { margin-top: 72px; }
-.patiosContent:first-child { margin-top: 0; }
-.patiosContent h2 { margin-bottom: 36px; }
-.carousel { position: relative; min-width: 0; touch-action: pan-y; }
-.slickSlider { margin: 0 -10px; }
+.patiosContent {
+  margin-top: 72px;
+}
+.patiosContent:first-child {
+  margin-top: 0;
+}
+.patiosContent h2 {
+  margin-bottom: 36px;
+}
+.carousel {
+  position: relative;
+  min-width: 0;
+  touch-action: pan-y;
+}
+.slickSlider {
+  margin: 0 -10px;
+}
 .slickSlider :global(.slick-list) {
   padding-bottom: 28px;
   margin-bottom: -28px;
 }
-.slideSlot { padding: 0 10px; }
+.slideSlot {
+  padding: 0 10px;
+}
 .slide {
   min-width: 0;
   margin: 0;
@@ -70,11 +91,26 @@
   cursor: pointer;
   transform: translateY(-50%);
 }
-.arrow svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; }
-.arrow:focus-visible { outline: 2px solid var(--color-brown); outline-offset: 4px; }
-.arrow:hover { background: var(--color-cream); }
-.previous { left: 16px; }
-.next { right: 16px; }
+.arrow svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+.arrow:focus-visible {
+  outline: 2px solid var(--color-brown);
+  outline-offset: 4px;
+}
+.arrow:hover {
+  background: var(--color-cream);
+}
+.previous {
+  left: 16px;
+}
+.next {
+  right: 16px;
+}
 .srOnly {
   position: absolute;
   width: 1px;
@@ -85,14 +121,27 @@
 }
 
 @media (max-width: 767px) {
-  .patiosContent { margin-top: 48px; }
-  .patiosContent h2 { margin-bottom: 24px; }
+  .patiosContent {
+    margin-top: 48px;
+  }
+  .patiosContent h2 {
+    margin-bottom: 24px;
+  }
   .poolBody ul,
-  .poolBody ol { flex-direction: column; gap: 8px; }
-  .previous { left: 12px; }
-  .next { right: 12px; }
+  .poolBody ol {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .previous {
+    left: 12px;
+  }
+  .next {
+    right: 12px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .slickSlider :global(.slick-track) { transition-duration: 0.01ms !important; }
+  .slickSlider :global(.slick-track) {
+    transition-duration: 0.01ms !important;
+  }
 }
