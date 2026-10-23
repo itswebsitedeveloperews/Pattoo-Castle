@@ -10,6 +10,7 @@ import StayInquiryForm from "./StayInquiryForm";
 import StayReviewsCarousel from "./StayReviewsCarousel";
 import StayReviewMessage from "./StayReviewMessage";
 import { formatReviewAge } from "./lib/review-date";
+import { getBookingDates } from "./lib/booking-dates";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 import styles from "./StayPage.module.css";
@@ -31,6 +32,7 @@ function getStayContent(entry) {
   return {
     bannerImage: getContentfulAssetSrc(fields.bannerImage),
     bannerHeading: fields.bannerHeading || "",
+    bookingDates: getBookingDates(fields.bookingDate),
     findUsHeading: fields.findUsHeading || "",
     reviews: (Array.isArray(fields.reviewBlocks) ? fields.reviewBlocks : [])
       .filter((item) => item?.fields)
@@ -90,7 +92,7 @@ export default function StayPage({
           </div>
         </section>
 
-        <StayInquiryForm />
+        <StayInquiryForm bookingDates={stay.bookingDates} />
 
         {(stay.findUsHeading || stay.findUsBlocks.length > 0) && (
           <section

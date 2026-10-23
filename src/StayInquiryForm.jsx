@@ -3,12 +3,14 @@
 import { useEffect, useState } from "react";
 import NetlifyForm from "./NetlifyForm";
 import styles from "./StayInquiryForm.module.css";
+import { isBookingRangeAvailable } from "./lib/booking-dates";
 
 function dateValue(date) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 }
 
-export default function StayInquiryForm() {
+export default function StayInquiryForm({ bookingDates = [] }) {
+  const availableDates = new Set(bookingDates);
   const [month, setMonth] = useState(null);
   const [today, setToday] = useState("");
   const [checkIn, setCheckIn] = useState("");
@@ -21,14 +23,26 @@ export default function StayInquiryForm() {
     setToday(dateValue(now));
     setMonth(new Date(now.getFullYear(), now.getMonth(), 1));
     setCode(Math.random().toString(36).slice(2, 7).toUpperCase());
+    const updateToday = () => setToday(dateValue(new Date()));
+    const timer = window.setInterval(updateToday, 60000);
+    window.addEventListener("focus", updateToday);
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener("focus", updateToday);
+    };
   }, []);
 
   function selectDate(value) {
+    if (value < dateValue(new Date()) || !availableDates.has(value)) return;
     setDateError("");
     if (!checkIn || checkOut || value <= checkIn) {
       setCheckIn(value);
       setCheckOut("");
     } else {
+      if (!isBookingRangeAvailable(checkIn, value, availableDates, dateValue(new Date()))) {
+        setDateError("This range includes unavailable dates. Please select available dates only.");
+        return;
+      }
       setCheckOut(value);
     }
   }
@@ -46,10 +60,10 @@ export default function StayInquiryForm() {
         formName="stay-inquiry"
         onReset={() => { setCheckIn(""); setCheckOut(""); setDateError(""); }}
         onSubmitCapture={(event) => {
-          if (!checkIn || checkIn < today || effectiveCheckOut < checkIn) {
+          if (!isBookingRangeAvailable(checkIn, effectiveCheckOut, availableDates, dateValue(new Date()))) {
             event.preventDefault();
             event.stopPropagation();
-            setDateError("Select dates on the calendar.");
+            setDateError("Select available dates on the calendar.");
           }
         }}
       >
@@ -68,7 +82,7 @@ export default function StayInquiryForm() {
               const value = dateValue(date);
               const selected = value === checkIn || value === checkOut;
               const inRange = checkIn && checkOut && value > checkIn && value < checkOut;
-              return <button type="button" key={index} disabled={value < today} aria-label={date.toLocaleDateString("en-US", {weekday:"long", month:"long", day:"numeric", year:"numeric"})} aria-pressed={selected || Boolean(inRange)} aria-current={value === today ? "date" : undefined} className={`${styles.day}${selected ? ` ${styles.selected}` : inRange ? ` ${styles.inRange}` : ""}`} onClick={() => selectDate(value)}>{day}</button>;
+              return <button type="button" key={index} disabled={!today || value < today || !availableDates.has(value)} aria-label={date.toLocaleDateString("en-US", {weekday:"long", month:"long", day:"numeric", year:"numeric"})} aria-pressed={selected || Boolean(inRange)} aria-current={value === today ? "date" : undefined} className={`${styles.day}${selected ? ` ${styles.selected}` : inRange ? ` ${styles.inRange}` : ""}`} onClick={() => selectDate(value)}>{day}</button>;
             })}
           </div>
           <p className={styles.srOnly} aria-live="polite">{checkIn ? `Stay dates: ${checkIn} to ${effectiveCheckOut}.${checkOut ? "" : " You can optionally select a different check-out date."}` : "Select dates on the calendar."}</p>
