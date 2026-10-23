@@ -7,24 +7,10 @@ import {
 } from "./App";
 import AosInitializer from "./AosInitializer";
 import StayInquiryForm from "./StayInquiryForm";
+import StayReviewsCarousel from "./StayReviewsCarousel";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 import styles from "./StayPage.module.css";
-
-const guestReviews = [
-  {
-    name: "J",
-    text: "Gary is an amazing host…he ensured we had a great stay and stayed in communication regarding updates. The views of the castle are breathtaking…",
-  },
-  {
-    name: "Lia",
-    text: "Just book the castle! Everything about this Airbnb is amazing. Gary made the booking a seamless process, had fast responses and answered all of our…",
-  },
-  {
-    name: "Paulina",
-    text: "To say this was an amazing experience is an absolute understatement!! Pattoo is incredible in itself but everyone we met and spent our time with on the property…",
-  },
-];
 
 function getImageBoxBlocks(items) {
   return Array.isArray(items)
@@ -44,6 +30,19 @@ function getStayContent(entry) {
     bannerImage: getContentfulAssetSrc(fields.bannerImage),
     bannerHeading: fields.bannerHeading || "",
     findUsHeading: fields.findUsHeading || "",
+    reviews: (Array.isArray(fields.reviewBlocks) ? fields.reviewBlocks : [])
+      .filter((item) => item?.fields)
+      .map((item) => ({
+        id: item.sys?.id,
+        image: getContentfulAssetSrc(item.fields.image),
+        name: item.fields.name || "Guest",
+        date: item.fields.date || "",
+        rating: Number.isInteger(item.fields.rating)
+          ? Math.max(0, Math.min(5, item.fields.rating))
+          : null,
+        message: item.fields.reviewMessage || null,
+      })),
+    reviewText: fields.reviewText || null,
     findUsBlocks: getImageBoxBlocks(fields.findUsBlocks).filter(
       (block) => block.title,
     ),
@@ -126,6 +125,52 @@ export default function StayPage({
                   ))}
                 </ul>
               )}
+            </div>
+          </section>
+        )}
+
+        {(stay.reviews.length > 0 || richTextToPlainText(stay.reviewText).trim()) && (
+          <section className={styles.reviewsSection} aria-label="Guest reviews">
+            <div className={`container ${styles.reviewsInner}`}>
+              {stay.reviews.length > 0 && (
+                <StayReviewsCarousel>
+                  {stay.reviews.map((review, index) => {
+                    const date = new Date(review.date);
+                    const hasDate = review.date && !Number.isNaN(date.getTime());
+                    return (
+                      <article className={styles.reviewCard} key={review.id || index}>
+                        <div className={styles.reviewHeader}>
+                          {review.image ? (
+                            <img className={styles.reviewAvatar} src={review.image} alt="" />
+                          ) : (
+                            <span className={styles.reviewAvatar} aria-hidden="true">
+                              {review.name.slice(0, 1)}
+                            </span>
+                          )}
+                          <div>
+                            <strong>{review.name}</strong>
+                            {hasDate && (
+                              <time className={styles.reviewSource} dateTime={review.date}>
+                                {date.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" })}
+                              </time>
+                            )}
+                          </div>
+                          {airbnbUrl && <a className={styles.reviewBrand} href={airbnbUrl} target="_blank" rel="noopener noreferrer" aria-label="View Pattoo Castle on Airbnb">Airbnb</a>}
+                        </div>
+                        {review.rating !== null && (
+                          <div className={styles.reviewStars} role="img" aria-label={`${review.rating} out of 5 stars`}>
+                            <span aria-hidden="true">{"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}</span>
+                          </div>
+                        )}
+                        <div className={styles.reviewText}>
+                          {richTextToReact(review.message, `stay-review-${index}`, true)}
+                        </div>
+                      </article>
+                    );
+                  })}
+                </StayReviewsCarousel>
+              )}
+              {stay.reviewText && <div className={styles.reviewRating}>{richTextToReact(stay.reviewText, "stay-review-summary", true)}</div>}
             </div>
           </section>
         )}
