@@ -75,7 +75,28 @@ export function richTextToReact(value, keyPrefix = "rich-text", preserveLineBrea
   }
 
   if (typeof value.value === "string") {
-    return richTextToReact(value.value, keyPrefix, preserveLineBreaks);
+    const text = richTextToReact(value.value, keyPrefix, preserveLineBreaks);
+    return (value.marks || []).reduce((content, mark, index) => {
+      const key = `${keyPrefix}-mark-${index}`;
+      switch (mark.type) {
+        case "bold":
+          return <strong key={key}>{content}</strong>;
+        case "italic":
+          return <em key={key}>{content}</em>;
+        case "underline":
+          return <u key={key}>{content}</u>;
+        case "strikethrough":
+          return <s key={key}>{content}</s>;
+        case "code":
+          return <code key={key}>{content}</code>;
+        case "superscript":
+          return <sup key={key}>{content}</sup>;
+        case "subscript":
+          return <sub key={key}>{content}</sub>;
+        default:
+          return content;
+      }
+    }, text);
   }
 
   const children = richTextToReact(value.content, `${keyPrefix}-content`, preserveLineBreaks);
