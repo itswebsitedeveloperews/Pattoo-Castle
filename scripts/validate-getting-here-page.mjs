@@ -58,8 +58,16 @@ if (!route.includes('createMetadata("/overview/getting-here/")')) {
   failures.push("Getting Here route must set canonical metadata for its slug.");
 }
 
-if (!contentful.includes("gettingHereContentType")) {
-  failures.push("Contentful config must expose a gettingHere content type.");
+if (contentful.includes("gettingHereContentType")) {
+  failures.push("Getting Here must no longer use a separate content type.");
+}
+
+if (!contentful.includes("return getVillaDetailsEntry('getting-here')")) {
+  failures.push("Getting Here must select the getting-here entry from Villa Details.");
+}
+
+if (!contentful.includes("'fields.pageSlug': slug")) {
+  failures.push("Shared Villa Details entries must be filtered by Page Slug.");
 }
 
 if (!contentful.includes("getGettingHereEntry")) {

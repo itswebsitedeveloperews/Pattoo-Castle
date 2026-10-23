@@ -21,7 +21,7 @@ function withTimeout(promise, label) {
 export default async function VillaDetailsRoute() {
   const [villaDetailsResult, footerResult, headerResult] =
     await Promise.allSettled([
-      withTimeout(getVillaDetailsEntry(), 'Contentful villa details'),
+      withTimeout(getVillaDetailsEntry('villa-details'), 'Contentful villa details'),
       withTimeout(getFooterEntry(), 'Contentful footer'),
       withTimeout(getHeaderEntry(), 'Contentful header'),
     ])
