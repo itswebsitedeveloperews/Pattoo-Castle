@@ -106,17 +106,29 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding: 8px 4px 16px;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+  align-items: start;
+}
+.reviewsGrid::-webkit-scrollbar {
+  display: none;
+}
+.reviewsCarousel {
+  position: relative;
 }
 .reviewControls {
+  position: absolute;
+  top: 126px;
+  left: -14px;
+  right: -14px;
+  z-index: 1;
   display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-bottom: 8px;
+  justify-content: space-between;
+  pointer-events: none;
 }
 .reviewControls button {
-  width: 36px;
-  height: 36px;
+  pointer-events: auto;
+  width: 32px;
+  height: 32px;
   border: 1px solid #d5d5d5;
   border-radius: 50%;
   background: white;
@@ -134,7 +146,7 @@
   min-width: 0;
   min-height: 235px;
   scroll-snap-align: start;
-  padding: 24px;
+  padding: 20px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgb(var(--color-black) / 0.1);
@@ -161,10 +173,40 @@
   opacity: 0.65;
 }
 .reviewBrand {
+  position: relative;
   margin-left: auto;
   color: #ff385c;
   font-size: var(--font-size-small);
   text-decoration: none;
+}
+.reviewBrand img {
+  display: block;
+}
+.reviewTooltip {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 6px 10px;
+  border-radius: 5px;
+  background: #111;
+  color: white;
+  font-size: 13px;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
+  visibility: hidden;
+}
+.reviewTooltip::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: calc(50% - 5px);
+  border: 5px solid transparent;
+  border-left-color: #111;
+}
+.reviewBrand:hover .reviewTooltip,
+.reviewBrand:focus .reviewTooltip {
+  visibility: visible;
 }
 .reviewStars {
   margin: 12px 0 8px;
@@ -174,12 +216,36 @@
   line-height: 1;
 }
 .reviewText {
-  margin: 0 0 12px;
+  margin: 0;
   line-height: var(--line-height-body);
   overflow-wrap: anywhere;
 }
 .reviewText p {
-  margin: 0 0 12px;
+  margin: 0;
+}
+.reviewClamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.reviewToggle {
+  display: block;
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #767676;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.reviewToggle:hover {
+  text-decoration: underline;
+}
+.reviewToggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
 }
 .reviewRating p {
   margin: 0;

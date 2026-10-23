@@ -8,6 +8,7 @@ import {
 import AosInitializer from "./AosInitializer";
 import StayInquiryForm from "./StayInquiryForm";
 import StayReviewsCarousel from "./StayReviewsCarousel";
+import StayReviewMessage from "./StayReviewMessage";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 import styles from "./StayPage.module.css";
@@ -60,9 +61,6 @@ export default function StayPage({
   const footer = getFooterContent(footerEntry);
   const header = getHeaderContent(headerEntry);
   const stay = getStayContent(stayEntry);
-  const airbnbUrl = stay.findUsBlocks.find((block) =>
-    /airbnb/i.test(block.title),
-  )?.url;
 
   return (
     <>
@@ -155,16 +153,19 @@ export default function StayPage({
                               </time>
                             )}
                           </div>
-                          {airbnbUrl && <a className={styles.reviewBrand} href={airbnbUrl} target="_blank" rel="noopener noreferrer" aria-label="View Pattoo Castle on Airbnb">Airbnb</a>}
+                          <span className={styles.reviewBrand} tabIndex={0} aria-label="Posted on Airbnb">
+                            <img src="/review-airbnb.svg" alt="" width="18" height="20" />
+                            <span className={styles.reviewTooltip} aria-hidden="true">Posted on Airbnb</span>
+                          </span>
                         </div>
                         {review.rating !== null && (
                           <div className={styles.reviewStars} role="img" aria-label={`${review.rating} out of 5 stars`}>
                             <span aria-hidden="true">{"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}</span>
                           </div>
                         )}
-                        <div className={styles.reviewText}>
+                        <StayReviewMessage>
                           {richTextToReact(review.message, `stay-review-${index}`, true)}
-                        </div>
+                        </StayReviewMessage>
                       </article>
                     );
                   })}
