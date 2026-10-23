@@ -9,6 +9,7 @@ import AosInitializer from "./AosInitializer";
 import StayInquiryForm from "./StayInquiryForm";
 import StayReviewsCarousel from "./StayReviewsCarousel";
 import StayReviewMessage from "./StayReviewMessage";
+import { formatReviewAge } from "./lib/review-date";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 import styles from "./StayPage.module.css";
@@ -133,8 +134,7 @@ export default function StayPage({
               {stay.reviews.length > 0 && (
                 <StayReviewsCarousel>
                   {stay.reviews.map((review, index) => {
-                    const date = new Date(review.date);
-                    const hasDate = review.date && !Number.isNaN(date.getTime());
+                    const reviewAge = formatReviewAge(review.date);
                     return (
                       <article className={styles.reviewCard} key={review.id || index}>
                         <div className={styles.reviewHeader}>
@@ -147,9 +147,9 @@ export default function StayPage({
                           )}
                           <div>
                             <strong>{review.name}</strong>
-                            {hasDate && (
+                            {reviewAge && (
                               <time className={styles.reviewSource} dateTime={review.date}>
-                                {date.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" })}
+                                {reviewAge}
                               </time>
                             )}
                           </div>
