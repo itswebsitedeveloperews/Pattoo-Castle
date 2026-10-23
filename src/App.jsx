@@ -329,6 +329,8 @@ export function getFooterContent(entry) {
     locationUrl: (fields.locationUrl || "").trim(),
     phone: fields.phone || "",
     phoneUrl: (fields.phoneUrl || "").trim(),
+    whatsapp: (fields.whatsapp || "").trim(),
+    whatsappLink: (fields.whatsappLink || "").trim(),
     email: fields.email || "",
     emailUrl: (fields.emailUrl || "").trim(),
     socialLinks,

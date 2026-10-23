@@ -3451,6 +3451,11 @@ form
   text-decoration: none;
 }
 
+.footer-contact-item .footer-whatsapp {
+  display: block;
+  margin-top: 8px;
+}
+
 .footer-contact-item a:hover {
   color: var(--burnt-sienna);
   text-decoration: underline;

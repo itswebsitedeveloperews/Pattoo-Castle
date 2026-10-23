@@ -6,6 +6,7 @@ export default function SiteFooter({ footer }) {
   const hasContact = Boolean(
     footer.location ||
       footer.phone ||
+      footer.whatsappLink ||
       footer.email ||
       footer.socialLinks.length,
   );
@@ -37,13 +38,18 @@ export default function SiteFooter({ footer }) {
                 )}
               </div>
             )}
-            {footer.phone && (
+            {(footer.phone || footer.whatsappLink) && (
               <div className="footer-contact-item">
-                <strong>Tel</strong>
-                {footer.phoneUrl ? (
+                {footer.phone && <strong>Tel</strong>}
+                {footer.phone && (footer.phoneUrl ? (
                   <a href={footer.phoneUrl}>{footer.phone}</a>
                 ) : (
                   <p>{footer.phone}</p>
+                ))}
+                {footer.whatsappLink && (
+                  <a className="footer-whatsapp" href={footer.whatsappLink} target="_blank" rel="noopener noreferrer">
+                    {footer.whatsapp || "Chat on WhatsApp"}
+                  </a>
                 )}
               </div>
             )}
