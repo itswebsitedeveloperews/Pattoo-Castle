@@ -132,13 +132,13 @@ body:not(.home) .site-header {
   color: rgb(var(--color-white));
   font-size: var(--font-size-small);
   letter-spacing: 10%;
-  font-family: var(--font-display);
+  font-family: 'BIZ UDPMincho';
   text-decoration: none;
   text-transform: uppercase;
   transition: all 180ms ease;
   position: relative;
   font-weight: 500;
-  letter-spacing: 1.5px;
+  letter-spacing: 5%;
 }
 
 .header-menu-item {
