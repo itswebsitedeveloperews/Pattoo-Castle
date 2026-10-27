@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import NetlifyForm from "./NetlifyForm";
+import FormCaptcha from "./FormCaptcha";
 import styles from "./StayInquiryForm.module.css";
 import { isBookingRangeAvailable } from "./lib/booking-dates";
 
@@ -15,14 +16,12 @@ export default function StayInquiryForm({ bookingDates = [] }) {
   const [today, setToday] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-  const [code, setCode] = useState("");
   const [dateError, setDateError] = useState("");
 
   useEffect(() => {
     const now = new Date();
     setToday(dateValue(now));
     setMonth(new Date(now.getFullYear(), now.getMonth(), 1));
-    setCode(Math.random().toString(36).slice(2, 7).toUpperCase());
     const updateToday = () => setToday(dateValue(new Date()));
     const timer = window.setInterval(updateToday, 60000);
     window.addEventListener("focus", updateToday);
@@ -97,13 +96,8 @@ export default function StayInquiryForm({ bookingDates = [] }) {
             <label className={`event-inquiry-field ${styles.field}`}><span>Phone</span><input type="tel" name="phone" autoComplete="tel" placeholder="Enter phone number" /></label>
             <label className={`event-inquiry-field ${styles.field} ${styles.full}`}><span>Details</span><textarea name="details" placeholder="Enter details" rows={2} /></label>
           </div>
-          <div className={styles.verification}>
-            <label><span className={styles.srOnly}>Enter the verification code shown</span><input name="verification" aria-label="Enter the verification code shown" required pattern={code} autoComplete="off" title="Enter the code shown beside this field" /></label>
-            <span className={styles.verificationCode} role="img" aria-label={`Verification code: ${code}`}>
-              {Array.from(code).map((character, index) => <span key={index} aria-hidden="true">{character}</span>)}
-            </span>
-          </div>
-          <button className="btn btn--solid" type="submit" disabled={!month || !code}>Send</button>
+          <FormCaptcha />
+          <button className="btn btn--solid" type="submit" disabled={!month}>Send</button>
           {dateError && <p role="alert">{dateError}</p>}
         </div>
       </NetlifyForm>

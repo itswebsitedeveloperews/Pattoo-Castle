@@ -1,0 +1,13 @@
+.captcha {
+  margin-block: 24px;
+  min-width: 0;
+}
+
+.captcha p {
+  margin: 8px 0 0;
+  font-size: 0.875rem;
+}
+
+.captcha p:empty {
+  display: none;
+}

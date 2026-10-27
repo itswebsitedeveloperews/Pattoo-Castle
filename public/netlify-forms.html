@@ -6,7 +6,7 @@
     <title>Netlify Forms</title>
   </head>
   <body>
-    <form name="contact" method="POST" data-netlify="true" hidden>
+    <form name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true" hidden>
       <input type="hidden" name="form-name" value="contact" />
       <input type="hidden" name="subject" value="Pattoo Castle &#8211; New Contact Inquiry" data-remove-prefix="true" />
       <input type="hidden" name="name" />
@@ -22,9 +22,10 @@
       <input type="email" name="email" />
       <input type="tel" name="phone" />
       <textarea name="comments"></textarea>
+      <div data-netlify-recaptcha="true"></div>
     </form>
 
-    <form name="stay-inquiry" method="POST" data-netlify="true" hidden>
+    <form name="stay-inquiry" method="POST" data-netlify="true" data-netlify-recaptcha="true" hidden>
       <input type="hidden" name="form-name" value="stay-inquiry" />
       <input type="hidden" name="subject" value="Pattoo Castle &#8211; New Stay Inquiry" data-remove-prefix="true" />
       <input type="hidden" name="name" />
@@ -35,12 +36,13 @@
       <input type="text" name="checkIn" />
       <input type="text" name="checkOut" />
       <textarea name="details"></textarea>
+      <div data-netlify-recaptcha="true"></div>
     </form>
 
     <form
       name="event-inquiry"
       method="POST"
-      data-netlify="true"
+      data-netlify="true" data-netlify-recaptcha="true"
       enctype="multipart/form-data"
       hidden
     >
@@ -68,6 +70,7 @@
       <input type="email" name="email" />
       <input type="tel" name="phone" />
       <input type="file" name="proposal" />
+      <div data-netlify-recaptcha="true"></div>
     </form>
   </body>
 </html>

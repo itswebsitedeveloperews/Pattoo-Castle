@@ -7,6 +7,7 @@ import {
 } from "./App";
 import AosInitializer from "./AosInitializer";
 import NetlifyForm from "./NetlifyForm";
+import FormCaptcha from "./FormCaptcha";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 import styles from "./ContactPage.module.css";
@@ -354,6 +355,7 @@ export default function ContactPage({
                   </div>
                 </div>
 
+                <FormCaptcha />
                 <div className="contact-form-submit-row">
                   <button
                     className="btn btn--solid contact-form-submit"

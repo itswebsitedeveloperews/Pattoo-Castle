@@ -91,61 +91,6 @@
 .full {
   grid-column: 1 / -1;
 }
-.verification {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin: 25px 0 24px;
-}
-.verification input {
-  width: 200px;
-  max-width: 100%;
-  min-height: 50px;
-  padding: 14px;
-  border: 1px solid rgb(var(--color-brown-rgb) / 0.22);
-  border-radius: 4px;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-}
-.verification input:focus-visible {
-  outline: 2px solid var(--color-brown);
-  outline-offset: 2px;
-}
-.verificationCode {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  gap: 3px;
-  min-width: 98px;
-  min-height: 41px;
-  padding: 8px 10px;
-  color: #222;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1;
-  user-select: none;
-}
-.verificationCode > span {
-  display: inline-block;
-}
-.verificationCode > span:nth-child(1) {
-  transform: rotate(9deg) translateY(-1px);
-}
-.verificationCode > span:nth-child(2) {
-  transform: rotate(-7deg);
-}
-.verificationCode > span:nth-child(3) {
-  transform: rotate(12deg) translateY(2px);
-}
-.verificationCode > span:nth-child(4) {
-  transform: rotate(-10deg) translateY(1px);
-}
-.verificationCode > span:nth-child(5) {
-  transform: rotate(5deg) translateY(-1px);
-}
 .layout > :global(.form-submit-status) {
   grid-column: 1 / -1;
 }
@@ -173,11 +118,5 @@
   }
   .fields {
     grid-template-columns: minmax(0, 1fr);
-  }
-  .verification {
-    gap: 16px;
-  }
-  .verification input {
-    width: 150px;
   }
 }

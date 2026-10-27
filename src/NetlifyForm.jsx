@@ -32,6 +32,12 @@ export default function NetlifyForm({
       return;
     }
 
+    if (!new FormData(form).get("g-recaptcha-response")) {
+      setStatus("verification-required");
+      form.querySelector("[data-form-captcha]")?.focus();
+      return;
+    }
+
     isSubmittingRef.current = true;
     setStatus("submitting");
 
@@ -77,6 +83,8 @@ export default function NetlifyForm({
     } catch {
       setStatus("error");
     } finally {
+      // Tokens are single-use, including when the submission needs a retry.
+      form.dispatchEvent(new Event("recaptcha-reset"));
       isSubmittingRef.current = false;
     }
   }
@@ -89,6 +97,7 @@ export default function NetlifyForm({
       method="POST"
       encType={encType}
       data-netlify="true"
+      data-netlify-recaptcha="true"
       onSubmit={handleSubmit}
       {...props}
     >
@@ -106,6 +115,7 @@ export default function NetlifyForm({
         <p className="form-submit-status" aria-live="polite">
           {status === "submitting" && "Submitting..."}
           {status === "success" && "Thank you. Your inquiry has been sent."}
+          {status === "verification-required" && "Please complete the reCAPTCHA verification before submitting."}
           {status === "error" &&
             "Sorry, something went wrong. Please try again."}
         </p>

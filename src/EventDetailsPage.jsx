@@ -8,6 +8,7 @@ import EventUploadField from "./EventUploadField";
 import AosInitializer from "./AosInitializer";
 import MinTodayDateInput from "./MinTodayDateInput";
 import NetlifyForm from "./NetlifyForm";
+import FormCaptcha from "./FormCaptcha";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 import styles from "./EventDetailsPage.module.css";
@@ -467,6 +468,7 @@ export default function EventDetailsPage({
 
                 <EventUploadField />
               </fieldset>
+                <FormCaptcha />
               <div className="text-center">
                 <button
                   className="btn btn--solid event-inquiry-submit"
