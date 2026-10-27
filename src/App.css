@@ -3092,6 +3092,10 @@ form
   margin-top: 28px;
 }
 
+#event-inquiry-form .event-inquiry-submit {
+  margin-top: 8px;
+}
+
 .overview-location-section h2 {
   margin: 0;
   color: var(--color-brown);
