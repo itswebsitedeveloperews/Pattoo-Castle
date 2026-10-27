@@ -3732,7 +3732,7 @@ form
   }
 }
 
-@media only screen and (min-width: 1025px) and (max-width: 1740px) {
+@media only screen and (min-width: 1251px) and (max-width: 1740px) {
   .primary-nav {
     flex: 1;
     justify-content: center;
