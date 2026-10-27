@@ -312,10 +312,15 @@ body:not(.home) .site-header {
 
   .primary-nav .header-menu-item--mega .header-submenu--mega {
     top: 100%;
-    left: 30vw;
-    width: min(1070px, calc(70vw - var(--container-padding)));
+    left: 20vw;
+    width: min(1070px, calc(80vw - var(--container-padding)));
     min-width: 0;
     grid-template-columns: minmax(0, 450fr) minmax(0, 620fr);
+    transform: none;
+  }
+
+  .primary-nav .header-menu-item--mega:hover .header-submenu--mega,
+  .primary-nav .header-menu-item--mega:focus-within .header-submenu--mega {
     transform: none;
   }
 
@@ -324,7 +329,7 @@ body:not(.home) .site-header {
   }
 
   .primary-nav .header-menu-item--mega .header-submenu--mega-no-media {
-    width: min(650px, calc(70vw - var(--container-padding)));
+    width: min(650px, calc(80vw - var(--container-padding)));
     grid-template-columns: minmax(0, 1fr);
   }
 }
