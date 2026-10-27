@@ -304,6 +304,10 @@ body:not(.home) .site-header {
     align-self: stretch;
   }
 
+  .primary-nav .header-menu-item--mega > a::after {
+    bottom: calc(50% - 0.5lh);
+  }
+
   .primary-nav .header-menu-item--mega > a::before {
     position: absolute;
     content: "";
@@ -3775,6 +3779,9 @@ form
 @media only screen and (max-width: 1250px) {
   .right-header .button {
     display: none;
+  }
+  .right-header{
+    gap: 0;
   }
 }
 @media only screen and (max-width: 1024px) {
