@@ -122,7 +122,7 @@ body:not(.home) .site-header {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 32px;
+  gap: 28px;
   min-width: 0;
   align-items: center;
 }
@@ -244,6 +244,7 @@ body:not(.home) .site-header {
   visibility: visible;
   pointer-events: auto;
   transform: translate(-50%, 0);
+  border-radius: 14px;
 }
 
 .primary-nav .header-submenu a {
@@ -3686,7 +3687,7 @@ form
     width: calc(85% - 10px);
   }
 }
-@media only screen and (max-width: 1540px) {
+@media only screen and (max-width: 1650px) {
   .header-actions .social-link {
     display: none;
   }
