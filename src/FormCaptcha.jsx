@@ -32,7 +32,7 @@ export default function FormCaptcha() {
       try {
         widgetRef.current = window.grecaptcha.render(containerRef.current, {
           sitekey: siteKey,
-          size: "compact",
+          size: containerRef.current.parentElement.clientWidth >= 304 ? "normal" : "compact",
           callback: () => setMessage(""),
           "expired-callback": () => setMessage("Verification expired. Please complete it again."),
           "error-callback": () => setMessage("Verification failed to load. Check your connection and reload this page."),
