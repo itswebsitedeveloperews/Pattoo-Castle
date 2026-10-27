@@ -4,6 +4,9 @@
   background: var(--color-cream);
   text-align: center;
 }
+.informationSection {
+  padding-top: 50px !important;
+}
 .findUsSection {
   padding-top: 0;
 }

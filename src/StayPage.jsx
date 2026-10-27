@@ -180,7 +180,7 @@ export default function StayPage({
 
         {stay.informationBlocks.length > 0 && (
           <section
-            className={`section pt-0 ${styles.informationSection}`}
+            className={`section ${styles.informationSection}`}
             aria-label="Stay information and policies"
           >
             <div

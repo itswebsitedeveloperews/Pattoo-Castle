@@ -728,7 +728,7 @@ form
   bottom: 0;
   left: auto;
   z-index: 2;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: 100vh;
   display: flex;
   flex-direction: column;
