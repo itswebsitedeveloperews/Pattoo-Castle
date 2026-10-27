@@ -98,7 +98,7 @@ export default function StayInquiryForm({ bookingDates = [] }) {
           </div>
           <FormCaptcha />
           <button className="btn btn--solid" type="submit" disabled={!month}>Send</button>
-          {dateError && <p role="alert">{dateError}</p>}
+          {dateError && <p className={styles.dateError} role="alert">{dateError}</p>}
         </div>
       </NetlifyForm>
     </section>

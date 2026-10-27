@@ -91,6 +91,9 @@
 .full {
   grid-column: 1 / -1;
 }
+.dateError {
+  padding-top: 20px;
+}
 .layout > :global(.form-submit-status) {
   grid-column: 1 / -1;
 }
