@@ -4,6 +4,9 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  # reCAPTCHA site keys are public and intentionally included in browser code.
+  # Keep both secret-key variables covered by Netlify's secret scanner.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_RECAPTCHA_SITE_KEY,SITE_RECAPTCHA_KEY"
   CONTENTFUL_SPACE_ID = "t14u7man7wab"
   CONTENTFUL_ENVIRONMENT = "master"
   CONTENTFUL_HOME_PAGE_CONTENT_TYPE = "homePage"
