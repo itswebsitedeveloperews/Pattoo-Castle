@@ -108,7 +108,7 @@ export default function SiteFooter({ footer }) {
           <div className="footer-bottom">
             {hasCopyright && (
               <div className="footer-copyright">
-                {richTextToReact(footer.copyright, "footer-copyright", true)}
+                {richTextToReact(footer.copyright, "footer-copyright", true, "_blank")}
               </div>
             )}
             {footer.footerBarItems.length > 0 && (

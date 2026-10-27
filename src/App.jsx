@@ -48,7 +48,7 @@ export function richTextToPlainText(value) {
   return "";
 }
 
-export function richTextToReact(value, keyPrefix = "rich-text", preserveLineBreaks = false) {
+export function richTextToReact(value, keyPrefix = "rich-text", preserveLineBreaks = false, linkTarget) {
   if (!value) {
     return null;
   }
@@ -66,7 +66,7 @@ export function richTextToReact(value, keyPrefix = "rich-text", preserveLineBrea
 
   if (Array.isArray(value)) {
     return value.map((item, index) =>
-      richTextToReact(item, `${keyPrefix}-${index}`, preserveLineBreaks),
+      richTextToReact(item, `${keyPrefix}-${index}`, preserveLineBreaks, linkTarget),
     );
   }
 
@@ -75,7 +75,7 @@ export function richTextToReact(value, keyPrefix = "rich-text", preserveLineBrea
   }
 
   if (typeof value.value === "string") {
-    const text = richTextToReact(value.value, keyPrefix, preserveLineBreaks);
+    const text = richTextToReact(value.value, keyPrefix, preserveLineBreaks, linkTarget);
     return (value.marks || []).reduce((content, mark, index) => {
       const key = `${keyPrefix}-mark-${index}`;
       switch (mark.type) {
@@ -99,7 +99,7 @@ export function richTextToReact(value, keyPrefix = "rich-text", preserveLineBrea
     }, text);
   }
 
-  const children = richTextToReact(value.content, `${keyPrefix}-content`, preserveLineBreaks);
+  const children = richTextToReact(value.content, `${keyPrefix}-content`, preserveLineBreaks, linkTarget);
 
   switch (value.nodeType) {
     case "document":
@@ -130,7 +130,7 @@ export function richTextToReact(value, keyPrefix = "rich-text", preserveLineBrea
       return <hr key={keyPrefix} />;
     case "hyperlink":
       return (
-        <a href={value.data?.uri || "#"} key={keyPrefix}>
+        <a href={value.data?.uri || "#"} key={keyPrefix} target={linkTarget} rel={linkTarget === "_blank" ? "noopener noreferrer" : undefined}>
           {children}
         </a>
       );
