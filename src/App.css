@@ -236,7 +236,7 @@ body:not(.home) .site-header {
   right: 0;
   bottom: 100%;
   left: 0;
-  height: 88px;
+  height: 20px;
   content: "";
 }
 
@@ -245,7 +245,7 @@ body:not(.home) .site-header {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  overflow: hidden;
+  overflow: visible;
   transform: translate(-50%, 0);
   border-radius: 14px;
 }
@@ -254,6 +254,14 @@ body:not(.home) .site-header {
   white-space: nowrap;
   color: rgb(var(--color-brown-rgb) / 1);
   padding: 16px;
+}
+
+.primary-nav .header-submenu:not(.header-submenu--mega) > a:first-child {
+  border-radius: 14px 14px 0 0;
+}
+
+.primary-nav .header-submenu:not(.header-submenu--mega) > a:last-child {
+  border-radius: 0 0 14px 14px;
 }
 
 .primary-nav .header-submenu a:hover,
