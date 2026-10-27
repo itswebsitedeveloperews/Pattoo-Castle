@@ -130,7 +130,7 @@ body:not(.home) .site-header {
 .primary-nav a,
 .primary-nav .header-menu-toggle {
   color: rgb(var(--color-white));
-  font-size: var(--font-size-small);
+  font-size: 13px;
   letter-spacing: 10%;
   font-family: 'BIZ UDPMincho';
   text-decoration: none;
@@ -1137,7 +1137,7 @@ form
   border-color: rgb(var(--color-white));
   color: var(--color-brown-dark);
   border-radius: 3px;
-  min-width: 168px;
+  min-width: 70px;
   min-height: 48px;
   padding: 0 12px;
   gap: 8px;
