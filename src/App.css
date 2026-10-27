@@ -3678,7 +3678,7 @@ form
 .contact-planning-form .form-submit-status {
   text-align: center;
 }
-@media only screen and (max-width: 1744px) {
+@media only screen and (max-width: 1760px) {
   .primary-nav {
     gap: 14px;
   }
@@ -3729,6 +3729,13 @@ form
   .social-link {
     width: 48px;
     height: 48px;
+  }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1740px) {
+  .primary-nav {
+    flex: 1;
+    justify-content: center;
   }
 }
 
