@@ -284,6 +284,51 @@ body:not(.home) .site-header {
   min-width: min(650px, calc(100vw - 80px));
 }
 
+@media only screen and (min-width: 1025px) {
+  .right-header,
+  .primary-nav {
+    align-self: stretch;
+  }
+
+  .primary-nav .header-menu-item--mega {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+  }
+
+  /* Continue the trigger's hover area through the header's bottom padding. */
+  .primary-nav .header-menu-item--mega > a {
+    align-self: stretch;
+  }
+
+  .primary-nav .header-menu-item--mega > a::before {
+    position: absolute;
+    content: "";
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 20px;
+  }
+
+  .primary-nav .header-menu-item--mega .header-submenu--mega {
+    top: 100%;
+    left: 30vw;
+    width: min(1070px, calc(70vw - var(--container-padding)));
+    min-width: 0;
+    grid-template-columns: minmax(0, 450fr) minmax(0, 620fr);
+    transform: none;
+  }
+
+  .primary-nav .header-menu-item--mega .header-submenu--mega::before {
+    height: 20px;
+  }
+
+  .primary-nav .header-menu-item--mega .header-submenu--mega-no-media {
+    width: min(650px, calc(70vw - var(--container-padding)));
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .mega-menu-media {
   display: grid;
   align-items: end;
