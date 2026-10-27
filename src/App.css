@@ -3720,7 +3720,7 @@ form
   }
   .primary-nav a,
   a.button.enquire-link {
-    font-size: var(--font-size-small);
+    font-size: 12px;
   }
   .site-header {
     grid-template-columns: 170px minmax(0, 1fr) auto;
