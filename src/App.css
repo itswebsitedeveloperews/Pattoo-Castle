@@ -245,6 +245,7 @@ body:not(.home) .site-header {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  overflow: hidden;
   transform: translate(-50%, 0);
   border-radius: 14px;
 }
