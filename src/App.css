@@ -3616,6 +3616,19 @@ form
   gap: 40px;
   align-items: center;
 }
+
+.footer-bottom > .footer-copyright {
+  display: block;
+}
+
+.footer-copyright p + p {
+  margin-top: 0.5em;
+}
+
+.footer-copyright a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .contact-planning-section {
   color: var(--color-brown);
   background: var(--color-cream);

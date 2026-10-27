@@ -1,8 +1,11 @@
+import { richTextToPlainText, richTextToReact } from "./App";
+
 function getSocialLinkLabel(index) {
   return `Pattoo Castle social link ${index + 1}`;
 }
 
 export default function SiteFooter({ footer }) {
+  const hasCopyright = Boolean(richTextToPlainText(footer.copyright).trim());
   const hasContact = Boolean(
     footer.location ||
       footer.phone ||
@@ -13,7 +16,7 @@ export default function SiteFooter({ footer }) {
   const hasFooter = Boolean(
     hasContact ||
       footer.menuItems.length ||
-      footer.copyright ||
+      hasCopyright ||
       footer.footerBarItems.length,
   );
 
@@ -101,9 +104,13 @@ export default function SiteFooter({ footer }) {
           </nav>
         )}
 
-        {(footer.copyright || footer.footerBarItems.length > 0) && (
+        {(hasCopyright || footer.footerBarItems.length > 0) && (
           <div className="footer-bottom">
-            {footer.copyright && <p>{footer.copyright}</p>}
+            {hasCopyright && (
+              <div className="footer-copyright">
+                {richTextToReact(footer.copyright, "footer-copyright", true)}
+              </div>
+            )}
             {footer.footerBarItems.length > 0 && (
               <div>
                 {footer.footerBarItems.map((item, index) => (
