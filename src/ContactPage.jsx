@@ -353,9 +353,11 @@ export default function ContactPage({
                       rows="2"
                     />
                   </div>
+                  <div className="contact-form-field--full">
+                    <FormCaptcha />
+                  </div>
                 </div>
 
-                <FormCaptcha />
                 <div className="contact-form-submit-row">
                   <button
                     className="btn btn--solid contact-form-submit"

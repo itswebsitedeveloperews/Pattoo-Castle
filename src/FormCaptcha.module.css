@@ -11,3 +11,9 @@
 .captcha p:empty {
   display: none;
 }
+
+.centered {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}

@@ -468,7 +468,7 @@ export default function EventDetailsPage({
 
                 <EventUploadField />
               </fieldset>
-                <FormCaptcha />
+              <FormCaptcha centered />
               <div className="text-center">
                 <button
                   className="btn btn--solid event-inquiry-submit"

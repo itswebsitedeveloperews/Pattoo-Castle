@@ -4,7 +4,7 @@ import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 import styles from "./FormCaptcha.module.css";
 
-export default function FormCaptcha() {
+export default function FormCaptcha({ centered = false }) {
   const containerRef = useRef(null);
   const widgetRef = useRef(null);
   const [message, setMessage] = useState("Loading verification...");
@@ -45,7 +45,7 @@ export default function FormCaptcha() {
   }
 
   return (
-    <div className={styles.captcha}>
+    <div className={`${styles.captcha}${centered ? ` ${styles.centered}` : ""}`}>
       <div ref={containerRef} data-form-captcha tabIndex={-1} aria-label="reCAPTCHA verification" />
       <p role="status" aria-live="polite">
         {siteKey ? message : "Verification is unavailable. Please try again later."}
