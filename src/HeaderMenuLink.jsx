@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { getInternalHref, isInternalHref } from "./linkUtils";
+import { imageSrcSet } from "./lib/responsiveImage";
 
 function normalizePath(value) {
   if (!value || value === "#" || value.startsWith("#")) {
@@ -181,6 +182,10 @@ export default function HeaderMenuLink({
             <div className="mega-menu-media">
               <img
                 src={item.megaMenuImage.src}
+                loading="lazy"
+                decoding="async"
+                srcSet={imageSrcSet(item.megaMenuImage.src)}
+                sizes="400px"
                 alt={item.megaMenuImage.alt || item.name}
               />
               <span>{item.megaMenuImage.alt || item.megaMenuTitle || item.name}</span>

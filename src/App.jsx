@@ -2,6 +2,8 @@ import AosInitializer from "./AosInitializer";
 import HomeGallerySection from "./HomeGallerySection";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
+import DeferredMap from "./DeferredMap";
+import { imageSrcSet } from "./lib/responsiveImage";
 
 function decodeHtmlEntities(value) {
   return value
@@ -251,6 +253,8 @@ export function getContentfulImage(asset) {
   return {
     src,
     alt: getContentfulAssetAlt(asset),
+    width: asset?.fields?.file?.details?.image?.width,
+    height: asset?.fields?.file?.details?.image?.height,
   };
 }
 
@@ -500,6 +504,10 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
                 >
                   <img
                     className="home-intro-image home-intro-image--primary"
+                    loading="lazy"
+                    decoding="async"
+                    srcSet={imageSrcSet(homePage.homeIntroImages[0].src)}
+                    sizes="(max-width: 767px) 85vw, (max-width: 1199px) 35vw, 430px"
                     src={homePage.homeIntroImages[0].src}
                     alt={
                       homePage.homeIntroImages[0].alt ||
@@ -509,6 +517,10 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
                   {homePage.homeIntroImages[1]?.src && (
                     <img
                       className="home-intro-image home-intro-image--secondary"
+                      loading="lazy"
+                      decoding="async"
+                      srcSet={imageSrcSet(homePage.homeIntroImages[1].src)}
+                      sizes="(max-width: 767px) 80vw, (max-width: 1199px) 33vw, 420px"
                       src={homePage.homeIntroImages[1].src}
                       alt={
                         homePage.homeIntroImages[1].alt ||
@@ -550,7 +562,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
             <div className="home-map-inner container">
               {homePage.mapEmbedSrc && (
                 <div className="home-map-frame" data-aos="fade-up">
-                  <iframe
+                  <DeferredMap
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"

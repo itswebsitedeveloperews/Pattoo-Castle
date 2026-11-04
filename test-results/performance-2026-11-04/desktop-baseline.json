@@ -1,0 +1,12 @@
+{
+  "source": "https://pagespeed.web.dev/analysis/https-pattoocastle-com/nr2g1496m9",
+  "fetchTime": "2026-11-04T06:10:54.012Z",
+  "performance": 0.91,
+  "metrics": {
+    "first-contentful-paint": "0.5 s",
+    "largest-contentful-paint": "0.9 s",
+    "speed-index": "3.1 s",
+    "total-blocking-time": "90 ms",
+    "cumulative-layout-shift": "0.001"
+  }
+}

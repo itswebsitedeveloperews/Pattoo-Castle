@@ -33,3 +33,9 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Versioned font URL: bump denton-v1 when replacing the font file.
+[[headers]]
+  for = "/fonts/denton-v1/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

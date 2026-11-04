@@ -78,6 +78,7 @@ export default function SiteFooter({ footer }) {
                     >
                       {item.icon?.src && (
                         <img
+                          loading="lazy"
                           src={item.icon.src}
                           alt={
                             item.icon.alt ||

@@ -1,0 +1,80 @@
+[
+  {
+    "name": "test:layout",
+    "baselineExit": 1,
+    "currentExit": 1,
+    "identicalOutput": true
+  },
+  {
+    "name": "test:reserve-logo",
+    "baselineExit": 1,
+    "currentExit": 1,
+    "identicalOutput": true
+  },
+  {
+    "name": "test:reserve-card-bg",
+    "baselineExit": 0,
+    "currentExit": 0,
+    "identicalOutput": true
+  },
+  {
+    "name": "test:media",
+    "baselineExit": 1,
+    "currentExit": 1,
+    "identicalOutput": true
+  },
+  {
+    "name": "test:gallery-slick",
+    "baselineExit": 0,
+    "currentExit": 0,
+    "identicalOutput": true
+  },
+  {
+    "name": "test:home-body",
+    "baselineExit": 0,
+    "currentExit": 0,
+    "identicalOutput": true
+  },
+  {
+    "name": "test:gallery-lightbox",
+    "baselineExit": 1,
+    "currentExit": 1,
+    "identicalOutput": true
+  },
+  {
+    "name": "test:location-nearby-cta",
+    "baselineExit": 1,
+    "currentExit": 1,
+    "identicalOutput": true
+  },
+  {
+    "name": "test:header-submenu",
+    "baselineExit": 0,
+    "currentExit": 0,
+    "identicalOutput": true
+  },
+  {
+    "name": "test:getting-here",
+    "baselineExit": 0,
+    "currentExit": 0,
+    "identicalOutput": true
+  },
+  {
+    "name": "test:overview-location",
+    "baselineExit": 0,
+    "currentExit": 0,
+    "identicalOutput": true
+  },
+  {
+    "name": "test:sitemap",
+    "baselineExit": 0,
+    "currentExit": 0,
+    "identicalOutput": true
+  },
+  {
+    "name": "test:react-dom-properties",
+    "baselineExit": 0,
+    "currentExit": 0,
+    "identicalOutput": true
+  }
+]

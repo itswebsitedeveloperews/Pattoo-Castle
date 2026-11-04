@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { imageSrcSet } from "./lib/responsiveImage";
 
 export default function HomeGallerySection({
   buttonText = "",
@@ -94,6 +95,10 @@ export default function HomeGallerySection({
               >
                 <img
                   src={image.src}
+                  loading="lazy"
+                  decoding="async"
+                  srcSet={imageSrcSet(image.src)}
+                  sizes="(max-width: 767px) 50vw, (max-width: 1199px) 33vw, 440px"
                   alt={image.alt || `Pattoo Castle gallery image ${index + 1}`}
                 />
               </button>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import HeaderMenuLink from "./HeaderMenuLink";
 import { getInternalHref, isInternalHref } from "./linkUtils";
+import { imageSrcSet } from "./lib/responsiveImage";
 
 function getSocialLinkLabel(index) {
   return `Pattoo Castle social link ${index + 1}`;
@@ -74,6 +75,11 @@ export default function SiteHeader({ header }) {
           <HeaderLink className="brand" href="/" aria-label="Pattoo Castle home">
             <img
               src={header.logo.src}
+              srcSet={imageSrcSet(header.logo.src, [210, 420, 630])}
+              sizes="(max-width: 767px) 138px, 210px"
+              width={header.logo.width}
+              height={header.logo.height}
+              fetchPriority="high"
               alt={header.logo.alt || "Pattoo Castle"}
             />
           </HeaderLink>

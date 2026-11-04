@@ -23,6 +23,7 @@
     "test:react-dom-properties": "node scripts/validate-react-dom-properties.mjs"
   },
   "dependencies": {
+    "@fontsource/biz-udpmincho": "^5.3.0",
     "@fontsource/quattrocento-sans": "^5.2.8",
     "aos": "^2.3.4",
     "contentful": "^11.12.5",

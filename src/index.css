@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&display=swap");
-
 @font-face {
   font-family: "Denton";
   font-style: normal;
@@ -21,8 +19,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("./assets/fonts/denton/Denton Test Regular 400.otf")
-    format("opentype");
+  src: url("/fonts/denton-v1/regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -62,7 +59,7 @@
 :root {
   color: var(--color-page-text);
   background: var(--color-page-bg);
-  --font-body: "Quattrocento Sans";
+  --font-body: var(--font-quattrocento, "Quattrocento Sans");
   --font-display: "Denton";
   --color-page-text: #202938;
   --color-page-bg: #eef3f1;
