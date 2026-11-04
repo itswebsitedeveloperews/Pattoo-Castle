@@ -107,7 +107,8 @@ const PAGE_METADATA = {
 };
 
 export function createMetadata(path, overrides = {}) {
-  const page = PAGE_METADATA[path] || PAGE_METADATA["/"];
+  const canonicalPath = path.replace(/\/+$/, "") || "/";
+  const page = PAGE_METADATA[canonicalPath === "/" ? "/" : `${canonicalPath}/`] || PAGE_METADATA["/"];
   const title = overrides.title || page.title;
   const description = overrides.description || page.description;
 
@@ -115,13 +116,13 @@ export function createMetadata(path, overrides = {}) {
     title,
     description,
     alternates: {
-      canonical: path,
+      canonical: canonicalPath,
     },
     robots: { index: true, follow: true },
     openGraph: {
       title,
       description,
-      url: path,
+      url: canonicalPath,
       siteName: "Pattoo Castle",
       type: "website",
     },
