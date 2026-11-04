@@ -1,5 +1,28 @@
 # Homepage performance optimization — 4 November 2026
 
+## Second pass (report wkd0gl48y1)
+
+The deployed first pass scored mobile 90 and desktop 99. Mobile FCP was 1.2 s,
+LCP 3.2 s, Speed Index 4.3 s, and blocking time 50 ms. Remaining stylesheet
+blocking was estimated at 380 ms. The report records a substantial LCP render
+delay; the hero's AOS fade also waited for hydration.
+
+This pass starts the same 750 ms cubic fade in CSS, independently of hydration,
+and enables Next.js `experimental.inlineCss`. The production homepage now has
+zero blocking stylesheet links. This experimental option trades independent CSS
+caching and some increased HTML size for eliminating the first-load CSS round
+trip; Next still uses stylesheets during navigation. No style rules are purged.
+
+Explicit brand-link sizing restores the intended 138 px mobile logo width after
+responsive sources affected its shrink-to-fit sizing. Mobile image size hints
+now account for container padding and grid gutters, retaining image quality.
+
+The final build passes with Contentful content. All 13 test command statuses
+match the prior baseline. Browser checks confirmed mobile logo width, hero fade
+duration, desktop rendering, and desktop gallery opening/closing. These second
+pass changes still need deployment and a fresh public PageSpeed run; 100/100 has
+not been measured.
+
 ## Baseline
 
 Source: https://pagespeed.web.dev/analysis/https-pattoocastle-com/nr2g1496m9

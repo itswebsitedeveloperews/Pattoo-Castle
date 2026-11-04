@@ -478,7 +478,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
               src={homePage.heroImage.src}
             />
           )}
-          <div className="hero-content container-wide" data-aos="fade-in">
+          <div className="hero-content container-wide hero-entrance">
             <div className="hero-heading-wrap">
               {homePage.heroHeading && <h1>{homePage.heroHeading}</h1>}
             </div>
@@ -507,7 +507,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
                     loading="lazy"
                     decoding="async"
                     srcSet={imageSrcSet(homePage.homeIntroImages[0].src)}
-                    sizes="(max-width: 767px) 85vw, (max-width: 1199px) 35vw, 430px"
+                    sizes="(max-width: 767px) calc(84vw - 27px), (max-width: 1199px) 35vw, 430px"
                     src={homePage.homeIntroImages[0].src}
                     alt={
                       homePage.homeIntroImages[0].alt ||
@@ -520,7 +520,7 @@ function App({ footerEntry = null, headerEntry = null, homePageEntry = null }) {
                       loading="lazy"
                       decoding="async"
                       srcSet={imageSrcSet(homePage.homeIntroImages[1].src)}
-                      sizes="(max-width: 767px) 80vw, (max-width: 1199px) 33vw, 420px"
+                      sizes="(max-width: 767px) calc(66vw - 21px), (max-width: 1199px) 33vw, 420px"
                       src={homePage.homeIntroImages[1].src}
                       alt={
                         homePage.homeIntroImages[1].alt ||

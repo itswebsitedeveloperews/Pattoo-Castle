@@ -98,7 +98,7 @@ export default function HomeGallerySection({
                   loading="lazy"
                   decoding="async"
                   srcSet={imageSrcSet(image.src)}
-                  sizes="(max-width: 767px) 50vw, (max-width: 1199px) 33vw, 440px"
+                  sizes="(max-width: 767px) calc(50vw - 37px), (max-width: 1199px) 33vw, 440px"
                   alt={image.alt || `Pattoo Castle gallery image ${index + 1}`}
                 />
               </button>
