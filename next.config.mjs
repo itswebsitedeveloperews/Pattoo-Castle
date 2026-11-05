@@ -33,6 +33,12 @@ const nextConfig = {
 
     return publicPages.map((source) => ({
       source,
+      // Search indexing directives belong on document responses, not the
+      // background React Server Component and prefetch responses used by Link.
+      missing: [
+        { type: "header", key: "rsc" },
+        { type: "header", key: "next-router-prefetch" },
+      ],
       headers: [{ key: "X-Robots-Tag", value: "index, follow" }],
     }));
   },
