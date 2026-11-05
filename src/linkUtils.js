@@ -1,3 +1,5 @@
+import { publicPath } from "./lib/publicPaths.js";
+
 const INTERNAL_HOST_PATTERNS = [
   "localhost",
   "127.0.0.1",
@@ -6,7 +8,7 @@ const INTERNAL_HOST_PATTERNS = [
 ];
 
 function currentPath(value) {
-  return value.replace(/^\/overview\/about-pattoo-castle\/?(?=[?#]|$)/, "/about-pattoo-castle");
+  return publicPath(value);
 }
 
 export function getInternalHref(value) {

@@ -1,12 +1,12 @@
-import OverviewLocationPage from '../../../OverviewLocationPage'
+import OverviewLocationPage from '../../OverviewLocationPage'
 import {
   getFooterEntry,
   getHeaderEntry,
   getOverviewLocationEntry,
-} from '../../../lib/contentful'
-import { createMetadata } from '../../../lib/seo'
+} from '../../lib/contentful'
+import { createMetadata } from '../../lib/seo'
 
-export const metadata = createMetadata("/overview/pattoo-castle-location/")
+export const metadata = createMetadata("/pattoo-castle-location")
 export const revalidate = 60
 
 function withTimeout(promise, label) {

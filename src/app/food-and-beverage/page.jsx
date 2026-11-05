@@ -1,12 +1,12 @@
-import OutdoorsPage from '../../../OutdoorsPage'
+import FoodBeveragePage from '../../FoodBeveragePage'
 import {
+  getFoodBeverageEntry,
   getFooterEntry,
   getHeaderEntry,
-  getOutdoorsEntry,
-} from '../../../lib/contentful'
-import { createMetadata } from '../../../lib/seo'
+} from '../../lib/contentful'
+import { createMetadata } from '../../lib/seo'
 
-export const metadata = createMetadata("/accommodation/outdoors/")
+export const metadata = createMetadata("/food-and-beverage")
 export const revalidate = 60
 
 function withTimeout(promise, label) {
@@ -18,23 +18,28 @@ function withTimeout(promise, label) {
   ])
 }
 
-export default async function OutdoorsRoute() {
-  const [outdoorsResult, footerResult, headerResult] =
+export default async function FoodBeverageRoute() {
+  const [foodBeverageResult, footerResult, headerResult] =
     await Promise.allSettled([
-      withTimeout(getOutdoorsEntry(), 'Contentful outdoors'),
+      withTimeout(getFoodBeverageEntry(), 'Contentful food and beverage'),
       withTimeout(getFooterEntry(), 'Contentful footer'),
       withTimeout(getHeaderEntry(), 'Contentful header'),
     ])
 
-  const outdoorsEntry =
-    outdoorsResult.status === 'fulfilled' ? outdoorsResult.value : null
+  const foodBeverageEntry =
+    foodBeverageResult.status === 'fulfilled'
+      ? foodBeverageResult.value
+      : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (outdoorsResult.status === 'rejected') {
-    console.error('Contentful outdoors request failed:', outdoorsResult.reason)
+  if (foodBeverageResult.status === 'rejected') {
+    console.error(
+      'Contentful food and beverage request failed:',
+      foodBeverageResult.reason,
+    )
   }
 
   if (footerResult.status === 'rejected') {
@@ -46,10 +51,10 @@ export default async function OutdoorsRoute() {
   }
 
   return (
-    <OutdoorsPage
+    <FoodBeveragePage
+      foodBeverageEntry={foodBeverageEntry}
       footerEntry={footerEntry}
       headerEntry={headerEntry}
-      outdoorsEntry={outdoorsEntry}
     />
   )
 }

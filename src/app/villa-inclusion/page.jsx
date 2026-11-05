@@ -1,12 +1,12 @@
-import VillaDetailsPage from '../../../VillaDetailsPage'
+import VillaInclusionPage from '../../VillaInclusionPage'
 import {
   getFooterEntry,
   getHeaderEntry,
-  getVillaDetailsEntry,
-} from '../../../lib/contentful'
-import { createMetadata } from '../../../lib/seo'
+  getVillaInclusionEntry,
+} from '../../lib/contentful'
+import { createMetadata } from '../../lib/seo'
 
-export const metadata = createMetadata("/accommodation/villa-details/")
+export const metadata = createMetadata("/villa-inclusion")
 export const revalidate = 60
 
 function withTimeout(promise, label) {
@@ -18,25 +18,27 @@ function withTimeout(promise, label) {
   ])
 }
 
-export default async function VillaDetailsRoute() {
-  const [villaDetailsResult, footerResult, headerResult] =
+export default async function VillaInclusionRoute() {
+  const [villaInclusionResult, footerResult, headerResult] =
     await Promise.allSettled([
-      withTimeout(getVillaDetailsEntry('villa-details'), 'Contentful villa details'),
+      withTimeout(getVillaInclusionEntry(), 'Contentful villa inclusion'),
       withTimeout(getFooterEntry(), 'Contentful footer'),
       withTimeout(getHeaderEntry(), 'Contentful header'),
     ])
 
-  const villaDetailsEntry =
-    villaDetailsResult.status === 'fulfilled' ? villaDetailsResult.value : null
+  const villaInclusionEntry =
+    villaInclusionResult.status === 'fulfilled'
+      ? villaInclusionResult.value
+      : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (villaDetailsResult.status === 'rejected') {
+  if (villaInclusionResult.status === 'rejected') {
     console.error(
-      'Contentful villa details request failed:',
-      villaDetailsResult.reason,
+      'Contentful villa inclusion request failed:',
+      villaInclusionResult.reason,
     )
   }
 
@@ -49,10 +51,10 @@ export default async function VillaDetailsRoute() {
   }
 
   return (
-    <VillaDetailsPage
+    <VillaInclusionPage
       footerEntry={footerEntry}
       headerEntry={headerEntry}
-      villaDetailsEntry={villaDetailsEntry}
+      villaInclusionEntry={villaInclusionEntry}
     />
   )
 }

@@ -1,3 +1,5 @@
+import { publicPath } from "./publicPaths.js";
+
 export const SITE_URL = "https://pattoocastle.com";
 
 const DEFAULT_TITLE = "Pattoo Castle Jamaica";
@@ -19,27 +21,27 @@ const PAGE_METADATA = {
     description:
       "Explore Pattoo Castle accommodations, villa inclusions, room details, outdoor spaces, dining options, and staffed luxury amenities.",
   },
-  "/accommodation/villa-inclusion/": {
+  "/villa-inclusion/": {
     title: "Villa Inclusions",
     description:
       "Explore Pattoo Castle villa inclusions, services, amenities, and luxury details included with your private Negril stay.",
   },
-  "/accommodation/villa-details/": {
+  "/villa-details/": {
     title: "Villa Details",
     description:
       "Explore Pattoo Castle villa details, spaces, features, and luxury accommodation information for your private Negril stay.",
   },
-  "/accommodation/outdoors/": {
+  "/outdoors/": {
     title: "Outdoors",
     description:
       "Explore Pattoo Castle outdoor spaces, views, pool, terraces, and open-air amenities for a private Negril villa stay.",
   },
-  "/accommodation/staff/": {
+  "/staff/": {
     title: "Staff",
     description:
       "Meet the Pattoo Castle staff and services that help create a seamless private villa stay in Negril, Jamaica.",
   },
-  "/accommodation/food-and-beverage/": {
+  "/food-and-beverage/": {
     title: "Food & Beverage",
     description:
       "Explore Pattoo Castle food and beverage options, dining, private chef service, and villa hospitality for your Negril stay.",
@@ -49,7 +51,7 @@ const PAGE_METADATA = {
     description:
       "View an overview of Pattoo Castle, including the villa, location, accommodations, events, and the Negril experience.",
   },
-  "/overview/pattoo-castle-location/": {
+  "/pattoo-castle-location/": {
     title: "Pattoo Castle Location",
     description:
       "Find Pattoo Castle in Negril, Jamaica with map details, directions, and location information for planning your visit.",
@@ -69,12 +71,12 @@ const PAGE_METADATA = {
     description:
       "Explore Pattoo Castle's Negril location near the Caribbean Sea, Seven Mile Beach, local restaurants, bars, and island experiences.",
   },
-  "/explore-negril/about-negril/": {
+  "/about-negril/": {
     title: "About Negril",
     description:
       "Learn about Negril, Jamaica, from beaches and Caribbean culture to experiences near Pattoo Castle.",
   },
-  "/explore-negril/optional-tours-activities/": {
+  "/optional-tours-activities/": {
     title: "Optional Tours & Activities",
     description:
       "Explore optional tours, activities, excursions, and island experiences near Pattoo Castle in Negril, Jamaica.",
@@ -107,7 +109,7 @@ const PAGE_METADATA = {
 };
 
 export function createMetadata(path, overrides = {}) {
-  const canonicalPath = path.replace(/\/+$/, "") || "/";
+  const canonicalPath = publicPath(path);
   const page = PAGE_METADATA[canonicalPath === "/" ? "/" : `${canonicalPath}/`] || PAGE_METADATA["/"];
   const title = overrides.title || page.title;
   const description = overrides.description || page.description;

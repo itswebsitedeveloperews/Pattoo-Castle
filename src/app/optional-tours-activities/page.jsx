@@ -1,12 +1,12 @@
-import OptionalToursActivitiesPage from '../../../OptionalToursActivitiesPage'
+import OptionalToursActivitiesPage from '../../OptionalToursActivitiesPage'
 import {
   getFooterEntry,
   getHeaderEntry,
   getOptionalToursActivitiesEntry,
-} from '../../../lib/contentful'
-import { createMetadata } from '../../../lib/seo'
+} from '../../lib/contentful'
+import { createMetadata } from '../../lib/seo'
 
-export const metadata = createMetadata("/explore-negril/optional-tours-activities/")
+export const metadata = createMetadata("/optional-tours-activities")
 export const revalidate = 60
 
 function withTimeout(promise, label) {

@@ -1,4 +1,5 @@
 import { richTextToPlainText, richTextToReact } from "./App";
+import { getInternalHref } from "./linkUtils";
 
 function getSocialLinkLabel(index) {
   return `Pattoo Castle social link ${index + 1}`;
@@ -98,7 +99,7 @@ export default function SiteFooter({ footer }) {
         {footer.menuItems.length > 0 && (
           <nav className="footer-nav" aria-label="Footer navigation">
             {footer.menuItems.map((item, index) => (
-              <a href={item.url || "#"} key={`${item.name}-${index}`}>
+              <a href={getInternalHref(item.url || "#")} key={`${item.name}-${index}`}>
                 {item.name}
               </a>
             ))}
@@ -115,7 +116,7 @@ export default function SiteFooter({ footer }) {
             {footer.footerBarItems.length > 0 && (
               <div>
                 {footer.footerBarItems.map((item, index) => (
-                  <a href={item.url || "#"} key={`${item.name}-${index}`}>
+                  <a href={getInternalHref(item.url || "#")} key={`${item.name}-${index}`}>
                     {item.name}
                   </a>
                 ))}

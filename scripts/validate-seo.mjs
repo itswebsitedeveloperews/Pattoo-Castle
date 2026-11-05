@@ -45,15 +45,15 @@ if (layout.includes("template: '%s | Pattoo Castle'") || layout.includes('templa
 }
 
 for (const [path, pageTitle] of [
-  ["/overview/about-pattoo-castle/", "About"],
+  ["/about-pattoo-castle/", "About"],
   ["/accommodation/", "Accommodation"],
   ["/contact-us/", "Contact"],
   ["/events/", "Events"],
   ["/gallery/", "Gallery"],
   ["/explore-negril/", "Explore Negril"],
-  ["/explore-negril/about-negril/", "About Negril"],
+  ["/about-negril/", "About Negril"],
   ["/overview/", "Villa Overview"],
-  ["/overview/pattoo-castle-location/", "Pattoo Castle Location"],
+  ["/pattoo-castle-location/", "Pattoo Castle Location"],
   ["/overview/getting-here/", "Getting Here"],
   ["/stay/", "Reserve Your Stay"],
   ["/privacy-policy/", "Privacy Policy"],
@@ -77,8 +77,8 @@ if (!appSource.includes("alt: getContentfulAssetAlt(asset)")) {
 const routeMetadata = [
   ["src/app/page.jsx", 'createMetadata("/")'],
   [
-    "src/app/overview/about-pattoo-castle/page.jsx",
-    'createMetadata("/overview/about-pattoo-castle/")',
+    "src/app/about-pattoo-castle/page.jsx",
+    'createMetadata("/about-pattoo-castle")',
   ],
   ["src/app/accommodation/page.jsx", 'createMetadata("/accommodation/")'],
   ["src/app/contact-us/page.jsx", 'createMetadata("/contact-us/")'],
@@ -86,13 +86,13 @@ const routeMetadata = [
   ["src/app/gallery/page.jsx", 'createMetadata("/gallery/")'],
   ["src/app/explore-negril/page.jsx", 'createMetadata("/explore-negril/")'],
   [
-    "src/app/explore-negril/about-negril/page.jsx",
-    'createMetadata("/explore-negril/about-negril/")',
+    "src/app/about-negril/page.jsx",
+    'createMetadata("/about-negril")',
   ],
   ["src/app/overview/page.jsx", 'createMetadata("/overview/")'],
   [
-    "src/app/overview/pattoo-castle-location/page.jsx",
-    'createMetadata("/overview/pattoo-castle-location/")',
+    "src/app/pattoo-castle-location/page.jsx",
+    'createMetadata("/pattoo-castle-location")',
   ],
   [
     "src/app/overview/getting-here/page.jsx",

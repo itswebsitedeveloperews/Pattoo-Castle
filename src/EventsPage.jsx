@@ -10,6 +10,7 @@ import AosInitializer from "./AosInitializer";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 import styles from "./EventsPage.module.css";
+import { getInternalHref } from "./linkUtils";
 
 function getEventContent(entry) {
   const fields = entry?.fields || {};
@@ -76,7 +77,7 @@ export default function EventsPage({
                 <article className={`overview-block-card ${styles.block}`} key={`${block.id || "event-block"}-${index}`} data-aos="fade-up" data-aos-delay={String(index * 100)}>
                   {block.image?.src && (
                     block.buttonUrl ? (
-                      <a className={styles.blockImageLink} href={block.buttonUrl}>
+                      <a className={styles.blockImageLink} href={getInternalHref(block.buttonUrl)}>
                         <img
                           src={block.image.src}
                           alt={block.image.alt || block.title || "Pattoo Castle event"}
@@ -95,7 +96,7 @@ export default function EventsPage({
                     {block.title && (
                       <h2 className="text-center h3">
                         {block.buttonUrl ? (
-                          <a className={styles.blockTitleLink} href={block.buttonUrl}>
+                          <a className={styles.blockTitleLink} href={getInternalHref(block.buttonUrl)}>
                             {block.title}
                           </a>
                         ) : block.title}
@@ -107,7 +108,7 @@ export default function EventsPage({
                       </div>
                     )}
                     {block.buttonText && block.buttonUrl && (
-                      <a className={`btn btn--brown ${styles.blockButton}`} href={block.buttonUrl}>
+                      <a className={`btn btn--brown ${styles.blockButton}`} href={getInternalHref(block.buttonUrl)}>
                         {block.buttonText}
                       </a>
                     )}

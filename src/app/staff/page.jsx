@@ -1,12 +1,12 @@
-import FoodBeveragePage from '../../../FoodBeveragePage'
+import StaffPage from '../../StaffPage'
 import {
-  getFoodBeverageEntry,
   getFooterEntry,
   getHeaderEntry,
-} from '../../../lib/contentful'
-import { createMetadata } from '../../../lib/seo'
+  getStaffEntry,
+} from '../../lib/contentful'
+import { createMetadata } from '../../lib/seo'
 
-export const metadata = createMetadata("/accommodation/food-and-beverage/")
+export const metadata = createMetadata("/staff")
 export const revalidate = 60
 
 function withTimeout(promise, label) {
@@ -18,28 +18,22 @@ function withTimeout(promise, label) {
   ])
 }
 
-export default async function FoodBeverageRoute() {
-  const [foodBeverageResult, footerResult, headerResult] =
+export default async function StaffRoute() {
+  const [staffResult, footerResult, headerResult] =
     await Promise.allSettled([
-      withTimeout(getFoodBeverageEntry(), 'Contentful food and beverage'),
+      withTimeout(getStaffEntry(), 'Contentful staff'),
       withTimeout(getFooterEntry(), 'Contentful footer'),
       withTimeout(getHeaderEntry(), 'Contentful header'),
     ])
 
-  const foodBeverageEntry =
-    foodBeverageResult.status === 'fulfilled'
-      ? foodBeverageResult.value
-      : null
+  const staffEntry = staffResult.status === 'fulfilled' ? staffResult.value : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (foodBeverageResult.status === 'rejected') {
-    console.error(
-      'Contentful food and beverage request failed:',
-      foodBeverageResult.reason,
-    )
+  if (staffResult.status === 'rejected') {
+    console.error('Contentful staff request failed:', staffResult.reason)
   }
 
   if (footerResult.status === 'rejected') {
@@ -51,10 +45,10 @@ export default async function FoodBeverageRoute() {
   }
 
   return (
-    <FoodBeveragePage
-      foodBeverageEntry={foodBeverageEntry}
+    <StaffPage
       footerEntry={footerEntry}
       headerEntry={headerEntry}
+      staffEntry={staffEntry}
     />
   )
 }

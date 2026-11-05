@@ -1,12 +1,12 @@
-import LocationPage from '../../../LocationPage'
+import LocationPage from '../../LocationPage'
 import {
   getFooterEntry,
   getHeaderEntry,
   getLocationEntryBySlug,
-} from '../../../lib/contentful'
-import { createMetadata } from '../../../lib/seo'
+} from '../../lib/contentful'
+import { createMetadata } from '../../lib/seo'
 
-export const metadata = createMetadata("/explore-negril/about-negril/")
+export const metadata = createMetadata("/about-negril")
 export const revalidate = 60
 const pageSlug = 'about-negril'
 

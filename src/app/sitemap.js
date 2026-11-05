@@ -1,23 +1,25 @@
 import { getEventDetailsEntries } from "../lib/contentful";
 import { SITE_URL } from "../lib/seo";
+import { publicPath } from "../lib/publicPaths";
 
 export const dynamic = "force-dynamic";
 
 const STATIC_PATHS = [
   "/",
   "/accommodation/",
-  "/accommodation/outdoors/",
-  "/accommodation/food-and-beverage/",
-  "/accommodation/staff/",
-  "/accommodation/villa-details/",
+  "/villa-inclusion",
+  "/outdoors/",
+  "/food-and-beverage/",
+  "/staff/",
+  "/villa-details/",
   "/overview/",
   "/about-pattoo-castle",
   "/overview/getting-here/",
-  "/overview/pattoo-castle-location/",
+  "/pattoo-castle-location/",
   "/gallery/",
   "/explore-negril/",
-  "/explore-negril/about-negril/",
-  "/explore-negril/optional-tours-activities/",
+  "/about-negril/",
+  "/optional-tours-activities/",
   "/events/",
   "/stay/",
   "/contact-us/",
@@ -40,7 +42,7 @@ function getEventDetailPath(entry) {
 export default async function sitemap() {
   const eventEntries = await getEventDetailsEntries();
   const eventPaths = eventEntries.map(getEventDetailPath).filter(Boolean);
-  const paths = [...new Set([...STATIC_PATHS, ...eventPaths])];
+  const paths = [...new Set([...STATIC_PATHS, ...eventPaths].map(publicPath))];
 
   return paths.map(createSitemapEntry);
 }

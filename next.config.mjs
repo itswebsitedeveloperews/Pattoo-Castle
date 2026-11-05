@@ -1,14 +1,14 @@
+import { PAGE_REDIRECTS } from "./src/lib/publicPaths.js";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Deliver the existing styles with the first response, avoiding a blocking
   // stylesheet round trip. Next retains stylesheet loading for navigation.
   experimental: { inlineCss: true },
   async redirects() {
-    return [{
-      source: "/overview/about-pattoo-castle",
-      destination: "/about-pattoo-castle",
-      permanent: true,
-    }];
+    return Object.entries(PAGE_REDIRECTS).map(([source, destination]) => ({
+      source, destination, permanent: true,
+    }));
   },
   async headers() {
     // Preserve Netlify's indexing restrictions on preview and branch deploys.
@@ -17,21 +17,22 @@ const nextConfig = {
     const publicPages = [
       "/",
       "/accommodation",
-      "/accommodation/outdoors",
-      "/accommodation/food-and-beverage",
-      "/accommodation/staff",
-      "/accommodation/villa-details",
-      "/accommodation/villa-inclusion",
+      "/outdoors",
+      "/food-and-beverage",
+      "/staff",
+      "/villa-details",
+      "/villa-inclusion",
       "/overview",
       "/about-pattoo-castle",
       "/overview/getting-here",
-      "/overview/pattoo-castle-location",
+      "/pattoo-castle-location",
       "/gallery",
       "/explore-negril",
-      "/explore-negril/about-negril",
-      "/explore-negril/optional-tours-activities",
+      "/about-negril",
+      "/optional-tours-activities",
       "/events",
       "/events/:slug",
+      "/groups-events",
       "/stay",
       "/contact-us",
       "/privacy-policy",

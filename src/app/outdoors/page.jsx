@@ -1,12 +1,12 @@
-import StaffPage from '../../../StaffPage'
+import OutdoorsPage from '../../OutdoorsPage'
 import {
   getFooterEntry,
   getHeaderEntry,
-  getStaffEntry,
-} from '../../../lib/contentful'
-import { createMetadata } from '../../../lib/seo'
+  getOutdoorsEntry,
+} from '../../lib/contentful'
+import { createMetadata } from '../../lib/seo'
 
-export const metadata = createMetadata("/accommodation/staff/")
+export const metadata = createMetadata("/outdoors")
 export const revalidate = 60
 
 function withTimeout(promise, label) {
@@ -18,22 +18,23 @@ function withTimeout(promise, label) {
   ])
 }
 
-export default async function StaffRoute() {
-  const [staffResult, footerResult, headerResult] =
+export default async function OutdoorsRoute() {
+  const [outdoorsResult, footerResult, headerResult] =
     await Promise.allSettled([
-      withTimeout(getStaffEntry(), 'Contentful staff'),
+      withTimeout(getOutdoorsEntry(), 'Contentful outdoors'),
       withTimeout(getFooterEntry(), 'Contentful footer'),
       withTimeout(getHeaderEntry(), 'Contentful header'),
     ])
 
-  const staffEntry = staffResult.status === 'fulfilled' ? staffResult.value : null
+  const outdoorsEntry =
+    outdoorsResult.status === 'fulfilled' ? outdoorsResult.value : null
   const footerEntry =
     footerResult.status === 'fulfilled' ? footerResult.value : null
   const headerEntry =
     headerResult.status === 'fulfilled' ? headerResult.value : null
 
-  if (staffResult.status === 'rejected') {
-    console.error('Contentful staff request failed:', staffResult.reason)
+  if (outdoorsResult.status === 'rejected') {
+    console.error('Contentful outdoors request failed:', outdoorsResult.reason)
   }
 
   if (footerResult.status === 'rejected') {
@@ -45,10 +46,10 @@ export default async function StaffRoute() {
   }
 
   return (
-    <StaffPage
+    <OutdoorsPage
       footerEntry={footerEntry}
       headerEntry={headerEntry}
-      staffEntry={staffEntry}
+      outdoorsEntry={outdoorsEntry}
     />
   )
 }

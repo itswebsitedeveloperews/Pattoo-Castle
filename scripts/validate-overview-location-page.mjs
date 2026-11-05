@@ -20,7 +20,7 @@ function readRequired(relativePath) {
 }
 
 const page = readRequired("src/OverviewLocationPage.jsx");
-const route = readRequired("src/app/overview/pattoo-castle-location/page.jsx");
+const route = readRequired("src/app/pattoo-castle-location/page.jsx");
 const contentful = readRequired("src/lib/contentful.js");
 const seo = readRequired("src/lib/seo.js");
 const sitemap = readRequired("src/app/sitemap.js");
@@ -83,7 +83,7 @@ if (!route.includes("getOverviewLocationEntry")) {
   failures.push("Nested route must fetch the overview location entry.");
 }
 
-if (!route.includes('createMetadata("/overview/pattoo-castle-location/")')) {
+if (!route.includes('createMetadata("/pattoo-castle-location")')) {
   failures.push("Nested route must set canonical metadata for its slug.");
 }
 
@@ -95,11 +95,11 @@ if (!contentful.includes("getOverviewLocationEntry")) {
   failures.push("Contentful helper must export getOverviewLocationEntry.");
 }
 
-if (!seo.includes('"/overview/pattoo-castle-location/"')) {
+if (!seo.includes('"/pattoo-castle-location/"')) {
   failures.push("SEO metadata must include the overview location route.");
 }
 
-if (!sitemap.includes('"/overview/pattoo-castle-location/"')) {
+if (!sitemap.includes('"/pattoo-castle-location/"')) {
   failures.push("Sitemap must include the overview location route.");
 }
 
