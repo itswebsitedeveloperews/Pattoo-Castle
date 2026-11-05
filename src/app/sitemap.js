@@ -11,7 +11,7 @@ const STATIC_PATHS = [
   "/accommodation/staff/",
   "/accommodation/villa-details/",
   "/overview/",
-  "/overview/about-pattoo-castle/",
+  "/about-pattoo-castle",
   "/overview/getting-here/",
   "/overview/pattoo-castle-location/",
   "/gallery/",

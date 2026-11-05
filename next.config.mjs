@@ -3,6 +3,13 @@ const nextConfig = {
   // Deliver the existing styles with the first response, avoiding a blocking
   // stylesheet round trip. Next retains stylesheet loading for navigation.
   experimental: { inlineCss: true },
+  async redirects() {
+    return [{
+      source: "/overview/about-pattoo-castle",
+      destination: "/about-pattoo-castle",
+      permanent: true,
+    }];
+  },
   async headers() {
     // Preserve Netlify's indexing restrictions on preview and branch deploys.
     if (process.env.CONTEXT && process.env.CONTEXT !== "production") return [];
@@ -16,7 +23,7 @@ const nextConfig = {
       "/accommodation/villa-details",
       "/accommodation/villa-inclusion",
       "/overview",
-      "/overview/about-pattoo-castle",
+      "/about-pattoo-castle",
       "/overview/getting-here",
       "/overview/pattoo-castle-location",
       "/gallery",

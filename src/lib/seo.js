@@ -9,7 +9,7 @@ const PAGE_METADATA = {
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
   },
-  "/overview/about-pattoo-castle/": {
+  "/about-pattoo-castle/": {
     title: "About",
     description:
       "Learn about Pattoo Castle, a private oceanfront villa in Negril designed for secluded luxury, family gatherings, and Caribbean living.",

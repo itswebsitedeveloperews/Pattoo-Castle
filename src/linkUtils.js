@@ -5,13 +5,17 @@ const INTERNAL_HOST_PATTERNS = [
   "www.pattoocastle.com",
 ];
 
+function currentPath(value) {
+  return value.replace(/^\/overview\/about-pattoo-castle\/?(?=[?#]|$)/, "/about-pattoo-castle");
+}
+
 export function getInternalHref(value) {
   if (!value || value === "#" || value.startsWith("#")) {
     return value || "#";
   }
 
   if (value.startsWith("/") && !value.startsWith("//")) {
-    return value;
+    return currentPath(value);
   }
 
   if (!/^https?:\/\//i.test(value)) {
@@ -26,7 +30,7 @@ export function getInternalHref(value) {
     const isKnownInternalHost = INTERNAL_HOST_PATTERNS.includes(url.hostname);
 
     if (isCurrentHost || isKnownInternalHost) {
-      return `${url.pathname}${url.search}${url.hash}`;
+      return currentPath(`${url.pathname}${url.search}${url.hash}`);
     }
   } catch {
     return value;
