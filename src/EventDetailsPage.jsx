@@ -351,16 +351,6 @@ export default function EventDetailsPage({
                   </label>
 
                   <label className="event-inquiry-field event-inquiry-field--full">
-                    <span>Event Type *</span>
-                    <input
-                      type="text"
-                      name="contactEventType"
-                      required
-                      placeholder="Enter event type"
-                    />
-                  </label>
-
-                  <label className="event-inquiry-field event-inquiry-field--full">
                     <span>Address *</span>
                     <input
                       type="text"
