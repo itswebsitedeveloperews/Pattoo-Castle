@@ -1,5 +1,6 @@
 // Shared by redirects, navigation, metadata and sitemap generation.
 export const PAGE_REDIRECTS = {
+  "/overview/getting-here": "/getting-here",
   "/overview/about-pattoo-castle": "/about-pattoo-castle",
   "/overview/pattoo-castle-location": "/pattoo-castle-location",
   "/accommodation/villa-inclusion": "/villa-inclusion",

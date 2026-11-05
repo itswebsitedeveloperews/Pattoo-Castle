@@ -20,7 +20,7 @@ function readRequired(relativePath) {
 }
 
 const page = readRequired("src/GettingHerePage.jsx");
-const route = readRequired("src/app/overview/getting-here/page.jsx");
+const route = readRequired("src/app/getting-here/page.jsx");
 const contentful = readRequired("src/lib/contentful.js");
 const seo = readRequired("src/lib/seo.js");
 const sitemap = readRequired("src/app/sitemap.js");
@@ -54,7 +54,7 @@ if (!route.includes("getGettingHereEntry")) {
   failures.push("Getting Here route must fetch the gettingHere entry.");
 }
 
-if (!route.includes('createMetadata("/overview/getting-here/")')) {
+if (!route.includes('createMetadata("/getting-here/")')) {
   failures.push("Getting Here route must set canonical metadata for its slug.");
 }
 
@@ -74,11 +74,11 @@ if (!contentful.includes("getGettingHereEntry")) {
   failures.push("Contentful helper must export getGettingHereEntry.");
 }
 
-if (!seo.includes('"/overview/getting-here/"')) {
+if (!seo.includes('"/getting-here/"')) {
   failures.push("SEO metadata must include the Getting Here route.");
 }
 
-if (!sitemap.includes('"/overview/getting-here/"')) {
+if (!sitemap.includes('"/getting-here/"')) {
   failures.push("Sitemap must include the Getting Here route.");
 }
 

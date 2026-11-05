@@ -1,12 +1,12 @@
-import GettingHerePage from '../../../GettingHerePage'
+import GettingHerePage from '../../GettingHerePage'
 import {
   getFooterEntry,
   getGettingHereEntry,
   getHeaderEntry,
-} from '../../../lib/contentful'
-import { createMetadata } from '../../../lib/seo'
+} from '../../lib/contentful'
+import { createMetadata } from '../../lib/seo'
 
-export const metadata = createMetadata("/overview/getting-here/")
+export const metadata = createMetadata("/getting-here/")
 export const revalidate = 60
 
 function withTimeout(promise, label) {

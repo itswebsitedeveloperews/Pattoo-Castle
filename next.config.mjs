@@ -24,7 +24,7 @@ const nextConfig = {
       "/villa-inclusion",
       "/overview",
       "/about-pattoo-castle",
-      "/overview/getting-here",
+      "/getting-here",
       "/pattoo-castle-location",
       "/gallery",
       "/explore-negril",

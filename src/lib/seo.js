@@ -56,7 +56,7 @@ const PAGE_METADATA = {
     description:
       "Find Pattoo Castle in Negril, Jamaica with map details, directions, and location information for planning your visit.",
   },
-  "/overview/getting-here/": {
+  "/getting-here/": {
     title: "Getting Here",
     description:
       "Plan how to get to Pattoo Castle in Negril, Jamaica with travel details, directions, and arrival information.",
