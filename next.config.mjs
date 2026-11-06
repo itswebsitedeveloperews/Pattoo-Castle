@@ -33,6 +33,7 @@ const nextConfig = {
       "/events",
       "/events/:slug",
       "/groups-events",
+      "/weddings",
       "/stay",
       "/contact-us",
       "/privacy-policy",

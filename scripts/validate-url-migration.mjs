@@ -25,7 +25,7 @@ for (const [oldPath, newPath] of Object.entries(PAGE_REDIRECTS)) {
   assert(sitemap.includes(`<loc>https://pattoocastle.com${newPath}</loc>`), `Sitemap: ${newPath}`);
   assert(!sitemap.includes(`https://pattoocastle.com${oldPath}`), `Old sitemap URL: ${oldPath}`);
   assert(![...home.matchAll(/href="([^"\s]+)"/g)].some((m) => m[1].split(/[?#]/)[0].replace(/\/$/, "").endsWith(oldPath)), `Old menu URL: ${oldPath}`);
-  if (newPath === "/groups-events") {
+  if (newPath === "/groups-events" || newPath === "/weddings") {
     assert(html.includes('name="eventType"'));
     assert(html.includes('name="event-inquiry"'));
     assert(!html.includes('name="contactEventType"'));
@@ -33,5 +33,5 @@ for (const [oldPath, newPath] of Object.entries(PAGE_REDIRECTS)) {
   console.log(`PASS ${oldPath} -> ${newPath}`);
 }
 
-assert.equal((await fetch(`${base}/events/weddings`)).status, 200);
-console.log("All migrations, SEO URLs, enquiry fields and unchanged Weddings route passed.");
+assert.equal((await fetch(`${base}/weddings`)).status, 200);
+console.log("All migrations, SEO URLs and event enquiry fields passed.");

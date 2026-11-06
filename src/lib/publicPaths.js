@@ -9,6 +9,7 @@ export const PAGE_REDIRECTS = {
   "/accommodation/food-and-beverage": "/food-and-beverage",
   "/accommodation/staff": "/staff",
   "/events/groups-events": "/groups-events",
+  "/events/weddings": "/weddings",
   "/explore-negril/about-negril": "/about-negril",
   "/explore-negril/optional-tours-activities": "/optional-tours-activities",
 };
