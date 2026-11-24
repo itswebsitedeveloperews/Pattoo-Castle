@@ -934,3 +934,18 @@ export async function getTermsConditionEntry() {
 
   return null
 }
+
+const blogPostContentType = process.env.CONTENTFUL_BLOG_POST_CONTENT_TYPE || 'blogPost'
+
+export async function getBlogPosts(query = {}) {
+  try {
+    return await getEntriesByContentType(blogPostContentType, {
+      order: '-fields.publishedDate,sys.id',
+      limit: 100,
+      ...query,
+    })
+  } catch (error) {
+    if (error.message === `Contentful ${blogPostContentType} returned 400`) return []
+    throw error
+  }
+}
